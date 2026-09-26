@@ -175,7 +175,9 @@ void Scene::drawTiles(Graphics* g, int x, int y, int bufX, int bufY, int w, int 
   for (int r = rows; r >= 0; r--) {
     for (int c = cols; c >= 0; c--) {
       int tile;
-      if ((tile = tileMap.at((size_t)idx--) & 4095) > 0) {
+      // the window can reach past the map edge (e.g. right after the canvas is widened): draw nothing there
+      int mi = idx--;
+      if (mi >= 0 && mi < (int)tileMap.size() && (tile = tileMap[(size_t)mi] & 4095) > 0) {
         tile--;
         int cropL = 0, cropT = 0, cropR = 0, cropB = 0;
         if (c == 0) cropL = clipLeft;

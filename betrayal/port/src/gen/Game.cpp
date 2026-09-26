@@ -192,6 +192,9 @@ void Game::updateViewWidth() {
   }
   if ((this->scene != nullptr)) {
     this->maxCameraX = (this->bu - viewW);
+    if (((this->maxCameraX >= 0) && (cameraX > this->maxCameraX))) {
+      cameraX = this->maxCameraX;
+    }
   }
 }
 
@@ -1513,7 +1516,7 @@ void Game::updateDialogue() {
 }
 
 void Game::render(Surface* var1) {
-  bool var2 = ((((((((state == 100) || (state == 101)) || (state == 102)) || (state == 104)) || (state == 105)) || (state == 108)) || (state == 79)) || (state == 107));
+  bool var2 = true;
   int var3 = uiX();
   if ((redrawAll || (var2 != lastWorld))) {
     redrawAll = false;
@@ -1586,7 +1589,7 @@ void Game::renderInner(Surface* var1) {
         this->drawBottomBar(var1, 0, 1);
         return;
       }
-      this->resetClip(var1);
+      this->setClip(var1, (-uiX()), 0, viewW, 320);
       return;
     case 79:
       this->v(var1);
@@ -1598,7 +1601,7 @@ void Game::renderInner(Surface* var1) {
         this->drawBottomBar(var1, 28, 29);
         return;
       }
-      this->resetClip(var1);
+      this->setClip(var1, (-uiX()), 0, viewW, 320);
       return;
     case 100:
     case 101:
@@ -1752,29 +1755,29 @@ void Game::drawBars(Surface* var1) {
         this->drawString(var1, ((!challengeMode) ? this->getString((54 + this->levelIndex)) : this->getString(66)), halfWidth, (halfHeight - (lineHeight >> 1)), 33);
         if ((pauseMenuIndex == 4)) {
           this->drawString(var1, (jstr((jstr(this->getString(47)) + jstr(String(u" ")))) + jstr((this->soundPlayer->isSoundOn() ? this->getString(234) : this->getString(235)))), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
-          bo[3]->draw(var1, ((this->screenWidth - 5) - 7), ((halfHeight + (lineHeight >> 1)) + 4), 0);
-          bo[2]->draw(var1, (12 - bo[2]->width), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bo[3]->draw(var1, (((this->screenWidth - 5) - 7) + uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bo[2]->draw(var1, ((12 - bo[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
         } else if ((pauseMenuIndex >= 5)) {
           this->drawString(var1, Port::label((pauseMenuIndex - 5)), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
-          bo[3]->draw(var1, ((this->screenWidth - 5) - 7), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bo[3]->draw(var1, (((this->screenWidth - 5) - 7) + uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
           if ((pauseMenuIndex < 7)) {
-            bo[2]->draw(var1, (12 - bo[2]->width), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+            bo[2]->draw(var1, ((12 - bo[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
           }
         } else if (((pauseMenuIndex == 2) && (!this->pauseConfirming))) {
           this->drawString(var1, this->getString(50), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
-          bo[2]->draw(var1, (12 - bo[2]->width), ((halfHeight + (lineHeight >> 1)) + 4), 0);
-          bo[3]->draw(var1, ((this->screenWidth - 5) - 7), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bo[2]->draw(var1, ((12 - bo[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bo[3]->draw(var1, (((this->screenWidth - 5) - 7) + uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
         } else if (((pauseMenuIndex == 2) && this->pauseConfirming)) {
           this->drawString(var1, this->getString(186), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
         } else if (((pauseMenuIndex == 1) && (!this->pauseConfirming))) {
           this->drawString(var1, this->getString(1), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
-          bo[2]->draw(var1, (12 - bo[2]->width), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bo[2]->draw(var1, ((12 - bo[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
         } else if (((pauseMenuIndex == 1) && this->pauseConfirming)) {
           this->drawString(var1, this->getString(185), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
         } else if ((pauseMenuIndex == 3)) {
           this->drawString(var1, this->getString(46), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
-          bo[3]->draw(var1, ((this->screenWidth - 5) - 7), ((halfHeight + (lineHeight >> 1)) + 4), 0);
-          bo[2]->draw(var1, (12 - bo[2]->width), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bo[3]->draw(var1, (((this->screenWidth - 5) - 7) + uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bo[2]->draw(var1, ((12 - bo[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
         }
       } else if ((state == 1)) {
         this->setFont(this->mainFont);
@@ -6925,8 +6928,8 @@ int Game::readIntBE(Arr<int8_t> var0, int var1) {
 }
 
 void Game::updateFireEffect() {
-  int var2 = (240 - (this->iu - (this->iu >> 2)));
-  if ((fireHeat == nullptr)) {
+  int var2 = (viewW - (this->iu - (this->iu >> 2)));
+  if (((fireHeat == nullptr) || (fireHeat.length() != (var2 * 140)))) {
     fireHeat = newArr<int8_t>((var2 * 140));
     firePixels = newArr<int>((var2 * 140));
   }
@@ -6976,7 +6979,7 @@ void Game::drawFireEffect(Surface* var1, bool var2) {
   this->updateFireEffect();
   int var3 = (var2 ? 0 : 95);
   int var4 = (var2 ? 172 : 173);
-  Engine::drawRgbAlias(var1, firePixels, 0, (240 - (this->iu - (this->iu >> 2))), var3, var4, (240 - ((this->iu - (this->iu >> 2)) + 1)), 140, false);
+  Engine::drawRgbAlias(var1, firePixels, 0, (viewW - (this->iu - (this->iu >> 2))), (var3 - uiX()), var4, (viewW - ((this->iu - (this->iu >> 2)) + 1)), 140, false);
 }
 
 void Game::drawBottomBar(Surface* var1, int var2, int var3) {
@@ -7347,13 +7350,13 @@ void Game::drawMenu(Surface* var1) {
   int var10 = var4;
   int var11 = var4;
   if (((this->iI && (this->topBar <= 0)) && (!this->ak))) {
-    this->setClip(var1, 0, 166, 240, 140);
+    this->setClip(var1, (-uiX()), 166, viewW, 140);
   } else {
-    this->resetClip(var1);
+    this->setClip(var1, (-uiX()), 0, viewW, 320);
   }
   this->drawFireEffect(var1, true);
   for (int var13 = (((this->iI && (this->topBar <= 0)) && (!this->ak)) ? 2 : 0); (var13 <= 4); (var13++)) {
-    this->menuSprites[var13]->draw(var1, ((var13 < 2) ? (halfWidth + var2) : (this->screenWidth + 0)), ((var13 < 2) ? 0 : this->screenHeight), 0);
+    this->menuSprites[var13]->draw(var1, ((var13 < 2) ? (halfWidth + var2) : (this->screenWidth + uiX())), ((var13 < 2) ? 0 : this->screenHeight), 0);
   }
   if (this->ak) {
     this->ak = false;

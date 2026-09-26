@@ -231,6 +231,9 @@ FIELDS = """   // ---- PC port (tools/gow_port_patches.py)
 
       if (this.scene != null) {
          this.maxCameraX = this.bu - viewW;
+         if (this.maxCameraX >= 0 && cameraX > this.maxCameraX) {
+            cameraX = this.maxCameraX;
+         }
       }
    }
 
@@ -238,7 +241,7 @@ FIELDS = """   // ---- PC port (tools/gow_port_patches.py)
 """
 
 RENDER_WRAPPER = """   public final void render(Graphics var1) {
-      boolean var2 = state == 100 || state == 101 || state == 102 || state == 104 || state == 105 || state == 108 || state == 79 || state == 107;
+      boolean var2 = true;
       int var3 = uiX();
       if (redrawAll || var2 != lastWorld) {
          redrawAll = false;
@@ -349,6 +352,15 @@ PATCHES = [
     ("s", "      ic = var3 == hZ;\n      this.resetClip(var1);\n", "      ic = var3 == hZ;\n      this.setClip(var1, -uiX(), 0, viewW, 320);\n", 1),
     ("s", "   private void v(Graphics var1) {\n      this.resetClip(var1);\n", "   private void v(Graphics var1) {\n      this.setClip(var1, -uiX(), 0, viewW, 320);\n", 1),
     ("s", "      this.iC = false;\n      var1.fillRect(0, 0, 240, 320);", "      this.iC = false;\n      var1.fillRect(-uiX(), 0, viewW, 320);", 1),
+    # main menu: the fire spans the whole width and Kratos sits in the bottom-right corner
+    ("s", "      int var2 = 240 - (this.iu - (this.iu >> 2));\n      if (fireHeat == null) {",
+     "      int var2 = viewW - (this.iu - (this.iu >> 2));\n      if (fireHeat == null || fireHeat.length != var2 * 140) {", 1),
+    ("s", "Engine.drawRgbAlias(var1, firePixels, 0, 240 - (this.iu - (this.iu >> 2)), var3, var4, 240 - (this.iu - (this.iu >> 2) + 1), 140, false);",
+     "Engine.drawRgbAlias(var1, firePixels, 0, viewW - (this.iu - (this.iu >> 2)), var3 - uiX(), var4, viewW - (this.iu - (this.iu >> 2) + 1), 140, false);", 1),
+    ("s", "this.screenWidth + 0, var13 < 2 ? 0 : this.screenHeight, 0);", "this.screenWidth + uiX(), var13 < 2 ? 0 : this.screenHeight, 0);", 1),
+    ("s", "this.setClip(var1, 0, 166, 240, 140);", "this.setClip(var1, -uiX(), 166, viewW, 140);", 1),
+    # every remaining "reset the clip" means the whole (widened) canvas
+    ("s", "this.resetClip(var1);", "this.setClip(var1, -uiX(), 0, viewW, 320);", 3),
     # ---------------------------------------------------------------- PC settings: the Options menu page
     ("s", "   private void loadMenuTable() {\n",
      "   private void loadMenuTable() {\n      this.loadMenuTableRaw();\n      menuTable = Port.extendMenu(menuTable);\n   }\n\n   private void loadMenuTableRaw() {\n", 1),
@@ -382,6 +394,9 @@ PATCHES = [
      "                     bo[2].draw(var1, 12 - bo[2].width, halfHeight + (lineHeight >> 1) + 4, 0);\n"
      "                  }\n"
      "               } else if (pauseMenuIndex == 2 && !this.pauseConfirming) {", 1),
+    # pause / game-over option arrows sit at the screen edges
+    ("s", "this.screenWidth - 5 - 7,", "this.screenWidth - 5 - 7 + uiX(),", 4),
+    ("s", "12 - bo[2].width,", "12 - bo[2].width - uiX(),", 5),
 ]
 
 
