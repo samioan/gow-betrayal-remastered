@@ -42,11 +42,11 @@ next to methods `o()`/`p()`) are fixed by renaming in `names.map`.
 The game starts in **borderless fullscreen** (`--windowed` from the launcher overrides it; F11 / Alt+Enter
 toggles). Both menus have PC options, styled like the game's own:
 
-- **Main menu > Options:** two extra carousel entries after Language: `Resolution: <mode>` and
-  `Fullscreen: ON/OFF` (fire / left soft key changes them). `Port::extendMenu` inserts them into the menu table
+- **Main menu > Options:** three extra carousel entries after Language: `Resolution: <mode>`,
+  `Fullscreen: ON/OFF` and `FPS: <rate>` (fire / left soft key changes them). `Port::extendMenu` inserts them into the menu table
   (resource 1028) before the Options page's header and shifts every stored page link; the hard-coded jump to the
-  Quit page (23 -> 25) is patched.
-- **Pause menu:** two more rows past Sound (press Left twice): the same Resolution and Fullscreen.
+  Quit page (23 -> 26) is patched.
+- **Pause menu:** three more rows past Sound (press Left): the same Resolution, Fullscreen and FPS.
 - **Resolution** modes: Original (240), Auto (follows the window), 4:3, 16:10, 16:9, 21:9. The height stays
   320; the logical width is `H * ratio` (427 / 512 / 569 / 747, at most 853). Saved in
   `%LOCALAPPDATA%\gow-betrayal-port\display.cfg` with the other display settings.
@@ -61,6 +61,22 @@ scaled**; the world layer undoes that translation for itself, and the full-width
 bottom bar, their corner ornaments) are widened. A level narrower than the requested width (the 656 px
 vertical level) caps `viewW` at the level width (the window then pillarboxes). Changing the resolution mid-level
 redraws everything (tested with `port_shots.py --width-change`).
+
+### FPS (smoother gameplay)
+
+`FPS: Original / 60 / 90 / 120 / 144 / 165 / 240 / Unlimited` (saved with the display settings). The game logic
+always runs at its original 25 steps/s; only drawing is faster. With a non-Original rate `Engine::runInterpolated`
+runs the logic on a fixed 40 ms clock and draws at the chosen rate, sleeping to the target. Every logic step the game
+records the positions of everything that moves, and each extra frame is drawn with those positions **blended**
+between the previous and the current step (the picture trails the logic by up to one step). The Java side is
+`interpSnapshot` / `interpApply` / `interpRestore` in `tools/gow_port_patches.py`: it blends the camera, the player,
+the 15 enemies, the pickup trails (20 x 4), the drifting scenery/props (36 and 17, boxed and health props, hazards)
+and the pushable crates, writes the blended values into the game's own fields, lets the normal render code draw,
+and restores the real ones. Moves over a threshold (respawns, teleports, camera cuts) and entities whose identity
+changed are not blended. Outside the world (menus, boot) nothing moves between steps, so no extra frames are
+drawn there. The one decorative animation stepped inside the draw code (the status-effect overlay, slot 137)
+advances only on logic steps. Tested headlessly (`--sim-fps 120 --trace`): the camera advances about 1 px per
+frame between steps where the logic moves it 3-4 px per step.
 
 Not done: the main menu's fire/Kratos backdrop and the HUD stay at 240 px (centred), the narrow-level cap has
 not been exercised, and Scaling (fit / integer) is F7 only, not in the menus.
@@ -81,8 +97,8 @@ not been exercised, and Scaling (fit / integer) is F7 only, not in the menus.
    since a frame took over 40 ms anyway; emulators and this port did.) `Engine::runFrame` takes the
    last-step time after the sleep instead, and the shell calls `timeBeginPeriod(1)` for accurate sleeps.
    Measured with `gow_port.exe --bench 15` (real clock, no window): 24.5 steps/s, was 41-48.
-4. **More extras**: higher frame rates with interpolation (Clone Home's `tools/ch_interp.py` is the
-   template), Speed / FPS / Scaling rows in the settings menus, widening the menu backdrops.
+4. **More extras**: Speed (logic rate) and Scaling rows in the settings menus, widening the menu backdrops,
+   interpolating the remaining small movers (screen-space effects).
 5. Real launcher artwork, `docs/ITCH_PAGE.md`, the first `gow-v0.1.0` release.
 6. A regression suite: `tools/port_shots.py` plus pinned frame hashes (kept out of git, since they
    derive from game data), run locally before each release.

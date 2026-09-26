@@ -1,7 +1,7 @@
 // God of War: Betrayal -- PC port: the Win32 shell around the translated game.
 //
 //   gow_port.exe [--data <dir with RP1..RP33>] [--saves <dir>] [--windowed | --fullscreen]
-//                [--dump <file.bmp> [--frames N] [--press KEY@FRAME[:HOLD] ...]] [--bench SECONDS] [--width LOGICAL_PX] [--trace FILE]
+//                [--dump <file.bmp> [--frames N] [--press KEY@FRAME[:HOLD] ...]] [--bench SECONDS] [--width LOGICAL_PX] [--trace FILE] [--sim-fps N]
 //
 // --dump runs headless: N logic frames on a fake 40 ms clock, key presses scripted by frame (KEY is a
 // MIDP key code: -1 up, -2 down, -3 left, -4 right, -5 fire, -6/-7 soft keys), then writes the last
@@ -64,6 +64,7 @@ static LONG WINAPI crashHandler(EXCEPTION_POINTERS* ep) {
 static Game* g_game = nullptr;
 static HWND g_hwnd = nullptr;
 static Surface g_screen;
+static int g_headlessFps = 0;    // --sim-fps: display rate for headless runs (0 = follow the setting)
 static int g_headlessWidth = 0;  // --width: fixed logical width for headless runs (0 = follow the window)
 static void updateTitle(HWND hwnd);
 
@@ -74,14 +75,18 @@ static String wide(const std::wstring& w) { return String(std::u16string(w.begin
 
 String Port::label(int row) {
   if (row == 0) return String(u"Resolution: ") + wide(display::aspectName());
-  return String(display::isFullscreen() ? u"Fullscreen: ON" : u"Fullscreen: OFF");
+  if (row == 1) return String(display::isFullscreen() ? u"Fullscreen: ON" : u"Fullscreen: OFF");
+  return String(u"FPS: ") + wide(display::fpsName());
 }
 
 void Port::change(int row, int dir) {
   if (row == 0) display::cycleAspect(g_hwnd, dir);
-  else display::toggleFullscreen(g_hwnd);
+  else if (row == 1) display::toggleFullscreen(g_hwnd);
+  else display::cycleFps(g_hwnd, dir);
   if (g_hwnd) updateTitle(g_hwnd);
 }
+
+int Port::displayFps() { return g_headlessFps != 0 ? g_headlessFps : display::settings().fps; }
 
 int Port::viewWidth() {
   int cw = 0, chh = 0;
@@ -98,12 +103,12 @@ int Port::viewWidth() {
   return display::logicalWidth(cw, chh);
 }
 
-// The Options page (menu entries 19..22: sound, erase-save link, language, header) gets two carousel entries,
-// type 13 (Resolution) and 14 (Fullscreen), inserted before its header (index 22). Everything after shifts by
-// two, so every stored page link (bits 8..15) at or beyond 22 is shifted too. Game.updateMenu / drawMenu handle
-// the new types (patched in), and the hard-coded jump to the quit page (23) becomes 25.
+// The Options page (menu entries 19..22: sound, erase-save link, language, header) gets three carousel entries,
+// type 13 (Resolution), 14 (Fullscreen) and 15 (FPS), inserted before its header (index 22). Everything after
+// shifts by three, so every stored page link (bits 8..15) at or beyond 22 is shifted too. Game.updateMenu /
+// drawMenu handle the new types (patched in), and the hard-coded jump to the quit page (23) becomes 26.
 Arr<int> Port::extendMenu(const Arr<int>& t) {
-  const int at = 22, n = 2;
+  const int at = 22, n = 3;
   if (t.length() <= at) return t;
   Arr<int> o(t.length() + n);
   auto shifted = [&](int e) {
@@ -114,6 +119,7 @@ Arr<int> Port::extendMenu(const Arr<int>& t) {
   for (int i = 0; i < at; i++) o[i] = shifted(t[i]);
   o[at] = (13 << 26) | 0x3000000;
   o[at + 1] = (14 << 26) | 0x3000000;
+  o[at + 2] = (15 << 26) | 0x3000000;
   for (int i = at; i < t.length(); i++) o[i + n] = shifted(t[i]);
   return o;
 }
@@ -210,7 +216,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
   timeBeginPeriod(1);  // Sleep() granularity is ~15 ms by default, which would make the 25 FPS pacing uneven
   std::string dump;
   int frames = 30, argc = 0, fullscreenArg = -1;
-  double benchSeconds = 0;
+  double benchSeconds = 0, benchFrom = 0;
   std::string tracePath;
   int changeFrame = -1, changeWidth = 0;  // --width-change FRAME:WIDTH (headless: switch resolution mid-run)
   struct Press { int key, frame, hold; };
@@ -224,8 +230,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
     else if (!wcscmp(argv[i], L"--dump")) dump = narrow(argv[++i]);
     else if (!wcscmp(argv[i], L"--frames")) frames = _wtoi(argv[++i]);
     else if (!wcscmp(argv[i], L"--trace")) tracePath = narrow(argv[++i]);
+    else if (!wcscmp(argv[i], L"--bench-from")) benchFrom = _wtof(argv[++i]);
     else if (!wcscmp(argv[i], L"--bench")) benchSeconds = _wtof(argv[++i]);
     else if (!wcscmp(argv[i], L"--width")) g_headlessWidth = _wtoi(argv[++i]);
+    else if (!wcscmp(argv[i], L"--sim-fps")) g_headlessFps = _wtoi(argv[++i]);
     else if (!wcscmp(argv[i], L"--width-change")) swscanf(argv[++i], L"%d:%d", &changeFrame, &changeWidth);
     else if (!wcscmp(argv[i], L"--fullscreen")) fullscreenArg = 1;
     else if (!wcscmp(argv[i], L"--windowed")) fullscreenArg = 0;
@@ -270,33 +278,55 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
   input::init(gameKeyDown, gameKeyUp);
 
   if (benchSeconds > 0) {  // the window's loop on the real clock, without the window
+    // Scripted --press events fire at (FRAME * 40 ms) of real time, so `--bench 60 --press ...` can get into the
+    // level; the counters are measured from --bench-from SECONDS (default 0) so boot and menus can be excluded.
     double start = nowMs();
     double end = start + benchSeconds * 1000.0;
+    long tick0 = 0, paint0 = 0;
+    double from = 0;
+    bool marked = benchFrom <= 0;
+    std::vector<bool> pressed(presses.size(), false), released(presses.size(), false);
     while (nowMs() < end && !g_game->quit) {
+      double t = nowMs() - start;
+      if (!marked && t >= benchFrom * 1000.0) { marked = true; tick0 = g_game->tickCount; paint0 = g_game->paintCount; from = t / 1000.0; }
+      for (size_t i = 0; i < presses.size(); i++) {
+        if (!pressed[i] && t >= presses[i].frame * 40.0) { pressed[i] = true; g_game->platformKey(presses[i].key, true); }
+        if (pressed[i] && !released[i] && t >= (presses[i].frame + presses[i].hold) * 40.0) { released[i] = true; g_game->platformKey(presses[i].key, false); }
+      }
       int sleepMs = g_game->runFrame(nowMs(), g_screen);
       if (sleepMs > 0) Sleep((DWORD)sleepMs);
     }
-    double secs = (nowMs() - start) / 1000.0;
+    double secs = (nowMs() - start) / 1000.0 - from;
     FILE* f = std::fopen("bench.txt", "w");
     if (f) {
-      std::fprintf(f, "%ld logic steps in %.2f s = %.1f steps/s (original: 25)\n", g_game->tickCount, secs, g_game->tickCount / secs);
+      std::fprintf(f, "%ld logic steps in %.2f s = %.1f steps/s (original: 25); %ld frames drawn = %.1f fps\n",
+                   g_game->tickCount - tick0, secs, (g_game->tickCount - tick0) / secs, g_game->paintCount - paint0,
+                   (g_game->paintCount - paint0) / secs);
       std::fclose(f);
     }
     return 0;
   }
 
   if (!dump.empty()) {  // headless test run on a fake clock
-    double t = 0;
-    FILE* trace = tracePath.empty() ? nullptr : std::fopen(tracePath.c_str(), "w");  // --trace FILE: per-frame player state
-    for (int f = 0; f < frames; f++) {
-      if (f == changeFrame) g_headlessWidth = changeWidth;
-      for (const Press& p : presses) {
-        if (f == p.frame) g_game->platformKey(p.key, true);
-        if (f == p.frame + p.hold) g_game->platformKey(p.key, false);
+    // Time-driven so the display rate can differ from the logic rate: --frames counts 40 ms logic steps, presses
+    // are scheduled in steps, and --sim-fps N steps the fake clock 1000/N ms per runFrame call (default 40 ms).
+    double total = frames * 40.0, step = g_headlessFps > 0 ? 1000.0 / g_headlessFps : 40.0, t = 0;
+    FILE* trace = tracePath.empty() ? nullptr : std::fopen(tracePath.c_str(), "w");  // --trace FILE: per-frame state
+    std::vector<bool> pressed(presses.size(), false), released(presses.size(), false);
+    long call = 0;
+    while (t < total - 1e-6) {
+      if (changeFrame >= 0 && t >= changeFrame * 40.0) { g_headlessWidth = changeWidth; changeFrame = -1; }
+      for (size_t i = 0; i < presses.size(); i++) {
+        if (!pressed[i] && t >= presses[i].frame * 40.0 - 1e-6) { pressed[i] = true; g_game->platformKey(presses[i].key, true); }
+        if (pressed[i] && !released[i] && t >= (presses[i].frame + presses[i].hold) * 40.0 - 1e-6) { released[i] = true; g_game->platformKey(presses[i].key, false); }
       }
       g_game->runFrame(t, g_screen);
-      if (trace) std::fprintf(trace, "%d action=%d anim=%d x=%d y=%d dx=%d dy=%d onGround=%d state=%d\n", f, g_game->playerAction, Game::playerAnim, g_game->playerX, g_game->playerY, g_game->animDeltaX, g_game->animDeltaY, (int)g_game->onGround, Game::state);
-      t += 40;
+      if (trace)
+        std::fprintf(trace, "%ld t=%.1f tick=%d alpha=%d action=%d x=%d y=%d camX=%d blendCamX=%d onGround=%d state=%d\n", call, t,
+                     (int)Engine::tickFrame, Engine::interpAlpha, g_game->playerAction, g_game->playerX, g_game->playerY, Game::cameraX,
+                     Game::lastBlendX, (int)g_game->onGround, Game::state);
+      call++;
+      t += step;
     }
     if (trace) std::fclose(trace);
     return writeBmp(g_screen, dump.c_str()) ? 0 : 1;

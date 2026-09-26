@@ -118,7 +118,7 @@ ALL_CLASSES = ["Game", "GOWMIDlet", "Engine", "Sprite", "Scene", "SoundPlayer"]
 LIB_PTR = {"Graphics": "Surface", "Image": "Image", "DataInputStream": "DataInputStream",
            "Random": "Random", "StringBuffer": "StringBuffer", "MIDlet": "MIDlet", "Display": "Display",
            "Font": "Font", "DirectGraphics": "DirectGraphics", "Player": "Player"}
-VIRTUALS = {"render", "update", "onLifecycle"}  # Engine methods Game overrides
+VIRTUALS = {"render", "update", "onLifecycle", "interpSnapshot", "interpApply", "interpRestore"}  # Engine methods Game overrides
 RESERVED = {"and", "or", "not", "xor", "bool", "template", "typename", "namespace", "union", "auto", "register",
             "operator", "delete", "friend", "inline", "mutable", "explicit", "export", "typedef", "sizeof",
             "signed", "unsigned", "struct", "virtual", "wchar_t", "NULL", "near", "far", "small", "interface",

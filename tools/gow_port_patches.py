@@ -17,6 +17,198 @@ match exactly the expected number of times, so a rename or decompiler change fai
 """
 import re
 
+# Render interpolation for the FPS option (docs/PORT_ROADMAP.md, "FPS"): logic runs at 25 steps/s; every step the
+# positions of everything that moves are recorded (interpSnapshot: the state *before* the step, interpApply: the
+# state *after* it, collected at draw time). A frame drawn a fraction alpha (0..255) of the way to the next step
+# blends the two, writes the blended positions into the game's own fields, lets the normal render code draw, and
+# puts the real ones back (interpRestore). Moves larger than a threshold (respawns, teleports, camera cuts) and
+# entities whose identity changed are not blended. Layout: 4 header values, then 186 (identity, x, y) triples.
+INTERP = """   // ---- render interpolation (tools/gow_port_patches.py)
+   public static int lastBlendX = 0;
+   private static int[] iPrev = new int[640];
+   private static int[] iCur = new int[640];
+   private static int[] iBlend = new int[640];
+   private static boolean iValid = false;
+
+   private boolean interpCollect(int[] var1) {
+      if (this.scene == null || !(state == 100 || state == 101 || state == 102 || state == 104 || state == 105 || state == 108)) {
+         return false;
+      }
+
+      var1[0] = cameraX;
+      var1[1] = cameraY;
+      var1[2] = this.playerX;
+      var1[3] = this.playerY;
+      int var2 = 4;
+
+      for (int var3 = 0; var3 < 15; var3++) {
+         var1[var2] = this.enemyClass[var3] * 2 + (this.enemyId[var3] >= 0 ? 1 : 0);
+         var1[var2 + 1] = enemyX[var3];
+         var1[var2 + 2] = this.enemyY[var3];
+         var2 += 3;
+      }
+
+      for (int var4 = 0; var4 < 20; var4++) {
+         for (int var5 = 0; var5 < 4; var5++) {
+            var1[var2] = pickupKind[var4] + 1;
+            var1[var2 + 1] = pickupTrailX[(var4 << 2) + var5];
+            var1[var2 + 2] = pickupTrailY[(var4 << 2) + var5];
+            var2 += 3;
+         }
+      }
+
+      for (int var6 = 0; var6 < 20; var6++) {
+         var1[var2] = 0;
+         var1[var2 + 1] = bZ[var6];
+         var1[var2 + 2] = ca[var6];
+         var2 += 3;
+      }
+
+      for (int var7 = 0; var7 < 20; var7++) {
+         var1[var2] = 0;
+         var1[var2 + 1] = this.cg[var7];
+         var1[var2 + 2] = ch[var7];
+         var2 += 3;
+      }
+
+      for (int var8 = 0; var8 < 10; var8++) {
+         var1[var2] = 0;
+         var1[var2 + 1] = bP[var8];
+         var1[var2 + 2] = this.bQ[var8];
+         var2 += 3;
+      }
+
+      for (int var9 = 0; var9 < 10; var9++) {
+         var1[var2] = 0;
+         var1[var2 + 1] = dl[var9];
+         var1[var2 + 2] = dm[var9];
+         var2 += 3;
+      }
+
+      for (int var10 = 0; var10 < 15; var10++) {
+         var1[var2] = 0;
+         var1[var2 + 1] = hazardX[var10];
+         var1[var2 + 2] = this.hazardY[var10];
+         var2 += 3;
+      }
+
+      int var11 = this.pushX == null || this.pushY == null ? 0 : (this.pushX.length < 16 ? this.pushX.length : 16);
+
+      for (int var12 = 0; var12 < 16; var12++) {
+         var1[var2] = var12 < var11 ? 0 : 1;
+         var1[var2 + 1] = var12 < var11 ? this.pushX[var12] : 0;
+         var1[var2 + 2] = var12 < var11 ? this.pushY[var12] : 0;
+         var2 += 3;
+      }
+
+      return true;
+   }
+
+   private void interpPut(int[] var1) {
+      cameraX = var1[0];
+      cameraY = var1[1];
+      this.playerX = var1[2];
+      this.playerY = var1[3];
+      this.scene.setScroll(cameraX, cameraY);
+      int var2 = 4;
+
+      for (int var3 = 0; var3 < 15; var3++) {
+         enemyX[var3] = var1[var2 + 1];
+         this.enemyY[var3] = var1[var2 + 2];
+         var2 += 3;
+      }
+
+      for (int var4 = 0; var4 < 20; var4++) {
+         for (int var5 = 0; var5 < 4; var5++) {
+            pickupTrailX[(var4 << 2) + var5] = var1[var2 + 1];
+            pickupTrailY[(var4 << 2) + var5] = var1[var2 + 2];
+            var2 += 3;
+         }
+      }
+
+      for (int var6 = 0; var6 < 20; var6++) {
+         bZ[var6] = var1[var2 + 1];
+         ca[var6] = var1[var2 + 2];
+         var2 += 3;
+      }
+
+      for (int var7 = 0; var7 < 20; var7++) {
+         this.cg[var7] = var1[var2 + 1];
+         ch[var7] = var1[var2 + 2];
+         var2 += 3;
+      }
+
+      for (int var8 = 0; var8 < 10; var8++) {
+         bP[var8] = var1[var2 + 1];
+         this.bQ[var8] = var1[var2 + 2];
+         var2 += 3;
+      }
+
+      for (int var9 = 0; var9 < 10; var9++) {
+         dl[var9] = var1[var2 + 1];
+         dm[var9] = var1[var2 + 2];
+         var2 += 3;
+      }
+
+      for (int var10 = 0; var10 < 15; var10++) {
+         hazardX[var10] = var1[var2 + 1];
+         this.hazardY[var10] = var1[var2 + 2];
+         var2 += 3;
+      }
+
+      int var11 = this.pushX == null || this.pushY == null ? 0 : (this.pushX.length < 16 ? this.pushX.length : 16);
+
+      for (int var12 = 0; var12 < 16; var12++) {
+         if (var12 < var11) {
+            this.pushX[var12] = var1[var2 + 1];
+            this.pushY[var12] = var1[var2 + 2];
+         }
+
+         var2 += 3;
+      }
+   }
+
+   private static int interpLerp(int var0, int var1, int var2, int var3) {
+      int var4 = var1 - var0;
+      return var4 > var3 || var4 < -var3 ? var1 : var0 + (var4 * var2 >> 8);
+   }
+
+   public final void interpSnapshot() {
+      iValid = this.interpCollect(iPrev);
+   }
+
+   public final boolean interpApply(int var1) {
+      if (!iValid || !this.interpCollect(iCur)) {
+         return false;
+      }
+
+      iBlend[0] = interpLerp(iPrev[0], iCur[0], var1, 96);
+      iBlend[1] = interpLerp(iPrev[1], iCur[1], var1, 96);
+      iBlend[2] = interpLerp(iPrev[2], iCur[2], var1, 64);
+      iBlend[3] = interpLerp(iPrev[3], iCur[3], var1, 64);
+
+      for (int var2 = 4; var2 < 562; var2 += 3) {
+         iBlend[var2] = iCur[var2];
+         if (iPrev[var2] == iCur[var2]) {
+            iBlend[var2 + 1] = interpLerp(iPrev[var2 + 1], iCur[var2 + 1], var1, 64);
+            iBlend[var2 + 2] = interpLerp(iPrev[var2 + 2], iCur[var2 + 2], var1, 64);
+         } else {
+            iBlend[var2 + 1] = iCur[var2 + 1];
+            iBlend[var2 + 2] = iCur[var2 + 2];
+         }
+      }
+
+      lastBlendX = iBlend[0];
+      this.interpPut(iBlend);
+      return true;
+   }
+
+   public final void interpRestore() {
+      this.interpPut(iCur);
+   }
+
+"""
+
 FIELDS = """   // ---- PC port (tools/gow_port_patches.py)
    public static int viewW = 240;
    public static boolean redrawAll = true;
@@ -85,7 +277,7 @@ RENDER_WRAPPER = """   public final void render(Graphics var1) {
 PATCHES = [
     # ---------------------------------------------------------------- widescreen: state and the frame wrapper
     ("s", "   static {\n      // (obfuscator dead code removed: arrays built and discarded, see rename_gow.py)\n",
-     FIELDS + "      // (obfuscator dead code removed: arrays built and discarded, see rename_gow.py)\n", 1),
+     INTERP + FIELDS + "      // (obfuscator dead code removed: arrays built and discarded, see rename_gow.py)\n", 1),
     ("s", "   public final void update() {\n      this.frameDelta = super.frameTime >> this.slowMotionShift;\n",
      "   public final void update() {\n      this.updateViewWidth();\n      this.frameDelta = super.frameTime >> this.slowMotionShift;\n", 1),
     ("s", "   public final void render(Graphics var1) {\n      switch (state) {", RENDER_WRAPPER, 1),
@@ -111,6 +303,9 @@ PATCHES = [
     ("s", "enemyX[this.grappledEnemy] - cameraX,", "enemyX[this.grappledEnemy] - cameraX - uiX(),", 1),
     ("s", "pointInRect(this.playerX, this.playerY, cameraX, cameraY, this.screenWidth, this.screenHeight)",
      "pointInRect(this.playerX, this.playerY, cameraX, cameraY, viewW, this.screenHeight)", 1),
+    # the status-effect overlay animation is stepped inside the draw code: it must advance once per logic step,
+    # not once per (interpolated) frame
+    ("s", "this.stepAnim(137, this.frameDelta);", "this.stepAnim(137, Engine.tickFrame ? this.frameDelta : 0);", 1),
     # ---------------------------------------------------------------- widescreen: camera
     ("s", "cameraX = this.playerX - 120 - ((facingRight ? 1 : -1) * 240 >> 2);",
      "cameraX = this.playerX - (viewW >> 1) - ((facingRight ? 1 : -1) * 240 >> 2);", 2),
@@ -140,24 +335,24 @@ PATCHES = [
     # ---------------------------------------------------------------- PC settings: the Options menu page
     ("s", "   private void loadMenuTable() {\n",
      "   private void loadMenuTable() {\n      this.loadMenuTableRaw();\n      menuTable = Port.extendMenu(menuTable);\n   }\n\n   private void loadMenuTableRaw() {\n", 1),
-    ("s", "            var1 = 23;", "            var1 = 25;", 1),
+    ("s", "            var1 = 23;", "            var1 = 26;", 1),
     ("s", "                  String var20 = this.getString(var14);\n",
      "                  String var20 = this.getString(var14);\n"
      "                  if (this.arrowBase < 0) {\n                     this.arrowBase = this.iJ;\n                  }\n\n"
-     "                  if (var5 == 13 || var5 == 14) {\n"
+     "                  if (var5 >= 13 && var5 <= 15) {\n"
      "                     var20 = Port.label(var5 - 13);\n"
      "                     this.iJ = Math.max(this.arrowBase, (this.stringWidth(var20) >> 1) + 14);\n"
      "                  } else {\n"
      "                     this.iJ = this.arrowBase;\n"
      "                  }\n", 1),
     ("s", "                     case 12:\n                        if (var4 == menuCursor) {",
-     "                     case 12:\n                     case 13:\n                     case 14:\n                        if (var4 == menuCursor) {", 1),
+     "                     case 12:\n                     case 13:\n                     case 14:\n                     case 15:\n                        if (var4 == menuCursor) {", 1),
     ("s", "         case 12:\n            if (this.pressedKey == 8 || this.pressedKey == 27) {\n               languageIndex++;",
-     "         case 13:\n         case 14:\n            if (this.pressedKey == 8 || this.pressedKey == 27) {\n               Port.change(var3 - 13, 1);\n               this.iB = true;\n            }\n            break;\n"
+     "         case 13:\n         case 14:\n         case 15:\n            if (this.pressedKey == 8 || this.pressedKey == 27) {\n               Port.change(var3 - 13, 1);\n               this.iB = true;\n            }\n            break;\n"
      "         case 12:\n            if (this.pressedKey == 8 || this.pressedKey == 27) {\n               languageIndex++;", 1),
     # ---------------------------------------------------------------- PC settings: the pause menu
     ("s", "                        if (pauseMenuIndex > 4) {\n                           pauseMenuIndex = 4;",
-     "                        if (pauseMenuIndex > 6) {\n                           pauseMenuIndex = 6;", 1),
+     "                        if (pauseMenuIndex > 7) {\n                           pauseMenuIndex = 7;", 1),
     ("s", "               } else if (pauseMenuIndex == 4) {\n                  this.soundPlayer.setSoundOn(!this.soundPlayer.isSoundOn());",
      "               } else if (pauseMenuIndex >= 5) {\n                  Port.change(pauseMenuIndex - 5, 1);\n                  this.iB = true;\n               } else if (pauseMenuIndex == 4) {\n                  this.soundPlayer.setSoundOn(!this.soundPlayer.isSoundOn());", 1),
     ("s", "                  bo[3].draw(var1, this.screenWidth - 5 - 7, halfHeight + (lineHeight >> 1) + 4, 0);\n               } else if (pauseMenuIndex == 2 && !this.pauseConfirming) {",
@@ -166,7 +361,7 @@ PATCHES = [
      "               } else if (pauseMenuIndex >= 5) {\n"
      "                  this.drawString(var1, Port.label(pauseMenuIndex - 5), halfWidth, halfHeight + lineHeight + halfLineHeight, 33);\n"
      "                  bo[3].draw(var1, this.screenWidth - 5 - 7, halfHeight + (lineHeight >> 1) + 4, 0);\n"
-     "                  if (pauseMenuIndex < 6) {\n"
+     "                  if (pauseMenuIndex < 7) {\n"
      "                     bo[2].draw(var1, 12 - bo[2].width, halfHeight + (lineHeight >> 1) + 4, 0);\n"
      "                  }\n"
      "               } else if (pauseMenuIndex == 2 && !this.pauseConfirming) {", 1),

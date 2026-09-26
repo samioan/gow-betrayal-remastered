@@ -59,7 +59,7 @@ names only.
   software renderer. Headless, it reaches the splashes, language select, main menu, intro crawl,
   the first level and its tutorial combat with no exceptions; the Release build and package check
   pass. It starts in borderless fullscreen and has PC settings in the main and pause menus
-  (widescreen Resolution and Fullscreen). It still needs a full play-through against the original. See
+  (widescreen Resolution, Fullscreen and FPS with interpolated frames). It still needs a full play-through against the original. See
   `betrayal/docs/PORT_ROADMAP.md`.
 
 See `betrayal/docs/ROADMAP.md` for the detailed plan and open questions.

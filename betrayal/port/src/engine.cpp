@@ -189,6 +189,16 @@ int Engine::runFrame(double nowMs, Surface& screen) {
     resetFrameTiming_ = true;
     return 100;
   }
+  int fpsMode = Port::displayFps();
+  if (fpsMode != lastFpsMode_) {  // switching between the original loop and the interpolated one
+    lastFpsMode_ = fpsMode;
+    sleeping_ = false;
+    resetFrameTiming_ = true;
+    tickFrame = true;
+    interpAlpha = 256;
+  }
+  if (fpsMode != 0) return runInterpolated(nowMs, screen, fpsMode);
+
   // Engine.run's pacing, corrected. The original measures the time since the last step; if that is under
   // minFrameTime it sleeps (at least 10 ms) so the step is told exactly minFrameTime, and it then runs the
   // step. It also records the clock reading taken *before* the sleep as "the last step". On a 2007 phone
@@ -237,10 +247,73 @@ int Engine::runFrame(double nowMs, Surface& screen) {
   screen.resetClip();
   try {
     paintFrame(&screen);
+    paintCount++;
   } catch (const JavaException& e) {
     logJavaException("render", e);
   }
   return 0;
+}
+
+// The FPS option. Logic runs on a fixed clock (one step per minFrameTime, 25/s, told exactly that long); the
+// display runs at `fps` (-1 = unlimited) and every frame between steps is drawn with the moving objects blended
+// between the previous and the current step (the picture lags the logic by up to one step). Outside the world
+// (menus, boot) nothing moves between steps, so those frames are simply not redrawn.
+int Engine::runInterpolated(double nowMs, Surface& screen, int fps) {
+  const double period = minFrameTime < 1 ? 40 : minFrameTime;
+  if (resetFrameTiming_) {
+    resetFrameTiming_ = false;
+    lastTick_ = nowMs - period;
+    nextFrame_ = nowMs;
+  }
+  bool tick = nowMs - lastTick_ >= period - 0.5;
+  tickFrame = tick;
+  if (tick) {
+    lastTick_ += period;
+    if (nowMs - lastTick_ > period * 3) lastTick_ = nowMs;  // fell far behind: resync instead of catching up
+    frameTime = (int)period;
+    interpSnapshot();
+    tickCount++;
+    try {
+      update();
+    } catch (const JavaException& e) {
+      logJavaException("update", e);
+    }
+    if (soundPlayer) soundPlayer->run();
+    if (quit) return 0;
+  }
+  double a = (nowMs - lastTick_) / period * 256.0;
+  interpAlpha = a < 0 ? 0 : a > 255 ? 255 : (int)a;
+
+  bool blended = false;
+  try {
+    blended = interpApply(interpAlpha);
+  } catch (const JavaException& e) {
+    logJavaException("interp", e);
+  }
+  if (tick || blended) {
+    if (screen.w != Game::viewW) {
+      screen.resize(Game::viewW, 320);
+      Game::redrawAll = true;
+    }
+    screen.resetTransform();
+    bordersCleared = clearBorders;
+    clearBorders = false;
+    screen.resetClip();
+    try {
+      paintFrame(&screen);
+      paintCount++;
+    } catch (const JavaException& e) {
+      logJavaException("render", e);
+    }
+  }
+  if (blended) interpRestore();
+
+  if (fps < 0) return 0;  // unlimited
+  double framePeriod = 1000.0 / fps;
+  nextFrame_ += framePeriod;
+  if (nowMs > nextFrame_ + framePeriod * 3) nextFrame_ = nowMs;  // fell behind: do not try to catch up
+  double wait = nextFrame_ - nowMs;
+  return wait > 0 ? (int)wait : 0;
 }
 
 // ------------------------------------------------------------- display

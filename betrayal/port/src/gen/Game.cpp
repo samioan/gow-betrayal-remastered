@@ -25,6 +25,159 @@ Game::Game(GOWMIDlet* var1) : Engine(var1) {
   }
 }
 
+bool Game::interpCollect(Arr<int> var1) {
+  if (((this->scene == nullptr) || (!((((((state == 100) || (state == 101)) || (state == 102)) || (state == 104)) || (state == 105)) || (state == 108))))) {
+    return false;
+  }
+  var1[0] = cameraX;
+  var1[1] = cameraY;
+  var1[2] = this->playerX;
+  var1[3] = this->playerY;
+  int var2 = 4;
+  for (int var3 = 0; (var3 < 15); (var3++)) {
+    var1[var2] = ((this->enemyClass[var3] * 2) + ((this->enemyId[var3] >= 0) ? 1 : 0));
+    var1[(var2 + 1)] = enemyX[var3];
+    var1[(var2 + 2)] = this->enemyY[var3];
+    var2 += 3;
+  }
+  for (int var4 = 0; (var4 < 20); (var4++)) {
+    for (int var5 = 0; (var5 < 4); (var5++)) {
+      var1[var2] = (pickupKind[var4] + 1);
+      var1[(var2 + 1)] = pickupTrailX[((var4 << 2) + var5)];
+      var1[(var2 + 2)] = pickupTrailY[((var4 << 2) + var5)];
+      var2 += 3;
+    }
+  }
+  for (int var6 = 0; (var6 < 20); (var6++)) {
+    var1[var2] = 0;
+    var1[(var2 + 1)] = bZ[var6];
+    var1[(var2 + 2)] = ca[var6];
+    var2 += 3;
+  }
+  for (int var7 = 0; (var7 < 20); (var7++)) {
+    var1[var2] = 0;
+    var1[(var2 + 1)] = this->cg[var7];
+    var1[(var2 + 2)] = ch[var7];
+    var2 += 3;
+  }
+  for (int var8 = 0; (var8 < 10); (var8++)) {
+    var1[var2] = 0;
+    var1[(var2 + 1)] = bP[var8];
+    var1[(var2 + 2)] = this->bQ[var8];
+    var2 += 3;
+  }
+  for (int var9 = 0; (var9 < 10); (var9++)) {
+    var1[var2] = 0;
+    var1[(var2 + 1)] = dl[var9];
+    var1[(var2 + 2)] = dm[var9];
+    var2 += 3;
+  }
+  for (int var10 = 0; (var10 < 15); (var10++)) {
+    var1[var2] = 0;
+    var1[(var2 + 1)] = hazardX[var10];
+    var1[(var2 + 2)] = this->hazardY[var10];
+    var2 += 3;
+  }
+  int var11 = (((this->pushX == nullptr) || (this->pushY == nullptr)) ? 0 : ((this->pushX.length() < 16) ? this->pushX.length() : 16));
+  for (int var12 = 0; (var12 < 16); (var12++)) {
+    var1[var2] = ((var12 < var11) ? 0 : 1);
+    var1[(var2 + 1)] = ((var12 < var11) ? this->pushX[var12] : 0);
+    var1[(var2 + 2)] = ((var12 < var11) ? this->pushY[var12] : 0);
+    var2 += 3;
+  }
+  return true;
+}
+
+void Game::interpPut(Arr<int> var1) {
+  cameraX = var1[0];
+  cameraY = var1[1];
+  this->playerX = var1[2];
+  this->playerY = var1[3];
+  this->scene->setScroll(cameraX, cameraY);
+  int var2 = 4;
+  for (int var3 = 0; (var3 < 15); (var3++)) {
+    enemyX[var3] = var1[(var2 + 1)];
+    this->enemyY[var3] = var1[(var2 + 2)];
+    var2 += 3;
+  }
+  for (int var4 = 0; (var4 < 20); (var4++)) {
+    for (int var5 = 0; (var5 < 4); (var5++)) {
+      pickupTrailX[((var4 << 2) + var5)] = var1[(var2 + 1)];
+      pickupTrailY[((var4 << 2) + var5)] = var1[(var2 + 2)];
+      var2 += 3;
+    }
+  }
+  for (int var6 = 0; (var6 < 20); (var6++)) {
+    bZ[var6] = var1[(var2 + 1)];
+    ca[var6] = var1[(var2 + 2)];
+    var2 += 3;
+  }
+  for (int var7 = 0; (var7 < 20); (var7++)) {
+    this->cg[var7] = var1[(var2 + 1)];
+    ch[var7] = var1[(var2 + 2)];
+    var2 += 3;
+  }
+  for (int var8 = 0; (var8 < 10); (var8++)) {
+    bP[var8] = var1[(var2 + 1)];
+    this->bQ[var8] = var1[(var2 + 2)];
+    var2 += 3;
+  }
+  for (int var9 = 0; (var9 < 10); (var9++)) {
+    dl[var9] = var1[(var2 + 1)];
+    dm[var9] = var1[(var2 + 2)];
+    var2 += 3;
+  }
+  for (int var10 = 0; (var10 < 15); (var10++)) {
+    hazardX[var10] = var1[(var2 + 1)];
+    this->hazardY[var10] = var1[(var2 + 2)];
+    var2 += 3;
+  }
+  int var11 = (((this->pushX == nullptr) || (this->pushY == nullptr)) ? 0 : ((this->pushX.length() < 16) ? this->pushX.length() : 16));
+  for (int var12 = 0; (var12 < 16); (var12++)) {
+    if ((var12 < var11)) {
+      this->pushX[var12] = var1[(var2 + 1)];
+      this->pushY[var12] = var1[(var2 + 2)];
+    }
+    var2 += 3;
+  }
+}
+
+int Game::interpLerp(int var0, int var1, int var2, int var3) {
+  int var4 = (var1 - var0);
+  return (((var4 > var3) || (var4 < (-var3))) ? var1 : (var0 + ((var4 * var2) >> 8)));
+}
+
+void Game::interpSnapshot() {
+  iValid = this->interpCollect(iPrev);
+}
+
+bool Game::interpApply(int var1) {
+  if (((!iValid) || (!this->interpCollect(iCur)))) {
+    return false;
+  }
+  iBlend[0] = interpLerp(iPrev[0], iCur[0], var1, 96);
+  iBlend[1] = interpLerp(iPrev[1], iCur[1], var1, 96);
+  iBlend[2] = interpLerp(iPrev[2], iCur[2], var1, 64);
+  iBlend[3] = interpLerp(iPrev[3], iCur[3], var1, 64);
+  for (int var2 = 4; (var2 < 562); (var2 += 3)) {
+    iBlend[var2] = iCur[var2];
+    if ((iPrev[var2] == iCur[var2])) {
+      iBlend[(var2 + 1)] = interpLerp(iPrev[(var2 + 1)], iCur[(var2 + 1)], var1, 64);
+      iBlend[(var2 + 2)] = interpLerp(iPrev[(var2 + 2)], iCur[(var2 + 2)], var1, 64);
+    } else {
+      iBlend[(var2 + 1)] = iCur[(var2 + 1)];
+      iBlend[(var2 + 2)] = iCur[(var2 + 2)];
+    }
+  }
+  lastBlendX = iBlend[0];
+  this->interpPut(iBlend);
+  return true;
+}
+
+void Game::interpRestore() {
+  this->interpPut(iCur);
+}
+
 int Game::uiX() {
   return ((viewW - 240) >> 1);
 }
@@ -716,8 +869,8 @@ void Game::updateBars() {
           } else if ((this->pressedKey == 2)) {
             if ((!this->pauseConfirming)) {
               pauseMenuIndex++;
-              if ((pauseMenuIndex > 6)) {
-                pauseMenuIndex = 6;
+              if ((pauseMenuIndex > 7)) {
+                pauseMenuIndex = 7;
               }
             }
           } else if (((this->pressedKey == 5) && (!this->pauseConfirming))) {
@@ -1602,7 +1755,7 @@ void Game::drawBars(Surface* var1) {
         } else if ((pauseMenuIndex >= 5)) {
           this->drawString(var1, Port::label((pauseMenuIndex - 5)), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
           bo[3]->draw(var1, ((this->screenWidth - 5) - 7), ((halfHeight + (lineHeight >> 1)) + 4), 0);
-          if ((pauseMenuIndex < 6)) {
+          if ((pauseMenuIndex < 7)) {
             bo[2]->draw(var1, (12 - bo[2]->width), ((halfHeight + (lineHeight >> 1)) + 4), 0);
           }
         } else if (((pauseMenuIndex == 2) && (!this->pauseConfirming))) {
@@ -1993,7 +2146,7 @@ void Game::drawEnemies(Surface* var1) {
         }
         if ((this->enemyStatus[var2] > 0)) {
           this->drawFrame(var1, this->bH, 137, enemyX[var2], this->enemyY[var2], 0);
-          this->stepAnim(137, this->frameDelta);
+          this->stepAnim(137, (Engine::tickFrame ? this->frameDelta : 0));
         }
         if (((state == 100) && (((((((this->grappledEnemy < 0) && (this->enemyStatus[var2] <= 0)) && (enemyHealth[var2] < (enemyMaxHealth[var2] >> 1))) && (!this->eh[var2])) && (enemyHealth[var2] >= 0)) || ((((this->enemyClass[var2] == 3) && (this->enemyAction[var2] == 12)) && (bossIndex != var2)) && (this->finalBossIndex != var2))) || (((this->enemyClass[var2] == 2) && (this->enemyAction[var2] == 12)) && (bossIndex != var2))))) {
           this->drawFrame(var1, this->aU, 132, enemyX[var2], ((this->enemyY[var2] - this->enemyHeight[var2]) - ((this->finalBossIndex == var2) ? (-(this->enemyHeight[var2] >> 3)) : (this->enemyHeight[var2] >> 2))), 0);
@@ -7084,6 +7237,7 @@ void Game::updateMenu() {
       break;
     case 13:
     case 14:
+    case 15:
       if (((this->pressedKey == 8) || (this->pressedKey == 27))) {
         Port::change((var3 - 13), 1);
         this->iB = true;
@@ -7128,7 +7282,7 @@ void Game::updateMenu() {
       var1 = this->iy;
       this->iI = false;
     } else if ((this->iA == 1)) {
-      var1 = 25;
+      var1 = 26;
     }
   } else if (((((this->pressedKey == 27) && (var3 == 0)) && (this->iz == 0)) && ((var4 != 9) || (this->levelIndex != 0)))) {
     var1 = var4;
@@ -7232,7 +7386,7 @@ void Game::drawMenu(Surface* var1) {
           if ((this->arrowBase < 0)) {
             this->arrowBase = this->iJ;
           }
-          if (((var5 == 13) || (var5 == 14))) {
+          if (((var5 >= 13) && (var5 <= 15))) {
             var20 = Port::label((var5 - 13));
             this->iJ = jlang::max<int>((int)(this->arrowBase), (int)(((this->stringWidth(var20) >> 1) + 14)));
           } else {
@@ -7254,6 +7408,7 @@ void Game::drawMenu(Surface* var1) {
             case 12:
             case 13:
             case 14:
+            case 15:
               if ((var4 == menuCursor)) {
                 if (((var14 != 28) && (var14 != 29))) {
                   if ((var4 > this->iH)) {

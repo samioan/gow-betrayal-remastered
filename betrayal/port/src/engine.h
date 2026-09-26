@@ -58,7 +58,17 @@ class Engine {
   void hideNotify();
   void showNotify();
   void postLifecycle(int s);
-  long tickCount = 0;  // logic steps run
+  long tickCount = 0;   // logic steps run
+  long paintCount = 0;  // frames drawn
+
+  // ---- render interpolation (the FPS option): logic still runs at 1000/minFrameTime steps per second; extra
+  // frames are drawn with the moving objects' positions blended between the previous and the current step.
+  // Game overrides these three (tools/gow_port_patches.py). `interpAlpha` is 0..255 through the current step.
+  virtual void interpSnapshot() {}                  // called just before every logic step
+  virtual bool interpApply(int alpha) { (void)alpha; return false; }  // write blended positions; false = nothing to blend
+  virtual void interpRestore() {}                   // put the real positions back after drawing
+  static inline int interpAlpha = 256;
+  static inline bool tickFrame = true;              // false on the extra (interpolated) frames
 
   MIDlet* midlet;
   SoundPlayer* soundPlayer = nullptr;
@@ -182,7 +192,9 @@ class Engine {
   // Frame driver / lifecycle.
   bool ok_ = false;
   bool started_ = false, resetFrameTiming_ = true, clearBorders = true, sleeping_ = false;
-  double lastFrameStart_ = 0, lifecycleTime_ = 0;
+  double lastFrameStart_ = 0, lifecycleTime_ = 0, lastTick_ = 0, nextFrame_ = 0;
+  int lastFpsMode_ = 0;
+  int runInterpolated(double nowMs, Surface& screen, int fps);
   int pendingLifecycle_ = -1, lifecycleState_ = 2;
   bool settingsLoaded_ = false, optionByte_ = false;
   int viewWidth = 240, viewHeight = 320, viewOffsetX = 0, viewOffsetY = 0;

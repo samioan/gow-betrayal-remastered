@@ -38,11 +38,12 @@ class Display {
 // Appends a line to %LOCALAPPDATA%\gow-betrayal-port\audio.log (audio failures and --sound-test results).
 void audioLog(const std::string& line);
 
-// PC options, implemented next to the window code in main.cpp. Rows: 0 Resolution, 1 Fullscreen.
+// PC options, implemented next to the window code in main.cpp. Rows: 0 Resolution, 1 Fullscreen, 2 FPS.
 struct Port {
   static String label(int row);               // the row's text, e.g. "Resolution: 16:9"
   static void change(int row, int dir);       // activates / cycles the row
-  static int viewWidth();                     // logical canvas width wanted right now (240 = original)
+  static int viewWidth();
+  static int displayFps();                    // 0 = original (25/s), -1 = unlimited, else frames per second                     // logical canvas width wanted right now (240 = original)
   static Arr<int> extendMenu(const Arr<int>& menuTable);  // adds the two rows to the Options page
 };
 

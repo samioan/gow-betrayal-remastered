@@ -29,7 +29,8 @@ It cannot: the game belongs to its rights holders. You supply your own copy.
 
 The game starts in borderless fullscreen. **Main menu > Options** and the **pause menu** have
 **Resolution** (Original, Auto, 4:3, 16:10, 16:9, 21:9: widescreen shows more of the level, and the HUD,
-menus and sprites are never stretched) and **Fullscreen**.
+menus and sprites are never stretched) **Fullscreen**, and **FPS** (60 to 240 or unlimited; the game keeps its original speed and the extra frames are
+interpolated for smoother movement).
 
 ### Notes
 

@@ -13,7 +13,8 @@ X weapons, B/Start pause, Y upgrade screen. F11 or Alt+Enter toggles fullscreen.
 
 The game starts in borderless fullscreen. Main menu > Options and the pause menu (press Left twice
 past Sound) have PC settings: Resolution (Original, Auto, 4:3, 16:10, 16:9, 21:9 -- the level shows
-more to the sides; nothing is stretched) and Fullscreen. The launcher's Windowed option starts in a window.
+more to the sides; nothing is stretched) Fullscreen and FPS (Original, 60, 90, 120, 144, 165, 240, Unlimited: the game logic keeps its original
+speed, extra frames are interpolated for smoother movement). The launcher's Windowed option starts in a window.
 
 
 WHAT YOU NEED

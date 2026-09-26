@@ -59,7 +59,7 @@ tracked elsewhere, so only the scripts are tracked.
   presses (MIDP key codes) on a fake 40 ms clock and stitches screenshots at
   chosen frame counts into a PNG contact sheet (`--story` presses through boot
   to the first level; `--width N` sets the logical canvas width, `--width-change
-  FRAME:W` switches it mid-run; use `--press=-6@170:3` for negative key
+  FRAME:W` switches it mid-run; `--sim-fps N` (with the port's `--trace`) simulates a display rate; use `--press=-6@170:3` for negative key
   codes). Needs Pillow. Output is derived from game data: never
   commit it.
 - **`make_banner.py`**, **`make_icon.py`** -- turn a source image
