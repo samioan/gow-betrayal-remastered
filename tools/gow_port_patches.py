@@ -316,6 +316,13 @@ PATCHES = [
     ("s", "this.maxCameraX = this.bu - 240;", "this.maxCameraX = this.bu - viewW;", 1),
     # camera lock / scroll-stop rectangles and their reverse offsets
     ("r", r"(cameraY(?: \+ this\.aJ)?, )240(?=, 320)", r"\1viewW", 5),
+    # a vertical lock (the camera stops scrolling up/down) must engage exactly when it did on the phone: the point
+    # has to be inside the centred 240 px column, not merely somewhere in the wider view (else e.g. a ladder climb
+    # is frozen by a lock that is far off to the side). These match the text produced by the line above.
+    ("s", "            if (pointInRect(this.lockX[var12], this.lockY[var12], cameraX, cameraY, viewW, 320)) {",
+     "            if (this.lockVertical[var12] ? pointInRect(this.lockX[var12], this.lockY[var12], cameraX + uiX(), cameraY, 240, 320) : pointInRect(this.lockX[var12], this.lockY[var12], cameraX, cameraY, viewW, 320)) {", 1),
+    ("s", "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI, cameraY + this.aJ, viewW, 320)) {\n                     this.aJ =",
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI + uiX(), cameraY + this.aJ, 240, 320)) {\n                     this.aJ =", 1),
     ("s", "? 240 : 0", "? viewW : 0", 2),
     # ---------------------------------------------------------------- widescreen: visibility and activation
     ("r", r"<= 240\b", "<= viewW", 17),

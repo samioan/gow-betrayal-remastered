@@ -1145,7 +1145,7 @@ void Game::updateCamera() {
   bool var11 = false;
   if ((this->cameraPanX < 0)) {
     for (int var12 = (this->lockRectCount - 1); (var12 >= 0); (var12--)) {
-      if (pointInRect(this->lockX[var12], this->lockY[var12], cameraX, cameraY, viewW, 320)) {
+      if ((this->lockVertical[var12] ? pointInRect(this->lockX[var12], this->lockY[var12], (cameraX + uiX()), cameraY, 240, 320) : pointInRect(this->lockX[var12], this->lockY[var12], cameraX, cameraY, viewW, 320))) {
         if ((!this->lockVertical[var12])) {
           var10 = true;
           int var13 = ((this->aK * this->frameDelta) >> 8);
@@ -1165,7 +1165,7 @@ void Game::updateCamera() {
           } else {
             this->aJ += var18;
           }
-          if ((!pointInRect(this->lockX[var12], this->lockY[var12], (cameraX + this->aI), (cameraY + this->aJ), viewW, 320))) {
+          if ((!pointInRect(this->lockX[var12], this->lockY[var12], ((cameraX + this->aI) + uiX()), (cameraY + this->aJ), 240, 320))) {
             this->aJ = ((this->lockY[var12] - cameraY) - (this->lockReverse[var12] ? 320 : 0));
           }
         }
