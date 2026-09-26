@@ -1513,7 +1513,7 @@ void Game::updateDialogue() {
 }
 
 void Game::render(Surface* var1) {
-  bool var2 = ((((((state == 100) || (state == 101)) || (state == 102)) || (state == 104)) || (state == 105)) || (state == 108));
+  bool var2 = ((((((((state == 100) || (state == 101)) || (state == 102)) || (state == 104)) || (state == 105)) || (state == 108)) || (state == 79)) || (state == 107));
   int var3 = uiX();
   if ((redrawAll || (var2 != lastWorld))) {
     redrawAll = false;
@@ -1614,11 +1614,13 @@ void Game::renderInner(Surface* var1) {
       }
       this->drawWorld(var1);
       if ((state != 101)) {
+        var1->translate((-uiX()), 0);
         this->drawHud(var1);
+        var1->translate(uiX(), 0);
       }
       if ((state == 100)) {
         if ((((this->aR && (this->aS == facingRight)) && (!qteActive)) && pointInRect(this->playerX, this->playerY, cameraX, cameraY, viewW, this->screenHeight))) {
-          this->drawFrame(var1, this->aU, 131, 12, (this->screenHeight - 25), 0);
+          this->drawFrame(var1, this->aU, 131, (12 - uiX()), (this->screenHeight - 25), 0);
         }
         if ((((qteActive && (this->qteProgress >= 0)) && (this->qteProgress < this->qteRequired)) && (this->grappledEnemy >= 0))) {
           this->drawFrame(var1, this->aU, 131, ((enemyX[this->grappledEnemy] - cameraX) - uiX()), (((this->enemyY[this->grappledEnemy] - this->enemyHeight[this->grappledEnemy]) - (this->enemyHeight[this->grappledEnemy] >> 2)) - cameraY), 0);
@@ -6597,14 +6599,16 @@ void Game::u(Surface* var1) {
 }
 
 void Game::v(Surface* var1) {
-  this->resetClip(var1);
+  this->setClip(var1, (-uiX()), 0, viewW, 320);
   this->iB = true;
   var1->setColor(0);
   this->iC = false;
-  var1->fillRect(0, 0, 240, 320);
+  var1->fillRect((-uiX()), 0, viewW, 320);
 }
 
 void Game::a(Arr<int> var1, Arr<int8_t> var2, int var3, int var4, int var5, int var6, int var7) {
+  var3 -= uiX();
+  var5 += (uiX() << 1);
   hW = newArr<String>(var7);
   hY = newArr<int8_t>(var7);
   hS = var3;
@@ -6710,7 +6714,7 @@ void Game::d(bool var1) {
 }
 
 void Game::drawDialogueText(Surface* var1, bool var2) {
-  this->setClip(var1, 0, hT, 240, hV);
+  this->setClip(var1, (-uiX()), hT, viewW, hV);
   int8_t var4 = 0;
   this->ip = true;
   if (((hV / lineHeight) >= hZ)) {
@@ -6774,7 +6778,7 @@ void Game::drawDialogueText(Surface* var1, bool var2) {
     }
   }
   ic = (var3 == hZ);
-  this->resetClip(var1);
+  this->setClip(var1, (-uiX()), 0, viewW, 320);
   this->iB = true;
   if ((((var4 == 0) && var2) && (!this->aW))) {
     var1->setColor(10377532);
@@ -6987,10 +6991,10 @@ void Game::drawBottomBar(Surface* var1, int var2, int var3) {
   var1->drawLine((-uiX()), 307, (240 + uiX()), 307);
   if ((((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) || (state == 106)) && (this->cameraPanX < 0)) && ((!qteActive) || (state == 102)))) {
     if ((var2 != (-1))) {
-      this->drawSoftKeyLabel(var1, 0, var2, 2);
+      this->drawSoftKeyLabel(var1, (-uiX()), var2, 2);
     }
     if ((var3 != (-1))) {
-      this->drawSoftKeyLabel(var1, 240, var3, 0);
+      this->drawSoftKeyLabel(var1, (240 + uiX()), var3, 0);
     }
     if ((state == 100)) {
       if ((!challengeMode)) {

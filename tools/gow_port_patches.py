@@ -238,7 +238,7 @@ FIELDS = """   // ---- PC port (tools/gow_port_patches.py)
 """
 
 RENDER_WRAPPER = """   public final void render(Graphics var1) {
-      boolean var2 = state == 100 || state == 101 || state == 102 || state == 104 || state == 105 || state == 108;
+      boolean var2 = state == 100 || state == 101 || state == 102 || state == 104 || state == 105 || state == 108 || state == 79 || state == 107;
       int var3 = uiX();
       if (redrawAll || var2 != lastWorld) {
          redrawAll = false;
@@ -332,6 +332,23 @@ PATCHES = [
     ("s", "var1.fillRect(0, 306, 240, 14);", "var1.fillRect(-uiX(), 306, viewW, 14);", 1),
     ("s", "var1.drawLine(0, 306, 240, 306);", "var1.drawLine(-uiX(), 306, 240 + uiX(), 306);", 1),
     ("s", "var1.drawLine(0, 307, 240, 307);", "var1.drawLine(-uiX(), 307, 240 + uiX(), 307);", 1),
+    # ---------------------------------------------------------------- widescreen: edge-anchored UI
+    # the top HUD (health, magic, weapon, orbs) sits in the top-left corner of the screen
+    ("s", "            if (state != 101) {\n               this.drawHud(var1);\n            }\n",
+     "            if (state != 101) {\n               var1.translate(-uiX(), 0);\n               this.drawHud(var1);\n               var1.translate(uiX(), 0);\n            }\n", 1),
+    # the attack prompt at the bottom-left follows the left edge
+    ("s", "this.drawFrame(var1, this.aU, 131, 12, this.screenHeight - 25, 0);",
+     "this.drawFrame(var1, this.aU, 131, 12 - uiX(), this.screenHeight - 25, 0);", 1),
+    # soft-key labels: left key in the bottom-left corner, right key in the bottom-right corner
+    ("s", "this.drawSoftKeyLabel(var1, 0, var2, 2);", "this.drawSoftKeyLabel(var1, -uiX(), var2, 2);", 1),
+    ("s", "this.drawSoftKeyLabel(var1, 240, var3, 0);", "this.drawSoftKeyLabel(var1, 240 + uiX(), var3, 0);", 1),
+    # dialogue / story text panels span the whole width (wrapping and the portrait use the widened panel)
+    ("s", "   private void a(int[] var1, byte[] var2, int var3, int var4, int var5, int var6, int var7) {\n",
+     "   private void a(int[] var1, byte[] var2, int var3, int var4, int var5, int var6, int var7) {\n      var3 -= uiX();\n      var5 += uiX() << 1;\n", 1),
+    ("s", "      this.setClip(var1, 0, hT, 240, hV);", "      this.setClip(var1, -uiX(), hT, viewW, hV);", 1),
+    ("s", "      ic = var3 == hZ;\n      this.resetClip(var1);\n", "      ic = var3 == hZ;\n      this.setClip(var1, -uiX(), 0, viewW, 320);\n", 1),
+    ("s", "   private void v(Graphics var1) {\n      this.resetClip(var1);\n", "   private void v(Graphics var1) {\n      this.setClip(var1, -uiX(), 0, viewW, 320);\n", 1),
+    ("s", "      this.iC = false;\n      var1.fillRect(0, 0, 240, 320);", "      this.iC = false;\n      var1.fillRect(-uiX(), 0, viewW, 320);", 1),
     # ---------------------------------------------------------------- PC settings: the Options menu page
     ("s", "   private void loadMenuTable() {\n",
      "   private void loadMenuTable() {\n      this.loadMenuTableRaw();\n      menuTable = Port.extendMenu(menuTable);\n   }\n\n   private void loadMenuTableRaw() {\n", 1),
