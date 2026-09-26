@@ -28,6 +28,10 @@ combat. The real window runs and stays responsive; `build_dist.bat` + `check_dis
 Input: arrows/WASD move, Space/J/Z attack, K/X/Q/E weapon cycle (left soft key), Esc/P/Backspace
 pause (right soft key), Tab/U upgrade screen (`#`); gamepad d-pad/stick, A / X / B-Start / Y.
 
+Translator bug found in play-testing: `-super.animDeltaY` (the absolute value in the movement code) lost its
+minus, so upward moves were treated as downward ones and jumps went down; `java2cpp.py` now keeps prefix operators
+on `super.` references and refuses to run if any are dropped.
+
 Decompiler artifacts found while porting are patched in `tools/rename_gow.py` (`PATCHES`): the boot
 loader's `byte` loop counter that wraps at 127, and the dead static initializer. Names that collide
 in C++ but not in Java (a field called `fontHeight` next to the method `fontHeight()`, fields `o`/`p`

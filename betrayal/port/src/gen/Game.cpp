@@ -3139,8 +3139,8 @@ void Game::movePlayer(int var1, int var2) {
   } else {
     this->playerY++;
   }
-  int var7 = (((Engine::animDeltaX > 0) ? Engine::animDeltaX : Engine::animDeltaX) << 8);
-  int var8 = (((Engine::animDeltaY > 0) ? Engine::animDeltaY : Engine::animDeltaY) << 8);
+  int var7 = (((Engine::animDeltaX > 0) ? Engine::animDeltaX : (-Engine::animDeltaX)) << 8);
+  int var8 = (((Engine::animDeltaY > 0) ? Engine::animDeltaY : (-Engine::animDeltaY)) << 8);
   int var9 = var7;
   int var10 = var8;
   this->canMoveX = true;
@@ -4990,7 +4990,7 @@ void Game::updateGameplay() {
     if (this->hG) {
       this->hG = false;
     } else if (this->stepSlot((var51 + 111))) {
-      this->pushX[var51] = (this->pushX[var51] + ((((!facingRight) || (this->playerAction != 22)) && (facingRight || (this->playerAction != 23))) ? Engine::animDeltaX : Engine::animDeltaX));
+      this->pushX[var51] = (this->pushX[var51] + ((((!facingRight) || (this->playerAction != 22)) && (facingRight || (this->playerAction != 23))) ? (-Engine::animDeltaX) : Engine::animDeltaX));
       this->pushY[var51] = (this->pushY[var51] + Engine::animDeltaY);
     } else {
       this->startAnim((var51 + 111), 6144, this->pushAnim[var51]);
@@ -5890,8 +5890,8 @@ void Game::moveEnemy(int var1, int var2, int var3) {
   bool var8 = this->enemyFacingRight[var3];
   int16_t var9 = this->enemyHeight[var3];
   int var10 = (this->enemyWidth[var3] >> 1);
-  int var11 = (((Engine::animDeltaX > 0) ? Engine::animDeltaX : Engine::animDeltaX) << 8);
-  int var12 = (((Engine::animDeltaY > 0) ? Engine::animDeltaY : Engine::animDeltaY) << 8);
+  int var11 = (((Engine::animDeltaX > 0) ? Engine::animDeltaX : (-Engine::animDeltaX)) << 8);
+  int var12 = (((Engine::animDeltaY > 0) ? Engine::animDeltaY : (-Engine::animDeltaY)) << 8);
   int var13 = var11;
   int var14 = var12;
   if ((Engine::animDeltaX != 0)) {

@@ -1,7 +1,7 @@
 // God of War: Betrayal -- PC port: the Win32 shell around the translated game.
 //
 //   gow_port.exe [--data <dir with RP1..RP33>] [--saves <dir>] [--windowed | --fullscreen]
-//                [--dump <file.bmp> [--frames N] [--press KEY@FRAME[:HOLD] ...]] [--bench SECONDS] [--width LOGICAL_PX]
+//                [--dump <file.bmp> [--frames N] [--press KEY@FRAME[:HOLD] ...]] [--bench SECONDS] [--width LOGICAL_PX] [--trace FILE]
 //
 // --dump runs headless: N logic frames on a fake 40 ms clock, key presses scripted by frame (KEY is a
 // MIDP key code: -1 up, -2 down, -3 left, -4 right, -5 fire, -6/-7 soft keys), then writes the last
@@ -211,6 +211,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
   std::string dump;
   int frames = 30, argc = 0, fullscreenArg = -1;
   double benchSeconds = 0;
+  std::string tracePath;
   int changeFrame = -1, changeWidth = 0;  // --width-change FRAME:WIDTH (headless: switch resolution mid-run)
   struct Press { int key, frame, hold; };
   std::vector<Press> presses;
@@ -222,6 +223,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
     else if (!wcscmp(argv[i], L"--saves")) Platform::saveDir = narrow(argv[++i]);
     else if (!wcscmp(argv[i], L"--dump")) dump = narrow(argv[++i]);
     else if (!wcscmp(argv[i], L"--frames")) frames = _wtoi(argv[++i]);
+    else if (!wcscmp(argv[i], L"--trace")) tracePath = narrow(argv[++i]);
     else if (!wcscmp(argv[i], L"--bench")) benchSeconds = _wtof(argv[++i]);
     else if (!wcscmp(argv[i], L"--width")) g_headlessWidth = _wtoi(argv[++i]);
     else if (!wcscmp(argv[i], L"--width-change")) swscanf(argv[++i], L"%d:%d", &changeFrame, &changeWidth);
@@ -285,6 +287,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
 
   if (!dump.empty()) {  // headless test run on a fake clock
     double t = 0;
+    FILE* trace = tracePath.empty() ? nullptr : std::fopen(tracePath.c_str(), "w");  // --trace FILE: per-frame player state
     for (int f = 0; f < frames; f++) {
       if (f == changeFrame) g_headlessWidth = changeWidth;
       for (const Press& p : presses) {
@@ -292,8 +295,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
         if (f == p.frame + p.hold) g_game->platformKey(p.key, false);
       }
       g_game->runFrame(t, g_screen);
+      if (trace) std::fprintf(trace, "%d action=%d anim=%d x=%d y=%d dx=%d dy=%d onGround=%d state=%d\n", f, g_game->playerAction, Game::playerAnim, g_game->playerX, g_game->playerY, g_game->animDeltaX, g_game->animDeltaY, (int)g_game->onGround, Game::state);
       t += 40;
     }
+    if (trace) std::fclose(trace);
     return writeBmp(g_screen, dump.c_str()) ? 0 : 1;
   }
 

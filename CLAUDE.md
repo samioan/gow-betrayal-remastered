@@ -51,3 +51,9 @@ powershell betrayal\port\check_dist.ps1
 - Speed check: `gow_port.exe --data betrayal\extracted --bench 10` writes `bench.txt` (logic steps per second on
   the real clock; the original's target is 25). The pacing in `Engine::runFrame` deliberately differs from the
   Java's, which runs too fast on modern machines (see `PORT_ROADMAP.md`, "Timing").
+- Debugging behaviour: `gow_port.exe ... --dump x.bmp --frames N --trace t.txt` logs the player's action, position,
+  animation delta and ground flag every frame (`--press KEY@FRAME[:HOLD]` scripts input). Compare against what the
+  animation data says (e.g. decode with `tools/parse_atlases.py` / the loaders) before suspecting the game logic.
+- The translator has dropped operators before (`-super.animDeltaY` lost its minus: jumps went downwards). `java2cpp.py`
+  now checks that every `-`/`!`/`~` on a `super.` reference survives; when generated code misbehaves, diff a
+  suspicious expression against the Java first.

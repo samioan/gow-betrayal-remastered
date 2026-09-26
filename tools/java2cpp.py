@@ -457,9 +457,11 @@ class Emit:
             cs, _ = self.args(n.arguments)
             sup = SYMS[self.ctx.cls].super
             m = find_methods(sup, n.member)
-            return "%s::%s(%s)" % (sup, cname(n.member), ", ".join(cs)), (m[1][0][1] if m else ("?", 0))
+            return self.apply_ops(n, "%s::%s(%s)" % (sup, cname(n.member), ", ".join(cs)), (m[1][0][1] if m else ("?", 0)))
         if isinstance(n, T.SuperMemberReference):
-            return "%s::%s" % (SYMS[self.ctx.cls].super, cname(n.member)), ("?", 0)
+            # prefix / postfix operators must be kept: `-super.animDeltaY` is an absolute value in the original
+            # movement code (dropping the minus made the player jump downwards)
+            return self.apply_ops(n, "%s::%s" % (SYMS[self.ctx.cls].super, cname(n.member)), ("?", 0))
         if isinstance(n, T.ClassCreator):
             cs, ts = self.args(n.arguments)
             base = n.type.name
@@ -880,6 +882,18 @@ def main():
     hdr_all.append("}  // namespace gow\n")
     (OUT / "classes.h").write_text("".join(hdr_all), encoding="utf-8")
     print("wrote", OUT)
+    # Regression guard: a prefix operator in front of a `super.` reference was once silently dropped
+    # (`-super.animDeltaY` became `animDeltaY`, which made the player jump downwards). Every such operator in the
+    # Java must reappear in the generated C++.
+    for name in TRANSLATE:
+        java = (SRC / (name + ".java")).read_text(encoding="utf-8")
+        cpp = (OUT / (name + ".cpp")).read_text(encoding="utf-8")
+        for op in ("-", "!", "~"):
+            want = len(re.findall(r"(?<![\w)\]])" + re.escape(op) + r"super\.\w+", java))
+            have = len(re.findall(r"\(" + re.escape(op) + r"Engine::\w+", cpp))
+            if have < want:
+                sys.exit(f"java2cpp: {name}: {want} `{op}super.x` in the Java but only {have} `{op}Engine::x` generated "
+                         "-- a prefix operator was dropped")
     if "--libcalls" in sys.argv:
         for c in sorted(LIBCALLS):
             print("  lib", c)
