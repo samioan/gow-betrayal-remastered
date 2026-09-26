@@ -1,0 +1,35 @@
+# --- Copyrighted game data ---
+# Never commit the original .jar/.jad releases or anything extracted
+# straight from them (art, audio, level/script data, the class files
+# themselves).
+/roms/*.jar
+/roms/*.jad
+/betrayal/extracted/
+
+# --- Third-party tooling ---
+# Not project source; fetched locally, not tracked in git.
+/tools/vineflower.jar
+/tools/midp-stubs/
+
+# --- Python ---
+__pycache__/
+*.pyc
+
+# --- PC port build output (regenerable via port/build.bat / CMake) ---
+/betrayal/port/build/
+/betrayal/port/build-dist/
+/betrayal/port/dist/
+/build_src/
+*.log
+
+# --- Port runtime output ---
+crash.txt
+/betrayal/port/saves/
+
+# --- Local Claude Code state ---
+/.claude/scheduled_tasks.lock
+/.claude/settings.local.json
+
+# Test output
+bench.txt
+exceptions.log

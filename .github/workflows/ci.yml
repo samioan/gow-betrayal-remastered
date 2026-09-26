@@ -1,0 +1,36 @@
+name: CI
+
+# The only thing this can prove on a machine that has no game data is that the
+# port scaffold configures and builds cleanly, and that the shipping
+# configuration (GOW_DIST=ON, Release, static CRT) produces a package that
+# passes check_dist.ps1 (no shipped game data, launcher artwork embedded, no
+# VC++ runtime dependency). Extend with smoke tests as real game logic lands,
+# following tes-travels-decomp's ci.yml as the template.
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  windows-betrayal:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # CMake is already on the runner image; Ninja is not guaranteed to
+      # be, and the port's build.bat asks for it by name.
+      - name: Install Ninja
+        run: choco install ninja -y --no-progress
+
+      # betrayal/port/vcvars.bat finds whatever Visual Studio this machine
+      # has through vswhere, so this workflow does not need to know where it is.
+      - name: Build God of War: Betrayal port (Debug)
+        run: .\betrayal\port\build.bat
+
+      - name: Build the release package
+        run: .\betrayal\port\build_dist.bat 0.0.0-ci
+
+      - name: Check the package
+        run: .\betrayal\port\check_dist.ps1

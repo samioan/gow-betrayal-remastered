@@ -1,0 +1,687 @@
+# God of War: Betrayal -- rename map (input to tools/rename_gow.py).
+# Old (obfuscated) names on the left, new names on the right. Only members whose
+# role was confirmed from call sites are renamed; see docs/CLASS_MAP.md for the
+# evidence and for what is still unknown. Anything not listed keeps its name.
+#
+#   class  <old> <New>
+#   field  <oldClass>.<oldField> <newName>
+#   method <oldClass>.<oldMethod>(<paramTypes>) <newName>
+#
+# paramTypes are Java-style, comma separated, package-free, obfuscated class
+# names left as they are, e.g. (int,byte[]) (Graphics,c[],int) ().
+
+# ---------------------------------------------------------------- classes
+# Phase 1 seed: the engine base / resource loader (a), the sprite-frame
+# rectangle (c), the audio player (d) and the game itself (e) are certain.
+# `b` (offscreen Image + Graphics + sprite arrays, created by b.a(240, 320)) is a
+# tentative "Scene": a 240x320 render target/tile layer. Naming it at all is also
+# required: Engine has a field `b`, which shadows the class name in source form.
+class a Engine
+class c Sprite
+class d SoundPlayer
+class e Game
+class b Scene
+
+# ---------------------------------------------------------------- GOWMIDlet
+field GOWMIDlet.a game
+
+# ---------------------------------------------------------------- Engine (a): state
+field a.a animDeltaX
+field a.b animDeltaY
+field a.c midlet
+field a.d soundPlayer
+field a.e soundEnabled
+field a.f resourceTypes
+field a.i soundBeforePause
+field a.j mutedByPause
+field a.o lastFrameStart
+field a.p settingsLoaded
+field a.r loadedBank
+field a.s resourceLengths
+field a.t bankData
+field a.u plteOffset
+field a.v stringBytes
+field a.w stringOffsets
+field a.x font
+field a.y charBuffer
+field a.z systemFont
+# animation sets (see CLASS_MAP.md "Animation data model")
+field a.A animSetIds
+field a.B animHeaders
+field a.C animFrameTiming
+field a.D animFrames
+field a.E boxStart
+field a.F frameHeaders
+field a.G frameParts
+field a.H boxPos
+field a.I boxSize
+field a.J frameDurations
+field a.K loaderStream
+field a.L animSlots
+field a.M currentSet
+# input
+field a.N keyCodeTable
+field a.g keysHeld
+field a.h keysPressed
+field a.O pendingPressed
+field a.P downKeys
+field a.Q pendingReleased
+# frame timing
+field a.k frameTime
+field a.l minFrameTime
+field a.m maxFrameTime
+field a.S resetFrameTiming
+# view / borders
+field a.T viewWidth
+field a.U viewHeight
+field a.V viewOffsetX
+field a.W viewOffsetY
+field a.X clearBorders
+field a.n bordersCleared
+# lifecycle
+field a.R resumed
+field a.Y gameThread
+field a.Z threadRunning
+field a.aa shuttingDown
+field a.ab lifecycleTime
+field a.ac pendingLifecycle
+field a.ad lifecycleState
+field a.ae pendingResume
+
+# ---------------------------------------------------------------- Engine (a): methods
+method a.a(Graphics) render
+method a.a() update
+method a.a(String,int) parseIntOr
+method a.a(int[],int) sortInts
+method a.a(int) readRecord
+method a.a(int,byte[]) writeRecord
+method a.a(boolean) syncSettings
+# resources
+method a.b(int) loadSprites
+method a.b(int,byte[]) loadSprites
+method a.c(int,byte[]) loadImage
+method a.d(int,byte[]) loadImageAlias
+method a.a(byte[],int,byte[]) swapPngPalette
+method a.c(DataInputStream) findPlteChunk
+method a.c(int) getResourceBytes
+method a.k(int) getResourceBytesAlias
+method a.d(int) openResource
+method a.l(int) resourceOffset
+method a.m(int) selectBank
+method a.a(DataInputStream) parseBank
+method a.b(DataInputStream) parseBankAlias
+method a.e(int) getString
+method a.f(int) loadStringTable
+# font / text
+method a.a(c[]) setFont
+method a.n(int) ensureCharBuffer
+method a.a(String) stringWidth
+method a.a(String,int,int) stringWidth
+method a.a(char) charWidth
+method a.a(char[],int,int) charsWidth
+method a.b(char) findGlyph
+method a.b() fontBaseline
+method a.c() fontHeight
+method a.a(Graphics,String,int,int,int) drawString
+method a.a(Graphics,String,int,int,int,int,int) drawString
+method a.a(Graphics,char[],int,int,int,int,int) drawString
+# misc drawing helpers
+method a.a(Graphics,int[],int,int,int,int,int,int,boolean) drawRgbAlias
+method a.b(Graphics,int[],int,int,int,int,int,int,boolean) drawRgb
+method a.a(Image,int,int,int,int,Graphics,int,int) drawImageRegion
+method a.a(int[],int,int) binarySearch
+# animation sets
+method a.g(int) loadAnimSet
+method a.a(int,boolean) setAnimSetPersistent
+method a.d() releaseTransientAnimSets
+method a.i() releaseAnimSetsAlias
+method a.h(int) ensureAnimSlots
+method a.a(int,int,int) startAnim
+method a.a(int,int) copyAnimSlot
+method a.b(int,int) stepAnim
+method a.a(c[],int,int,int,int,int[]) getFrameBounds
+method a.a(short[],int,int) getFrameParts
+method a.a(Graphics,c[],int,int,int,int) drawFrame
+method a.b(Graphics,c[],int,int,int,int) drawFrameNow
+method a.b(short[],int,int) getFrameBoxes
+method a.o(int) resolveFrame
+method a.a(int[]) readRunLengths
+method a.b(int[]) readPackedOffsets
+method a.k() readUnsigned
+method a.l() readSigned
+# input
+method a.e() clearKeys
+method a.f() pollKeys
+method a.b(int,boolean) handleKey
+# timing / view
+method a.g() resetFrameTimer
+method a.j() resetFrameTimerAlias
+method a.c(int,int) setViewSize
+method a.b(Graphics) resetClip
+method a.a(Graphics,int,int,int,int) setClip
+method a.h() requestClear
+method a.c(Graphics) paintFrame
+# lifecycle
+method a.i(int) onLifecycle
+method a.j(int) postLifecycle
+method a.m() processLifecycle
+
+# ---------------------------------------------------------------- Sprite (c)
+field c.k sheet
+field c.a offsetX
+field c.b offsetY
+field c.c width
+field c.d height
+field c.i srcX
+field c.j srcY
+field c.e charCode
+field c.g advance
+field c.h metric
+method c.a(short[]) load
+method c.a(Graphics,int,int,int) draw
+method c.a(int) anchorOffsetX
+method c.b(int) anchorOffsetY
+
+# ---------------------------------------------------------------- Game (e): only what is confirmed so far
+field e.I state
+field e.iM soundPlayer
+field e.B cheatsEnabled
+field e.bE demoMode
+field e.bF demoBuyUrl
+method e.a(Graphics) render
+method e.a() update
+method e.i(int) onLifecycle
+
+# ---------------------------------------------------------------- SoundPlayer (d)
+field d.a engine
+field d.b slotCount
+field d.c shutDown
+field d.e pendingSlot
+field d.f playingSlot
+field d.g loopCounts
+field d.h priorities
+field d.i players
+field d.j currentPlayer
+method d.a() shutdown
+method d.b() isSoundOn
+method d.a(boolean) setSoundOn
+method d.a(byte) mimeType
+method d.a(byte[],byte,boolean) padMidi
+method d.a(byte[],int) readShort
+method d.b(byte[],int) readInt
+method d.a(byte[],int,int) writeInt
+method d.c(byte[],int) readVarLen
+method d.b(byte[],int,int) writeVarLen
+method d.b(int) varLenSize
+method d.a(int,int,int,int) load
+method d.c(int) unload
+method d.a(int) play
+method d.c() stop
+
+# ---------------------------------------------------------------- Scene (b)
+field b.a buffered
+field b.b bufferWidth
+field b.c bufferHeight
+field b.d scrollX
+field b.e scrollY
+field b.f buffer
+field b.g bufferGraphics
+field b.h renderedX
+field b.i renderedY
+field b.j fullRedraw
+field b.k mapCols
+field b.l tileMap
+field b.m noTileSheet
+field b.n tileSheet
+field b.o tileSrcX
+field b.p tileSrcY
+field b.q tileWidth
+field b.r tileHeight
+field b.s staticCount
+field b.t staticSprites
+field b.u staticPos
+field b.v staticSortKeys
+field b.w maxStaticExtent
+field b.x staticNeedsSort
+field b.y sortByY
+field b.z visibleScratch
+field b.A objSprites
+field b.B objPos
+field b.C objNext
+field b.D objPrev
+field b.E objHead
+field b.F objTail
+field b.G objFree
+field b.H objFirstDirty
+field b.I visibleObjs
+field b.J visibleCount
+field b.K objectsOnly
+method b.a(int,int) create
+method b.b(int,int) setScroll
+method b.a(Graphics) draw
+method b.b(Graphics) renderAndBlit
+method b.c(Graphics) blitWrapped
+method b.b(int) collectVisibleObjects
+method b.a() updateBuffer
+method b.a(int,int,int,int) redrawRegion
+method b.a(Graphics,int,int,int,int,int,int) redrawRect
+method b.b(Graphics,int,int,int,int,int,int) drawTiles
+method b.a(int,int,Image,int,int) setTileMap
+method b.b() clearTileMap
+method b.a(int,int,int) setTile
+method b.a(int,boolean) initStaticSprites
+method b.a(c,int,int,int) addStaticSprite
+method b.a(int,int,int,int,int,int,Graphics) drawStaticSprites
+method b.a(int) initObjects
+method b.b(c,int,int,int) addObject
+method b.a(int,int,int,int,int,int,boolean,Graphics) drawObjects
+
+# ---------------------------------------------------------------- Game (e): input, screen, timing
+field e.s pressedKey
+field e.t heldKey
+field e.L frameDelta
+field e.N randomValue
+field e.O random
+field e.E screenWidth
+field e.F screenHeight
+field e.G halfWidth
+field e.H halfHeight
+field e.z lineHeight
+field e.A halfLineHeight
+field e.K bootStep
+method e.k() readPressedKey
+method e.l() readHeldKey
+
+# ---------------------------------------------------------------- Game: language select, menus, letterbox bars
+field e.w languageIndex
+field e.x languageStringBanks
+field e.y languageNameStrings
+field e.iw menuTable
+field e.ix menuCursor
+field e.hX panelText
+field e.T topBar
+field e.U bottomBar
+field e.aa topBarTarget
+field e.ab bottomBarTarget
+field e.ac topBarSpeed
+field e.ad bottomBarSpeed
+method e.a(int,int,int,int) setBarTargets
+method e.m() updateBars
+method e.n() runBootStep
+method e.b(boolean) loadMenuSprites
+method e.J() loadMenuTable
+method e.G() clearPanelText
+method e.H() unlockLevelMenuEntries
+method e.k(int,int) menuNextWithFlag
+method e.l(int,int) menuPrevWithFlag
+
+# ---------------------------------------------------------------- Game: camera, dialogue, upgrades
+field e.iQ cameraX
+field e.iR cameraY
+field e.aB maxCameraX
+field e.aC maxCameraY
+field e.aD lockRectCount
+field e.hq upgradePoints
+field e.bj upgradeSelection
+field e.gR bladesCosts
+field e.gS magicACosts
+field e.gT magicBCosts
+field e.gU magicCCosts
+field e.gP bladesLevel
+field e.gQ magicALevel
+field e.gV magicBLevel
+field e.gW magicCLevel
+method e.o() updateCamera
+method e.p() startDialogueLine
+method e.q() updateUpgradeScreen
+method e.r() updateDialogue
+
+# ---------------------------------------------------------------- Game: level loading (type-245 blobs)
+field e.bB levelIds
+field e.bG levelPaletteVariants
+field e.bA levelResourceId
+field e.bC levelIndex
+field e.bD furthestLevel
+field e.u levelLoadStep
+field e.iO scene
+field e.iP tileSheet
+field e.iV cellTileTypes
+field e.iW cellFlags
+field e.iX mapWidth
+field e.iY mapHeight
+field e.iZ mapCellCount
+field e.ja worldWidthPx
+field e.jb worldHeightPx
+field e.jc levelData
+field e.jd levelBytePos
+field e.je levelCurByte
+field e.jf levelBitsLeft
+method e.a(byte[],boolean) loadLevelStep
+method e.d(int,int) spawnObjects
+method e.s() buildStaticSprites
+method e.c(boolean) readLevelHeaderFlags
+method e.l(int) bitsFor
+method e.a(byte[]) setLevelData
+method e.m(int) readBits
+method e.b(int,boolean) readTileSolidFlags
+method e.h(int,int) getCellFlags
+method e.b(int,int,int) setCellFlags
+method e.c(int,int,int) clearCellFlags
+method e.a(int,int,int,int,int,int) pointInRect
+method e.a(int,int,int,int,int,int,int,int) rectsOverlap
+
+# ---------------------------------------------------------------- Game: player (see CLASS_MAP.md "Gameplay")
+field e.ga playerX
+field e.gb playerY
+field e.gC playerWidth
+field e.gD playerHeight
+field e.hu facingRight
+field e.hA playerAction
+field e.hB playerAnim
+field e.hj health
+field e.hk healthPrev
+field e.hm maxHealth
+field e.hl magic
+field e.hn maxMagic
+field e.hb magicModeA
+field e.hc magicModeB
+field e.hd magicModeC
+field e.fM weaponMode
+field e.ge grappledEnemy
+field e.hw blocking
+field e.gy onGround
+field e.gz onPlatform
+field e.gn climbing
+field e.gs grabbingLedge
+field e.gt pushing
+field e.gj usingSwitch
+field e.gm openingChest
+field e.gv attacking
+field e.gp airAttacking
+field e.gG comboIndex
+field e.gF attackTimer
+field e.gE attackQueued
+field e.fV queuedFacingRight
+field e.gN bladesComboLength
+field e.gO magicAComboLength
+field e.fR qteActive
+field e.fS qteProgress
+field e.fQ qteRequired
+field e.fT qteDirection
+field e.fU qteKeyAnims
+field e.hH slowMotionShift
+field e.ht playerBoxes
+field e.ew enemyBoxes
+field e.ey playerInvulnerable
+field e.gf hitFromRight
+field e.gi blockedHit
+field e.hr orbsCollected
+field e.hs orbBudget
+field e.ho healthChestsFound
+field e.hp magicChestsFound
+field e.he chestFlags
+
+# ---------------------------------------------------------------- Game: chests (level object type 4)
+field e.fm chestLast
+field e.fq chestX
+field e.fr chestY
+field e.fp chestOpened
+field e.ft chestAnim
+field e.fs chestReward
+field e.fn chestWidth
+field e.fo chestHeight
+field e.fl chestSprites
+
+# ---------------------------------------------------------------- Game: switches, gates, arenas (types 34, 35, 28)
+field e.cx switchLast
+field e.cy switchX
+field e.cz switchY
+field e.cA switchIsLever
+field e.cD switchOn
+field e.cF switchTileX
+field e.cG switchTileY
+field e.cH switchTargets
+field e.cE switchAnim
+field e.cI gateLast
+field e.cK gateTileX
+field e.cL gateTileY
+field e.cM gateX
+field e.cN gateY
+field e.cO gateTilesW
+field e.cQ gateTilesH
+field e.cP gateWidth
+field e.cR gateHeight
+field e.cS gateId
+field e.cU gateStyle
+field e.cV gateOpen
+field e.cW gateShowsCamera
+field e.cT gateAnim
+field e.da arenaTileX
+field e.db arenaTileY
+field e.dc arenaWidth
+field e.dd arenaHeight
+field e.de arenaGateId
+field e.dg arenaKillsNeeded
+field e.df arenaKills
+field e.ay cameraPanX
+field e.az cameraPanY
+field e.aA cameraPanTimer
+
+# ---------------------------------------------------------------- Game: pushables, breakables, hazards (types 27, 7, 33)
+field e.eX pushLast
+field e.eN pushAnim
+field e.eO pushX
+field e.eP pushY
+field e.eQ pushTileX
+field e.eR pushTileY
+field e.eS pushWidth
+field e.eT pushHeight
+field e.eU pushTilesW
+field e.eV pushTilesH
+field e.eZ breakLast
+field e.fa breakAnim
+field e.fb breakTileX
+field e.fc breakTileY
+field e.fd breakX
+field e.fe breakY
+field e.ff breakWidth
+field e.fg breakHeight
+field e.fh breakTilesW
+field e.fi breakTilesH
+field e.fj breakStopsCamera
+field e.fk breakCameraRight
+field e.dz hazardLast
+field e.dr hazardAnim
+field e.ds hazardDamage
+field e.dt hazardX
+field e.du hazardY
+field e.dv hazardHomeX
+field e.dw hazardHomeY
+field e.dx hazardHeight
+field e.dy hazardWidth
+
+# ---------------------------------------------------------------- Game: enemies (types 11-13), pickups, effects
+field e.eB enemyCount
+field e.dP enemyId
+field e.dQ enemyClass
+field e.dR enemyAction
+field e.dT enemyX
+field e.dU enemyY
+field e.dV enemyHomeX
+field e.dW enemyHomeY
+field e.dX enemyStatus
+field e.dZ enemyTileX
+field e.ea enemyTileY
+field e.ee enemyWidth
+field e.ef enemyHeight
+field e.eb enemyHalfWidthTiles
+field e.eg enemyHeightTiles
+field e.ek enemyHealth
+field e.en enemyMaxHealth
+field e.el enemyContactDamage
+field e.em enemyDropAmount
+field e.ej enemyFacingRight
+field e.ec enemyRespawns
+field e.er enemyRespawnTimer
+field e.et enemyRespawnDelay
+field e.dM bossIndex
+field e.dN finalBossIndex
+field e.dO finalBossPhase
+field e.fG pickupLast
+field e.fy pickupTrailX
+field e.fz pickupTrailY
+field e.fA pickupVelX
+field e.fB pickupVelY
+field e.fC pickupTarget
+field e.fD pickupAge
+field e.fE pickupKind
+field e.fF pickupAmount
+field e.bM effectLast
+field e.bI effectAnim
+field e.bJ effectX
+field e.bK effectY
+field e.bL effectFlip
+
+# ---------------------------------------------------------------- Game: gameplay methods
+method e.z() updateGameplay
+method e.s(int) setPlayerAction
+method e.t(int) stepSlot
+method e.x() playerTileX
+method e.y() playerTileY
+method e.B() randomQteDirection
+method e.A() resetWeaponMode
+method e.x(int) triggerSwitchTargets
+method e.w(int) countArenaKill
+method e.a(int,int,int,int,boolean) spawnEffect
+method e.y(int) playSound
+method e.F() stopSounds
+method e.b(int,int,int,int) spawnPickup
+method e.r(int) removePickup
+method e.n(int) removeEffect
+method e.q(int) removeBreakable
+method e.i(int,int) setEnemyAction
+method e.a(int,int,int,short[],boolean) getBoxesAt
+
+# ---------------------------------------------------------------- Game: movement and collision
+field e.hC canMoveX
+field e.hD canMoveY
+field e.hh subX
+field e.hi subY
+field e.hI moveAccumX
+field e.hJ moveAccumY
+field e.hx frontExtent
+field e.hy backExtent
+field e.hF blockedByWall
+field e.hE landed
+field e.gu atLadderTop
+field e.gr ledgeHanging
+field e.gq hangingOnBar
+field e.go balancing
+field e.gd pushedCrate
+field e.hK fallSpeed
+field e.hL fallTimer
+field e.av cameraShake
+field e.aw shakeTimer
+field e.ax shakeDuration
+field e.fY checkpointX
+field e.fZ checkpointY
+field e.hv checkpointFacingRight
+field e.cX triggerGateId
+field e.cY triggerTileX
+field e.cZ triggerTileY
+field e.eC waveTileX
+field e.eD waveTileY
+field e.eE waveEnemyX
+field e.eF waveEnemyY
+field e.eG waveEnemyFacing
+field e.dY enemyWaveSlot
+field e.ex enemyCanMoveX
+field e.ez enemyCanMoveY
+field e.eA enemyOnGround
+field e.eo enemySubX
+field e.ep enemySubY
+field e.ei enemyClimbing
+field e.eq enemyAtLadderTop
+field e.hM framePartsBuffer
+field e.hN sceneObjectCount
+field e.aE lockX
+field e.aF lockY
+field e.aG lockReverse
+field e.aH lockVertical
+method e.f(int,int) movePlayer
+method e.g(int,int) onPlayerCell
+method e.u() tryPushCrate
+method e.v() abortQte
+method e.d(int,int,int) moveEnemy
+method e.e(int,int,int) checkEnemyCell
+method e.D() resetLevelState
+method e.C() advanceScript
+method e.j(int,int) spawnDebris
+method e.u(int) enemyTileXOf
+method e.v(int) enemyTileYOf
+
+# ---------------------------------------------------------------- Game: saving, menus, UI state
+field e.iq saveBuffer
+field e.gX upgradeProgressA
+field e.gY upgradeProgressB
+field e.gZ upgradeProgressC
+field e.ha upgradeProgressD
+field e.hz bestKillCount
+field e.dI killCount
+field e.iN challengeMode
+field e.gH comboHits
+field e.gI comboTimer
+field e.gJ activeArena
+field e.gK arenaBannerTimer
+field e.ar pauseMenuIndex
+field e.as pauseConfirming
+field e.ao pendingMainMenu
+field e.an pendingQuit
+field e.aq pendingHelp
+field e.bp flashTimer
+field e.bq flashColor
+field e.fv chestPopupKind
+field e.fw chestPopupTimer
+field e.ir fireHeat
+field e.is firePixels
+field e.it fireReseed
+method e.z(int) saveGame
+method e.A(int) loadGame
+method e.a(int,byte[],int) writeIntBE
+method e.a(byte[],int) readIntBE
+method e.K() updateMenu
+method e.M() saveAndQuit
+method e.I() updateFireEffect
+
+# ---------------------------------------------------------------- Game: drawing
+method e.w(Graphics) drawMenu
+method e.b(Graphics,boolean) drawFireEffect
+method e.c(Graphics) drawBars
+method e.d(Graphics) drawWorld
+method e.e(Graphics) drawUpgradeScreen
+method e.f(Graphics) drawHud
+method e.g(Graphics) drawChests
+method e.h(Graphics) drawPickups
+method e.i(Graphics) drawScenery36
+method e.j(Graphics) drawBoxedProps
+method e.k(Graphics) drawScenery17
+method e.l(Graphics) drawHazards
+method e.m(Graphics) drawHealthProps
+method e.n(Graphics) drawPushables
+method e.o(Graphics) drawBreakables
+method e.p(Graphics) drawSwitches
+method e.q(Graphics) drawGates
+method e.r(Graphics) drawEnemies
+method e.s(Graphics) drawPlayer
+method e.t(Graphics) drawEffects
+method e.a(Graphics,boolean) drawDialogueText
+method e.a(Graphics,int,int) drawBottomBar
+method e.a(Graphics,int,int,int) drawSoftKeyLabel
+method e.a(Graphics,int,int,boolean) drawProgressBar
+
+# ---------------------------------------------------------------- Game: fonts and sprite sets (fields that collided with methods in C++)
+field e.o menuFont
+field e.p titleFont
+field e.q mainFont
+field e.r menuSprites
+field e.v levelLoadStarted
