@@ -314,16 +314,83 @@ PATCHES = [
      "cameraX = this.playerX - (viewW >> 1) - ((facingRight ? 1 : -1) * 240 >> 2);", 2),
     ("s", "int var6 = var2 - 120 + var4;", "int var6 = var2 - (viewW >> 1) + var4;", 1),
     ("s", "this.maxCameraX = this.bu - 240;", "this.maxCameraX = this.bu - viewW;", 1),
-    # camera lock / scroll-stop rectangles and their reverse offsets
-    ("r", r"(cameraY(?: \+ this\.aJ)?, )240(?=, 320)", r"\1viewW", 5),
-    # a vertical lock (the camera stops scrolling up/down) must engage exactly when it did on the phone: the point
-    # has to be inside the centred 240 px column, not merely somewhere in the wider view (else e.g. a ladder climb
-    # is frozen by a lock that is far off to the side). These match the text produced by the line above.
-    ("s", "            if (pointInRect(this.lockX[var12], this.lockY[var12], cameraX, cameraY, viewW, 320)) {",
-     "            if (this.lockVertical[var12] ? pointInRect(this.lockX[var12], this.lockY[var12], cameraX + uiX(), cameraY, 240, 320) : pointInRect(this.lockX[var12], this.lockY[var12], cameraX, cameraY, viewW, 320)) {", 1),
-    ("s", "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI, cameraY + this.aJ, viewW, 320)) {\n                     this.aJ =",
-     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI + uiX(), cameraY + this.aJ, 240, 320)) {\n                     this.aJ =", 1),
-    ("s", "? 240 : 0", "? viewW : 0", 2),
+    # camera lock / scroll-stop rectangles (both orientations) and the break-crate camera stop: all three
+    # engage exactly when they did on the phone, i.e. the trigger point has to be inside the centred 240 px
+    # column, not merely somewhere in the wider view. The original computes both branches from one shared
+    # "cameraX, cameraY, 240, 320" test (never scaled by the phone's own screen width to begin with), so every
+    # copy here is rewritten the same way -- an earlier pass only special-cased the vertical-lock branch and
+    # left the horizontal-lock and break-crate stops testing against the full widened view, which let a lock
+    # rect far off to the side keep re-engaging as the camera scrolled past it (e.g. a ladder near a lock in
+    # Catacombs: the camera kept fighting to recentre while climbing).
+    ("s",
+     "            if (pointInRect(this.lockX[var12], this.lockY[var12], cameraX, cameraY, 240, 320)) {\n"
+     "               if (!this.lockVertical[var12]) {\n"
+     "                  var10 = true;\n"
+     "                  int var13 = this.aK * this.frameDelta >> 8;\n"
+     "                  if (this.lockReverse[var12]) {\n"
+     "                     this.aI -= var13;\n"
+     "                  } else {\n"
+     "                     this.aI += var13;\n"
+     "                  }\n"
+     "\n"
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI, cameraY + this.aJ, 240, 320)) {\n"
+     "                     this.aI = this.lockX[var12] - cameraX - (this.lockReverse[var12] ? 240 : 0);\n"
+     "                  }\n"
+     "               } else {\n"
+     "                  var11 = true;\n"
+     "                  int var18 = this.aK * this.frameDelta >> 8;\n"
+     "                  if (this.lockReverse[var12]) {\n"
+     "                     this.aJ -= var18;\n"
+     "                  } else {\n"
+     "                     this.aJ += var18;\n"
+     "                  }\n"
+     "\n"
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI, cameraY + this.aJ, 240, 320)) {\n"
+     "                     this.aJ = this.lockY[var12] - cameraY - (this.lockReverse[var12] ? 320 : 0);\n"
+     "                  }\n"
+     "               }\n"
+     "            }",
+     "            if (pointInRect(this.lockX[var12], this.lockY[var12], cameraX + uiX(), cameraY, 240, 320)) {\n"
+     "               if (!this.lockVertical[var12]) {\n"
+     "                  var10 = true;\n"
+     "                  int var13 = this.aK * this.frameDelta >> 8;\n"
+     "                  if (this.lockReverse[var12]) {\n"
+     "                     this.aI -= var13;\n"
+     "                  } else {\n"
+     "                     this.aI += var13;\n"
+     "                  }\n"
+     "\n"
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI + uiX(), cameraY + this.aJ, 240, 320)) {\n"
+     "                     this.aI = this.lockX[var12] - cameraX - uiX() - (this.lockReverse[var12] ? 240 : 0);\n"
+     "                  }\n"
+     "               } else {\n"
+     "                  var11 = true;\n"
+     "                  int var18 = this.aK * this.frameDelta >> 8;\n"
+     "                  if (this.lockReverse[var12]) {\n"
+     "                     this.aJ -= var18;\n"
+     "                  } else {\n"
+     "                     this.aJ += var18;\n"
+     "                  }\n"
+     "\n"
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI + uiX(), cameraY + this.aJ, 240, 320)) {\n"
+     "                     this.aJ = this.lockY[var12] - cameraY - (this.lockReverse[var12] ? 320 : 0);\n"
+     "                  }\n"
+     "               }\n"
+     "            }", 1),
+    ("s",
+     "               && pointInRect(breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX, cameraY, 240, 320)) {",
+     "               && pointInRect(breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + uiX(), cameraY, 240, 320)) {", 1),
+    ("s",
+     "               if (!pointInRect(\n"
+     "                  breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + this.aI, cameraY + this.aJ, 240, 320\n"
+     "               )) {\n"
+     "                  this.aI = breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0) - cameraX - (breakCameraRight[var17] ? 240 : 0);\n"
+     "               }",
+     "               if (!pointInRect(\n"
+     "                  breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + this.aI + uiX(), cameraY + this.aJ, 240, 320\n"
+     "               )) {\n"
+     "                  this.aI = breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0) - cameraX - uiX() - (breakCameraRight[var17] ? 240 : 0);\n"
+     "               }", 1),
     # ---------------------------------------------------------------- widescreen: visibility and activation
     ("r", r"<= 240\b", "<= viewW", 17),
     ("r", r"(?m)^(\s*)368,$", r"\1viewW + 128,", 3),

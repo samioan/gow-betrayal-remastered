@@ -1145,7 +1145,7 @@ void Game::updateCamera() {
   bool var11 = false;
   if ((this->cameraPanX < 0)) {
     for (int var12 = (this->lockRectCount - 1); (var12 >= 0); (var12--)) {
-      if ((this->lockVertical[var12] ? pointInRect(this->lockX[var12], this->lockY[var12], (cameraX + uiX()), cameraY, 240, 320) : pointInRect(this->lockX[var12], this->lockY[var12], cameraX, cameraY, viewW, 320))) {
+      if (pointInRect(this->lockX[var12], this->lockY[var12], (cameraX + uiX()), cameraY, 240, 320)) {
         if ((!this->lockVertical[var12])) {
           var10 = true;
           int var13 = ((this->aK * this->frameDelta) >> 8);
@@ -1154,8 +1154,8 @@ void Game::updateCamera() {
           } else {
             this->aI += var13;
           }
-          if ((!pointInRect(this->lockX[var12], this->lockY[var12], (cameraX + this->aI), (cameraY + this->aJ), viewW, 320))) {
-            this->aI = ((this->lockX[var12] - cameraX) - (this->lockReverse[var12] ? viewW : 0));
+          if ((!pointInRect(this->lockX[var12], this->lockY[var12], ((cameraX + this->aI) + uiX()), (cameraY + this->aJ), 240, 320))) {
+            this->aI = (((this->lockX[var12] - cameraX) - uiX()) - (this->lockReverse[var12] ? 240 : 0));
           }
         } else {
           var11 = true;
@@ -1172,7 +1172,7 @@ void Game::updateCamera() {
       }
     }
     for (int var17 = this->breakLast; (var17 >= 0); (var17--)) {
-      if ((breakStopsCamera[var17] && pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], cameraX, cameraY, viewW, 320))) {
+      if ((breakStopsCamera[var17] && pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], (cameraX + uiX()), cameraY, 240, 320))) {
         var10 = true;
         int var19 = ((this->aK * this->frameDelta) >> 8);
         if (breakCameraRight[var17]) {
@@ -1180,8 +1180,8 @@ void Game::updateCamera() {
         } else {
           this->aI += var19;
         }
-        if ((!pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], (cameraX + this->aI), (cameraY + this->aJ), viewW, 320))) {
-          this->aI = (((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)) - cameraX) - (breakCameraRight[var17] ? viewW : 0));
+        if ((!pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], ((cameraX + this->aI) + uiX()), (cameraY + this->aJ), 240, 320))) {
+          this->aI = ((((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)) - cameraX) - uiX()) - (breakCameraRight[var17] ? 240 : 0));
         }
       }
     }
