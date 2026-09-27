@@ -26,7 +26,7 @@ jobs:
 
       # betrayal/port/vcvars.bat finds whatever Visual Studio this machine
       # has through vswhere, so this workflow does not need to know where it is.
-      - name: Build God of War: Betrayal port (Debug)
+      - name: "Build God of War: Betrayal port (Debug)"
         run: .\betrayal\port\build.bat
 
       - name: Build the release package
