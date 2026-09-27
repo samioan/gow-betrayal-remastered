@@ -102,6 +102,8 @@ not been exercised, and Scaling (fit / integer) is F7 only, not in the menus.
    Measured with `gow_port.exe --bench 15` (real clock, no window): 24.5 steps/s, was 41-48.
 4. **More extras**: Speed (logic rate) and Scaling rows in the settings menus, widening the menu backdrops,
    interpolating the remaining small movers (screen-space effects).
-5. Real launcher artwork, `docs/ITCH_PAGE.md`, the first `gow-v0.1.0` release.
+5. ~~Real launcher artwork, `docs/ITCH_PAGE.md`, the first `gow-v0.1.0` release.~~ Done: launcher
+   banner/icon are the game's own promo art, `docs/ITCH_PAGE.md` has the store page copy, and
+   `gow-v0.1.0` is published at <https://github.com/samioan/gow-betrayal-remastered/releases>.
 6. A regression suite: `tools/port_shots.py` plus pinned frame hashes (kept out of git, since they
    derive from game data), run locally before each release.
