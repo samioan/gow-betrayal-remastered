@@ -56,10 +56,10 @@ jobs:
 
       # A release that fails its own build should not exist.
       - name: Build the release
-        run: .\gow\port\build_dist.bat ${{ steps.version.outputs.version }}
+        run: .\betrayal\port\build_dist.bat ${{ steps.version.outputs.version }}
 
       - name: Check the package
-        run: .\gow\port\check_dist.ps1
+        run: .\betrayal\port\check_dist.ps1
 
       - name: Zip it
         shell: pwsh
