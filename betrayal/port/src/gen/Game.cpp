@@ -1115,7 +1115,9 @@ void Game::updateCamera() {
     var4 = 0;
   }
   int var5 = (this->climbing ? 80 : 0);
-  int var6 = ((var2 - (viewW >> 1)) + var4);
+  int var6 = ((var2 - 120) + var4);
+  int lockTestX = ((var6 < 0) ? 0 : ((var6 > (this->bu - 240)) ? (this->bu - 240) : var6));
+  var6 = ((var2 - (viewW >> 1)) + var4);
   int var7 = ((var3 - 266) + var5);
   int var8 = (((var6 - cameraX) + this->aI) * this->frameDelta);
   int var9 = (((var7 - cameraY) + this->aJ) * this->frameDelta);
@@ -1145,7 +1147,7 @@ void Game::updateCamera() {
   bool var11 = false;
   if ((this->cameraPanX < 0)) {
     for (int var12 = (this->lockRectCount - 1); (var12 >= 0); (var12--)) {
-      if (pointInRect(this->lockX[var12], this->lockY[var12], (cameraX + uiX()), cameraY, 240, 320)) {
+      if (pointInRect(this->lockX[var12], this->lockY[var12], lockTestX, cameraY, 240, 320)) {
         if ((!this->lockVertical[var12])) {
           var10 = true;
           int var13 = ((this->aK * this->frameDelta) >> 8);
@@ -1172,7 +1174,7 @@ void Game::updateCamera() {
       }
     }
     for (int var17 = this->breakLast; (var17 >= 0); (var17--)) {
-      if ((breakStopsCamera[var17] && pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], (cameraX + uiX()), cameraY, 240, 320))) {
+      if ((breakStopsCamera[var17] && pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], lockTestX, cameraY, 240, 320))) {
         var10 = true;
         int var19 = ((this->aK * this->frameDelta) >> 8);
         if (breakCameraRight[var17]) {

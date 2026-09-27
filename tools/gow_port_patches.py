@@ -312,7 +312,19 @@ PATCHES = [
     # ---------------------------------------------------------------- widescreen: camera
     ("s", "cameraX = this.playerX - 120 - ((facingRight ? 1 : -1) * 240 >> 2);",
      "cameraX = this.playerX - (viewW >> 1) - ((facingRight ? 1 : -1) * 240 >> 2);", 2),
-    ("s", "int var6 = var2 - 120 + var4;", "int var6 = var2 - (viewW >> 1) + var4;", 1),
+    # lockTestX: where a 240 px phone camera would naturally rest for the current player position,
+    # i.e. var6's own original formula, captured before var6 is repointed at the (viewW-based, and
+    # possibly edge-clamped) real camera value below. Lock/break-stop trigger tests use this instead
+    # of the real camera: near a level's right edge, showing more world in widescreen can force the
+    # real camera to clamp short of where a 240 px camera would sit, which otherwise leaves it parked
+    # inside a lock pair's few-pixel-wide overlap (two stops meant to be crossed in transit, releasing
+    # one another, one for each direction) instead of sweeping through it -- the two fight over the
+    # same aI every frame and the camera bounces between their two targets (seen in Catacombs: a lock
+    # pair around the tall ladder, camera bouncing left/right while climbing at the top).
+    ("s", "int var6 = var2 - 120 + var4;",
+     "int var6 = var2 - 120 + var4;\n"
+     "      int lockTestX = var6 < 0 ? 0 : var6 > this.bu - 240 ? this.bu - 240 : var6;\n"
+     "      var6 = var2 - (viewW >> 1) + var4;", 1),
     ("s", "this.maxCameraX = this.bu - 240;", "this.maxCameraX = this.bu - viewW;", 1),
     # camera lock / scroll-stop rectangles (both orientations) and the break-crate camera stop: all three
     # engage exactly when they did on the phone, i.e. the trigger point has to be inside the centred 240 px
@@ -350,7 +362,7 @@ PATCHES = [
      "                  }\n"
      "               }\n"
      "            }",
-     "            if (pointInRect(this.lockX[var12], this.lockY[var12], cameraX + uiX(), cameraY, 240, 320)) {\n"
+     "            if (pointInRect(this.lockX[var12], this.lockY[var12], lockTestX, cameraY, 240, 320)) {\n"
      "               if (!this.lockVertical[var12]) {\n"
      "                  var10 = true;\n"
      "                  int var13 = this.aK * this.frameDelta >> 8;\n"
@@ -379,7 +391,7 @@ PATCHES = [
      "            }", 1),
     ("s",
      "               && pointInRect(breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX, cameraY, 240, 320)) {",
-     "               && pointInRect(breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + uiX(), cameraY, 240, 320)) {", 1),
+     "               && pointInRect(breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], lockTestX, cameraY, 240, 320)) {", 1),
     ("s",
      "               if (!pointInRect(\n"
      "                  breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + this.aI, cameraY + this.aJ, 240, 320\n"
