@@ -26,7 +26,10 @@ combat. The real window runs and stays responsive; `build_dist.bat` + `check_dis
 | Shell | `main.cpp`, `display.*`, `input.*` | Win32 window, integer/fit scaling, fullscreen (F11 / Alt+Enter), keyboard + XInput -> MIDP key codes; `--dump` headless mode |
 
 Input: arrows/WASD move, Space/J/Z attack, K/X/Q/E weapon cycle (left soft key), Esc/P/Backspace
-pause (right soft key), Tab/U upgrade screen (`#`); gamepad d-pad/stick, A / X / B-Start / Y.
+pause (right soft key), Tab/U upgrade screen (`#`); gamepad d-pad/stick move, A jump, X attack,
+B grab/block (an alias for Down, which already means "interact" on the phone's own keys), Y /
+right shoulder cycle weapons, left shoulder / Back open the upgrade screen, Start pauses -- echoing
+the original PS2 God of War's own layout (Square attack, Circle grab, X jump, R1 change magic).
 
 Translator bug found in play-testing: `-super.animDeltaY` (the absolute value in the movement code) lost its
 minus, so upward moves were treated as downward ones and jumps went down; `java2cpp.py` now keeps prefix operators

@@ -8,8 +8,9 @@ STATUS: early build. The game runs from the splash screens through the first lev
 not been played all the way through yet, so expect rough edges.
 
 Controls: arrows/WASD move, Space/J/Z attack, K/X/Q/E cycle weapons (the left soft key),
-Esc/P pause (the right soft key), Tab/U upgrade screen. Gamepad: d-pad/stick, A attack,
-X weapons, B/Start pause, Y upgrade screen. F11 or Alt+Enter toggles fullscreen.
+Esc/P pause (the right soft key), Tab/U upgrade screen. Gamepad: d-pad/stick move, A jump,
+X attack, B grab/block, Y or right shoulder cycle weapons, left shoulder or Back open the
+upgrade screen, Start pauses. F11 or Alt+Enter toggles fullscreen.
 
 The game starts in borderless fullscreen. Main menu > Options and the pause menu (press Left twice
 past Sound) have PC settings: Resolution (Original, Auto, 4:3, 16:10, 16:9, 21:9 -- the level shows
