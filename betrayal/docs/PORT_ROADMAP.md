@@ -26,10 +26,20 @@ combat. The real window runs and stays responsive; `build_dist.bat` + `check_dis
 | Shell | `main.cpp`, `display.*`, `input.*` | Win32 window, integer/fit scaling, fullscreen (F11 / Alt+Enter), keyboard + XInput -> MIDP key codes; `--dump` headless mode |
 
 Input: arrows/WASD move, Space/J/Z attack, K/X/Q/E weapon cycle (left soft key), Esc/P/Backspace
-pause (right soft key), Tab/U upgrade screen (`#`); gamepad d-pad/stick move, A jump, X attack,
-B grab/block (an alias for Down, which already means "interact" on the phone's own keys), Y /
+pause (right soft key), Tab/U upgrade screen (`#`); gamepad, in a level: d-pad/stick move, A jump,
+X attack, B grab/block (an alias for Down, which already means "interact" on the phone's own keys), Y /
 right shoulder cycle weapons, left shoulder / Back open the upgrade screen, Start pauses -- echoing
 the original PS2 God of War's own layout (Square attack, Circle grab, X jump, R1 change magic).
+
+Everywhere else (menus, the language/story screens, pause, pop-ups, game over) jump and grab have no
+meaning, so A and B switch to the standard console convention instead: A/Cross confirms or selects,
+B/Circle backs out or exits -- the same actions as the phone's own left/right soft-key labels, which
+this menu screen already draws in those corners (`Game.drawSoftKeyLabel`). `input::poll(bool inMenu)`
+takes the gate from `Game::state != 100` (the one state that means "playing a level") and drops A/B out
+of the d-pad's up/down slots while `inMenu` is true, so a single press can't both move the cursor and
+confirm the entry it lands on. Start keeps meaning "back" in both modes (it was already the right soft
+key everywhere); X and Y/right shoulder keep working as alternate confirms too, since the game already
+treats fire and the left soft key as interchangeable "confirm" presses in most menus.
 
 Translator bug found in play-testing: `-super.animDeltaY` (the absolute value in the movement code) lost its
 minus, so upward moves were treated as downward ones and jumps went down; `java2cpp.py` now keeps prefix operators

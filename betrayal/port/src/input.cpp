@@ -78,15 +78,23 @@ void releaseAll() {
 }
 
 // Face buttons follow a modern layout, echoing the original PS2 God of War's own (Square = fast
-// attack, Circle = grab/context, X = jump, R1 = change magic): A jumps, X attacks, B grabs/blocks
-// (an explicit alias for holding Down, which already means "interact" -- see Game.readPressedKey's
-// pressedKey 6), Y and the right shoulder both cycle weapons/magic, the left shoulder and Back both
-// open the upgrade screen, Start pauses on its own. Every slot ORs its physical sources together
-// before the down/up edge is detected once, the same pattern the d-pad/stick rows already used --
-// two sources sharing one MIDP code must never edge-detect separately, or releasing one while the
-// other is still held would send a spurious key-up (Engine::handleKey tracks state per code, not
-// per physical source).
-void poll() {
+// attack, Circle = grab/context, X = jump, R1 = change magic) while `inMenu` is false: A jumps, X
+// attacks, B grabs/blocks (an explicit alias for holding Down, which already means "interact" --
+// see Game.readPressedKey's pressedKey 6), Y and the right shoulder both cycle weapons/magic, the
+// left shoulder and Back both open the upgrade screen, Start pauses on its own. Every slot ORs its
+// physical sources together before the down/up edge is detected once, the same pattern the d-pad/
+// stick rows already used -- two sources sharing one MIDP code must never edge-detect separately, or
+// releasing one while the other is still held would send a spurious key-up (Engine::handleKey tracks
+// state per code, not per physical source).
+//
+// While `inMenu` is true (any screen but the level itself -- see main.cpp's `Game::state != 100`),
+// jump and grab have no meaning, so A and B switch to the standard console convention instead: A
+// (Cross) confirms/selects, B (Circle) backs out/exits, matching the original phone's own left/right
+// soft-key labels (Select, Exit) the game already draws in that corner. They are excluded from the
+// d-pad's up/down slots in this mode so a single press cannot both move the menu cursor and confirm
+// the entry it lands on; the fire/left-soft-key alt-confirm (X, Y/right shoulder) and Start (already
+// the right soft key, i.e. back, everywhere) are unaffected and keep working the same in both modes.
+void poll(bool inMenu) {
   XINPUT_STATE st;
   std::memset(&st, 0, sizeof st);
   if (XInputGetState(0, &st) != ERROR_SUCCESS) return;
@@ -94,13 +102,13 @@ void poll() {
   const int dead = 12000;
   bool stickUp = p.sThumbLY > dead, stickDown = p.sThumbLY < -dead, stickLeft = p.sThumbLX < -dead, stickRight = p.sThumbLX > dead;
   bool pressed[16] = {};
-  pressed[0] = (p.wButtons & (XINPUT_GAMEPAD_DPAD_UP | XINPUT_GAMEPAD_A)) || stickUp;
-  pressed[1] = (p.wButtons & (XINPUT_GAMEPAD_DPAD_DOWN | XINPUT_GAMEPAD_B)) || stickDown;
+  pressed[0] = (p.wButtons & XINPUT_GAMEPAD_DPAD_UP) || stickUp || (!inMenu && (p.wButtons & XINPUT_GAMEPAD_A));
+  pressed[1] = (p.wButtons & XINPUT_GAMEPAD_DPAD_DOWN) || stickDown || (!inMenu && (p.wButtons & XINPUT_GAMEPAD_B));
   pressed[2] = (p.wButtons & XINPUT_GAMEPAD_DPAD_LEFT) || stickLeft;
   pressed[3] = (p.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT) || stickRight;
-  pressed[4] = (p.wButtons & XINPUT_GAMEPAD_X) != 0;
+  pressed[4] = (p.wButtons & XINPUT_GAMEPAD_X) || (inMenu && (p.wButtons & XINPUT_GAMEPAD_A));
   pressed[5] = (p.wButtons & (XINPUT_GAMEPAD_Y | XINPUT_GAMEPAD_RIGHT_SHOULDER)) != 0;
-  pressed[6] = (p.wButtons & XINPUT_GAMEPAD_START) != 0;
+  pressed[6] = (p.wButtons & XINPUT_GAMEPAD_START) || (inMenu && (p.wButtons & XINPUT_GAMEPAD_B));
   pressed[7] = (p.wButtons & (XINPUT_GAMEPAD_LEFT_SHOULDER | XINPUT_GAMEPAD_BACK)) != 0;
   static const int codes[8] = {kUp, kDown, kLeft, kRight, kFire, kSoftL, kSoftR, kHash};
   for (int i = 0; i < 8; i++) {

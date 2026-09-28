@@ -345,7 +345,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
       TranslateMessage(&msg);
       DispatchMessageW(&msg);
     }
-    input::poll();
+    input::poll(Game::state != 100);  // state 100 is the in-level/combat state; everything else is a
+                                       // menu, cutscene or pop-up where A/B mean confirm/back instead
+                                       // of jump/block.
     int sleepMs = g_game->runFrame(nowMs(), g_screen);
     if (g_game->quit) break;
     display::present(g_hwnd, g_screen);
