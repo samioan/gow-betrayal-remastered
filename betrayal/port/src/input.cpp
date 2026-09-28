@@ -90,10 +90,13 @@ void releaseAll() {
 // While `inMenu` is true (any screen but the level itself -- see main.cpp's `Game::state != 100`),
 // jump and grab have no meaning, so A and B switch to the standard console convention instead: A
 // (Cross) confirms/selects, B (Circle) backs out/exits, matching the original phone's own left/right
-// soft-key labels (Select, Exit) the game already draws in that corner. They are excluded from the
-// d-pad's up/down slots in this mode so a single press cannot both move the menu cursor and confirm
-// the entry it lands on; the fire/left-soft-key alt-confirm (X, Y/right shoulder) and Start (already
-// the right soft key, i.e. back, everywhere) are unaffected and keep working the same in both modes.
+// soft-key labels (Select, Exit; Yes, No on the audio prompt) the game already draws in that corner.
+// A is aliased onto *both* fire and the left soft key, since screens are inconsistent about which of
+// the two codes they read for "confirm" (the audio prompt reads only the soft key, most other menus
+// read either) -- see Game's `case 79` vs `case 78`. They are excluded from the d-pad's up/down slots
+// in this mode so a single press cannot both move the menu cursor and confirm the entry it lands on;
+// Y/right shoulder (still the left soft key outside this alias) and Start (already the right soft key,
+// i.e. back, everywhere) are unaffected and keep working the same in both modes.
 void poll(bool inMenu) {
   XINPUT_STATE st;
   std::memset(&st, 0, sizeof st);
@@ -107,7 +110,7 @@ void poll(bool inMenu) {
   pressed[2] = (p.wButtons & XINPUT_GAMEPAD_DPAD_LEFT) || stickLeft;
   pressed[3] = (p.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT) || stickRight;
   pressed[4] = (p.wButtons & XINPUT_GAMEPAD_X) || (inMenu && (p.wButtons & XINPUT_GAMEPAD_A));
-  pressed[5] = (p.wButtons & (XINPUT_GAMEPAD_Y | XINPUT_GAMEPAD_RIGHT_SHOULDER)) != 0;
+  pressed[5] = (p.wButtons & (XINPUT_GAMEPAD_Y | XINPUT_GAMEPAD_RIGHT_SHOULDER)) || (inMenu && (p.wButtons & XINPUT_GAMEPAD_A));
   pressed[6] = (p.wButtons & XINPUT_GAMEPAD_START) || (inMenu && (p.wButtons & XINPUT_GAMEPAD_B));
   pressed[7] = (p.wButtons & (XINPUT_GAMEPAD_LEFT_SHOULDER | XINPUT_GAMEPAD_BACK)) != 0;
   static const int codes[8] = {kUp, kDown, kLeft, kRight, kFire, kSoftL, kSoftR, kHash};
