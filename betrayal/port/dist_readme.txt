@@ -24,8 +24,9 @@ WHAT YOU NEED
 -------------
 
 This download does NOT include the game. It cannot: the game belongs to
-its rights holders. You supply your own copy of the J2ME .jar
-(God-of-War-Betrayal_J2ME_EN_v148.jar). The launcher unpacks it for you --
+its rights holders. You supply your own copy of the J2ME .jar, the Sony
+Ericsson K800i version (240x320, MIDlet 1.4.20; other versions are not
+supported). The launcher unpacks it for you --
 you don't need to extract it first.
 
 

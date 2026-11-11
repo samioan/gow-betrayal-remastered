@@ -14,8 +14,8 @@ the splash screens through the first level, but has not been played through yet*
 1. Download `GodOfWarBetrayalRemastered-{{TAG}}-win64.zip` below and unzip it
    anywhere.
 2. Run **GodOfWar.exe**.
-3. Point it at your own copy of `God-of-War-Betrayal_J2ME_EN_v148.jar` -- the launcher unpacks it
-   for you.
+3. Point it at your own copy of the game's Sony Ericsson K800i version (240x320, MIDlet 1.4.20) -- the
+   launcher unpacks it for you. Other versions of the .jar are not supported.
 4. Press **Play**.
 
 The launcher updates itself: when a newer release exists it offers an

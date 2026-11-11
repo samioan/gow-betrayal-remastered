@@ -2,6 +2,7 @@
 #include "engine.h"
 
 #include <windows.h>
+#include <shellapi.h>
 #include <dbghelp.h>
 
 #include <algorithm>
@@ -30,6 +31,7 @@ struct KeyTableInit {
     g_keyCodeTable[6] = -2;
     g_keyCodeTable[8] = -5;
     g_keyCodeTable[10] = 42;
+    g_keyCodeTable[15] = -11;
     for (int i = 0; i < 10; i++) g_keyCodeTable[16 + i] = (int8_t)(48 + i);
     g_keyCodeTable[27] = -6;
     g_keyCodeTable[29] = -7;
@@ -107,6 +109,10 @@ void Sprite::draw(Graphics* g, int x, int y, int flags) {
 Engine::Engine(MIDlet* m) : midlet(m) {
   std::vector<uint8_t> probe;
   ok_ = readFile(Platform::dataDir + "/RP1", probe);
+  // The port supports the Sony Ericsson K800i build only: its RP19 holds two resources (a level and its
+  // parallax background); the generic v1.4.8 build has one there, 16 px tiles and different code.
+  std::vector<uint8_t> rp19;
+  supportedBuild_ = readFile(Platform::dataDir + "/RP19", rp19) && rp19.size() >= 3 && (rp19[1] << 8 | rp19[2]) == 2;
   CreateDirectoryA(Platform::saveDir.c_str(), nullptr);
   setViewSize(240, 320);
 }
@@ -129,30 +135,35 @@ void Engine::onLifecycle(int state) {
 void Engine::hideNotify() { postLifecycle(1); }
 void Engine::showNotify() { postLifecycle(2); }
 
-// Engine.postLifecycle (old j(int)): destroy is immediate; pause/resume are queued and applied by
-// processLifecycle() on the game thread. Pausing mutes the sound until the first key press after resume.
+// Engine.postLifecycle: destroy is immediate; pause/resume stop the sound and are queued, to be applied by
+// processLifecycle() on the game thread.
 void Engine::postLifecycle(int s) {
   if (s == 3) {
     onLifecycle(3);
   } else if (started_ && (s == 1 || s == 2)) {
-    if (s == 1) {
-      resumed_ = false;
-      if (!mutedByPause) {
-        mutedByPause = true;
-        soundBeforePause = soundEnabled;
-        soundEnabled = false;
-      }
-    }
+    if (soundPlayer) soundPlayer->stop();
     pendingLifecycle_ = s;
     lifecycleTime_ = (double)GetTickCount64();
   }
 }
 
-// Engine.processLifecycle (old m()), made non-blocking: returns true while the game must not run.
+// Engine.openUrl. On the phone a null URL makes platformRequest throw (-> false), and a granted request that
+// needs the MIDlet to exit destroys it. On the PC an http(s) URL opens in the browser and the game keeps
+// running; anything else is refused like the null case. Reached only from the demo build's buy prompt and
+// the carrier "more games" link, neither of which this jar configures.
+bool Engine::openUrl(const String& url) {
+  if (soundPlayer) soundPlayer->stop();
+  if (url.isNull()) return false;
+  std::string u = url.toUtf8();
+  if (u.rfind("http://", 0) != 0 && u.rfind("https://", 0) != 0) return false;
+  ShellExecuteA(nullptr, "open", u.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+  return true;
+}
+
+// Engine.processLifecycle, made non-blocking: returns true while the game must not run.
 bool Engine::processLifecycle(double nowMs) {
   if (pendingLifecycle_ != -1) {
     if (lifecycleState_ != 1) {
-      if (soundPlayer) soundPlayer->stop();
       onLifecycle(1);
       lifecycleState_ = 1;
     }
@@ -160,16 +171,11 @@ bool Engine::processLifecycle(double nowMs) {
     if (pendingLifecycle_ == 2) {
       if (!shown || nowMs - lifecycleTime_ < 750) return true;  // resume takes effect after 750 ms
       pendingLifecycle_ = -1;
-      if (soundPlayer) soundPlayer->stop();
       onLifecycle(2);
       lifecycleState_ = 2;
-      resumed_ = true;
+      onLifecycle(5);
     }
     if (pendingLifecycle_ != -1) return true;
-  }
-  if (pendingResume_) {
-    pendingResume_ = false;
-    onLifecycle(5);
   }
   return false;
 }
@@ -217,7 +223,6 @@ int Engine::runFrame(double nowMs, Surface& screen) {
     lastFrameStart_ = nowMs;
   } else {
     int dt = (int)(nowMs - lastFrameStart_);
-    if (dt > 4000) postLifecycle(2);
     if (dt > maxFrameTime || dt < 0) dt = maxFrameTime;
     frameTime = dt;
     if (frameTime < minFrameTime) {
@@ -378,14 +383,7 @@ void Engine::handleKey(int code, bool down) {
   }
 }
 
-void Engine::keyPressed(int code) {
-  if (mutedByPause && resumed_) {  // first key after a resume restores the sound
-    mutedByPause = false;
-    soundEnabled = soundBeforePause;
-    pendingResume_ = true;
-  }
-  handleKey(code, true);
-}
+void Engine::keyPressed(int code) { handleKey(code, true); }
 
 void Engine::keyReleased(int code) { handleKey(code, false); }
 
@@ -409,8 +407,6 @@ void Engine::pollKeys() {
   downKeys_ &= ~pendingReleased_;
   keysHeld = keysPressed | downKeys_;
   pendingReleased_ = 0;
-  pendingReleased_ |= downKeys_ & 939524096;  // soft keys release themselves next frame
-  pendingReleased_ |= downKeys_ & 16;
 }
 
 // --------------------------------------------------------------- records

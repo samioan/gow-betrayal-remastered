@@ -15,150 +15,42 @@ inline int posX(int p) { return p >> 17; }
 inline int posY(int p) { return (int16_t)(p >> 1) >> 1; }
 }  // namespace
 
-Scene::Scene(bool buf, bool noSheet, int w, int h) : buffered(buf), bufferWidth(w), bufferHeight(h), noTileSheet(noSheet) {
-  if (buf) buffer = new Surface(w, h);
+Scene::Scene(bool buf, bool noSheet, int w, int h) : buffered(buf), viewWidth(w), viewHeight(h), noTileSheet(noSheet) {
   initObjects(0);
 }
 
-void Scene::setBufferWidth(int w) {
-  if (w == bufferWidth || !buffered) return;
-  bufferWidth = w;
-  delete buffer;
-  buffer = new Surface(w, bufferHeight);
-  fullRedraw = true;
-  visibleCount = 0;
-}
-
 // ------------------------------------------------------------- compositing
-void Scene::renderAndBlit(Graphics* g) {
-  updateBuffer();
-  blitWrapped(g);
+// The view (viewWidth x viewHeight at the scroll position) cut down to the Graphics clip, then drawn.
+void Scene::drawViewport(Graphics* g) {
+  int x = scrollX, y = scrollY;
+  int sx = 0, sy = 0;
+  int w = viewWidth, h = viewHeight;
+  int c;
+  if ((c = g->getClipX()) > 0) {
+    x += c;
+    w -= c;
+    sx = c;
+  }
+  if ((c = sx + w - (c + g->getClipWidth())) > 0) w -= c;
+  if ((c = g->getClipY()) > 0) {
+    y += c;
+    h -= c;
+    sy = c;
+  }
+  if ((c = sy + h - (c + g->getClipHeight())) > 0) h -= c;
+  if (w > 0 && h > 0) drawLayers(g, x, y, sx, sy, w, h);
 }
 
-// Copies the ring buffer to the screen: the scroll position splits it into up to four rectangles.
-void Scene::blitWrapped(Graphics* g) {
-  int sx = scrollX % bufferWidth;
-  int sy = scrollY % bufferHeight;
-  auto blit = [&](int x, int y, int w, int h, int dx, int dy) { g->drawRegion(buffer, x, y, w, h, 0, dx, dy, 20); };
-  if (sx == 0) {
-    if (sy == 0) {
-      blit(0, 0, bufferWidth, bufferHeight, 0, 0);
-    } else {
-      int h1 = bufferHeight - sy;
-      blit(0, sy, bufferWidth, h1, 0, 0);
-      blit(0, 0, bufferWidth, sy, 0, h1);
-    }
-  } else if (sy == 0) {
-    int w1 = bufferWidth - sx;
-    blit(sx, 0, w1, bufferHeight, 0, 0);
-    blit(0, 0, sx, bufferHeight, w1, 0);
-  } else {
-    int h1 = bufferHeight - sy, w1 = bufferWidth - sx;
-    blit(sx, sy, w1, h1, 0, 0);
-    blit(0, sy, sx, h1, w1, 0);
-    blit(sx, 0, w1, sy, 0, h1);
-    blit(0, 0, sx, sy, w1, h1);
-  }
-}
-
-// Objects from `start` along the linked list that intersect the visible window.
-void Scene::collectVisibleObjects(int start) {
-  int right = scrollX + bufferWidth, bottom = scrollY + bufferHeight;
-  while (start >= 0) {
-    int p = objPos.at((size_t)start);
-    int x = posX(p), y = posY(p);
-    Sprite* s = objSprites.at((size_t)start);
-    if (x < right && y < bottom && scrollX < x + s->width && scrollY < y + s->height) {
-      if (visibleCount >= (int)visibleObjs.size()) throw JavaException{"ArrayIndexOutOfBounds"};
-      visibleObjs[(size_t)visibleCount++] = (uint16_t)start;
-    }
-    start = objNext.at((size_t)start);
-  }
-}
-
-// Brings the ring buffer up to date with the scroll position.
-void Scene::updateBuffer() {
-  int first = objFirstDirty;
-  if (objFirstDirty >= 0) {
-    if (!fullRedraw) {  // new objects: draw just them over the existing background
-      objectsOnly = true;
-      redrawRegion(renderedX, renderedY, bufferWidth, bufferHeight);
-      objectsOnly = false;
-    }
-    objFirstDirty = -1;
-  }
-  if (fullRedraw) {
-    fullRedraw = false;
-    renderedX = scrollX - bufferWidth;  // forces a complete redraw below
-    renderedY = scrollY - bufferHeight;
-  }
-  if (renderedX == scrollX && renderedY == scrollY) {
-    collectVisibleObjects(first);
-    return;
-  }
-  int x = scrollX;
-  int w = std::min(bufferWidth, std::abs(renderedX - scrollX));
-  if (renderedX < scrollX) x += bufferWidth - w;
-  renderedX = scrollX;
-  int y = scrollY;
-  int h = std::min(bufferHeight, std::abs(renderedY - scrollY));
-  if (renderedY < scrollY) y += bufferHeight - h;
-  renderedY = scrollY;
-  visibleCount = 0;
-  collectVisibleObjects(objHead);
-  if (w == bufferWidth && h == bufferHeight) {
-    redrawRegion(scrollX, scrollY, w, h);
-  } else {
-    if (w > 0) redrawRegion(x, scrollY, w, bufferHeight);
-    if (h > 0) redrawRegion(scrollX, y, bufferWidth, h);
-  }
-}
-
-// Redraws a world-space rectangle into the ring buffer, splitting it where it wraps.
-void Scene::redrawRegion(int x, int y, int w, int h) {
-  int bx = x % bufferWidth;
-  int by = y % bufferHeight;
-  int overX = bx + w - bufferWidth;
-  int overY = by + h - bufferHeight;
-  Graphics* g = buffer;
-  if (overX <= 0) {
-    if (overY <= 0) {
-      redrawRect(g, x, y, bx, by, w, h);
-    } else {
-      h -= overY;
-      redrawRect(g, x, y, bx, by, w, h);
-      y += h;
-      redrawRect(g, x, y, bx, 0, w, overY);
-    }
-  } else {
-    w -= overX;
-    if (overY <= 0) {
-      redrawRect(g, x, y, bx, by, w, h);
-      x += w;
-      redrawRect(g, x, y, 0, by, overX, h);
-    } else {
-      h -= overY;
-      redrawRect(g, x, y, bx, by, w, h);
-      y += h;
-      redrawRect(g, x, y, bx, 0, w, overY);
-      x += w;
-      redrawRect(g, x, y, 0, 0, overX, overY);
-      y -= h;
-      redrawRect(g, x, y, 0, by, overX, h);
-    }
-  }
-}
-
-void Scene::redrawRect(Graphics* g, int x, int y, int bufX, int bufY, int w, int h) {
+void Scene::drawLayers(Graphics* g, int x, int y, int screenX, int screenY, int w, int h) {
   if (!objectsOnly) {
-    if (!tileMap.empty()) drawTiles(g, x, y, bufX, bufY, w, h);
-    if (staticCount > 0) drawStaticSprites(x, y, bufX, bufY, w, h, g);
+    if (!tileMap.empty()) drawTiles(g, x, y, screenX, screenY, w, h);
+    if (staticCount > 0) drawStaticSprites(x, y, screenX, screenY, w, h, g);
   }
-  if (objHead >= 0) drawObjects(x, y, bufX, bufY, w, h, objectsOnly, g);
+  if (objHead >= 0) drawObjects(x, y, screenX, screenY, w, h, objectsOnly, g);
 }
 
 // ---------------------------------------------------------------- tile layer
-void Scene::drawTiles(Graphics* g, int x, int y, int bufX, int bufY, int w, int h) {
+void Scene::drawTiles(Graphics* g, int x, int y, int screenX, int screenY, int w, int h) {
   int lastCol, cols = (lastCol = (x + w - 1) / tileWidth) - x / tileWidth;
   int lastRow = (y + h - 1) / tileHeight;
   int idx = lastCol + lastRow * mapCols;
@@ -170,12 +62,12 @@ void Scene::drawTiles(Graphics* g, int x, int y, int bufX, int bufY, int w, int 
   if ((clipRight = -(x + w) % tileWidth) < 0) clipRight += tileWidth;
   int clipBottom;
   if ((clipBottom = -(y + h) % tileHeight) < 0) clipBottom += tileHeight;
-  int dx = bufX - x + tileWidth * cols;
-  int dy = bufY - y + tileHeight * rows;
+  int dx = screenX - x + tileWidth * cols;
+  int dy = screenY - y + tileHeight * rows;
   for (int r = rows; r >= 0; r--) {
     for (int c = cols; c >= 0; c--) {
       int tile;
-      // the window can reach past the map edge (e.g. right after the canvas is widened): draw nothing there
+      // port: the widened view can reach past the map edge (a level narrower than the window): draw nothing there
       int mi = idx--;
       if (mi >= 0 && mi < (int)tileMap.size() && (tile = tileMap[(size_t)mi] & 4095) > 0) {
         tile--;
@@ -238,7 +130,6 @@ void Scene::initStaticSprites(int capacity, bool byY) {
   maxStaticExtent = 0;
   staticNeedsSort = true;
   visibleScratch = Arr<int>();
-  fullRedraw = true;
   if (capacity > 0) {
     sortByY = byY;
     staticSprites.assign((size_t)capacity, nullptr);
@@ -258,9 +149,9 @@ void Scene::addStaticSprite(Sprite* s, int x, int y, int flags) {
   staticCount++;
 }
 
-void Scene::drawStaticSprites(int x, int y, int bufX, int bufY, int w, int h, Graphics* g) {
+void Scene::drawStaticSprites(int x, int y, int screenX, int screenY, int w, int h, Graphics* g) {
   int clipX = g->getClipX(), clipY = g->getClipY(), clipW = g->getClipWidth(), clipH = g->getClipHeight();
-  g->setClip(bufX, bufY, w, h);
+  g->setClip(screenX, screenY, w, h);
   if (staticNeedsSort) {
     Engine::sortInts(staticSortKeys, staticCount);
     staticNeedsSort = false;
@@ -277,8 +168,8 @@ void Scene::drawStaticSprites(int x, int y, int bufX, int bufY, int w, int h, Gr
     if (sx < right && sy < bottom && x < sx + s->width && y < sy + s->height) visibleScratch[visible++] = slot;
   }
   Engine::sortInts(visibleScratch, visible);  // draw in creation order
-  x -= bufX;
-  y -= bufY;
+  x -= screenX;
+  y -= screenY;
   for (int i = 0; i < visible; i++) {
     int slot = visibleScratch[i];
     Sprite* s = staticSprites[(size_t)slot];
@@ -296,10 +187,6 @@ void Scene::initObjects(int capacity) {
   objNext.clear();
   objPrev.clear();
   objHead = objTail = objFree = -1;
-  fullRedraw = true;
-  objFirstDirty = -1;
-  visibleObjs.clear();
-  visibleCount = 0;
   if (capacity > 0) {
     objSprites.assign((size_t)capacity, nullptr);
     objPos.assign((size_t)capacity, 0);
@@ -308,7 +195,6 @@ void Scene::initObjects(int capacity) {
     objNext[(size_t)capacity - 1] = -1;
     objPrev.assign((size_t)capacity, 0);
     objFree = 0;
-    if (buffered) visibleObjs.assign((size_t)capacity, 0);
   }
 }
 
@@ -320,7 +206,6 @@ int Scene::addObject(Sprite* s, int x, int y, int flags) {
   objNext[(size_t)slot] = -1;
   objPrev[(size_t)slot] = (int16_t)objTail;
   objTail = slot;
-  if (objFirstDirty < 0) objFirstDirty = slot;
   objSprites[(size_t)slot] = s;
   x += s->anchorOffsetX(flags);
   y += s->anchorOffsetY(flags);
@@ -328,25 +213,16 @@ int Scene::addObject(Sprite* s, int x, int y, int flags) {
   return slot;
 }
 
-void Scene::drawObjects(int x, int y, int bufX, int bufY, int w, int h, bool onlyDirty, Graphics* g) {
+void Scene::drawObjects(int x, int y, int screenX, int screenY, int w, int h, bool onlyObjects, Graphics* g) {
   int clipX = g->getClipX(), clipY = g->getClipY(), clipW = g->getClipWidth(), clipH = g->getClipHeight();
-  g->setClip(bufX, bufY, w, h);
+  g->setClip(screenX, screenY, w, h);
   int cur = 0;
-  bool fromVisible = false;
-  if (onlyDirty) cur = objFirstDirty;
-  else if (buffered) fromVisible = true;
+  if (!onlyObjects && !buffered) cur = objHead;
   int right = w + x, bottom = h + y;
-  int offX = x - bufX, offY = y - bufY;
-  for (;;) {
-    int slot;
-    if (fromVisible) {
-      if (cur == visibleCount) break;
-      slot = visibleObjs.at((size_t)cur++);
-    } else {
-      if (cur < 0) break;
-      slot = cur;
-      cur = objNext.at((size_t)cur);
-    }
+  int offX = x - screenX, offY = y - screenY;
+  while (cur >= 0) {
+    int slot = cur;
+    cur = objNext.at((size_t)cur);
     int p = objPos.at((size_t)slot);
     int ox = posX(p), oy = posY(p);
     Sprite* s = objSprites.at((size_t)slot);

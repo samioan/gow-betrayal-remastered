@@ -1,5 +1,6 @@
 // Stand-ins for the MIDP / Nokia classes the translated game code touches.
 #pragma once
+#include <memory>
 #include <string>
 
 #include "jrt.h"
@@ -79,26 +80,40 @@ struct ByteArrayInputStream {
   explicit ByteArrayInputStream(const Arr<int8_t>& d) : data(d) {}
 };
 
+struct MidiSequence;  // platform.cpp: a parsed MIDI file
+
+// javax.microedition.media.Player. MIDI is parsed once (prefetch) and played by a sequencer thread through the
+// Windows MIDI mapper (midiOut); wav goes through PlaySound. One MIDI plays at a time, as SoundPlayer expects.
 class Player {
  public:
   void realize() {}
-  void prefetch() {}
+  void prefetch();
   void setMediaTime(int64_t) {}
   void setLoopCount(int n) { loops_ = n; }
   void start();
   void stop();
   void close();
-  int getState();
-  static void pumpLoops();  // restarts a looping MIDI that has run out; call once per frame  // 300 prefetched, 400 started (a finished clip drops back to 300)
+  int getState();  // 300 prefetched, 400 started (a finished clip drops back to 300)
+  static void pumpLoops();
   Arr<int8_t> data;
   String mime;
 
  private:
-  bool isMidi() const { return mime.equals(String(u"audio/midi")); }
+  bool isMidi() const;
   int loops_ = 1, state_ = 300;
-  int64_t endTime_ = 0;  // wav: when playback finishes; 0 = never (looping)
-  int mciId_ = 0;
-  bool mciOpen_ = false;
+  int64_t endTime_ = 0;  // wav: when a one-shot finishes; 0 = never (looping)
+  std::shared_ptr<MidiSequence> seq_;
+};
+
+// com.nokia.mid.sound.Sound stand-in. SoundPlayer uses it only for resource type 7 (Nokia ringing tones),
+// which this jar does not contain, so it is never constructed in practice: it plays nothing.
+class Sound {
+ public:
+  Sound(const Arr<int8_t>& data, int type) { (void)data; (void)type; }
+  void play(int loops) { (void)loops; }
+  void stop() {}
+  void release() {}
+  int getState() { return 1; }  // SOUND_STOPPED (0 = SOUND_PLAYING)
 };
 
 struct Manager {

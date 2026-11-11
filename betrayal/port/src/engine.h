@@ -50,6 +50,7 @@ class Engine {
 
   // ---- the port's frame driver (replaces Engine.run's thread)
   bool ok() const { return ok_; }
+  bool supportedBuild() const { return supportedBuild_; }
   bool quit = false;
   bool shown = true;  // false while the window is hidden/unfocused (Canvas.isShown)
   // One iteration of the game loop body. `nowMs` is a monotonic clock. Returns the number of
@@ -58,6 +59,8 @@ class Engine {
   void hideNotify();
   void showNotify();
   void postLifecycle(int s);
+  // Engine.openUrl: stop the sound and hand the URL to the platform (MIDlet.platformRequest).
+  bool openUrl(const String& url);
   long tickCount = 0;   // logic steps run
   long paintCount = 0;  // frames drawn
 
@@ -72,7 +75,7 @@ class Engine {
 
   MIDlet* midlet;
   SoundPlayer* soundPlayer = nullptr;
-  bool soundEnabled = false, soundBeforePause = false, mutedByPause = false;
+  bool soundEnabled = false;
   Arr<int8_t> resourceTypes;
 
   // ---- frame timing (ms)
@@ -119,9 +122,6 @@ class Engine {
   }
   static void drawRgbAlias(Graphics* g, const Arr<int>& rgb, int off, int scan, int x, int y, int w, int h, bool alpha) {
     drawRgb(g, rgb, off, scan, x, y, w, h, alpha);
-  }
-  static void drawImageRegion(Image* img, int sx, int sy, int w, int h, Graphics* g, int dx, int dy) {
-    g->drawRegion(img, sx, sy, w, h, 0, dx, dy, 20);
   }
 
   // ---- bitmap font
@@ -184,13 +184,12 @@ class Engine {
 
   // Keys.
   int pendingPressed_ = 0, downKeys_ = 0, pendingReleased_ = 0;
-  bool resumed_ = false, pendingResume_ = false;
   void handleKey(int code, bool down);
   void keyPressed(int code);
   void keyReleased(int code);
 
   // Frame driver / lifecycle.
-  bool ok_ = false;
+  bool ok_ = false, supportedBuild_ = false;
   bool started_ = false, resetFrameTiming_ = true, clearBorders = true, sleeping_ = false;
   double lastFrameStart_ = 0, lifecycleTime_ = 0, lastTick_ = 0, nextFrame_ = 0;
   int lastFpsMode_ = 0;

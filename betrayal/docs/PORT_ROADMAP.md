@@ -4,6 +4,11 @@ Toolchain: CMake + Ninja + MSVC (VS Build Tools, found by `vswhere` in `port/vcv
 raw Win32, software-rendered (no SDL/D3D/GL). Same layout and scripts as
 `rac-j2me-decomp/clonehome/port/`.
 
+The port runs the **Sony Ericsson K800i build** (MIDlet 1.4.20) only; both the launcher and the game
+refuse other builds' data (checked by RP19's resource count). It moved from the generic v1.4.8 build in
+November 2026: same code base, but 22 px tiles, a parallax background layer, a direct-draw `Scene`, and
+all 11 MIDI files in use as music and effects. See `CLASS_MAP.md`, "Migration from v1.4.8".
+
 ## Status: the game runs
 
 Driven headlessly (`tools/port_shots.py`) the port reaches, with no exceptions: the Sony Online
@@ -18,11 +23,11 @@ combat. The real window runs and stays responsive; `build_dist.bat` + `check_dis
 |---|---|---|
 | Game logic | `gen/*` | `Game`, `GOWMIDlet`, `SoundPlayer` translated from `betrayal/src/` by `tools/java2cpp.py` (regenerate after a `names.map` change; never edit) |
 | `Engine` | `engine.h/.cpp` | hand port of `Engine.java`: frame timing + lifecycle state machines (the original's two threads), key bitmasks, record store (one file per id), `RP<n>` banks, atlases, bitmap font, the animation-set runtime (bit-packed arithmetic copied line by line) |
-| `Scene` | `scene.h/.cpp` | hand port of `Scene.java`: ring-buffer scroller with tile / static-sprite / object layers |
+| `Scene` | `scene.h/.cpp` | hand port of `Scene.java`: draws the view straight to the screen each frame, tile / static-sprite / object layers; `Game` has two (level and parallax background) |
 | `Sprite` | `engine.cpp` | `Sprite.draw` clipping + `drawRegion` |
 | Java runtime | `jrt.h/.cpp` | `Arr<T>` (bounds-checked, throws `JavaException`), immutable UTF-16 `String`, `Random` (JDK LCG), `DataInputStream` -- from Clone Home |
 | Renderer | `gfx.h/.cpp` | 240x320 `Surface` (an `Image` you can draw into): fillRect/drawRect/drawLine, `drawRegion` with MIDP mirror transforms, `drawRGB`, alpha blending |
-| Platform | `platform.h/.cpp` | `MIDlet`, `Display`, MIDI/WAV playback through MCI on a worker thread (`Player`) |
+| Platform | `platform.h/.cpp` | `MIDlet`, `Display`, `Player`: MIDI parsed once and played by a sequencer thread through `midiOut` (the MIDI mapper); WAV through `PlaySound` |
 | Shell | `main.cpp`, `display.*`, `input.*` | Win32 window, integer/fit scaling, fullscreen (F11 / Alt+Enter), keyboard + XInput -> MIDP key codes; `--dump` headless mode |
 
 Input: arrows/WASD move, Space/J/Z attack, K/X/Q/E weapon cycle (left soft key), Esc/P/Backspace
@@ -66,12 +71,14 @@ toggles). Both menus have PC options, styled like the game's own:
 
 How widescreen works (`tools/gow_port_patches.py`, applied to the renamed Java by `java2cpp.py`; every
 substitution asserts its match count): `Game.viewW` is the logical width and `Engine::runFrame` resizes the
-surface to it. **Only the world uses the extra width**: the `Scene` ring buffer (`Scene.setBufferWidth`), the
+surface to it. **Only the world uses the extra width**: both `Scene`s' view width (`Scene.setViewWidth`), the
 camera centring and limits, the camera lock rectangles, and all visibility / activation tests (17 culling
-checks and the three 368x448 enemy-activation windows). Everything designed for 240 px (menus, HUD, dialogue
+checks and the three 416x496 enemy-activation windows). Everything designed for 240 px (menus, HUD, dialogue
 text, pop-ups, soft-key labels) is drawn **centred by translating the frame by `(viewW - 240) / 2`, never
 scaled**; the world layer undoes that translation for itself, and the full-width fills (letterbox bars, the
-bottom bar, their corner ornaments) are widened. A level narrower than the requested width (the 656 px
+bottom bar, their corner ornaments) are widened. Things drawn at fixed phone coordinates *inside* a widened
+panel have to move with it: e.g. the weapon icon the weapon/magic tutorials show in the dialogue portrait
+frame (`19 - uiX()`). A level narrower than the requested width (the 656 px
 vertical level) caps `viewW` at the level width (the window then pillarboxes). Changing the resolution mid-level
 redraws everything (tested with `port_shots.py --width-change`).
 
@@ -101,8 +108,21 @@ not been exercised, and Scaling (fit / integer) is F7 only, not in the menus.
    (headless, scripted). Walk all ten levels and the challenge level, fight every enemy class and
    both bosses, use all four weapon modes, finishers, chests, switches, gates and hazards, and compare
    against the jar running in an emulator (FreeJ2ME, KEmulator).
-2. **Sound** is wired (MIDI via MCI, up to 12 slots) but untested. The original only loads three sound
-   slots, so most gameplay sound cues are silent by design (`playSound(3..)` is a no-op there too).
+2. **Sound.** The K800i build loads all 11 MIDI files: slot 9 is the menu music (looping), the rest are effects
+   (magic hits 0/1, blade hits 2/3, air-attack swings 4-7, crate push 6, heavy landing 8, bars settling 10;
+   see `CLASS_MAP.md`, "SoundPlayer"). `Player` parses
+   each MIDI once at load (`prefetch`) into a flat, millisecond-timed event list, and one sequencer thread plays
+   it through `midiOutShortMsg`; stopping sends all-sound-off / reset / all-notes-off on every channel. A
+   finished one-shot clears its `playing` flag so `getState()` drops to 300, which `SoundPlayer`'s priority
+   check needs. Measured: the first note reaches the synthesizer within 0.03 ms of `start()`; what remains is
+   the Windows GS synth's own latency plus up to one 40 ms logic step (`SoundPlayer.play` only queues; the
+   engine starts it after `update`).
+   *History:* the first K800i port used MCI with one sequencer device per sound. Each command took 100+ ms,
+   and with several devices open Windows refused to play (`mci play failed: 337`, MCIERR_SEQ_PORT_INUSE), so
+   sounds were late or missing. **Faithful quirks, not bugs:** one sound at a time (a new effect cuts the
+   previous one); `Game.playSound` drops every sound while the menu music it started is playing (`hV`), and
+   the landing sound (priority 1) cannot be cut by the others.
+   Still to be judged by ear on more machines; failures go to `%LOCALAPPDATA%\gow-betrayal-portudio.log`.
 3. **Timing (fixed).** The original `Engine.run` paces at 25 steps/s (`minFrameTime` 40 ms, `dt` clamped to
    40..100 ms) but has a quirk: it records "the time of the last step" *before* it sleeps, so on any machine
    fast enough to finish a frame in under 40 ms the loop alternates between "sleep, then step" and "step at

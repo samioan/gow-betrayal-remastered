@@ -117,7 +117,7 @@ ALL_CLASSES = ["Game", "GOWMIDlet", "Engine", "Sprite", "Scene", "SoundPlayer"]
 # Library/platform classes that are references (pointers) on the C++ side.
 LIB_PTR = {"Graphics": "Surface", "Image": "Image", "DataInputStream": "DataInputStream",
            "Random": "Random", "StringBuffer": "StringBuffer", "MIDlet": "MIDlet", "Display": "Display",
-           "Font": "Font", "DirectGraphics": "DirectGraphics", "Player": "Player"}
+           "Font": "Font", "DirectGraphics": "DirectGraphics", "Player": "Player", "Sound": "Sound"}
 VIRTUALS = {"render", "update", "onLifecycle", "interpSnapshot", "interpApply", "interpRestore"}  # Engine methods Game overrides
 RESERVED = {"and", "or", "not", "xor", "bool", "template", "typename", "namespace", "union", "auto", "register",
             "operator", "delete", "friend", "inline", "mutable", "explicit", "export", "typedef", "sizeof",

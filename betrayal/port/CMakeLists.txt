@@ -38,7 +38,7 @@ endif()
 file(GLOB GEN_SRC CONFIGURE_DEPENDS src/gen/*.cpp)
 add_library(gow_core STATIC src/engine.cpp src/scene.cpp src/gfx.cpp src/jrt.cpp src/platform.cpp ${GEN_SRC})
 target_include_directories(gow_core PUBLIC src)
-target_link_libraries(gow_core PUBLIC stb_image dbghelp winmm)
+target_link_libraries(gow_core PUBLIC stb_image dbghelp winmm shell32)
 
 # The game: a software-rendered raw Win32 shell (no SDL/D3D/GL dependency) around the translated game.
 add_executable(gow_port WIN32 src/main.cpp src/input.cpp src/display.cpp)

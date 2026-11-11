@@ -1,8 +1,8 @@
-// Port of Scene.java (betrayal/src/Scene.java, old class `b`): the scrolling world renderer.
-// A 240x320 offscreen ring buffer holds the visible part of the level; scrolling redraws only the
-// strips that came into view (wrapping around the buffer edges) and the buffer is copied to the
-// screen in up to four pieces. Layers, drawn in order: a tile map, sorted static sprites, and a
-// linked list of dynamic objects. See docs/CLASS_MAP.md, "Scene (b)".
+// Port of Scene.java (betrayal/src/Scene.java, class `b` of the K800i build): the scrolling world renderer.
+// Draws straight to the screen every frame (no offscreen buffer): the view rectangle is intersected with the
+// Graphics clip, then three layers are drawn in order: a tile map, sorted static sprites, and a linked list of
+// dynamic objects. Game owns two: the level (`scene`) and its parallax background (`bgScene`).
+// See docs/CLASS_MAP.md, "Scene (b)".
 #pragma once
 #include <vector>
 
@@ -12,15 +12,15 @@ namespace gow {
 
 class Scene {
  public:
-  static Scene* create(int w, int h) { return new Scene(true, false, w, h); }
+  static Scene* create(int w, int h) { return new Scene(false, false, w, h); }
 
   void setScroll(int x, int y) { scrollX = x; scrollY = y; }
-  // Port addition (see tools/gow_port_patches.py): the visible width follows the window's logical width.
-  // The ring buffer is reallocated and everything is redrawn on the next frame.
-  void setBufferWidth(int w);
-  void draw(Graphics* g) { if (buffered) renderAndBlit(g); }
+  // Port addition (see tools/rename_gow.py / gow_port_patches.py): the visible width follows the window's
+  // logical width.
+  void setViewWidth(int w) { viewWidth = w; }
+  void draw(Graphics* g) { if (!buffered) drawViewport(g); }
   void setTileMap(int cols, int rows, Image* sheet, int tw, int th);
-  void setTile(int x, int y, int tile) { tileMap.at((size_t)(y * mapCols + x)) = (int16_t)tile; fullRedraw = true; }
+  void setTile(int x, int y, int tile) { tileMap.at((size_t)(y * mapCols + x)) = (int16_t)tile; }
   void initStaticSprites(int capacity, bool sortByY);
   void addStaticSprite(Sprite* s, int x, int y, int flags);
   void initObjects(int capacity);
@@ -28,12 +28,9 @@ class Scene {
 
  private:
   Scene(bool buffered, bool noTileSheet, int w, int h);
-  bool buffered;
-  int bufferWidth, bufferHeight;
+  bool buffered;  // always false in this build (create passes false); the buffer is never made
+  int viewWidth, viewHeight;
   int scrollX = 0, scrollY = 0;
-  Surface* buffer = nullptr;
-  int renderedX = 0, renderedY = 0;
-  bool fullRedraw = false;
   int mapCols = 0;
   std::vector<int16_t> tileMap;
   bool noTileSheet;
@@ -50,21 +47,15 @@ class Scene {
   std::vector<Sprite*> objSprites;
   std::vector<int> objPos;
   std::vector<int16_t> objNext, objPrev;
-  int objHead = -1, objTail = -1, objFree = -1, objFirstDirty = -1;
-  std::vector<uint16_t> visibleObjs;
-  int visibleCount = 0;
-  bool objectsOnly = false;
+  int objHead = -1, objTail = -1, objFree = -1;
+  bool objectsOnly = false;  // never set in this build
 
-  void renderAndBlit(Graphics* g);
-  void blitWrapped(Graphics* g);
-  void collectVisibleObjects(int start);
-  void updateBuffer();
-  void redrawRegion(int x, int y, int w, int h);
-  void redrawRect(Graphics* g, int x, int y, int bufX, int bufY, int w, int h);
-  void drawTiles(Graphics* g, int x, int y, int bufX, int bufY, int w, int h);
+  void drawViewport(Graphics* g);
+  void drawLayers(Graphics* g, int x, int y, int screenX, int screenY, int w, int h);
+  void drawTiles(Graphics* g, int x, int y, int screenX, int screenY, int w, int h);
   void clearTileMap();
-  void drawStaticSprites(int x, int y, int bufX, int bufY, int w, int h, Graphics* g);
-  void drawObjects(int x, int y, int bufX, int bufY, int w, int h, bool onlyDirty, Graphics* g);
+  void drawStaticSprites(int x, int y, int screenX, int screenY, int w, int h, Graphics* g);
+  void drawObjects(int x, int y, int screenX, int screenY, int w, int h, bool onlyObjects, Graphics* g);
 };
 
 }  // namespace gow

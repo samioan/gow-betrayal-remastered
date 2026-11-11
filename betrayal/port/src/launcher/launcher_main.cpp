@@ -1045,10 +1045,15 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int showCommand) {
 
     if (impl.dataOk) {
         SetStatus(impl, L"Ready to play.", kMuted);
+    } else if (gow::launcher::IsUnsupportedBuild(impl.dataPath)) {
+        SetStatus(impl,
+                  L"The installed game files are from a different version of the game. This port "
+                  L"needs the Sony Ericsson K800i version (MIDlet 1.4.20): choose that .jar.",
+                  kBad);
     } else {
         SetStatus(impl,
                   L"God of War: Betrayal doesn't include the game itself. Point it at your "
-                  L"own copy of God-of-War-Betrayal_J2ME_EN_v148.jar to get started.",
+                  L"own copy of the Sony Ericsson K800i version (MIDlet 1.4.20) to get started.",
                   kMuted);
     }
 

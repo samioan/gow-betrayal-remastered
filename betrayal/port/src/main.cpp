@@ -275,6 +275,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
                 L"God of War: Betrayal", MB_ICONERROR);
     return 1;
   }
+  if (!g_game->supportedBuild()) {
+    MessageBoxW(nullptr,
+                L"These game files are from a different version of God of War: Betrayal. The port needs the "
+                L"Sony Ericsson K800i version (MIDlet 1.4.20).",
+                L"God of War: Betrayal", MB_ICONERROR);
+    return 1;
+  }
   input::init(gameKeyDown, gameKeyUp);
 
   if (benchSeconds > 0) {  // the window's loop on the real clock, without the window

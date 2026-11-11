@@ -45,8 +45,9 @@ it to C++ around a new Windows front end.
 ### What you need
 
 **This download does not include the game.** It cannot -- the game belongs
-to its rights holders. You supply your own copy of
-`God-of-War-Betrayal_J2ME_EN_v148.jar`.
+to its rights holders. You supply your own copy of the **Sony Ericsson K800i
+version** of the J2ME game (240x320, MIDlet version 1.4.20). Other versions of
+the .jar are not supported.
 
 1. Download and unzip anywhere.
 2. Run **GodOfWar.exe**.

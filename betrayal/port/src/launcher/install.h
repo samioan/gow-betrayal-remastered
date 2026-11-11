@@ -10,10 +10,17 @@
 namespace gow {
 namespace launcher {
 
-// RP1, RP2 and RP3 (the first three resource banks) -- three top-level files
-// a real God-of-War-Betrayal_J2ME_EN_v148.jar always has,
-// checked together so an unrelated folder is not mistaken for the game.
+// The port supports one build: the Sony Ericsson K800i version (MIDlet 1.4.20,
+// God-of-War-Betrayal_K800i_v1420.jar). RP1, RP2 and RP3 (the first three
+// resource banks) must be top-level files, so an unrelated folder is not
+// mistaken for the game, and RP19 must hold two resources (a level and its
+// parallax background): the generic v1.4.8 build has the same file names but
+// one resource there, 16 px tiles and different code, so it cannot run.
 bool IsGameDataRoot(const std::string& directory);
+
+// True when `directory` holds the game's files from a build other than the
+// K800i one (RP1..RP3 present, RP19 not shaped like the K800i build's).
+bool IsUnsupportedBuild(const std::string& directory);
 
 // Unzips `jarPath` into `destDir` (creating it, overwriting what's already
 // there) and checks the result via IsGameDataRoot. On failure returns

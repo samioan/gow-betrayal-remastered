@@ -1,6 +1,7 @@
 #include "launcher/install.h"
 
 #include <filesystem>
+#include <fstream>
 
 #include "launcher/zip_reader.h"
 
@@ -17,9 +18,7 @@ const char* const kMarkerFiles[] = {
     "RP3",
 };
 
-}  // namespace
-
-bool IsGameDataRoot(const std::string& directory) {
+bool HasMarkers(const std::string& directory) {
     if (directory.empty()) return false;
     std::error_code error;
     if (!fs::is_directory(fs::path(directory), error) || error) return false;
@@ -27,6 +26,25 @@ bool IsGameDataRoot(const std::string& directory) {
         if (!fs::is_regular_file(fs::path(directory) / marker, error) || error) return false;
     }
     return true;
+}
+
+// RP19's container header: u8 flags, u16 big-endian resource count. 2 in the
+// K800i build (level 19456 + background 19457), 1 in v1.4.8.
+bool IsK800iBuild(const std::string& directory) {
+    std::ifstream in(fs::path(directory) / "RP19", std::ios::binary);
+    unsigned char header[3] = {};
+    if (!in.read(reinterpret_cast<char*>(header), 3)) return false;
+    return (header[1] << 8 | header[2]) == 2;
+}
+
+}  // namespace
+
+bool IsGameDataRoot(const std::string& directory) {
+    return HasMarkers(directory) && IsK800iBuild(directory);
+}
+
+bool IsUnsupportedBuild(const std::string& directory) {
+    return HasMarkers(directory) && !IsK800iBuild(directory);
 }
 
 bool InstallGameJar(const std::string& jarPath, const std::string& destDir, std::string& error) {
@@ -51,6 +69,11 @@ bool InstallGameJar(const std::string& jarPath, const std::string& destDir, std:
         return false;
     }
 
+    if (IsUnsupportedBuild(destDir)) {
+        error = "that is a different version of God of War: Betrayal -- this port needs the "
+                "Sony Ericsson K800i version (MIDlet 1.4.20, 22 px tiles and parallax backgrounds)";
+        return false;
+    }
     if (!IsGameDataRoot(destDir)) {
         error = "that .jar isn't God of War: Betrayal -- RP1/RP2/RP3 are missing after unpacking";
         return false;

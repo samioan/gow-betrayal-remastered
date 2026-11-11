@@ -23,6 +23,11 @@ Game::Game(GOWMIDlet* var1) : Engine(var1) {
     this->demoMode = 0;
     this->demoBuyUrl = String(u"");
   }
+  try {
+    this->carrierUrl = var1->getAppProperty(String(u"carrierurl"));
+  } catch (...) {
+    this->carrierUrl = String(nullptr);
+  }
 }
 
 bool Game::interpCollect(Arr<int> var1) {
@@ -50,26 +55,26 @@ bool Game::interpCollect(Arr<int> var1) {
   }
   for (int var6 = 0; (var6 < 20); (var6++)) {
     var1[var2] = 0;
-    var1[(var2 + 1)] = bZ[var6];
-    var1[(var2 + 2)] = ca[var6];
+    var1[(var2 + 1)] = cd[var6];
+    var1[(var2 + 2)] = ce[var6];
     var2 += 3;
   }
   for (int var7 = 0; (var7 < 20); (var7++)) {
     var1[var2] = 0;
-    var1[(var2 + 1)] = this->cg[var7];
-    var1[(var2 + 2)] = ch[var7];
+    var1[(var2 + 1)] = this->ck[var7];
+    var1[(var2 + 2)] = cl[var7];
     var2 += 3;
   }
   for (int var8 = 0; (var8 < 10); (var8++)) {
     var1[var2] = 0;
-    var1[(var2 + 1)] = bP[var8];
-    var1[(var2 + 2)] = this->bQ[var8];
+    var1[(var2 + 1)] = bT[var8];
+    var1[(var2 + 2)] = this->bU[var8];
     var2 += 3;
   }
   for (int var9 = 0; (var9 < 10); (var9++)) {
     var1[var2] = 0;
-    var1[(var2 + 1)] = dl[var9];
-    var1[(var2 + 2)] = dm[var9];
+    var1[(var2 + 1)] = dp[var9];
+    var1[(var2 + 2)] = dq[var9];
     var2 += 3;
   }
   for (int var10 = 0; (var10 < 15); (var10++)) {
@@ -94,6 +99,9 @@ void Game::interpPut(Arr<int> var1) {
   this->playerX = var1[2];
   this->playerY = var1[3];
   this->scene->setScroll(cameraX, cameraY);
+  if ((this->bgScene != nullptr)) {
+    this->bgScene->setScroll((cameraX >> 1), (cameraY >> 1));
+  }
   int var2 = 4;
   for (int var3 = 0; (var3 < 15); (var3++)) {
     enemyX[var3] = var1[(var2 + 1)];
@@ -108,23 +116,23 @@ void Game::interpPut(Arr<int> var1) {
     }
   }
   for (int var6 = 0; (var6 < 20); (var6++)) {
-    bZ[var6] = var1[(var2 + 1)];
-    ca[var6] = var1[(var2 + 2)];
+    cd[var6] = var1[(var2 + 1)];
+    ce[var6] = var1[(var2 + 2)];
     var2 += 3;
   }
   for (int var7 = 0; (var7 < 20); (var7++)) {
-    this->cg[var7] = var1[(var2 + 1)];
-    ch[var7] = var1[(var2 + 2)];
+    this->ck[var7] = var1[(var2 + 1)];
+    cl[var7] = var1[(var2 + 2)];
     var2 += 3;
   }
   for (int var8 = 0; (var8 < 10); (var8++)) {
-    bP[var8] = var1[(var2 + 1)];
-    this->bQ[var8] = var1[(var2 + 2)];
+    bT[var8] = var1[(var2 + 1)];
+    this->bU[var8] = var1[(var2 + 2)];
     var2 += 3;
   }
   for (int var9 = 0; (var9 < 10); (var9++)) {
-    dl[var9] = var1[(var2 + 1)];
-    dm[var9] = var1[(var2 + 2)];
+    dp[var9] = var1[(var2 + 1)];
+    dq[var9] = var1[(var2 + 2)];
     var2 += 3;
   }
   for (int var10 = 0; (var10 < 15); (var10++)) {
@@ -184,14 +192,14 @@ int Game::uiX() {
 
 void Game::updateViewWidth() {
   int var1 = Port::viewWidth();
-  if ((((this->scene != nullptr) && (var1 > 240)) && (this->bu < var1))) {
-    var1 = ((this->bu < 240) ? 240 : this->bu);
+  if ((((this->scene != nullptr) && (var1 > 240)) && (this->bw < var1))) {
+    var1 = ((this->bw < 240) ? 240 : this->bw);
   }
   if ((var1 != viewW)) {
     viewW = var1;
   }
   if ((this->scene != nullptr)) {
-    this->maxCameraX = (this->bu - viewW);
+    this->maxCameraX = (this->bw - viewW);
     if (((this->maxCameraX >= 0) && (cameraX > this->maxCameraX))) {
       cameraX = this->maxCameraX;
     }
@@ -282,34 +290,34 @@ void Game::onLifecycle(int var1) {
   if ((var1 != 0)) {
     if ((var1 == 1)) {
       if (((state != 102) && (state != 107))) {
-        this->af = (this->topBarTarget >> 8);
-        this->ag = (this->bottomBarTarget >> 8);
+        this->ae = (this->topBarTarget >> 8);
+        this->af = (this->bottomBarTarget >> 8);
       }
       if (((state != 107) && (state != 102))) {
-        this->J = state;
+        this->I = state;
       }
       if (((((((((((((((((state != 100) && (state != 78)) && (state != 105)) && (state != 108)) && (state != 101)) && (state != 102)) && (state != 104)) && (state != 106)) && (state != 109)) && (state != 103)) && (state != 79)) && (state != (-3))) && (state != 16)) && (state != 107)) && (state != 0)) && (state != 1))) {
         state = 80;
-        this->hR = false;
+        this->hV = false;
       } else if (((((((((((state != 79) && (state != 106)) && (state != 108)) && (state != 109)) && (state != (-3))) && (state != 1)) && (state != 16)) && (state != 107)) && (state != 0)) && (state != 78))) {
         this->setBarTargets((halfHeight - (lineHeight << 1)), (halfHeight - (lineHeight << 1)), 35, 35);
-        this->hR = false;
+        this->hV = false;
         this->topBar = ((halfHeight - (lineHeight << 1)) << 8);
         this->bottomBar = ((halfHeight - (lineHeight << 1)) << 8);
-        this->W = false;
+        this->V = false;
         state = 102;
-        this->iB = true;
+        this->iF = true;
       }
-      this->iI = false;
-      this->iC = true;
+      this->iN = false;
+      this->iG = true;
     } else if ((var1 == 5)) {
-      if ((this->hR && (state == 80))) {
-        this->hR = false;
-        this->playSound(0);
+      if ((this->hV && (state == 80))) {
+        this->hV = false;
+        this->playSound(9);
       }
     } else if ((var1 == 2)) {
       if ((state == 80)) {
-        this->playSound(0);
+        this->playSound(9);
       }
     } else if ((var1 == 3)) {
       this->soundPlayer->stop();
@@ -325,23 +333,25 @@ void Game::update() {
   this->readPressedKey();
   this->readHeldKey();
   {
-    int var2;
+    int var5;
+    Sprite* var1;
+    Sprite* var2;
     switch (state) {
     case 0:
       if ((this->bootStep <= 13)) {
         this->runBootStep();
         return;
       }
-      this->iS = nullptr;
+      this->iY = nullptr;
       this->parseBank(nullptr);
-      this->iC = true;
+      this->iG = true;
       this->loadGame(1);
-      this->iS = nullptr;
+      this->iY = nullptr;
       panelText = newArr<String>(3);
       panelText[0] = this->getString(36);
       panelText[1] = String(u"");
       panelText[2] = String(u"");
-      this->a(if_, ih);
+      this->a(ij, il);
       state = 78;
       this->releaseTransientAnimSets();
       this->bootStep = 0;
@@ -353,32 +363,33 @@ void Game::update() {
         if ((this->levelLoadStep == 0)) {
           this->resetLevelState();
           this->loadMenuSprites(false);
-          S = this->getResourceBytes(this->levelResourceId);
+          R = this->getResourceBytes(this->levelResourceId);
           this->grappledEnemy = (-1);
           bossIndex = (-1);
           this->finalBossIndex = (-1);
         }
         if ((this->levelLoadStep <= 10)) {
-          this->loadLevelStep(S, false);
+          this->loadLevelStep(R, false);
           return;
         }
         this->clearKeys();
-        S = nullptr;
+        R = nullptr;
         if ((this->enemyCount >= 1)) {
           this->enemyCount--;
         }
-        this->t();
-        var2 = this->levelLoadStep;
+        this->s();
+        var5 = this->levelLoadStep;
         this->levelLoadStep = 0;
-        this->levelLoadStep = var2;
+        this->loadLevelStep(this->getResourceBytes(this->bgLevelResourceId), true);
+        this->levelLoadStep = var5;
         this->levelLoadStarted = false;
-        this->loadMenuSprites(false);
         this->updateCamera();
+        this->bgScene->setScroll((cameraX >> 1), (cameraY >> 1));
         this->scene->setScroll(cameraX, cameraY);
         this->setBarTargets(halfHeight, halfHeight, 35, 35);
-        this->bf = true;
-        if ((this->Q <= 0)) {
-          this->al = true;
+        this->be = true;
+        if ((this->P <= 0)) {
+          this->ak = true;
           return;
         }
       }
@@ -386,13 +397,13 @@ void Game::update() {
     case 78:
       if (((this->pressedKey == 27) || (this->pressedKey == 8))) {
         this->loadStringTable(languageStringBanks[languageIndex]);
-        this->iC = true;
+        this->iG = true;
         this->requestClear();
         panelText = newArr<String>(3);
         panelText[0] = this->getString(36);
         panelText[1] = String(u"");
         panelText[2] = String(u"");
-        this->a(if_, ih);
+        this->a(ij, il);
         state = 79;
         return;
       }
@@ -423,27 +434,27 @@ void Game::update() {
         } else {
           this->soundPlayer->setSoundOn(false);
         }
-        iL = this->soundPlayer->isSoundOn();
-        this->playSound(0);
+        iQ = this->soundPlayer->isSoundOn();
+        this->playSound(9);
         if ((this->topBarTarget == (halfHeight << 8))) {
           this->setBarTargets(0, 0, 35, 35);
         } else {
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
         }
-        this->iC = true;
+        this->iG = true;
         return;
       }
       return;
     case 80:
       this->randomValue = random->nextInt();
       if ((this->topBar == 0)) {
-        this->L();
+        this->K();
         this->updateMenu();
       }
       this->updateBars();
       if (((this->pressedKey == 48) && this->cheatsEnabled)) {
-        for (int var1 = 0; (var1 < 10); (var1++)) {
-          menuTable[(9 + var1)] = (menuTable[(9 + var1)] = (menuTable[(9 + var1)] | 50331648));  // CHECK-ORDER
+        for (int var4 = 0; (var4 < 10); (var4++)) {
+          menuTable[(9 + var4)] = (menuTable[(9 + var4)] = (menuTable[(9 + var4)] | 50331648));  // CHECK-ORDER
         }
         return;
       }
@@ -470,7 +481,7 @@ void Game::update() {
       }
       if ((this->chestPopupTimer <= 0)) {
         state = 100;
-        this->iB = true;
+        this->iF = true;
         if (((this->health > this->maxHealth) && (this->chestPopupKind == 10))) {
           this->health = this->maxHealth;
         } else if ((this->chestPopupKind == 9)) {
@@ -488,58 +499,87 @@ void Game::update() {
           this->flashColor = 0;
         }
       }
-      this->bc = false;
+      this->bb = false;
       break;
     case 106:
       this->updateBars();
-      this->bi = false;
+      this->stepSlot(134);
+      if ((!this->stepSlot(133))) {
+        if (this->bh) {
+          var1 = aK[(this->bj ? 37 : 34)];
+          var2 = aK[(this->bj ? 41 : 38)];
+          if ((!this->bj)) {
+            for (int var6 = 0; (var6 <= bg); (var6++)) {
+              aK[(34 + var6)] = (((var6 + 1) > bg) ? var1 : aK[((34 + var6) + 1)]);
+              aK[(38 + var6)] = (((var6 + 1) > bg) ? var2 : aK[((38 + var6) + 1)]);
+            }
+          } else {
+            for (int var3 = 0; (var3 <= bg); (var3++)) {
+              aK[(37 - var3)] = (((var3 + 1) > bg) ? var1 : aK[((37 - var3) - 1)]);
+              aK[(41 - var3)] = (((var3 + 1) > bg) ? var2 : aK[((41 - var3) - 1)]);
+            }
+          }
+        }
+        this->bh = false;
+        this->startAnim(133, 1025, 2);
+      }
       this->updateUpgradeScreen();
+      this->updateFireEffect();
       return;
     case 107:
-      if ((!this->aW)) {
-        this->E();
+      if ((!this->aV)) {
+        this->D();
       }
-      if (this->aW) {
+      if (this->aV) {
         if ((this->heldKey == 1)) {
-          this->aX = 24;
+          this->aW = 24;
         } else {
-          this->aX = 4;
+          this->aW = 4;
         }
         if ((this->heldKey == 6)) {
-          this->aX = (-24);
+          this->aW = (-24);
         }
-        this->in = (this->in + (this->frameDelta * this->aX));
-        if ((this->in < 0)) {
-          this->in = 0;
+        this->ir = (this->ir + (this->frameDelta * this->aW));
+        if ((this->ir < 0)) {
+          this->ir = 0;
         }
-        if ((((((this->in >> 8) > ((50 + this->screenHeight) - lineHeight)) || ((this->heldKey == 29) && (this->topBar == this->topBarTarget))) && (state == 107)) && (this->topBarTarget < (halfHeight << 8)))) {
+        if ((((((this->ir >> 8) > ((70 + this->screenHeight) - lineHeight)) || ((this->heldKey == 29) && (this->topBar == this->topBarTarget))) && (state == 107)) && (this->topBarTarget < (halfHeight << 8)))) {
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
-          if ((this->Q > 0)) {
-            this->al = true;
+          if ((this->P > 0)) {
+            this->ak = true;
           } else {
-            this->am = true;
-            this->Q = (-1);
+            this->al = true;
+            this->P = (-1);
           }
         }
       } else if (((this->pressedKey == 29) && (this->topBar == this->topBarTarget))) {
-        this->ah = true;
+        this->ag = true;
         this->setBarTargets(halfHeight, halfHeight, 35, 35);
-        this->iC = true;
+        this->iG = true;
       }
       this->updateBars();
       return;
     case 109:
       this->updateBars();
-      if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && (!this->W))) {
-        if (((this->pressedKey == 27) && ((this->demoMode <= 0) || (this->levelIndex < this->demoMode)))) {
-          this->au = true;
-          this->saveGame(1);
-          this->setBarTargets(halfHeight, halfHeight, 35, 35);
+      if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && (!this->V))) {
+        if ((this->pressedKey == 27)) {
+          this->startAnim(133, 1025, 2);
+          this->startAnim(134, 1025, 3);
+          if (((this->demoMode > 0) && (this->levelIndex >= this->demoMode))) {
+            iP = true;
+            this->openUrl(this->demoBuyUrl);
+            this->saveAndQuit();
+          } else {
+            this->bm = (((256 - (this->upgradePoints & 0xFF)) * 320) >> 8);
+            this->at = true;
+            this->saveGame(1);
+            this->setBarTargets(halfHeight, halfHeight, 35, 35);
+          }
         }
         if ((this->pressedKey == 29)) {
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
           this->pendingMainMenu = true;
-          this->cr = (-1);
+          this->cv = (-1);
           return;
         }
       }
@@ -549,7 +589,7 @@ void Game::update() {
     }
   }
   this->randomValue = random->nextInt();
-  if (((((state == 100) || (state == 105)) || (state == 108)) && (!this->bc))) {
+  if (((((state == 100) || (state == 105)) || (state == 108)) && (!this->bb))) {
     this->updateGameplay();
   }
   if ((state == 105)) {
@@ -558,114 +598,115 @@ void Game::update() {
   }
   if ((state == 101)) {
     if (((this->topBar >= this->topBarTarget) && (this->topBar < (this->screenHeight << 8)))) {
-      this->bd = (this->bd + (this->frameDelta >> (4 - ((this->heldKey == 8) ? 3 : 0))));
+      this->bc = (this->bc + (this->frameDelta >> (4 - ((this->heldKey == 8) ? 3 : 0))));
     }
     this->updateDialogue();
   } else {
-    this->bd = 0;
+    this->bc = 0;
   }
   this->updateCamera();
   this->scene->setScroll(cameraX, cameraY);
+  this->bgScene->setScroll((cameraX >> 1), (cameraY >> 1));
   this->updateBars();
 }
 
 void Game::setBarTargets(int var1, int var2, int var3, int var4) {
-  this->Y = (this->topBar <= (var1 << 8));
-  this->Z = (this->bottomBar <= (var2 << 8));
-  this->W = (this->Z || this->Y);
-  if (this->W) {
-    this->V = 375;
+  this->X = (this->topBar <= (var1 << 8));
+  this->Y = (this->bottomBar <= (var2 << 8));
+  this->V = (this->Y || this->X);
+  if (this->V) {
+    this->U = 375;
   }
   this->topBarTarget = (var1 << 8);
   this->bottomBarTarget = (var2 << 8);
   this->topBarSpeed = var3;
   this->bottomBarSpeed = var4;
   this->levelLoadStarted = false;
-  this->ap = false;
+  this->ao = false;
   this->pendingMainMenu = false;
-  this->X = false;
+  this->W = false;
 }
 
 void Game::updateBars() {
   if ((((this->topBar >= this->topBarTarget) && (this->bottomBar >= this->bottomBarTarget)) && ((state == 105) || (state == 100)))) {
-    this->bc = false;
+    this->bb = false;
   }
-  if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && (this->V > 0))) {
-    if ((((this->V == 375) && (state != 101)) && (state != 105))) {
-      this->playSound(1);
+  if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && (this->U > 0))) {
+    if ((((this->U == 375) && (state != 101)) && (state != 105))) {
+      this->playSound(10);
     }
-    this->V = (this->V - this->frameDelta);
-    if ((this->V < 0)) {
-      this->V = 0;
+    this->U = (this->U - this->frameDelta);
+    if ((this->U < 0)) {
+      this->U = 0;
       return;
     }
   } else {
     if ((state == 1)) {
-      if (((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->W) && (this->Q <= 0))) {
-        if ((!this->al)) {
+      if (((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->V) && (this->P <= 0))) {
+        if ((!this->ak)) {
           if ((!challengeMode)) {
             this->setBarTargets((halfHeight - (lineHeight << 1)), (halfHeight - (lineHeight << 1)), 35, 35);
           } else {
             this->setBarTargets(((halfHeight - (lineHeight << 1)) - lineHeight), ((halfHeight - (lineHeight << 1)) - lineHeight), 35, 35);
           }
-          this->W = false;
+          this->V = false;
         } else {
           this->setBarTargets(0, 0, 35, 35);
           state = 100;
-          this->iB = true;
+          this->iF = true;
           this->levelLoadStep = 0;
-          this->Q = 0;
-          this->bf = false;
-          this->al = false;
+          this->P = 0;
+          this->be = false;
+          this->ak = false;
         }
-      } else if ((((((this->Q > 0) && (this->levelLoadStep >= 10)) && (this->topBar >= this->topBarTarget)) && (this->bottomBar >= this->bottomBarTarget)) && this->W)) {
-        this->bf = true;
+      } else if ((((((this->P > 0) && (this->levelLoadStep >= 10)) && (this->topBar >= this->topBarTarget)) && (this->bottomBar >= this->bottomBarTarget)) && this->V)) {
+        this->be = true;
         Arr<int> var2;
         (var2 = newArr<int>(3))[0] = (-1);
-        var2[1] = this->Q;
+        var2[1] = this->P;
         var2[2] = (-1);
-        this->cr = (-1);
-        this->a(var2, aV, 8, 25, 211, 270, 30);
-        this->aW = true;
-        this->setBarTargets(25, 25, 35, 35);
-        this->in = 0;
+        this->cv = (-1);
+        this->a(var2, aU, 12, 35, 200, 250, 30);
+        this->aV = true;
+        this->setBarTargets(35, 35, 35, 35);
+        this->ir = 0;
         state = 107;
-      } else if ((((((this->Q > 0) && (this->levelLoadStep > 10)) && (!this->W)) && (this->topBar == this->topBarTarget)) && (this->bottomBar == this->bottomBarTarget))) {
-        this->aW = true;
-        this->bf = true;
+      } else if ((((((this->P > 0) && (this->levelLoadStep > 10)) && (!this->V)) && (this->topBar == this->topBarTarget)) && (this->bottomBar == this->bottomBarTarget))) {
+        this->aV = true;
+        this->be = true;
         this->setBarTargets(halfHeight, halfHeight, 35, 35);
         this->levelLoadStarted = true;
-      } else if (((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && (!this->W)) && (!this->levelLoadStarted))) {
-        this->W = false;
+      } else if (((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && (!this->V)) && (!this->levelLoadStarted))) {
+        this->V = false;
         this->levelLoadStarted = true;
       }
     } else if ((state == 101)) {
-      if (((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->W) && this->aW)) {
-        this->a(this->aQ, aV, 8, 25, 211, 270, 30);
+      if (((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->V) && this->aV)) {
+        this->a(this->aP, aU, 12, 35, 200, 250, 30);
         if ((panelText != nullptr)) {
           panelText[0] = String(u"");
           panelText[2] = String(u"");
         }
-        this->setBarTargets(25, 25, 35, 35);
+        this->setBarTargets(35, 35, 35, 35);
         state = 107;
-        this->in = 0;
+        this->ir = 0;
       }
     } else if ((state == 102)) {
-      if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->W)) {
-        if (this->ap) {
-          this->setBarTargets(this->af, this->ag, 35, 35);
-          state = this->J;
-          this->ap = false;
-          this->W = false;
-          this->a(this->aQ, aV, 8, 0, 211, ((lineHeight * 5) + halfLineHeight), 30);
+      if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->V)) {
+        if (this->ao) {
+          this->setBarTargets(this->ae, this->af, 35, 35);
+          state = this->I;
+          this->ao = false;
+          this->V = false;
+          this->a(this->aP, aU, 12, 0, 200, ((lineHeight * 5) + halfLineHeight), 30);
         } else if (this->pendingMainMenu) {
           this->pendingMainMenu = false;
           this->resetLevelState();
-          this->playSound(0);
+          this->playSound(9);
           this->loadMenuSprites(true);
           this->parseBank(nullptr);
           menuCursor = 0;
-          this->iy = 0;
+          this->iC = 0;
           state = 80;
           this->setBarTargets(0, 0, 35, 35);
           this->saveGame(1);
@@ -678,57 +719,59 @@ void Game::updateBars() {
           panelText[2] = String(u"");
           this->setFont(this->mainFont);
           panelText[1] = (jstr((jstr((jstr(this->getString(114)) + jstr(String(u"\n")))) + jstr(this->getString(292)))) + jstr(String(u"\n\n\n\n")));
-          this->a(id, ig);
-          this->setBarTargets(25, 25, 35, 35);
+          this->a(ih, ik);
+          this->setBarTargets(35, 35, 35, 35);
           state = 107;
-          this->in = 0;
+          this->ir = 0;
         } else {
           this->setBarTargets((halfHeight - (lineHeight << 1)), (halfHeight - (lineHeight << 1)), 35, 35);
-          this->X = true;
+          this->W = true;
         }
-        this->W = false;
+        this->V = false;
       }
     } else if ((state == 80)) {
-      if (((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->W) && this->aj)) {
-        this->aj = false;
+      if (((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->V) && this->ai)) {
+        this->ai = false;
         this->requestClear();
         panelText = newArr<String>(3);
         panelText[0] = String(u"");
         panelText[2] = String(u"");
         this->setFont(this->mainFont);
-        if (this->ai) {
+        if (this->ah) {
           panelText[1] = this->getString(115);
           int var1 = 0;
           if (((var1 = panelText[1].indexOf(37)) != (-1))) {
-            panelText[1] = (jstr((jstr(panelText[1].substring(0, var1)) + jstr(String(u"1.4.8")))) + jstr(panelText[1].substring((var1 + 1), panelText[1].length())));
+            panelText[1] = (jstr((jstr(panelText[1].substring(0, var1)) + jstr(String(u"1.4.20")))) + jstr(panelText[1].substring((var1 + 1), panelText[1].length())));
           }
-          this->a(ie, ig);
+          this->a(ii, ik);
         } else {
           panelText[1] = (jstr((jstr((jstr(this->getString(114)) + jstr(String(u"\n")))) + jstr(this->getString(292)))) + jstr(String(u"\n\n\n\n")));
-          this->a(id, ig);
+          this->a(ih, ik);
         }
-        this->setBarTargets(25, 25, 35, 35);
+        this->setBarTargets(35, 35, 35, 35);
         state = 107;
       }
     } else if ((state == 79)) {
-      if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->W)) {
+      if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->V)) {
         this->setBarTargets(0, 0, 35, 35);
-        this->iI = false;
-        this->iC = true;
+        this->iN = false;
+        this->iG = true;
         this->saveGame(1);
         state = 80;
       }
     } else if ((state != 107)) {
       if ((state == 109)) {
-        if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->W)) {
-          if (((!this->pendingMainMenu) && (!this->au))) {
+        if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->V)) {
+          if (((!this->pendingMainMenu) && (!this->at))) {
             this->setBarTargets((halfHeight - (lineHeight << 1)), (halfHeight - (lineHeight << 1)), 35, 35);
-          } else if (this->au) {
+          } else if (this->at) {
+            this->startAnim(133, 1025, 2);
+            this->startAnim(134, 1025, 3);
             state = 106;
             this->setBarTargets(0, 0, 35, 35);
           } else {
             state = 80;
-            this->playSound(0);
+            this->playSound(9);
             this->pendingMainMenu = false;
             this->saveGame(1);
             if ((this->furthestLevel >= 10)) {
@@ -739,60 +782,60 @@ void Game::updateBars() {
             this->resetLevelState();
             this->loadMenuSprites(true);
             this->parseBank(nullptr);
-            this->bf = false;
-            this->iy = 0;
+            this->be = false;
+            this->iC = 0;
             this->setBarTargets(0, 0, 35, 35);
           }
         }
-      } else if (((((state == 108) && (this->topBar == this->topBarTarget)) && (this->bottomBar == this->bottomBarTarget)) && this->W)) {
-        if (((!this->pendingMainMenu) && (!this->ap))) {
+      } else if (((((state == 108) && (this->topBar == this->topBarTarget)) && (this->bottomBar == this->bottomBarTarget)) && this->V)) {
+        if (((!this->pendingMainMenu) && (!this->ao))) {
           if (challengeMode) {
             this->setBarTargets((((halfHeight - (lineHeight << 1)) - lineHeight) - (lineHeight >> 2)), (((halfHeight - (lineHeight << 1)) - lineHeight) - (lineHeight >> 2)), 35, 35);
           } else {
             this->setBarTargets(((halfHeight - halfLineHeight) - (lineHeight >> 2)), ((halfHeight - halfLineHeight) - (lineHeight >> 2)), 35, 35);
           }
-          this->X = true;
-        } else if (((!this->ap) && this->pendingMainMenu)) {
+          this->W = true;
+        } else if (((!this->ao) && this->pendingMainMenu)) {
           this->pendingMainMenu = false;
           this->resetLevelState();
-          this->playSound(0);
+          this->playSound(9);
           this->loadMenuSprites(true);
           this->parseBank(nullptr);
-          this->iy = 0;
+          this->iC = 0;
           menuCursor = 0;
           state = 80;
           this->setBarTargets(0, 0, 35, 35);
           this->saveGame(1);
         } else {
           state = 100;
-          this->iB = true;
+          this->iF = true;
           this->setBarTargets(0, 0, 35, 35);
-          this->X = true;
+          this->W = true;
         }
       }
     } else {
       if (((this->topBar != this->topBarTarget) || (this->bottomBar == this->bottomBarTarget))) {
         this->requestClear();
       }
-      if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->ah)) {
+      if ((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->ag)) {
         if ((!this->pendingHelp)) {
           state = 80;
-          this->ah = false;
+          this->ag = false;
           menuCursor = 0;
-          this->iy = 0;
+          this->iC = 0;
           this->setBarTargets(0, 0, 35, 35);
         } else if ((this->topBar == (halfHeight << 8))) {
-          this->cr = this->at;
+          this->cv = this->as;
           this->pendingHelp = false;
-          this->ah = false;
+          this->ag = false;
           this->setBarTargets((halfHeight - (lineHeight << 1)), (halfHeight - (lineHeight << 1)), 35, 35);
           state = 102;
         }
-      } else if (((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->am) && (this->Q < 0))) {
+      } else if (((((this->topBar == this->topBarTarget) && (this->bottomBar == this->bottomBarTarget)) && this->al) && (this->P < 0))) {
         this->setBarTargets((halfHeight - (lineHeight << 1)), (halfHeight - (lineHeight << 1)), 35, 35);
-        this->bf = true;
-        this->am = false;
-        this->iI = false;
+        this->be = true;
+        this->al = false;
+        this->iN = false;
         menuCursor++;
         this->levelIndex++;
         if (((this->levelIndex > this->furthestLevel) && ((this->demoMode <= 0) || (this->levelIndex < this->demoMode)))) {
@@ -800,42 +843,43 @@ void Game::updateBars() {
         }
         if ((this->levelIndex < 10)) {
           this->levelResourceId = levelIds[this->levelIndex];
+          this->bgLevelResourceId = bgLevelIds[this->levelIndex];
         }
-        this->ae = true;
+        this->ad = true;
         this->levelLoadStarted = false;
         this->resetLevelState();
         if ((this->levelIndex < 10)) {
           state = 109;
         } else {
           this->resetLevelState();
-          this->playSound(0);
+          this->playSound(9);
           this->loadMenuSprites(true);
           this->parseBank(nullptr);
           this->setBarTargets(0, 0, 35, 35);
-          this->iy = 0;
+          this->iC = 0;
           menuCursor = 0;
-          this->bf = false;
+          this->be = false;
           state = 80;
           this->saveGame(1);
         }
-      } else if (((((this->topBar >= this->topBarTarget) && (this->bottomBar >= this->bottomBarTarget)) && (this->Q > 0)) && this->al)) {
+      } else if (((((this->topBar >= this->topBarTarget) && (this->bottomBar >= this->bottomBarTarget)) && (this->P > 0)) && this->ak)) {
         state = 100;
-        this->iB = true;
-        this->bf = false;
-        this->al = false;
+        this->iF = true;
+        this->be = false;
+        this->ak = false;
         this->levelLoadStep = 0;
-        this->Q = 0;
+        this->P = 0;
         this->setBarTargets(0, 0, 35, 35);
       }
     }
-    if ((((state == 102) && this->X) && (this->V < 0))) {
-      this->X = false;
-      state = this->J;
-      this->bc = true;
-      this->iB = true;
+    if ((((state == 102) && this->W) && (this->U < 0))) {
+      this->W = false;
+      state = this->I;
+      this->bb = true;
+      this->iF = true;
     }
     if ((this->topBar > 115)) {
-      if ((((state == 108) && (this->topBar == this->topBarTarget)) && (!this->W))) {
+      if ((((state == 108) && (this->topBar == this->topBarTarget)) && (!this->V))) {
         if (((this->pressedKey != 8) && (this->pressedKey != 27))) {
           if ((this->pressedKey == 29)) {
             this->setBarTargets(halfHeight, halfHeight, 35, 35);
@@ -847,27 +891,27 @@ void Game::updateBars() {
           facingRight = this->checkpointFacingRight;
           cameraX = ((this->playerX - (viewW >> 1)) - (((facingRight ? 1 : (-1)) * 240) >> 2));
           cameraY = (this->playerY - 266);
-          this->aO = (cameraX << 8);
-          this->aP = (cameraY << 8);
+          this->aN = (cameraX << 8);
+          this->aO = (cameraY << 8);
           this->blocking = false;
           this->setPlayerAction(0);
           this->health = this->maxHealth;
           this->healthPrev = this->maxHealth;
           magic = this->maxMagic;
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
-          this->X = true;
-          this->iB = true;
+          this->W = true;
+          this->iF = true;
           this->activeArena = (-1);
-          this->ap = true;
+          this->ao = true;
         }
-      } else if ((((state == 102) && (this->topBar == this->topBarTarget)) && (!this->W))) {
+      } else if ((((state == 102) && (this->topBar == this->topBarTarget)) && (!this->V))) {
         if (((this->pressedKey != 8) && (this->pressedKey != 27))) {
           if ((this->pressedKey == 29)) {
             if (this->pauseConfirming) {
               this->pauseConfirming = false;
             } else {
               this->setBarTargets(halfHeight, halfHeight, 35, 35);
-              this->ap = true;
+              this->ao = true;
             }
           } else if ((this->pressedKey == 2)) {
             if ((!this->pauseConfirming)) {
@@ -884,13 +928,13 @@ void Game::updateBars() {
           }
         } else if ((pauseMenuIndex >= 5)) {
           Port::change((pauseMenuIndex - 5), 1);
-          this->iB = true;
+          this->iF = true;
         } else if ((pauseMenuIndex == 4)) {
           this->soundPlayer->setSoundOn((!this->soundPlayer->isSoundOn()));
-          iL = this->soundPlayer->isSoundOn();
+          iQ = this->soundPlayer->isSoundOn();
         } else if (((pauseMenuIndex == 2) && this->pauseConfirming)) {
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
-          this->cr = (-1);
+          this->cv = (-1);
           this->pendingMainMenu = true;
         } else if (((pauseMenuIndex == 1) && this->pauseConfirming)) {
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
@@ -898,44 +942,44 @@ void Game::updateBars() {
         } else if ((((pauseMenuIndex == 2) || (pauseMenuIndex == 1)) && (!this->pauseConfirming))) {
           this->pauseConfirming = true;
         } else if ((pauseMenuIndex == 3)) {
-          this->aW = false;
+          this->aV = false;
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
           this->pendingHelp = true;
-          this->at = this->cr;
-          this->cr = (-1);
+          this->as = this->cv;
+          this->cv = (-1);
         } else {
           this->pauseConfirming = false;
           this->pendingHelp = false;
         }
       }
     }
-    if ((((this->topBar < this->topBarTarget) && this->Y) && ((this->ae && (this->bottomBar <= this->bottomBar)) || (!this->ae)))) {
-      this->iB = true;
+    if ((((this->topBar < this->topBarTarget) && this->X) && ((this->ad && (this->bottomBar <= this->bottomBar)) || (!this->ad)))) {
+      this->iF = true;
       this->topBar = (this->topBar + (this->frameDelta * this->topBarSpeed));
       if ((this->topBar >= this->topBarTarget)) {
         this->topBar = this->topBarTarget;
         if ((state == 105)) {
-          this->bc = false;
+          this->bb = false;
         }
       }
     }
-    if (((this->bottomBar < this->bottomBarTarget) && this->Z)) {
+    if (((this->bottomBar < this->bottomBarTarget) && this->Y)) {
       this->bottomBar = (this->bottomBar + (this->frameDelta * this->topBarSpeed));
-      this->iB = true;
+      this->iF = true;
       if ((this->bottomBar > this->bottomBarTarget)) {
         this->bottomBar = this->bottomBarTarget;
       }
     }
-    if (((this->topBar > this->topBarTarget) && (!this->Y))) {
-      this->iB = true;
+    if (((this->topBar > this->topBarTarget) && (!this->X))) {
+      this->iF = true;
       this->topBar = (this->topBar - (this->frameDelta * this->topBarSpeed));
       if ((this->topBar <= this->topBarTarget)) {
         this->topBar = this->topBarTarget;
       }
-      this->ak = true;
+      this->aj = true;
     }
-    if (((this->bottomBar > this->bottomBarTarget) && (!this->Z))) {
-      this->iB = true;
+    if (((this->bottomBar > this->bottomBarTarget) && (!this->Y))) {
+      this->iF = true;
       this->bottomBar = (this->bottomBar - (this->frameDelta * this->bottomBarSpeed));
       if ((this->bottomBar < this->bottomBarTarget)) {
         this->bottomBar = this->bottomBarTarget;
@@ -959,6 +1003,11 @@ void Game::runBootStep() {
   {
     Arr<int8_t> var1;
     int var2;
+    SoundPlayer* var10000;
+    int var10001;
+    int var10002;
+    int8_t var10003;
+    int8_t var10004;
     switch (this->bootStep) {
     case 0:
       this->ensureAnimSlots(138);
@@ -967,20 +1016,20 @@ void Game::runBootStep() {
       halfWidth = (this->screenWidth >> 1);
       halfHeight = (this->screenHeight >> 1);
       this->loadStringTable(10240);
-      R = newArr<int>(((var1 = this->getResourceBytes(1053)).length() / 3));
+      Q = newArr<int>(((var1 = this->getResourceBytes(1053)).length() / 3));
       var2 = 0;
-      for (int var5 = 0; (var5 < var1.length()); (var5 += 3)) {
-        R[var2] = (((var1[var5] << 18) | (var1[(var5 + 1)] << 10)) | (var1[(var5 + 2)] << 2));
+      for (int var7 = 0; (var7 < var1.length()); (var7 += 3)) {
+        Q[var2] = (((var1[var7] << 18) | (var1[(var7 + 1)] << 10)) | (var1[(var7 + 2)] << 2));
         var2++;
       }
       random = new Random();
       this->loadMenuSprites(true);
-      this->iS = this->loadSprites(1037);
-      this->cp = this->loadSprites(1035);
+      this->iY = this->loadSprites(1037);
+      this->ct = this->loadSprites(1035);
       this->loadAnimSet(1024);
       this->setAnimSetPersistent(1024, true);
-      this->cq = this->loadSprites(1030);
-      this->fu = this->loadSprites(1038);
+      this->cu = this->loadSprites(1030);
+      this->fy = this->loadSprites(1038);
       this->loadAnimSet(1026);
       this->setAnimSetPersistent(1026, true);
       break;
@@ -989,9 +1038,9 @@ void Game::runBootStep() {
       this->setFont(this->mainFont);
       lineHeight = this->fontHeight();
       halfLineHeight = (lineHeight >> 1);
-      this->iJ = (this->stringWidth(String(u"W")) * 4);
-      this->fx = this->loadSprites(1034);
-      for (int var3 = 0; (var3 < 5); (var3++)) {
+      this->iO = (this->stringWidth(String(u"W")) * 4);
+      this->fB = this->loadSprites(1034);
+      for (int var6 = 0; (var6 < 5); (var6++)) {
         this->updateFireEffect();
       }
     case 2:
@@ -1004,17 +1053,36 @@ void Game::runBootStep() {
     case 3:
       this->loadAnimSet(1025);
       this->setAnimSetPersistent(1025, true);
-      aL = this->loadSprites(1036);
+      aK = this->loadSprites(1036);
       this->loadAnimSet(1027);
       this->setAnimSetPersistent(1027, true);
-      this->aU = this->loadSprites(1040);
-      bo = this->loadSprites(1029);
+      this->aT = this->loadSprites(1040);
+      bq = this->loadSprites(1029);
       this->loadMenuTable();
       break;
     case 4:
-      this->soundPlayer->load(0, 1063, (-1), 0);
-      this->soundPlayer->load(1, 1064, 1, 0);
-      this->soundPlayer->load(2, 1062, 1, 0);
+      for (int var3 = 0; (var3 < 11); (var3++)) {
+        {
+          if (((1054 + var3) == 1063)) {
+            var10000 = this->soundPlayer;
+            var10001 = var3;
+            var10002 = (1054 + var3);
+            var10003 = (-1);
+          } else {
+            var10000 = this->soundPlayer;
+            var10001 = var3;
+            var10002 = (1054 + var3);
+            var10003 = 1;
+            if (((1054 + var3) == 1062)) {
+              var10004 = 1;
+              goto label62_end;
+            }
+          }
+          var10004 = 0;
+        }
+        label62_end:;
+        var10000->load(var10001, var10002, var10003, var10004);
+      }
       break;
     case 5:
       this->loadAnimSet(2048);
@@ -1051,29 +1119,31 @@ void Game::runBootStep() {
     case 12:
       menuTable[5] = ((menuTable[5] & (-256)) + 68);
       menuTable[5] = (menuTable[5] & (-50331649));
-      menuTable[6] = (menuTable[6] & (-50331649));
+      if ((this->carrierUrl == nullptr)) {
+        menuTable[6] = (menuTable[6] & (-50331649));
+      }
       break;
     case 13:
       this->requestClear();
-      if ((!iU)) {
-        iT = true;
-        this->iS = this->loadSprites(8193);
+      if ((!ja)) {
+        iZ = true;
+        this->iY = this->loadSprites(8193);
         this->loadAnimSet(8192);
         this->startAnim(0, 8192, 0);
-        iU = true;
+        ja = true;
       } else {
-        iU = this->stepAnim(0, Engine::frameTime);
-        if ((!iU)) {
-          this->M = 0;
+        ja = this->stepAnim(0, Engine::frameTime);
+        if ((!ja)) {
+          this->L = 0;
         }
       }
       this->requestClear();
     }
   }
-  if (((!iU) && (this->bootStep <= 13))) {
+  if (((!ja) && (this->bootStep <= 13))) {
     this->bootStep++;
   }
-  for (int var4 = 0; ((var4 < 6) && (!iU)); (var4++)) {
+  for (int var5 = 0; ((var5 < 6) && (!ja)); (var5++)) {
     this->updateFireEffect();
   }
 }
@@ -1083,9 +1153,9 @@ void Game::loadMenuSprites(bool var1) {
     this->menuSprites = this->loadSprites(1039);
     this->menuFont = this->loadSprites(1032);
     this->titleFont = this->loadSprites(1033);
-    this->iI = false;
-    this->iC = true;
-    this->iu = this->menuSprites[3]->width;
+    this->iN = false;
+    this->iG = true;
+    this->iy = this->menuSprites[3]->width;
     this->releaseTransientAnimSets();
     this->levelIndex = this->furthestLevel;
     this->parseBank(nullptr);
@@ -1116,11 +1186,11 @@ void Game::updateCamera() {
   }
   int var5 = (this->climbing ? 80 : 0);
   int var6 = ((var2 - 120) + var4);
-  int lockTestX = ((var6 < 0) ? 0 : ((var6 > (this->bu - 240)) ? (this->bu - 240) : var6));
+  int lockTestX = ((var6 < 0) ? 0 : ((var6 > (this->bw - 240)) ? (this->bw - 240) : var6));
   var6 = ((var2 - (viewW >> 1)) + var4);
   int var7 = ((var3 - 266) + var5);
-  int var8 = (((var6 - cameraX) + this->aI) * this->frameDelta);
-  int var9 = (((var7 - cameraY) + this->aJ) * this->frameDelta);
+  int var8 = (((var6 - cameraX) + this->aH) * this->frameDelta);
+  int var9 = (((var7 - cameraY) + this->aI) * this->frameDelta);
   if ((jlang::abs<int>((int)(var8)) > var1)) {
     if ((var8 > 0)) {
       var8 = var1;
@@ -1135,12 +1205,12 @@ void Game::updateCamera() {
       var9 = (-var1);
     }
   }
-  this->aO += var8;
-  this->aP += var9;
-  var6 = (this->aO >> 8);
-  var7 = (this->aP >> 8);
-  this->aM = (cameraX - var6);
-  this->aN = (cameraY - var7);
+  this->aN += var8;
+  this->aO += var9;
+  var6 = (this->aN >> 8);
+  var7 = (this->aO >> 8);
+  this->aL = (cameraX - var6);
+  this->aM = (cameraY - var7);
   cameraX = var6;
   cameraY = var7;
   bool var10 = false;
@@ -1150,25 +1220,25 @@ void Game::updateCamera() {
       if (pointInRect(this->lockX[var12], this->lockY[var12], lockTestX, cameraY, 240, 320)) {
         if ((!this->lockVertical[var12])) {
           var10 = true;
-          int var13 = ((this->aK * this->frameDelta) >> 8);
+          int var13 = ((this->aJ * this->frameDelta) >> 8);
           if (this->lockReverse[var12]) {
-            this->aI -= var13;
+            this->aH -= var13;
           } else {
-            this->aI += var13;
+            this->aH += var13;
           }
-          if ((!pointInRect(this->lockX[var12], this->lockY[var12], ((cameraX + this->aI) + uiX()), (cameraY + this->aJ), 240, 320))) {
-            this->aI = (((this->lockX[var12] - cameraX) - uiX()) - (this->lockReverse[var12] ? 240 : 0));
+          if ((!pointInRect(this->lockX[var12], this->lockY[var12], ((cameraX + this->aH) + uiX()), (cameraY + this->aI), 240, 320))) {
+            this->aH = (((this->lockX[var12] - cameraX) - uiX()) - (this->lockReverse[var12] ? 240 : 0));
           }
         } else {
           var11 = true;
-          int var18 = ((this->aK * this->frameDelta) >> 8);
+          int var18 = ((this->aJ * this->frameDelta) >> 8);
           if (this->lockReverse[var12]) {
-            this->aJ -= var18;
+            this->aI -= var18;
           } else {
-            this->aJ += var18;
+            this->aI += var18;
           }
-          if ((!pointInRect(this->lockX[var12], this->lockY[var12], ((cameraX + this->aI) + uiX()), (cameraY + this->aJ), 240, 320))) {
-            this->aJ = ((this->lockY[var12] - cameraY) - (this->lockReverse[var12] ? 320 : 0));
+          if ((!pointInRect(this->lockX[var12], this->lockY[var12], ((cameraX + this->aH) + uiX()), (cameraY + this->aI), 240, 320))) {
+            this->aI = ((this->lockY[var12] - cameraY) - (this->lockReverse[var12] ? 320 : 0));
           }
         }
       }
@@ -1176,47 +1246,47 @@ void Game::updateCamera() {
     for (int var17 = this->breakLast; (var17 >= 0); (var17--)) {
       if ((breakStopsCamera[var17] && pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], lockTestX, cameraY, 240, 320))) {
         var10 = true;
-        int var19 = ((this->aK * this->frameDelta) >> 8);
+        int var19 = ((this->aJ * this->frameDelta) >> 8);
         if (breakCameraRight[var17]) {
-          this->aI -= var19;
+          this->aH -= var19;
         } else {
-          this->aI += var19;
+          this->aH += var19;
         }
-        if ((!pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], ((cameraX + this->aI) + uiX()), (cameraY + this->aJ), 240, 320))) {
-          this->aI = ((((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)) - cameraX) - uiX()) - (breakCameraRight[var17] ? 240 : 0));
+        if ((!pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], ((cameraX + this->aH) + uiX()), (cameraY + this->aI), 240, 320))) {
+          this->aH = ((((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)) - cameraX) - uiX()) - (breakCameraRight[var17] ? 240 : 0));
         }
       }
     }
-    cameraX = (cameraX + this->aI);
-    cameraY = (cameraY + this->aJ);
-    if (((!var10) && (this->aI != 0))) {
+    cameraX = (cameraX + this->aH);
+    cameraY = (cameraY + this->aI);
+    if (((!var10) && (this->aH != 0))) {
+      if ((this->aH > 0)) {
+        this->aH = (this->aH - ((this->aJ * this->frameDelta) >> 8));
+        if ((this->aH < 0)) {
+          this->aH = 0;
+        }
+      } else {
+        this->aH = (this->aH + ((this->aJ * this->frameDelta) >> 8));
+        if ((this->aH > 0)) {
+          this->aH = 0;
+        }
+      }
+    }
+    if (((!var11) && (this->aI != 0))) {
       if ((this->aI > 0)) {
-        this->aI = (this->aI - ((this->aK * this->frameDelta) >> 8));
+        this->aI = (this->aI - ((this->aJ * this->frameDelta) >> 8));
         if ((this->aI < 0)) {
           this->aI = 0;
         }
       } else {
-        this->aI = (this->aI + ((this->aK * this->frameDelta) >> 8));
+        this->aI = (this->aI + ((this->aJ * this->frameDelta) >> 8));
         if ((this->aI > 0)) {
           this->aI = 0;
         }
       }
     }
-    if (((!var11) && (this->aJ != 0))) {
-      if ((this->aJ > 0)) {
-        this->aJ = (this->aJ - ((this->aK * this->frameDelta) >> 8));
-        if ((this->aJ < 0)) {
-          this->aJ = 0;
-        }
-      } else {
-        this->aJ = (this->aJ + ((this->aK * this->frameDelta) >> 8));
-        if ((this->aJ > 0)) {
-          this->aJ = 0;
-        }
-      }
-    }
+    this->aL = (this->aL - this->aH);
     this->aM = (this->aM - this->aI);
-    this->aN = (this->aN - this->aJ);
     if ((this->cameraShake != 0)) {
       if (((this->shakeTimer + (this->shakeTimer * this->slowMotionShift)) >= this->shakeDuration)) {
         cameraY = (cameraY + this->cameraShake);
@@ -1235,131 +1305,133 @@ void Game::updateCamera() {
   } else {
     this->cameraPanX = (-1);
     this->cameraPanY = (-1);
-    this->iB = true;
+    this->iF = true;
     this->cameraPanTimer = 0;
   }
   if ((cameraX < 0)) {
     cameraX = 0;
-    this->aO = 0;
-    this->aM = 0;
+    this->aN = 0;
+    this->aL = 0;
   }
   if ((cameraX >= this->maxCameraX)) {
     cameraX = this->maxCameraX;
-    this->aO = (this->maxCameraX << 8);
-    this->aM = 0;
+    this->aN = (this->maxCameraX << 8);
+    this->aL = 0;
   }
   if ((cameraY < 0)) {
     cameraY = 0;
-    this->aP = 0;
-    this->aN = 0;
+    this->aO = 0;
+    this->aM = 0;
   }
   if ((cameraY >= this->maxCameraY)) {
     cameraY = this->maxCameraY;
-    this->aP = (this->maxCameraY << 8);
-    this->aN = 0;
+    this->aO = (this->maxCameraY << 8);
+    this->aM = 0;
   }
 }
 
 void Game::startDialogueLine() {
-  this->ip = false;
-  this->aQ[0] = (-1);
-  this->aQ[1] = this->cs;
+  this->it = false;
+  this->aP[0] = (-1);
+  this->aP[1] = this->cw;
   panelText = newArr<String>(3);
   panelText[0] = String(u"");
-  panelText[1] = this->getString(this->aQ[1]);
+  panelText[1] = this->getString(this->aP[1]);
   this->setFont(this->mainFont);
   if ((panelText[1].charAt(0) == ((char16_t)33))) {
     state = 105;
-    this->bc = true;
-    this->setPlayerAction(this->aY[this->ba]);
-    if ((this->dL != (-1))) {
-      this->setEnemyAction(this->aZ[this->bb], this->dL);
+    this->bb = true;
+    this->setPlayerAction(this->aX[this->aZ]);
+    if ((this->dP != (-1))) {
+      this->setEnemyAction(this->aY[this->ba], this->dP);
       return;
     }
   } else {
     if ((panelText[1].charAt(0) == ((char16_t)94))) {
-      this->cr = Engine::parseIntOr(panelText[1].substring(1, 2), 0);
-      if ((this->cr > 3)) {
-        int var1 = ((this->cr - 3) - 1);
+      this->cv = Engine::parseIntOr(panelText[1].substring(1, 2), 0);
+      if ((this->cv > 3)) {
+        int var1 = ((this->cv - 3) - 1);
         this->weaponMode = var1;
         magicModeA = (this->weaponMode == 1);
         magicModeB = (this->weaponMode == 2);
         this->magicModeC = (this->weaponMode == 3);
       }
     } else {
-      this->cr = (-1);
+      this->cv = (-1);
     }
     panelText[1].charAt(0);
     if ((panelText[1].charAt(0) == ((char16_t)42))) {
       if ((panelText[1].length() != 1)) {
-        this->aW = true;
+        this->aV = true;
         this->setBarTargets(halfHeight, halfHeight, 35, 35);
       } else {
-        this->be = true;
+        this->bd = true;
       }
-      this->iC = true;
+      this->iG = true;
       return;
     }
-    this->aW = false;
-    this->a(this->aQ, aV, 8, 0, 211, ((lineHeight * 5) + halfLineHeight), 30);
+    this->aV = false;
+    this->a(this->aP, aU, 12, 0, 200, ((lineHeight * 5) + halfLineHeight), 30);
   }
 }
 
 void Game::updateUpgradeScreen() {
-  if (((this->bk <= 0) && (!this->bi))) {
+  if (((this->bk <= 0) && (!this->bh))) {
     {
       switch (this->pressedKey) {
       case 1:
       case 2:
+        this->startAnim(133, 1025, 1);
+        this->bh = true;
         upgradeSelection++;
-        if ((upgradeSelection > bh)) {
+        if ((upgradeSelection > bg)) {
           upgradeSelection = 0;
         }
+        this->bj = false;
         break;
       case 5:
       case 6:
+        this->startAnim(133, 1025, 0);
+        this->bh = true;
         upgradeSelection--;
         if ((upgradeSelection < 0)) {
-          upgradeSelection = bh;
+          upgradeSelection = bg;
         }
+        this->bj = true;
         break;
       case 29:
       case 35:
-        if ((!this->au)) {
+        this->startAnim(133, 1025, 4);
+        if ((!this->at)) {
           state = 100;
         } else {
-          this->au = false;
+          this->at = false;
           state = 1;
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
         }
-        this->iB = true;
+        this->iF = true;
       }
     }
     {
       switch (this->heldKey) {
       case 8:
-        if (((this->upgradePoints > 0) && (this->upgradePoints >= this->bg))) {
-          if ((this->bg < 16)) {
-            this->bg++;
-          }
-        } else if ((this->upgradePoints < this->bg)) {
-          this->bg = this->upgradePoints;
-        } else if ((this->upgradePoints <= 0)) {
-          this->bg = 0;
-        }
       case 27:
-        if ((this->upgradePoints > 100)) {
-          this->bg = 100;
-        } else {
-          this->bg = this->upgradePoints;
+        if (((this->upgradePoints > 0) && (this->upgradePoints >= this->bf))) {
+          if ((this->bf < 16)) {
+            this->bf++;
+          }
+        } else if ((this->upgradePoints < this->bf)) {
+          this->bf = this->upgradePoints;
+        } else if ((this->upgradePoints <= 0)) {
+          this->bf = 0;
         }
         {
           switch (upgradeSelection) {
           case 0:
             if ((bladesLevel <= 3)) {
-              this->upgradeProgressA = (this->upgradeProgressA + this->bg);
+              this->upgradeProgressA = (this->upgradeProgressA + this->bf);
               if ((this->upgradeProgressA >= bladesCosts[bladesLevel])) {
-                this->bg = (bladesCosts[bladesLevel] - (this->upgradeProgressA - this->bg));
+                this->bf = (bladesCosts[bladesLevel] - (this->upgradeProgressA - this->bf));
                 if ((((bladesLevel == 0) || (bladesLevel == 1)) || (bladesLevel == 2))) {
                   bladesComboLength++;
                 }
@@ -1368,16 +1440,16 @@ void Game::updateUpgradeScreen() {
                 this->bk = 2500;
               }
             } else {
-              this->bg = 0;
+              this->bf = 0;
             }
             break;
           case 1:
             if ((magicALevel <= 3)) {
-              this->upgradeProgressB = (this->upgradeProgressB + this->bg);
+              this->upgradeProgressB = (this->upgradeProgressB + this->bf);
               if ((this->upgradeProgressB < magicACosts[magicALevel])) {
                 break;
               }
-              this->bg = (magicACosts[magicALevel] - (this->upgradeProgressB - this->bg));
+              this->bf = (magicACosts[magicALevel] - (this->upgradeProgressB - this->bf));
               if ((((magicALevel == 0) || (magicALevel == 1)) || (magicALevel == 3))) {
                 this->magicAComboLength++;
               }
@@ -1386,42 +1458,43 @@ void Game::updateUpgradeScreen() {
               this->bk = 2500;
               break;
             }
-            this->bg = 0;
+            this->bf = 0;
             break;
           case 2:
             if ((magicBLevel < 4)) {
-              this->upgradeProgressC = (this->upgradeProgressC + this->bg);
+              this->upgradeProgressC = (this->upgradeProgressC + this->bf);
               if ((this->upgradeProgressC >= magicBCosts[magicBLevel])) {
-                this->bg = (magicBCosts[magicBLevel] - (this->upgradeProgressC - this->bg));
+                this->bf = (magicBCosts[magicBLevel] - (this->upgradeProgressC - this->bf));
                 this->upgradeProgressC = 0;
                 magicBLevel++;
                 this->bk = 2500;
               }
             } else {
-              this->bg = 0;
+              this->bf = 0;
             }
             break;
           case 3:
             if ((magicCLevel < 4)) {
-              this->upgradeProgressD = (this->upgradeProgressD + this->bg);
+              this->upgradeProgressD = (this->upgradeProgressD + this->bf);
               if ((this->upgradeProgressD >= magicCCosts[magicCLevel])) {
-                this->bg = (magicCCosts[magicCLevel] - (this->upgradeProgressD - this->bg));
+                this->bf = (magicCCosts[magicCLevel] - (this->upgradeProgressD - this->bf));
                 this->upgradeProgressD = 0;
                 magicCLevel++;
                 this->bk = 2500;
               }
             } else {
-              this->bg = 0;
+              this->bf = 0;
             }
           }
         }
-        this->upgradePoints = (this->upgradePoints - this->bg);
+        this->upgradePoints = (this->upgradePoints - this->bf);
         if ((this->upgradePoints < 0)) {
           this->upgradePoints = 0;
         }
+        this->bm = (((256 - (this->upgradePoints & 0xFF)) * 320) >> 8);
         break;
       default:
-        this->bg = 0;
+        this->bf = 0;
       }
     }
   } else {
@@ -1442,19 +1515,19 @@ void Game::updateUpgradeScreen() {
 }
 
 void Game::updateDialogue() {
-  if (((this->topBar >= this->topBarTarget) && this->ip)) {
+  if (((this->topBar >= this->topBarTarget) && this->it)) {
     {
       switch (this->pressedKey) {
       case 1:
       case 2:
-        if ((this->il >= 5)) {
-          this->bd = 0;
-          this->il -= 5;
+        if ((this->ip >= 5)) {
+          this->bc = 0;
+          this->ip -= 5;
           return;
         }
-        if ((this->cs > this->ct)) {
-          this->cs--;
-          this->bd = 0;
+        if ((this->cw > this->cx)) {
+          this->cw--;
+          this->bc = 0;
           this->startDialogueLine();
           return;
         }
@@ -1463,27 +1536,27 @@ void Game::updateDialogue() {
       case 6:
       case 8:
       case 27:
-        if ((this->im > 0)) {
-          this->bd = 0;
-          this->il = this->im;
+        if ((this->iq > 0)) {
+          this->bc = 0;
+          this->ip = this->iq;
           return;
         }
-        if ((((this->cr <= 3) || (this->pressedKey != 27)) && (this->cr > 3))) {
+        if ((((this->cv <= 3) || (this->pressedKey != 27)) && (this->cv > 3))) {
           break;
         }
-        this->bd = 0;
-        this->il = (-1);
-        this->im = (-1);
-        this->cs++;
-        if ((this->cs >= this->cu)) {
-          if ((!this->be)) {
+        this->bc = 0;
+        this->ip = (-1);
+        this->iq = (-1);
+        this->cw++;
+        if ((this->cw >= this->cy)) {
+          if ((!this->bd)) {
             state = 100;
             this->setBarTargets(0, 0, 35, 35);
-            this->iB = true;
-            this->aW = false;
-            this->cu = (-1);
-            this->cs = (-1);
-            this->ct = (-1);
+            this->iF = true;
+            this->aV = false;
+            this->cy = (-1);
+            this->cw = (-1);
+            this->cx = (-1);
             return;
           }
           this->requestClear();
@@ -1493,9 +1566,9 @@ void Game::updateDialogue() {
           }
           this->levelResourceId = levelIds[this->levelIndex];
           this->resetLevelState();
-          this->iC = true;
-          this->iS = nullptr;
-          this->bf = true;
+          this->iG = true;
+          this->iY = nullptr;
+          this->be = true;
           state = 1;
           this->levelLoadStarted = false;
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
@@ -1505,9 +1578,9 @@ void Game::updateDialogue() {
         return;
       case 29:
         if ((this->topBar == this->topBarTarget)) {
-          this->af = (this->topBarTarget >> 8);
-          this->ag = (this->bottomBarTarget >> 8);
-          this->J = state;
+          this->ae = (this->topBarTarget >> 8);
+          this->af = (this->bottomBarTarget >> 8);
+          this->I = state;
           state = 102;
           pauseMenuIndex = 4;
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
@@ -1527,11 +1600,14 @@ void Game::render(Surface* var1) {
     var1->setColor(0);
     var1->fillRect(0, 0, viewW, 320);
     this->requestClear();
-    this->iC = true;
-    this->iB = true;
+    this->iG = true;
+    this->iF = true;
   }
   if ((this->scene != nullptr)) {
-    this->scene->setBufferWidth(viewW);
+    this->scene->setViewWidth(viewW);
+  }
+  if ((this->bgScene != nullptr)) {
+    this->bgScene->setViewWidth(viewW);
   }
   if ((var3 != 0)) {
     var1->translate(var3, 0);
@@ -1553,7 +1629,7 @@ void Game::renderInner(Surface* var1) {
     switch (state) {
     case 0:
       this->u(var1);
-      if (((!iU) && (this->bootStep <= 13))) {
+      if (((!ja) && (this->bootStep <= 13))) {
         drawProgressBar(var1, this->bootStep, 13, true);
         return;
       }
@@ -1561,15 +1637,11 @@ void Game::renderInner(Surface* var1) {
     case 1:
     case 80:
     case 109:
-      if (((!this->bf) && (state != 1))) {
+      if (((!this->be) && (state != 1))) {
         this->drawMenu(var1);
       }
       this->drawBars(var1);
-      if (((((state == 109) && (this->topBar == this->topBarTarget)) && (this->bottomBar == this->bottomBarTarget)) && (!this->W))) {
-        if (((this->levelIndex >= this->demoMode) && (this->demoMode != 0))) {
-          this->drawBottomBar(var1, (-1), 197);
-          return;
-        }
+      if (((((state == 109) && (this->topBar == this->topBarTarget)) && (this->bottomBar == this->bottomBarTarget)) && (!this->V))) {
         this->drawBottomBar(var1, 28, 29);
         return;
       }
@@ -1582,8 +1654,8 @@ void Game::renderInner(Surface* var1) {
       for (int var3 = 0; (var3 <= 5); (var3++)) {
         this->drawString(var1, this->getString(languageNameStrings[var3]), halfWidth, var2, 1);
         if ((var3 == languageIndex)) {
-          bo[2]->draw(var1, ((halfWidth >> 1) - bo[2]->width), (var2 + (lineHeight >> 2)), 0);
-          bo[3]->draw(var1, (this->screenWidth - (halfWidth >> 1)), (var2 + (lineHeight >> 2)), 0);
+          bq[2]->draw(var1, ((halfWidth >> 1) - bq[2]->width), (var2 + (lineHeight >> 2)), 0);
+          bq[3]->draw(var1, (this->screenWidth - (halfWidth >> 1)), (var2 + (lineHeight >> 2)), 0);
         }
         var2 = ((var2 + lineHeight) + (lineHeight >> 2));
       }
@@ -1611,10 +1683,10 @@ void Game::renderInner(Surface* var1) {
     case 104:
     case 105:
     case 108:
-      if ((((state == 100) && (this->topBar <= 0)) && (!this->iB))) {
+      if ((((state == 100) && (this->topBar <= 0)) && (!this->iF))) {
         this->setClip(var1, (-uiX()), 0, viewW, 306);
       } else {
-        this->iB = true;
+        this->iF = true;
         this->setClip(var1, (-uiX()), 0, viewW, 320);
       }
       this->drawWorld(var1);
@@ -1624,11 +1696,11 @@ void Game::renderInner(Surface* var1) {
         var1->translate(uiX(), 0);
       }
       if ((state == 100)) {
-        if ((((this->aR && (this->aS == facingRight)) && (!qteActive)) && pointInRect(this->playerX, this->playerY, cameraX, cameraY, viewW, this->screenHeight))) {
-          this->drawFrame(var1, this->aU, 131, (12 - uiX()), (this->screenHeight - 25), 0);
+        if ((((this->aQ && (this->aR == facingRight)) && (!qteActive)) && pointInRect(this->playerX, this->playerY, cameraX, cameraY, viewW, this->screenHeight))) {
+          this->drawFrame(var1, this->aT, 131, (17 - uiX()), (this->screenHeight - 30), 0);
         }
         if ((((qteActive && (this->qteProgress >= 0)) && (this->qteProgress < this->qteRequired)) && (this->grappledEnemy >= 0))) {
-          this->drawFrame(var1, this->aU, 131, ((enemyX[this->grappledEnemy] - cameraX) - uiX()), (((this->enemyY[this->grappledEnemy] - this->enemyHeight[this->grappledEnemy]) - (this->enemyHeight[this->grappledEnemy] >> 2)) - cameraY), 0);
+          this->drawFrame(var1, this->aT, 131, ((enemyX[this->grappledEnemy] - cameraX) - uiX()), (((this->enemyY[this->grappledEnemy] - this->enemyHeight[this->grappledEnemy]) - (this->enemyHeight[this->grappledEnemy] >> 2)) - cameraY), 0);
         }
       }
       if ((state == 104)) {
@@ -1638,11 +1710,11 @@ void Game::renderInner(Surface* var1) {
         var1->drawRect(((halfWidth >> 3) - 1), ((halfHeight - (halfHeight >> 1)) - 1), ((this->screenWidth - (halfWidth >> 2)) + 1), ((halfHeight + lineHeight) + 1));
         var1->setColor(5911589);
         var1->drawRect(((halfWidth >> 3) - 2), ((halfHeight - (halfHeight >> 1)) - 2), ((this->screenWidth - (halfWidth >> 2)) + 3), ((halfHeight + lineHeight) + 3));
-        this->cq[0]->draw(var1, ((halfWidth >> 3) - 3), ((halfHeight - (halfHeight >> 1)) - 2), 0);
-        this->cq[0]->draw(var1, ((this->screenWidth - (halfWidth >> 3)) + 3), ((halfHeight - (halfHeight >> 1)) - 2), 2);
-        this->cq[0]->draw(var1, ((halfWidth >> 3) - 3), (((halfHeight + (halfHeight >> 1)) + 2) + lineHeight), 1);
-        this->cq[0]->draw(var1, ((this->screenWidth - (halfWidth >> 3)) + 3), (((halfHeight + (halfHeight >> 1)) + 2) + lineHeight), 3);
-        this->drawFrame(var1, this->fu, 136, halfWidth, (halfHeight - (lineHeight << 1)), 0);
+        this->cu[0]->draw(var1, ((halfWidth >> 3) - 3), ((halfHeight - (halfHeight >> 1)) - 2), 0);
+        this->cu[0]->draw(var1, ((this->screenWidth - (halfWidth >> 3)) + 3), ((halfHeight - (halfHeight >> 1)) - 2), 2);
+        this->cu[0]->draw(var1, ((halfWidth >> 3) - 3), (((halfHeight + (halfHeight >> 1)) + 2) + lineHeight), 1);
+        this->cu[0]->draw(var1, ((this->screenWidth - (halfWidth >> 3)) + 3), (((halfHeight + (halfHeight >> 1)) + 2) + lineHeight), 3);
+        this->drawFrame(var1, this->fy, 136, halfWidth, (halfHeight - (lineHeight << 1)), 0);
         if ((this->chestPopupKind == 9)) {
           this->drawString(var1, this->getString(148), halfWidth, (halfHeight + lineHeight), 1);
           if ((this->chestPopupTimer < 96)) {
@@ -1660,26 +1732,26 @@ void Game::renderInner(Surface* var1) {
         }
       }
       this->drawBars(var1);
-      if ((((state == 101) && (this->topBar >= this->topBarTarget)) && (!this->aW))) {
+      if ((((state == 101) && (this->topBar >= this->topBarTarget)) && (!this->aV))) {
         this->drawDialogueText(var1, false);
       }
       {
         switch (state) {
         case 100:
-          if (this->iB) {
+          if (this->iF) {
             this->drawBottomBar(var1, 160, 197);
             return;
           }
           return;
         case 101:
-          if (this->ip) {
+          if (this->it) {
             this->drawBottomBar(var1, 174, 197);
             return;
           }
           this->drawBottomBar(var1, (-1), (-1));
           return;
         case 102:
-          if (((this->topBar == this->topBarTarget) && (!this->W))) {
+          if (((this->topBar == this->topBarTarget) && (!this->V))) {
             if ((((pauseMenuIndex == 1) || (pauseMenuIndex == 2)) && this->pauseConfirming)) {
               this->drawBottomBar(var1, 28, 29);
               return;
@@ -1707,10 +1779,10 @@ void Game::renderInner(Surface* var1) {
       this->drawBars(var1);
       if ((this->bk <= 0)) {
         if ((this->upgradePoints > 0)) {
-          this->drawBottomBar(var1, ((!this->bi) ? ((this->bn <= 3) ? 149 : (-1)) : (-1)), ((!this->bi) ? (this->au ? 174 : 2) : (-1)));
+          this->drawBottomBar(var1, ((!this->bh) ? ((this->bo <= 3) ? 149 : (-1)) : (-1)), ((!this->bh) ? (this->at ? 174 : 2) : (-1)));
           return;
         }
-        this->drawBottomBar(var1, (-1), ((!this->bi) ? (this->au ? 174 : 2) : (-1)));
+        this->drawBottomBar(var1, (-1), ((!this->bh) ? (this->at ? 174 : 2) : (-1)));
         return;
       }
       this->drawBottomBar(var1, (-1), (-1));
@@ -1721,8 +1793,8 @@ void Game::renderInner(Surface* var1) {
         this->drawDialogueText(var1, true);
       }
       this->drawBars(var1);
-      if (((state == 107) && (this->topBar <= 6400))) {
-        if ((!this->aW)) {
+      if (((state == 107) && (this->topBar <= 8960))) {
+        if ((!this->aV)) {
           this->drawBottomBar(var1, (-1), 2);
           return;
         }
@@ -1737,7 +1809,7 @@ void Game::drawBars(Surface* var1) {
   int var2 = (this->topBar >> 8);
   int var3 = (this->bottomBar >> 8);
   if ((var2 > 0)) {
-    if ((((((((!this->W) || this->X) || this->pendingMainMenu) || this->pendingHelp) || this->ap) || this->pendingQuit) && ((((state == 108) || (state == 102)) || (state == 1)) || (state == 109)))) {
+    if ((((((((!this->V) || this->W) || this->pendingMainMenu) || this->pendingHelp) || this->ao) || this->pendingQuit) && ((((state == 108) || (state == 102)) || (state == 1)) || (state == 109)))) {
       var1->setColor(0);
       var1->fillRect((-uiX()), (var2 + 1), viewW, ((320 - (var3 << 1)) - 1));
       if ((state == 108)) {
@@ -1757,29 +1829,29 @@ void Game::drawBars(Surface* var1) {
         this->drawString(var1, ((!challengeMode) ? this->getString((54 + this->levelIndex)) : this->getString(66)), halfWidth, (halfHeight - (lineHeight >> 1)), 33);
         if ((pauseMenuIndex == 4)) {
           this->drawString(var1, (jstr((jstr(this->getString(47)) + jstr(String(u" ")))) + jstr((this->soundPlayer->isSoundOn() ? this->getString(234) : this->getString(235)))), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
-          bo[3]->draw(var1, (((this->screenWidth - 5) - 7) + uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
-          bo[2]->draw(var1, ((12 - bo[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bq[3]->draw(var1, (((this->screenWidth - 7) - 10) + uiX()), ((halfHeight + (lineHeight >> 1)) + 1), 0);
+          bq[2]->draw(var1, ((17 - bq[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 1), 0);
         } else if ((pauseMenuIndex >= 5)) {
           this->drawString(var1, Port::label((pauseMenuIndex - 5)), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
-          bo[3]->draw(var1, (((this->screenWidth - 5) - 7) + uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bq[3]->draw(var1, (((this->screenWidth - 7) - 10) + uiX()), ((halfHeight + (lineHeight >> 1)) + 1), 0);
           if ((pauseMenuIndex < 7)) {
-            bo[2]->draw(var1, ((12 - bo[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+            bq[2]->draw(var1, ((17 - bq[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 1), 0);
           }
         } else if (((pauseMenuIndex == 2) && (!this->pauseConfirming))) {
           this->drawString(var1, this->getString(50), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
-          bo[2]->draw(var1, ((12 - bo[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
-          bo[3]->draw(var1, (((this->screenWidth - 5) - 7) + uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bq[2]->draw(var1, ((17 - bq[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 1), 0);
+          bq[3]->draw(var1, (((this->screenWidth - 7) - 10) + uiX()), ((halfHeight + (lineHeight >> 1)) + 1), 0);
         } else if (((pauseMenuIndex == 2) && this->pauseConfirming)) {
           this->drawString(var1, this->getString(186), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
         } else if (((pauseMenuIndex == 1) && (!this->pauseConfirming))) {
           this->drawString(var1, this->getString(1), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
-          bo[2]->draw(var1, ((12 - bo[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bq[2]->draw(var1, ((17 - bq[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 1), 0);
         } else if (((pauseMenuIndex == 1) && this->pauseConfirming)) {
           this->drawString(var1, this->getString(185), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
         } else if ((pauseMenuIndex == 3)) {
           this->drawString(var1, this->getString(46), halfWidth, ((halfHeight + lineHeight) + halfLineHeight), 33);
-          bo[3]->draw(var1, (((this->screenWidth - 5) - 7) + uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
-          bo[2]->draw(var1, ((12 - bo[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 4), 0);
+          bq[3]->draw(var1, (((this->screenWidth - 7) - 10) + uiX()), ((halfHeight + (lineHeight >> 1)) + 1), 0);
+          bq[2]->draw(var1, ((17 - bq[2]->width) - uiX()), ((halfHeight + (lineHeight >> 1)) + 1), 0);
         }
       } else if ((state == 1)) {
         this->setFont(this->mainFont);
@@ -1798,11 +1870,6 @@ void Game::drawBars(Surface* var1) {
         if (((this->levelIndex >= this->demoMode) && (this->demoMode != 0))) {
           this->drawString(var1, this->getString(279), halfWidth, halfHeight, 33);
           this->drawString(var1, this->getString(280), halfWidth, (halfHeight + lineHeight), 33);
-          int8_t var4 = 0;
-          for (int var5 = (((halfHeight + lineHeight) + (lineHeight << 1)) + 4); (var4 < this->demoBuyUrl.length()); (var5 += lineHeight)) {
-            this->drawString(var1, this->demoBuyUrl.substring(var4, (((var4 + 18) < this->demoBuyUrl.length()) ? (var4 + 18) : this->demoBuyUrl.length())), halfWidth, var5, 33);
-            var4 += 18;
-          }
         } else {
           this->drawString(var1, (jstr(this->getString(((54 + this->levelIndex) - 1))) + jstr(this->getString(169))), halfWidth, halfHeight, 33);
           this->drawString(var1, (jstr((jstr(this->getString(168)) + jstr(this->getString((54 + this->levelIndex))))) + jstr(this->getString(159))), halfWidth, (halfHeight + lineHeight), 33);
@@ -1823,29 +1890,22 @@ void Game::drawBars(Surface* var1) {
     var1->drawLine((-uiX()), (320 - var3), (240 + uiX()), (320 - var3));
     var1->setColor(4269080);
     var1->drawLine((-uiX()), ((320 - var3) + 1), (240 + uiX()), ((320 - var3) + 1));
-    if (((!this->W) && (state == 108))) {
+    if (((!this->V) && (state == 108))) {
       this->drawBottomBar(var1, (challengeMode ? (-1) : 198), 45);
     }
-    this->cq[0]->draw(var1, (-uiX()), var2, 1);
-    this->cq[0]->draw(var1, (240 + uiX()), var2, 3);
-    this->cq[0]->draw(var1, (-uiX()), (320 - (var3 - 1)), 0);
-    this->cq[0]->draw(var1, (240 + uiX()), (320 - (var3 - 1)), 2);
-    if ((((((this->levelIndex >= this->demoMode) && (this->demoMode != 0)) && (state == 109)) && (this->topBar == this->topBarTarget)) && (!this->W))) {
-      int8_t var6 = 0;
-      for (int var7 = (((halfHeight + lineHeight) + (lineHeight << 1)) + 4); (var6 < this->demoBuyUrl.length()); (var7 += lineHeight)) {
-        this->drawString(var1, this->demoBuyUrl.substring(var6, (((var6 + 18) < this->demoBuyUrl.length()) ? (var6 + 18) : this->demoBuyUrl.length())), halfWidth, var7, 33);
-        var6 += 18;
-      }
-    }
+    this->cu[0]->draw(var1, (-uiX()), var2, 1);
+    this->cu[0]->draw(var1, (240 + uiX()), var2, 3);
+    this->cu[0]->draw(var1, (-uiX()), (320 - (var3 - 1)), 0);
+    this->cu[0]->draw(var1, (240 + uiX()), (320 - (var3 - 1)), 2);
   }
   if (((state == 80) && (this->topBar == 0))) {
     {
-      switch (this->iG) {
+      switch (this->iL) {
       case 0:
         this->drawBottomBar(var1, 0, 1);
         return;
       case 9:
-        if ((this->furthestLevel >= ((menuCursor - this->iG) + 1))) {
+        if ((this->furthestLevel >= ((menuCursor - this->iL) + 1))) {
           this->drawBottomBar(var1, 196, 2);
           return;
         }
@@ -1866,6 +1926,7 @@ void Game::drawBars(Surface* var1) {
 
 void Game::drawWorld(Surface* var1) {
   var1->translate((-uiX()), 0);
+  this->bgScene->draw(var1);
   this->scene->draw(var1);
   var1->translate((-cameraX), (-(cameraY + this->bl)));
   this->drawScenery36(var1);
@@ -1892,50 +1953,55 @@ void Game::drawWorld(Surface* var1) {
 }
 
 void Game::drawUpgradeScreen(Surface* var1) {
-  this->v(var1);
+  this->bp = 0;
+  var1->setColor(0);
+  var1->fillRect(((halfWidth - 5) - 25), 0, ((halfWidth + 5) + 25), 320);
+  var1->fillRect(5, 0, 70, (this->bm + this->bp));
   this->setFont(this->mainFont);
-  this->drawString(var1, this->getString(149), 120, lineHeight, 1);
-  bm = (jstr(String::valueOf(this->upgradePoints)) + jstr(String(u" ~")));
-  this->drawString(var1, bm, 132, 44, 8);
-  bm = this->getString((116 + upgradeSelection));
-  bo[0]->draw(var1, 120, (78 - bo[0]->height), 0);
-  if ((bm.indexOf(10) != (-1))) {
-    this->drawString(var1, bm.substring(0, bm.indexOf(10)), 120, 80, 1);
-    this->drawString(var1, bm.substring((bm.indexOf(10) + 1), bm.length()), 120, (80 + lineHeight), 1);
+  this->drawFireEffect(var1, false);
+  this->drawFrame(var1, aK, 134, 5, (this->bm + this->bp), 0);
+  this->drawFrame(var1, aK, 133, 0, this->bp, 0);
+  bn = (jstr(String(u"~ ")) + jstr(String::valueOf(this->upgradePoints)));
+  this->drawString(var1, bn, 13, 4, 4);
+  bn = this->getString((116 + upgradeSelection));
+  bq[0]->draw(var1, 175, (38 - bq[0]->height), 0);
+  if ((bn.indexOf(10) != (-1))) {
+    this->drawString(var1, bn.substring(0, bn.indexOf(10)), 175, 40, 1);
+    this->drawString(var1, bn.substring((bn.indexOf(10) + 1), bn.length()), 175, (40 + lineHeight), 1);
   } else {
-    this->drawString(var1, this->getString((116 + upgradeSelection)), 120, 80, 1);
+    this->drawString(var1, this->getString((116 + upgradeSelection)), 175, 40, 1);
   }
   int var2 = 0;
   if ((upgradeSelection == 0)) {
-    this->bn = bladesLevel;
+    this->bo = bladesLevel;
     if ((bladesLevel <= 3)) {
-      var2 = (bladesCosts[this->bn] - this->upgradeProgressA);
+      var2 = (bladesCosts[this->bo] - this->upgradeProgressA);
     }
   } else if ((upgradeSelection == 1)) {
-    this->bn = magicALevel;
+    this->bo = magicALevel;
     if ((magicALevel <= 3)) {
-      var2 = (magicACosts[this->bn] - this->upgradeProgressB);
+      var2 = (magicACosts[this->bo] - this->upgradeProgressB);
     }
   } else if ((upgradeSelection == 3)) {
-    this->bn = magicCLevel;
+    this->bo = magicCLevel;
     if ((magicCLevel <= 3)) {
-      var2 = (magicCCosts[this->bn] - this->upgradeProgressD);
+      var2 = (magicCCosts[this->bo] - this->upgradeProgressD);
     }
   } else {
-    this->bn = magicBLevel;
+    this->bo = magicBLevel;
     if ((magicBLevel <= 3)) {
-      var2 = (magicBCosts[this->bn] - this->upgradeProgressC);
+      var2 = (magicBCosts[this->bo] - this->upgradeProgressC);
     }
   }
-  if ((this->bn <= 3)) {
-    this->drawString(var1, (jstr(this->getString(223)) + jstr(String::valueOf((this->bn + 1)))), 120, (80 + (lineHeight << 1)), 1);
-    this->drawString(var1, (jstr(String::valueOf(var2)) + jstr(String(u"~"))), 132, (120 + (lineHeight << 1)), 8);
-    this->drawString(var1, this->getString(224), 120, ((120 + (lineHeight << 1)) + lineHeight), 1);
-    this->drawString(var1, this->getString(225), 120, (120 + (lineHeight << 2)), 1);
+  if ((this->bo <= 3)) {
+    this->drawString(var1, (jstr(this->getString(223)) + jstr(String::valueOf((this->bo + 1)))), 175, (40 + (lineHeight << 1)), 1);
+    this->drawString(var1, (jstr(String::valueOf(var2)) + jstr(String(u"~"))), 200, (80 + (lineHeight << 1)), 8);
+    this->drawString(var1, this->getString(224), 175, ((80 + (lineHeight << 1)) + lineHeight), 1);
+    this->drawString(var1, this->getString(225), 175, (80 + (lineHeight << 2)), 1);
   } else {
-    this->drawString(var1, this->getString(241), 120, (80 + (lineHeight << 1)), 1);
+    this->drawString(var1, this->getString(241), 175, (40 + (lineHeight << 1)), 1);
   }
-  bo[1]->draw(var1, 120, ((80 + (lineHeight << 1)) + lineHeight), 0);
+  bq[1]->draw(var1, 175, ((40 + (lineHeight << 1)) + lineHeight), 0);
   if ((this->bk > 0)) {
     var1->setColor(855564);
     var1->fillRect((halfWidth - (halfWidth >> 1)), (halfHeight - (halfHeight >> 2)), halfWidth, ((halfHeight >> 1) + lineHeight));
@@ -1943,9 +2009,9 @@ void Game::drawUpgradeScreen(Surface* var1) {
     var1->drawRect(((halfWidth - (halfWidth >> 1)) - 1), ((halfHeight - (halfHeight >> 2)) - 1), (halfWidth + 1), (((halfHeight >> 1) + 1) + lineHeight));
     var1->setColor(5911589);
     var1->drawRect(((halfWidth - (halfWidth >> 1)) - 2), ((halfHeight - (halfHeight >> 2)) - 2), (halfWidth + 3), (((halfHeight >> 1) + 3) + lineHeight));
-    if ((bm.indexOf(10) != (-1))) {
-      this->drawString(var1, bm.substring(0, bm.indexOf(10)), halfWidth, ((halfHeight - lineHeight) - (lineHeight >> 1)), 1);
-      this->drawString(var1, bm.substring((bm.indexOf(10) + 1), bm.length()), halfWidth, (halfHeight - (lineHeight >> 1)), 1);
+    if ((bn.indexOf(10) != (-1))) {
+      this->drawString(var1, bn.substring(0, bn.indexOf(10)), halfWidth, ((halfHeight - lineHeight) - (lineHeight >> 1)), 1);
+      this->drawString(var1, bn.substring((bn.indexOf(10) + 1), bn.length()), halfWidth, (halfHeight - (lineHeight >> 1)), 1);
     } else {
       this->drawString(var1, this->getString((116 + upgradeSelection)), halfWidth, (halfHeight - (halfHeight >> 2)), 1);
     }
@@ -1954,25 +2020,28 @@ void Game::drawUpgradeScreen(Surface* var1) {
 }
 
 void Game::drawHud(Surface* var1) {
-  this->drawFrame(var1, aL, 133, 0, 0, 0);
-  int var2 = (5 + this->weaponMode);
-  aL[var2]->draw(var1, 6, 17, 0);
+  this->drawFrame(var1, aK, 133, 0, 0, 0);
+  int var2 = 0;
+  if (((var2 = ((38 + this->weaponMode) + ((upgradeSelection > 0) ? (4 - upgradeSelection) : 0))) > 41)) {
+    var2 = ((38 + (var2 - 41)) - 1);
+  }
+  aK[var2]->draw(var1, 12, 27, 0);
   var1->setColor(4342338);
-  var1->drawRect(42, 13, ((this->maxHealth * 6) >> 8), 3);
-  var1->drawRect(42, 17, ((this->maxMagic * 6) >> 8), 2);
+  var1->drawRect(56, 17, ((this->maxHealth * 9) >> 8), 4);
+  var1->drawRect(56, 23, ((this->maxMagic * 9) >> 8), 3);
   var1->setColor(0);
-  var1->fillRect(42, 14, ((this->maxHealth * 6) >> 8), 2);
-  var1->fillRect(42, 17, ((this->maxMagic * 6) >> 8), 2);
+  var1->fillRect(56, 18, ((this->maxHealth * 9) >> 8), 3);
+  var1->fillRect(56, 23, ((this->maxMagic * 9) >> 8), 3);
   var1->setColor(4783872);
-  var1->fillRect(42, 14, ((this->health * 6) >> 8), 2);
+  var1->fillRect(56, 18, ((this->health * 9) >> 8), 3);
   if (((magic <= 0) && ((magicModeA || this->magicModeC) || magicModeB))) {
     var1->setColor(this->flashColor);
-    var1->fillRect(42, 17, ((this->maxMagic * 6) >> 8), 2);
+    var1->fillRect(56, 23, ((this->maxMagic * 9) >> 8), 3);
   } else {
     var1->setColor(104191);
-    var1->fillRect(42, 17, ((magic * 6) >> 8), 2);
+    var1->fillRect(56, 23, ((magic * 9) >> 8), 3);
   }
-  this->drawString(var1, String::valueOf(this->upgradePoints), 58, 24, 1);
+  this->drawString(var1, String::valueOf(this->upgradePoints), 79, 33, 1);
 }
 
 void Game::drawChests(Surface* var1) {
@@ -1995,50 +2064,50 @@ void Game::drawPickups(Surface* var1) {
       int var6 = pickupTrailY[var4];
       int var7 = (var5 - cameraX);
       int var8 = (var6 - cameraY);
-      if ((((((var7 + this->fx[pickupKind[var2]]->width) >= 0) && ((var8 + this->fx[pickupKind[var2]]->height) >= 0)) && ((var7 - this->fx[pickupKind[var2]]->width) <= viewW)) && ((var8 - this->fx[pickupKind[var2]]->height) <= 320))) {
-        this->fx[((pickupKind[var2] << 2) + var3)]->draw(var1, var5, var6, 0);
+      if ((((((var7 + this->fB[pickupKind[var2]]->width) >= 0) && ((var8 + this->fB[pickupKind[var2]]->height) >= 0)) && ((var7 - this->fB[pickupKind[var2]]->width) <= viewW)) && ((var8 - this->fB[pickupKind[var2]]->height) <= 320))) {
+        this->fB[((pickupKind[var2] << 2) + var3)]->draw(var1, var5, var6, 0);
       }
     }
   }
 }
 
 void Game::drawScenery36(Surface* var1) {
-  for (int var2 = cd; (var2 >= 0); (var2--)) {
-    if ((this->bY[var2] >= 0)) {
-      int var3 = bZ[var2];
-      int var4 = ca[var2];
+  for (int var2 = ch; (var2 >= 0); (var2--)) {
+    if ((this->cc[var2] >= 0)) {
+      int var3 = cd[var2];
+      int var4 = ce[var2];
       int var5 = (var3 - cameraX);
       int var6 = (var4 - cameraY);
-      if ((((((var5 + this->cc[var2]) >= 0) && ((var6 + this->cb[var2]) >= 0)) && ((var5 - this->cc[var2]) <= viewW)) && ((var6 - this->cb[var2]) <= 320))) {
-        this->drawFrame(var1, this->bX, (var2 + 10), var3, var4, 0);
+      if ((((((var5 + this->cg[var2]) >= 0) && ((var6 + this->cf[var2]) >= 0)) && ((var5 - this->cg[var2]) <= viewW)) && ((var6 - this->cf[var2]) <= 320))) {
+        this->drawFrame(var1, this->cb, (var2 + 10), var3, var4, 0);
       }
     }
   }
 }
 
 void Game::drawBoxedProps(Surface* var1) {
-  for (int var2 = bW; (var2 >= 0); (var2--)) {
-    if ((this->bO[var2] >= 0)) {
-      int var3 = bP[var2];
-      int var4 = this->bQ[var2];
+  for (int var2 = ca; (var2 >= 0); (var2--)) {
+    if ((this->bS[var2] >= 0)) {
+      int var3 = bT[var2];
+      int var4 = this->bU[var2];
       int var5 = (var3 - cameraX);
       int var6 = (var4 - cameraY);
-      if ((((((var5 + this->bU[var2]) >= 0) && ((var6 + this->bT[var2]) >= 0)) && ((var5 - this->bU[var2]) <= viewW)) && ((var6 - this->bT[var2]) <= 320))) {
-        this->drawFrame(var1, this->bN, (var2 + 30), var3, var4, 0);
+      if ((((((var5 + this->bY[var2]) >= 0) && ((var6 + this->bX[var2]) >= 0)) && ((var5 - this->bY[var2]) <= viewW)) && ((var6 - this->bX[var2]) <= 320))) {
+        this->drawFrame(var1, this->bR, (var2 + 30), var3, var4, 0);
       }
     }
   }
 }
 
 void Game::drawScenery17(Surface* var1) {
-  for (int var2 = ck; (var2 >= 0); (var2--)) {
-    if ((this->cf[var2] >= 0)) {
-      int var3 = this->cg[var2];
-      int var4 = ch[var2];
+  for (int var2 = co; (var2 >= 0); (var2--)) {
+    if ((this->cj[var2] >= 0)) {
+      int var3 = this->ck[var2];
+      int var4 = cl[var2];
       int var5 = (var3 - cameraX);
       int var6 = (var4 - cameraY);
-      if ((((((var5 + this->cj[var2]) >= 0) && ((var6 + this->ci[var2]) >= 0)) && ((var5 - this->cj[var2]) <= viewW)) && ((var6 - this->ci[var2]) <= 320))) {
-        this->drawFrame(var1, this->ce, (var2 + 40), var3, var4, 0);
+      if ((((((var5 + this->cn[var2]) >= 0) && ((var6 + this->cm[var2]) >= 0)) && ((var5 - this->cn[var2]) <= viewW)) && ((var6 - this->cm[var2]) <= 320))) {
+        this->drawFrame(var1, this->ci, (var2 + 40), var3, var4, 0);
       }
     }
   }
@@ -2052,21 +2121,21 @@ void Game::drawHazards(Surface* var1) {
       int var5 = (var3 - cameraX);
       int var6 = (var4 - cameraY);
       if ((((((var5 + this->hazardWidth[var2]) >= 0) && ((var6 + hazardHeight[var2]) >= 0)) && ((var5 - this->hazardWidth[var2]) <= viewW)) && ((var6 - hazardHeight[var2]) <= 320))) {
-        this->drawFrame(var1, this->dq, (var2 + 70), var3, var4, 0);
+        this->drawFrame(var1, this->du, (var2 + 70), var3, var4, 0);
       }
     }
   }
 }
 
 void Game::drawHealthProps(Surface* var1) {
-  for (int var2 = this->dp; (var2 >= 0); (var2--)) {
-    if ((this->di[var2] >= 0)) {
-      int var3 = dl[var2];
-      int var4 = dm[var2];
+  for (int var2 = this->dt; (var2 >= 0); (var2--)) {
+    if ((this->dm[var2] >= 0)) {
+      int var3 = dp[var2];
+      int var4 = dq[var2];
       int var5 = (var3 - cameraX);
       int var6 = (var4 - cameraY);
-      if ((((((var5 + this->do_[var2]) >= 0) && ((var6 + this->dn[var2]) >= 0)) && ((var5 - this->do_[var2]) <= viewW)) && ((var6 - this->dn[var2]) <= 320))) {
-        this->drawFrame(var1, this->dh, (var2 + 60), var3, var4, this->dk[var2]);
+      if ((((((var5 + this->ds[var2]) >= 0) && ((var6 + this->dr[var2]) >= 0)) && ((var5 - this->ds[var2]) <= viewW)) && ((var6 - this->dr[var2]) <= 320))) {
+        this->drawFrame(var1, this->dl, (var2 + 60), var3, var4, this->do_[var2]);
       }
     }
   }
@@ -2080,7 +2149,7 @@ void Game::drawPushables(Surface* var1) {
       int var5 = (var3 - cameraX);
       int var6 = (var4 - cameraY);
       if ((((((var5 + this->pushWidth[var2]) >= 0) && ((var6 + this->pushHeight[var2]) >= 0)) && (var5 <= viewW)) && ((var6 - this->pushHeight[var2]) <= 320))) {
-        this->drawFrame(var1, this->eM, (var2 + 111), var3, var4, 0);
+        this->drawFrame(var1, this->eQ, (var2 + 111), var3, var4, 0);
       }
     }
   }
@@ -2094,7 +2163,7 @@ void Game::drawBreakables(Surface* var1) {
       int var5 = (var3 - cameraX);
       int var6 = (var4 - cameraY);
       if ((((((var5 + (breakWidth[var2] << 1)) >= 0) && ((var6 + this->breakHeight[var2]) >= 0)) && ((var5 - breakWidth[var2]) <= viewW)) && ((var6 - this->breakHeight[var2]) <= 320))) {
-        this->drawFrame(var1, this->eY, (var2 + 116), var3, var4, 0);
+        this->drawFrame(var1, this->fc, (var2 + 116), var3, var4, 0);
       }
     }
   }
@@ -2106,8 +2175,8 @@ void Game::drawSwitches(Surface* var1) {
     int var4 = switchY[var2];
     int var5 = (var3 - cameraX);
     int var6 = (var4 - cameraY);
-    if ((((((var5 + this->cB[var2]) >= 0) && ((var6 + this->cC[var2]) >= 0)) && ((var5 - this->cB[var2]) <= viewW)) && ((var6 - this->cC[var2]) <= 320))) {
-      this->drawFrame(var1, cw, (var2 + 106), var3, var4, 0);
+    if ((((((var5 + this->cF[var2]) >= 0) && ((var6 + this->cG[var2]) >= 0)) && ((var5 - this->cF[var2]) <= viewW)) && ((var6 - this->cG[var2]) <= 320))) {
+      this->drawFrame(var1, cA, (var2 + 106), var3, var4, 0);
     }
   }
 }
@@ -2120,7 +2189,7 @@ void Game::drawGates(Surface* var1) {
       int var5 = (var3 - cameraX);
       int var6 = (var4 - cameraY);
       if ((((((var5 + gateWidth[var2]) >= 0) && ((var6 + this->gateHeight[var2]) >= 0)) && ((var5 - gateWidth[var2]) <= viewW)) && ((var6 - this->gateHeight[var2]) <= 320))) {
-        this->drawFrame(var1, this->cJ, (var2 + 100), var3, var4, 0);
+        this->drawFrame(var1, this->cN, (var2 + 100), var3, var4, 0);
       }
     }
   }
@@ -2138,25 +2207,25 @@ void Game::drawEnemies(Surface* var1) {
         {
           switch (this->enemyClass[var2]) {
           case 1:
-            this->drawFrame(var1, this->dC, (var2 + 85), enemyX[var2], this->enemyY[var2], (var7 ? 0 : 2));
+            this->drawFrame(var1, this->dG, (var2 + 85), enemyX[var2], this->enemyY[var2], (var7 ? 0 : 2));
             break;
           case 2:
-            this->drawFrame(var1, dD, (var2 + 85), enemyX[var2], this->enemyY[var2], (var7 ? 0 : 2));
+            this->drawFrame(var1, dH, (var2 + 85), enemyX[var2], this->enemyY[var2], (var7 ? 0 : 2));
             break;
           case 3:
             if ((bossIndex == var2)) {
-              this->drawFrame(var1, this->dF, (var2 + 85), enemyX[var2], this->enemyY[var2], (var7 ? 0 : 2));
+              this->drawFrame(var1, this->dJ, (var2 + 85), enemyX[var2], this->enemyY[var2], (var7 ? 0 : 2));
             } else {
-              this->drawFrame(var1, this->dE, (var2 + 85), enemyX[var2], this->enemyY[var2], (var7 ? 0 : 2));
+              this->drawFrame(var1, this->dI, (var2 + 85), enemyX[var2], this->enemyY[var2], (var7 ? 0 : 2));
             }
           }
         }
         if ((this->enemyStatus[var2] > 0)) {
-          this->drawFrame(var1, this->bH, 137, enemyX[var2], this->enemyY[var2], 0);
+          this->drawFrame(var1, this->bL, 137, enemyX[var2], this->enemyY[var2], 0);
           this->stepAnim(137, (Engine::tickFrame ? this->frameDelta : 0));
         }
-        if (((state == 100) && (((((((this->grappledEnemy < 0) && (this->enemyStatus[var2] <= 0)) && (enemyHealth[var2] < (enemyMaxHealth[var2] >> 1))) && (!this->eh[var2])) && (enemyHealth[var2] >= 0)) || ((((this->enemyClass[var2] == 3) && (this->enemyAction[var2] == 12)) && (bossIndex != var2)) && (this->finalBossIndex != var2))) || (((this->enemyClass[var2] == 2) && (this->enemyAction[var2] == 12)) && (bossIndex != var2))))) {
-          this->drawFrame(var1, this->aU, 132, enemyX[var2], ((this->enemyY[var2] - this->enemyHeight[var2]) - ((this->finalBossIndex == var2) ? (-(this->enemyHeight[var2] >> 3)) : (this->enemyHeight[var2] >> 2))), 0);
+        if (((state == 100) && (((((((this->grappledEnemy < 0) && (this->enemyStatus[var2] <= 0)) && (enemyHealth[var2] < (enemyMaxHealth[var2] >> 1))) && (!this->el[var2])) && (enemyHealth[var2] >= 0)) || ((((this->enemyClass[var2] == 3) && (this->enemyAction[var2] == 12)) && (bossIndex != var2)) && (this->finalBossIndex != var2))) || (((this->enemyClass[var2] == 2) && (this->enemyAction[var2] == 12)) && (bossIndex != var2))))) {
+          this->drawFrame(var1, this->aT, 132, enemyX[var2], ((this->enemyY[var2] - this->enemyHeight[var2]) - ((this->finalBossIndex == var2) ? (-(this->enemyHeight[var2] >> 3)) : (this->enemyHeight[var2] >> 2))), 0);
         }
       }
     }
@@ -2164,13 +2233,13 @@ void Game::drawEnemies(Surface* var1) {
 }
 
 void Game::drawPlayer(Surface* var1) {
-  this->drawFrame(var1, this->fH, 135, this->playerX, this->playerY, (facingRight ? 0 : 2));
+  this->drawFrame(var1, this->fL, 135, this->playerX, this->playerY, (facingRight ? 0 : 2));
 }
 
 void Game::drawEffects(Surface* var1) {
   for (int var2 = this->effectLast; (var2 >= 0); (var2--)) {
     if ((effectAnim[var2] >= 0)) {
-      this->drawFrame(var1, this->bH, effectAnim[var2], this->effectX[var2], this->effectY[var2], this->effectFlip[var2]);
+      this->drawFrame(var1, this->bL, effectAnim[var2], this->effectX[var2], this->effectY[var2], this->effectFlip[var2]);
     }
   }
 }
@@ -2223,8 +2292,8 @@ void Game::spawnObjects(int var1, int var2) {
     case 0:
       for (int var47 = 0; (var47 < var2); (var47++)) {
         var62 = this->readBits(10);
-        var76 = (this->bs[var47] / 16);
-        var87 = (this->bt[var47] / 16);
+        var76 = (this->bu[var47] / 22);
+        var87 = (this->bv[var47] / 22);
         for (int var94 = 0; (var94 <= var62); (var94++)) {
           this->setCellFlags((var76 + var94), var87, 8192);
         }
@@ -2237,8 +2306,8 @@ void Game::spawnObjects(int var1, int var2) {
       this->lockX = newArr<int>(var2);
       this->lockY = newArr<int>(var2);
       for (int var23 = 0; (var23 < var2); (var23++)) {
-        this->lockX[var23] = this->bs[var23];
-        this->lockY[var23] = this->bt[var23];
+        this->lockX[var23] = this->bu[var23];
+        this->lockY[var23] = this->bv[var23];
         this->lockVertical[var23] = (this->readBits(1) == 1);
         this->lockReverse[var23] = (this->readBits(1) == 1);
       }
@@ -2261,8 +2330,8 @@ void Game::spawnObjects(int var1, int var2) {
             chestReward[var61] = (-2);
           }
         }
-        this->chestX[var61] = this->bs[var61];
-        this->chestY[var61] = this->bt[var61];
+        this->chestX[var61] = this->bu[var61];
+        this->chestY[var61] = this->bv[var61];
         if ((((chestReward[var61] != (-1)) || ((chestFlags & var46) != var46)) && ((chestReward[var61] != (-2)) || ((chestFlags & (var46 << 10)) != (var46 << 10))))) {
           chestOpened[var61] = false;
         } else {
@@ -2274,9 +2343,9 @@ void Game::spawnObjects(int var1, int var2) {
         if (chestOpened[var61]) {
           this->stepAnim((121 + var61), 2000);
         }
-        this->getFrameBounds(this->chestSprites, (121 + var61), 0, 0, 0, this->P);
-        this->chestWidth = this->P[2];
-        this->chestHeight = this->P[3];
+        this->getFrameBounds(this->chestSprites, (121 + var61), 0, 0, 0, this->O);
+        this->chestWidth = this->O[2];
+        this->chestHeight = this->O[3];
       }
     case 1:
     case 2:
@@ -2290,8 +2359,8 @@ void Game::spawnObjects(int var1, int var2) {
     case 5:
       for (int var45 = 0; (var45 < var2); (var45++)) {
         var60 = this->readBits(10);
-        var75 = (this->bs[var45] / 16);
-        var86 = (this->bt[var45] / 16);
+        var75 = (this->bu[var45] / 22);
+        var86 = (this->bv[var45] / 22);
         for (int var93 = 0; (var93 <= var60); (var93++)) {
           this->setCellFlags(var75, (var86 + var93), 8);
         }
@@ -2299,10 +2368,10 @@ void Game::spawnObjects(int var1, int var2) {
       return;
     case 6:
       for (int var13 = 0; (var13 < 40); (var13++)) {
-        this->aY[var13] = this->readBits(10);
+        this->aX[var13] = this->readBits(10);
       }
       for (int var14 = 0; (var14 < 40); (var14++)) {
-        this->aZ[var14] = this->readBits(10);
+        this->aY[var14] = this->readBits(10);
       }
       return;
     case 7:
@@ -2323,15 +2392,15 @@ void Game::spawnObjects(int var1, int var2) {
         breakStopsCamera[var44] = (this->readBits(1) == 1);
         breakCameraRight[var44] = (this->readBits(1) == 1);
         this->startAnim((116 + var44), 2048, this->breakAnim[var44]);
-        this->getFrameBounds(this->eY, (116 + var44), 0, 0, 0, this->P);
-        breakX[var44] = this->bs[var44];
-        this->breakY[var44] = this->bt[var44];
-        this->breakTileX[var44] = (this->bs[var44] / 16);
-        breakTileY[var44] = (this->bt[var44] / 16);
-        breakWidth[var44] = this->P[2];
-        this->breakHeight[var44] = this->P[3];
-        this->breakTilesW[var44] = ((int8_t)((breakWidth[var44] / 16)));
-        this->breakTilesH[var44] = ((int8_t)((this->breakHeight[var44] / 16)));
+        this->getFrameBounds(this->fc, (116 + var44), 0, 0, 0, this->O);
+        breakX[var44] = this->bu[var44];
+        this->breakY[var44] = this->bv[var44];
+        this->breakTileX[var44] = (this->bu[var44] / 22);
+        breakTileY[var44] = (this->bv[var44] / 22);
+        breakWidth[var44] = this->O[2];
+        this->breakHeight[var44] = this->O[3];
+        this->breakTilesW[var44] = ((int8_t)((breakWidth[var44] / 22)));
+        this->breakTilesH[var44] = ((int8_t)((this->breakHeight[var44] / 22)));
         var59 = this->breakTileX[var44];
         var74 = breakTileY[var44];
         if ((!this->stepAnim((116 + var44), 1))) {
@@ -2347,17 +2416,17 @@ void Game::spawnObjects(int var1, int var2) {
       }
       return;
     case 8:
-      this->cl = newArr<int>(var2);
-      cm = newArr<int>(var2);
-      this->cn = newArr<int>(var2);
-      this->co = newArr<int>(var2);
-      cv = (var2 - 1);
+      this->cp = newArr<int>(var2);
+      cq = newArr<int>(var2);
+      this->cr = newArr<int>(var2);
+      this->cs = newArr<int>(var2);
+      cz = (var2 - 1);
       for (int var43 = 0; (var43 < var2); (var43++)) {
-        this->cl[var43] = (this->bs[var43] / 16);
-        cm[var43] = (this->bt[var43] / 16);
-        this->setCellFlags(this->cl[var43], cm[var43], 128);
-        this->cn[var43] = this->readBits(10);
-        this->co[var43] = this->readBits(3);
+        this->cp[var43] = (this->bu[var43] / 22);
+        cq[var43] = (this->bv[var43] / 22);
+        this->setCellFlags(this->cp[var43], cq[var43], 128);
+        this->cr[var43] = this->readBits(10);
+        this->cs[var43] = this->readBits(3);
       }
       return;
     case 9:
@@ -2367,8 +2436,8 @@ void Game::spawnObjects(int var1, int var2) {
       for (int var42 = 0; (var42 < var2); (var42++)) {
         var58 = this->readBits(10);
         this->triggerGateId[var42] = ((int8_t)(this->readBits(3)));
-        var73 = (this->bs[var42] / 16);
-        var84 = (this->bt[var42] / 16);
+        var73 = (this->bu[var42] / 22);
+        var84 = (this->bv[var42] / 22);
         this->triggerTileX[var42] = var73;
         triggerTileY[var42] = var84;
         for (int var91 = 0; (var91 <= var58); (var91++)) {
@@ -2379,8 +2448,8 @@ void Game::spawnObjects(int var1, int var2) {
     case 10:
       for (int var41 = 0; (var41 < var2); (var41++)) {
         var57 = this->readBits(10);
-        var72 = (this->bs[var41] / 16);
-        var83 = (this->bt[var41] / 16);
+        var72 = (this->bu[var41] / 22);
+        var83 = (this->bv[var41] / 22);
         for (int var90 = 0; (var90 <= var57); (var90++)) {
           this->setCellFlags((var72 + var90), var83, 64);
         }
@@ -2393,41 +2462,41 @@ void Game::spawnObjects(int var1, int var2) {
       var26 = (-1);
       var28 = (-1);
       if ((var1 == 11)) {
-        var22 = this->dC;
+        var22 = this->dG;
         var26 = 1;
         var28 = 0;
-        if (this->dA) {
+        if (this->dE) {
         }
       } else if ((var1 == 12)) {
-        var22 = dD;
+        var22 = dH;
         var26 = 2;
         var28 = 0;
-        if (this->dB) {
+        if (this->dF) {
         }
       } else if ((var1 == 13)) {
-        var22 = this->dE;
+        var22 = this->dI;
         var26 = 3;
         var28 = 0;
       }
       for (int var40 = this->enemyCount; (var40 < (this->enemyCount + var2)); (var40++)) {
         this->enemyId[var40] = var40;
-        enemyX[var40] = this->bs[(var40 - this->enemyCount)];
-        this->enemyY[var40] = this->bt[(var40 - this->enemyCount)];
-        this->enemyTileX[var40] = (enemyX[var40] / 16);
-        this->enemyTileY[var40] = ((this->enemyY[var40] - 1) / 16);
+        enemyX[var40] = this->bu[(var40 - this->enemyCount)];
+        this->enemyY[var40] = this->bv[(var40 - this->enemyCount)];
+        this->enemyTileX[var40] = (enemyX[var40] / 22);
+        this->enemyTileY[var40] = ((this->enemyY[var40] - 1) / 22);
         this->setCellFlags(this->enemyTileX[var40], (this->enemyTileY[var40] - 1), 2);
         this->enemyAction[var40] = var28;
         this->enemyId[var40] = var40;
         this->enemyClass[var40] = var26;
-        eu[var40] = 0;
+        ey[var40] = 0;
         enemyHomeX[var40] = enemyX[var40];
         enemyHomeY[var40] = this->enemyY[var40];
-        this->enemySubY[var40] = ((this->enemyY[var40] - (this->enemyTileY[var40] * 16)) << 8);
+        this->enemySubY[var40] = ((this->enemyY[var40] - (this->enemyTileY[var40] * 22)) << 8);
         this->enemyStatus[var40] = 0;
         enemyRespawns[var40] = ((int8_t)(this->readBits(3)));
-        ed[var40] = enemyRespawns[var40];
+        eh[var40] = enemyRespawns[var40];
         this->enemyRespawnDelay[var40] = (this->readBits(10) * 1000);
-        this->dL = ((this->readBits(1) == 1) ? var40 : 0);
+        this->dP = ((this->readBits(1) == 1) ? var40 : 0);
         enemyRespawnTimer[var40] = this->enemyRespawnDelay[var40];
         enemyMaxHealth[var40] = this->readBits(16);
         enemyHealth[var40] = enemyMaxHealth[var40];
@@ -2435,22 +2504,22 @@ void Game::spawnObjects(int var1, int var2) {
         this->enemyContactDamage[var40] = ((int8_t)(this->readBits(10)));
         this->enemyWaveSlot[var40] = ((int8_t)(this->readBits(10)));
         this->enemyFacingRight[var40] = (this->readBits(1) != 1);
-        es[var40] = this->enemyFacingRight[var40];
-        ev[var40] = (this->readBits(1) == 1);
+        ew[var40] = this->enemyFacingRight[var40];
+        ez[var40] = (this->readBits(1) == 1);
         if ((var1 == 13)) {
           var56 = (this->readBits(1) == 1);
           var71 = (this->readBits(1) == 1);
-          if (ev[var40]) {
+          if (ez[var40]) {
             var28 = 1;
           }
           if ((var56 && (!var71))) {
-            this->dF = this->loadSprites(13313, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((13315 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+            this->dJ = this->loadSprites(13313, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((13315 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
             this->loadAnimSet(13312);
             bossIndex = var40;
             enemyHealth[var40] = (enemyHealth[var40] << 2);
             enemyMaxHealth[var40] = enemyHealth[var40];
           } else if (var71) {
-            this->dF = this->loadSprites(14337);
+            this->dJ = this->loadSprites(14337);
             this->loadAnimSet(14336);
             this->finalBossIndex = var40;
             bossIndex = var40;
@@ -2459,18 +2528,18 @@ void Game::spawnObjects(int var1, int var2) {
           } else {
             this->loadAnimSet(15360);
           }
-        } else if (ev[var40]) {
+        } else if (ez[var40]) {
           var28 = 1;
         }
         this->setEnemyAction(var28, var40);
-        this->getFrameBounds(var22, (85 + var40), 0, 0, 0, this->P);
-        this->enemyWidth[var40] = ((int16_t)(this->P[2]));
-        enemyHalfWidthTiles[var40] = ((int8_t)(((this->enemyWidth[var40] / 16) >> 1)));
+        this->getFrameBounds(var22, (85 + var40), 0, 0, 0, this->O);
+        this->enemyWidth[var40] = ((int16_t)(this->O[2]));
+        enemyHalfWidthTiles[var40] = ((int8_t)(((this->enemyWidth[var40] / 22) >> 1)));
         if ((enemyHalfWidthTiles[var40] == 0)) {
           enemyHalfWidthTiles[var40] = 1;
         }
-        this->enemyHeight[var40] = ((int16_t)(this->P[3]));
-        this->enemyHeightTiles[var40] = ((int8_t)((this->enemyHeight[var40] / 16)));
+        this->enemyHeight[var40] = ((int16_t)(this->O[3]));
+        this->enemyHeightTiles[var40] = ((int8_t)((this->enemyHeight[var40] / 22)));
       }
       this->enemyCount += var2;
       return;
@@ -2482,8 +2551,8 @@ void Game::spawnObjects(int var1, int var2) {
       this->waveEnemyFacing = newArr<bool>((var2 * 15));
       for (int var39 = 0; (var39 < var2); (var39++)) {
         var55 = this->readBits(10);
-        this->waveTileX[var39] = (this->bs[var39] / 16);
-        this->waveTileY[var39] = (this->bt[var39] / 16);
+        this->waveTileX[var39] = (this->bu[var39] / 22);
+        this->waveTileY[var39] = (this->bv[var39] / 22);
         for (int var69 = 0; (var69 < 15); (var69++)) {
           if ((var69 < 15)) {
             this->waveEnemyX[(var69 + (var39 * 15))] = this->readBits(10);
@@ -2501,38 +2570,38 @@ void Game::spawnObjects(int var1, int var2) {
       }
       return;
     case 17:
-      ck = (var2 - 1);
+      co = (var2 - 1);
       for (int var21 = 0; (var21 < var2); (var21++)) {
-        this->cf[var21] = this->readBits(6);
-        this->cg[var21] = this->bs[var21];
-        ch[var21] = this->bt[var21];
-        this->startAnim((40 + var21), 3072, this->cf[var21]);
-        this->getFrameBounds(this->ce, (40 + var21), 0, 0, 0, this->P);
-        this->cj[var21] = this->P[2];
-        this->ci[var21] = this->P[3];
+        this->cj[var21] = this->readBits(6);
+        this->ck[var21] = this->bu[var21];
+        cl[var21] = this->bv[var21];
+        this->startAnim((40 + var21), 3072, this->cj[var21]);
+        this->getFrameBounds(this->ci, (40 + var21), 0, 0, 0, this->O);
+        this->cn[var21] = this->O[2];
+        this->cm[var21] = this->O[3];
       }
       return;
     case 18:
       for (int var38 = 0; (var38 < var2); (var38++)) {
         var54 = this->readBits(10);
-        var68 = (this->bs[var38] / 16);
-        var82 = (this->bt[var38] / 16);
+        var68 = (this->bu[var38] / 22);
+        var82 = (this->bv[var38] / 22);
         for (int var89 = 0; (var89 <= var54); (var89++)) {
           this->setCellFlags((var68 + var89), var82, 16);
         }
       }
       return;
     case 21:
-      this->dp = (var2 - 1);
+      this->dt = (var2 - 1);
       for (int var37 = 0; (var37 < var2); (var37++)) {
-        this->di[var37] = (this->readBits(6) << 1);
-        dl[var37] = this->bs[var37];
-        dm[var37] = this->bt[var37];
-        this->dk[var37] = 0;
-        this->startAnim((60 + var37), 5121, this->di[var37]);
-        this->getFrameBounds(this->dh, (60 + var37), 0, 0, 0, this->P);
-        this->do_[var37] = this->P[2];
-        this->dn[var37] = this->P[3];
+        this->dm[var37] = (this->readBits(6) << 1);
+        dp[var37] = this->bu[var37];
+        dq[var37] = this->bv[var37];
+        this->do_[var37] = 0;
+        this->startAnim((60 + var37), 5121, this->dm[var37]);
+        this->getFrameBounds(this->dl, (60 + var37), 0, 0, 0, this->O);
+        this->ds[var37] = this->O[2];
+        this->dr[var37] = this->O[3];
       }
       return;
     case 22:
@@ -2543,8 +2612,8 @@ void Game::spawnObjects(int var1, int var2) {
             var3 |= (1 << var19);
           }
         }
-        var20 = (this->bs[var15] / 16);
-        var25 = (this->bt[var15] / 16);
+        var20 = (this->bu[var15] / 22);
+        var25 = (this->bv[var15] / 22);
         var27 = this->readBits(10);
         var36 = this->readBits(10);
         var53 = this->readBits(10);
@@ -2564,36 +2633,36 @@ void Game::spawnObjects(int var1, int var2) {
       }
       return;
     case 23:
-      this->eI = newArr<int>(var2);
-      this->eJ = newArr<int>(var2);
-      this->eK = newArr<int>(var2);
-      eL = newArr<int8_t>(var2);
-      this->br = var2;
+      this->eM = newArr<int>(var2);
+      this->eN = newArr<int>(var2);
+      this->eO = newArr<int>(var2);
+      eP = newArr<int8_t>(var2);
+      this->bt = var2;
       for (int var18 = (var2 - 1); (var18 >= 0); (var18--)) {
-        this->eI[var18] = this->readBits(8);
-        this->eJ[var18] = this->bs[((var2 - var18) - 1)];
-        this->eK[var18] = this->bt[((var2 - var18) - 1)];
-        eL[var18] = ((int8_t)(this->readBits(3)));
+        this->eM[var18] = this->readBits(8);
+        this->eN[var18] = this->bu[((var2 - var18) - 1)];
+        this->eO[var18] = this->bv[((var2 - var18) - 1)];
+        eP[var18] = ((int8_t)(this->readBits(3)));
       }
       return;
     case 25:
       for (int var35 = 0; (var35 < var2); (var35++)) {
-        this->setCellFlags((this->bs[var35] / 16), (this->bt[var35] / 16), 1024);
+        this->setCellFlags((this->bu[var35] / 22), (this->bv[var35] / 22), 1024);
       }
       return;
     case 26:
-      this->fW = this->bs[0];
-      this->fX = this->bt[0];
-      this->checkpointX = this->fW;
-      this->checkpointY = this->fX;
+      this->ga = this->bu[0];
+      this->gb = this->bv[0];
+      this->checkpointX = this->ga;
+      this->checkpointY = this->gb;
       this->atLadderTop = false;
       this->climbing = false;
       this->health = this->maxHealth;
       magic = this->maxMagic;
       this->blocking = false;
-      gg = false;
-      this->playerX = this->fW;
-      this->playerY = this->fX;
+      gk = false;
+      this->playerX = this->ga;
+      this->playerY = this->gb;
       return;
     case 27:
       pushLast = (var2 - 1);
@@ -2606,27 +2675,27 @@ void Game::spawnObjects(int var1, int var2) {
       this->pushHeight = newArr<int>(var2);
       this->pushTilesW = newArr<int8_t>(var2);
       this->pushTilesH = newArr<int8_t>(var2);
-      eW = newArr<bool>(var2);
+      fa = newArr<bool>(var2);
       for (int var34 = 0; (var34 < var2); (var34++)) {
         this->pushAnim[var34] = this->readBits(3);
-        eW[var34] = (this->readBits(1) == 1);
+        fa[var34] = (this->readBits(1) == 1);
         this->startAnim((111 + var34), 6144, this->pushAnim[var34]);
-        this->getFrameBounds(this->eM, (111 + var34), 0, 0, 0, this->P);
-        this->pushX[var34] = this->bs[var34];
-        this->pushY[var34] = this->bt[var34];
-        pushTileX[var34] = (this->bs[var34] / 16);
-        this->pushTileY[var34] = (this->bt[var34] / 16);
-        this->pushWidth[var34] = this->P[2];
-        this->pushHeight[var34] = this->P[3];
-        this->pushTilesW[var34] = ((int8_t)((this->pushWidth[var34] / 16)));
-        this->pushTilesH[var34] = ((int8_t)((this->pushHeight[var34] / 16)));
+        this->getFrameBounds(this->eQ, (111 + var34), 0, 0, 0, this->O);
+        this->pushX[var34] = this->bu[var34];
+        this->pushY[var34] = this->bv[var34];
+        pushTileX[var34] = (this->bu[var34] / 22);
+        this->pushTileY[var34] = (this->bv[var34] / 22);
+        this->pushWidth[var34] = this->O[2];
+        this->pushHeight[var34] = this->O[3];
+        this->pushTilesW[var34] = ((int8_t)((this->pushWidth[var34] / 22)));
+        this->pushTilesH[var34] = ((int8_t)((this->pushHeight[var34] / 22)));
         var52 = pushTileX[var34];
         var66 = this->pushTileY[var34];
         for (int var77 = 0; (var77 < this->pushTilesW[var34]); (var77++)) {
           for (int var88 = 1; (var88 <= this->pushTilesH[var34]); (var88++)) {
             this->setCellFlags((var52 + var77), (var66 - var88), 1);
             this->setCellFlags((var52 + var77), (var66 - var88), 512);
-            if (eW[var34]) {
+            if (fa[var34]) {
               this->setCellFlags((var52 + var77), (var66 - var88), 8);
             }
           }
@@ -2643,8 +2712,8 @@ void Game::spawnObjects(int var1, int var2) {
       arenaKills = newArr<int>(var2);
       this->arenaKillsNeeded = newArr<int>(var2);
       for (int var33 = 0; (var33 < var2); (var33++)) {
-        this->arenaTileX[var33] = (this->bs[var33] / 16);
-        this->arenaTileY[var33] = (this->bt[var33] / 16);
+        this->arenaTileX[var33] = (this->bu[var33] / 22);
+        this->arenaTileY[var33] = (this->bv[var33] / 22);
         this->arenaWidth[var33] = this->readBits(10);
         arenaHeight[var33] = this->readBits(10);
         this->arenaGateId[var33] = this->readBits(3);
@@ -2660,8 +2729,8 @@ void Game::spawnObjects(int var1, int var2) {
     case 29:
       for (int var32 = 0; (var32 < var2); (var32++)) {
         var50 = this->readBits(10);
-        var64 = (this->bs[var32] / 16);
-        var11 = (this->bt[var32] / 16);
+        var64 = (this->bu[var32] / 22);
+        var11 = (this->bv[var32] / 22);
         for (int var12 = 0; (var12 <= var50); (var12++)) {
           this->setCellFlags((var64 + var12), var11, 16384);
         }
@@ -2670,9 +2739,9 @@ void Game::spawnObjects(int var1, int var2) {
     case 30:
       for (int var31 = 0; (var31 < var2); (var31++)) {
         if ((this->readBits(1) != 0)) {
-          this->setCellFlags((this->bs[var31] / 16), (this->bt[var31] / 16), 2048);
+          this->setCellFlags((this->bu[var31] / 22), (this->bv[var31] / 22), 2048);
         } else {
-          this->setCellFlags((this->bs[var31] / 16), (this->bt[var31] / 16), 4096);
+          this->setCellFlags((this->bu[var31] / 22), (this->bv[var31] / 22), 4096);
         }
       }
       return;
@@ -2684,24 +2753,24 @@ void Game::spawnObjects(int var1, int var2) {
             var4 |= (1 << var6);
           }
         }
-        var24 = (this->bs[var17] / 16);
-        var7 = (this->bt[var17] / 16);
+        var24 = (this->bu[var17] / 22);
+        var7 = (this->bv[var17] / 22);
         this->setCellFlags(var24, var7, var4);
       }
       return;
     case 32:
-      bW = (var2 - 1);
+      ca = (var2 - 1);
       for (int var16 = 0; (var16 < var2); (var16++)) {
-        this->bO[var16] = (this->readBits(6) << 1);
-        bP[var16] = this->bs[var16];
-        this->bQ[var16] = this->bt[var16];
-        this->bV[var16] = (this->readBits(1) == 1);
-        this->startAnim((30 + var16), 5122, this->bO[var16]);
+        this->bS[var16] = (this->readBits(6) << 1);
+        bT[var16] = this->bu[var16];
+        this->bU[var16] = this->bv[var16];
+        this->bZ[var16] = (this->readBits(1) == 1);
+        this->startAnim((30 + var16), 5122, this->bS[var16]);
         this->getFrameBoxes(this->playerBoxes, (30 + var16), 0);
-        bR[var16] = (this->playerBoxes[0] + bP[var16]);
-        this->bS[var16] = (this->playerBoxes[1] + this->bQ[var16]);
-        this->bU[var16] = this->playerBoxes[2];
-        this->bT[var16] = this->playerBoxes[3];
+        bV[var16] = (this->playerBoxes[0] + bT[var16]);
+        this->bW[var16] = (this->playerBoxes[1] + this->bU[var16]);
+        this->bY[var16] = this->playerBoxes[2];
+        this->bX[var16] = this->playerBoxes[3];
       }
       return;
     case 33:
@@ -2710,15 +2779,15 @@ void Game::spawnObjects(int var1, int var2) {
         this->hazardAnim[var30] = this->readBits(6);
         this->hazardDamage[var30] = this->readBits(10);
         var49 = (this->readBits(3) * 100);
-        hazardX[var30] = this->bs[var30];
-        this->hazardY[var30] = this->bt[var30];
-        this->hazardHomeX[var30] = this->bs[var30];
-        this->hazardHomeY[var30] = this->bt[var30];
+        hazardX[var30] = this->bu[var30];
+        this->hazardY[var30] = this->bv[var30];
+        this->hazardHomeX[var30] = this->bu[var30];
+        this->hazardHomeY[var30] = this->bv[var30];
         this->startAnim((70 + var30), 6145, this->hazardAnim[var30]);
-        this->getFrameBounds(this->dq, (70 + var30), 0, 0, 0, this->P);
+        this->getFrameBounds(this->du, (70 + var30), 0, 0, 0, this->O);
         this->stepAnim((70 + var30), var49);
-        this->hazardWidth[var30] = this->P[2];
-        hazardHeight[var30] = this->P[3];
+        this->hazardWidth[var30] = this->O[2];
+        hazardHeight[var30] = this->O[3];
       }
       return;
     case 34:
@@ -2730,14 +2799,14 @@ void Game::spawnObjects(int var1, int var2) {
       this->switchTileX = newArr<int>(var2);
       this->switchTargets = newArr<int>(((var2 + 1) << 2));
       switchAnim = newArr<int>(var2);
-      this->cB = newArr<int>(var2);
+      this->cF = newArr<int>(var2);
       this->switchIsLever = newArr<bool>(var2);
-      this->cC = newArr<int>(var2);
+      this->cG = newArr<int>(var2);
       for (int var29 = 0; (var29 < var2); (var29++)) {
-        var48 = (this->bs[var29] / 16);
-        var63 = (this->bt[var29] / 16);
-        this->switchX[var29] = (var48 * 16);
-        switchY[var29] = (var63 * 16);
+        var48 = (this->bu[var29] / 22);
+        var63 = (this->bv[var29] / 22);
+        this->switchX[var29] = (var48 * 22);
+        switchY[var29] = (var63 * 22);
         this->switchTileX[var29] = var48;
         switchTileY[var29] = var63;
         this->switchOn[var29] = false;
@@ -2748,9 +2817,9 @@ void Game::spawnObjects(int var1, int var2) {
         this->switchTargets[((var29 << 2) + 2)] = this->readBits(3);
         this->switchTargets[((var29 << 2) + 3)] = this->readBits(3);
         this->startAnim((106 + var29), 2050, switchAnim[var29]);
-        this->getFrameBounds(cw, (106 + var29), 0, 0, 0, this->P);
-        this->cB[var29] = this->P[2];
-        this->cC[var29] = this->P[3];
+        this->getFrameBounds(cA, (106 + var29), 0, 0, 0, this->O);
+        this->cF[var29] = this->O[2];
+        this->cG[var29] = this->O[3];
       }
       return;
     case 35:
@@ -2769,21 +2838,21 @@ void Game::spawnObjects(int var1, int var2) {
       this->gateHeight = newArr<int>(var2);
       this->gateShowsCamera = newArr<bool>(var2);
       for (int var8 = 0; (var8 < var2); (var8++)) {
-        gateX[var8] = this->bs[var8];
-        this->gateY[var8] = this->bt[var8];
-        gateTileX[var8] = (this->bs[var8] / 16);
-        gateTileY[var8] = (this->bt[var8] / 16);
+        gateX[var8] = this->bu[var8];
+        this->gateY[var8] = this->bv[var8];
+        gateTileX[var8] = (this->bu[var8] / 22);
+        gateTileY[var8] = (this->bv[var8] / 22);
         this->gateId[var8] = this->readBits(3);
         this->gateStyle[var8] = this->readBits(10);
         gateOpen[var8] = (this->readBits(1) == 1);
         this->gateShowsCamera[var8] = (this->readBits(1) == 1);
         gateAnim[var8] = ((this->gateStyle[var8] << 2) + 0);
         this->startAnim((100 + var8), 2049, gateAnim[var8]);
-        this->getFrameBounds(this->cJ, (100 + var8), 0, 0, 0, this->P);
-        gateTilesW[var8] = (this->P[2] / 16);
-        this->gateTilesH[var8] = (this->P[3] / 16);
-        gateWidth[var8] = this->P[2];
-        this->gateHeight[var8] = this->P[3];
+        this->getFrameBounds(this->cN, (100 + var8), 0, 0, 0, this->O);
+        gateTilesW[var8] = (this->O[2] / 22);
+        this->gateTilesH[var8] = (this->O[3] / 22);
+        gateWidth[var8] = this->O[2];
+        this->gateHeight[var8] = this->O[3];
         gateAnim[var8] = (((this->gateStyle[var8] << 2) + 2) - (gateOpen[var8] ? 2 : 0));
         this->startAnim((100 + var8), 2049, gateAnim[var8]);
         for (int var9 = 0; (var9 < this->gateTilesH[var8]); (var9++)) {
@@ -2798,15 +2867,15 @@ void Game::spawnObjects(int var1, int var2) {
       }
       return;
     case 36:
-      cd = (var2 - 1);
+      ch = (var2 - 1);
       for (int var5 = 0; (var5 < var2); (var5++)) {
-        this->bY[var5] = this->readBits(6);
-        bZ[var5] = this->bs[var5];
-        ca[var5] = this->bt[var5];
-        this->startAnim((10 + var5), 3074, this->bY[var5]);
-        this->getFrameBounds(this->bX, (10 + var5), 0, 0, 0, this->P);
-        this->cc[var5] = this->P[2];
-        this->cb[var5] = this->P[3];
+        this->cc[var5] = this->readBits(6);
+        cd[var5] = this->bu[var5];
+        ce[var5] = this->bv[var5];
+        this->startAnim((10 + var5), 3074, this->cc[var5]);
+        this->getFrameBounds(this->cb, (10 + var5), 0, 0, 0, this->O);
+        this->cg[var5] = this->O[2];
+        this->cf[var5] = this->O[3];
       }
     }
   }
@@ -2833,13 +2902,13 @@ void Game::loadLevelStep(Arr<int8_t> var1, bool var2) {
       this->readBits(10);
       this->readLevelHeaderFlags(var2);
       this->readBits(1);
-      this->bw = this->readBits(16);
-      this->bx = this->readBits(4);
-      var10 = newArr<int>(this->bw);
-      for (int var4 = 0; (var4 < this->bw); (var4++)) {
-        var10[var4] = this->readBits(this->bx);
+      this->by = this->readBits(16);
+      this->bz = this->readBits(4);
+      var10 = newArr<int>(this->by);
+      for (int var4 = 0; (var4 < this->by); (var4++)) {
+        var10[var4] = this->readBits(this->bz);
       }
-      this->by = bitsFor(this->bw);
+      this->bA = bitsFor(this->by);
       var13 = 0;
       var5 = 0;
       if ((var2 && (mapHeight != 0))) {
@@ -2849,10 +2918,10 @@ void Game::loadLevelStep(Arr<int8_t> var1, bool var2) {
       mapWidth = this->readBits(16);
       mapHeight = this->readBits(16);
       if ((!var2)) {
-        this->bu = (16 * mapWidth);
-        this->bv = (16 * mapHeight);
-        this->maxCameraX = (this->bu - viewW);
-        this->maxCameraY = (this->bv - 320);
+        this->bw = (22 * mapWidth);
+        this->bx = (22 * mapHeight);
+        this->maxCameraX = (this->bw - viewW);
+        this->maxCameraY = (this->bx - 320);
       }
       mapCellCount = (mapWidth * mapHeight);
       if ((!var2)) {
@@ -2860,28 +2929,41 @@ void Game::loadLevelStep(Arr<int8_t> var1, bool var2) {
       }
       this->cellTileTypes = newArr<int8_t>(mapCellCount);
       for (int var6 = 0; (var6 < this->cellTileTypes.length()); (var6++)) {
-        this->cellTileTypes[var6] = ((int8_t)(this->readBits(this->by)));
+        this->cellTileTypes[var6] = ((int8_t)(this->readBits(this->bA)));
       }
       this->readBits(8);
-      this->readTileSolidFlags(this->bw, var2);
-      this->scene = Scene::create(240, 320);
-      this->scene->setTileMap(mapWidth, mapHeight, this->tileSheet, 16, 16);
+      this->readTileSolidFlags(this->by, var2);
+      if ((!var2)) {
+        this->scene = Scene::create(240, 320);
+        this->scene->setTileMap(mapWidth, mapHeight, this->tileSheet, 22, 22);
+      } else {
+        this->bgScene = Scene::create(240, 320);
+        this->bgScene->setTileMap(mapWidth, mapHeight, this->tileSheet, 22, 22);
+      }
       var7 = 0;
       for (int var8 = 0; (var8 < mapHeight); (var8++)) {
         for (int var9 = 0; (var9 < mapWidth); (var9++)) {
-          this->scene->setTile(var9, var8, (1 + var10[(this->cellTileTypes[var7] & 0xFF)]));
+          if ((!var2)) {
+            if (((((((((((((((var10[(this->cellTileTypes[var7] & 0xFF)] != 1) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 12)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 24)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 25)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 51)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 90)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 104)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 105)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 108)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 109)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 111)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 119)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 124)) && (var10[(this->cellTileTypes[var7] & 0xFF)] != 82))) {
+              this->scene->setTile(var9, var8, (1 + var10[(this->cellTileTypes[var7] & 0xFF)]));
+            } else {
+              this->scene->setTile(var9, var8, 0);
+            }
+          } else {
+            this->bgScene->setTile(var9, var8, ((1 + var10[this->cellTileTypes[var7]]) & 0xFF));
+          }
           var7++;
         }
       }
       this->cellTileTypes = nullptr;
-      this->bw = this->readBits(10);
+      this->by = this->readBits(10);
       if ((!var2)) {
-        worldWidthPx = (mapWidth * 16);
-        worldHeightPx = (mapHeight * 16);
+        worldWidthPx = (mapWidth * 22);
+        worldHeightPx = (mapHeight * 22);
       }
-      this->bz = bitsFor(((worldWidthPx * worldHeightPx) + 1));
-      worldWidthPx = (mapWidth * 16);
-      worldHeightPx = (mapHeight * 16);
+      this->bB = bitsFor(((worldWidthPx * worldHeightPx) + 1));
+      worldWidthPx = (mapWidth * 22);
+      worldHeightPx = (mapHeight * 22);
       if ((var2 && (var13 != 0))) {
         mapHeight = var13;
         mapWidth = var5;
@@ -2891,134 +2973,142 @@ void Game::loadLevelStep(Arr<int8_t> var1, bool var2) {
       break;
     case 2:
       if ((!var2)) {
-        this->eY = this->loadSprites(2051, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((2059 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->fc = this->loadSprites(2051, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((2059 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
       }
       break;
     case 3:
       if ((!var2)) {
-        this->fH = this->loadSprites(28673, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((28675 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->fL = this->loadSprites(28673, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((28675 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
       }
       break;
     case 4:
       if ((!var2)) {
-        this->eH = this->loadSprites(3076, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((3084 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->eL = this->loadSprites(3076, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((3084 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
       }
       break;
     case 5:
       if ((!var2)) {
-        if (this->dA) {
-          this->dC = this->loadSprites(18433, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((18435 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        if (this->dE) {
+          this->dG = this->loadSprites(18433, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((18435 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
           this->loadAnimSet(18432);
         } else {
-          this->dC = this->loadSprites(4097, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((4099 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+          this->dG = this->loadSprites(4097, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((4099 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
           this->loadAnimSet(4096);
         }
-        if (this->dB) {
-          dD = this->loadSprites(16385, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((16387 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        if (this->dF) {
+          dH = this->loadSprites(16385, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((16387 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
           this->loadAnimSet(16384);
         } else {
-          dD = this->loadSprites(17409, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((17411 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+          dH = this->loadSprites(17409, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((17411 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
           this->loadAnimSet(17408);
         }
-        this->dE = this->loadSprites(15361, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((15363 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->dI = this->loadSprites(15361, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((15363 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
         this->loadAnimSet(15360);
       }
       break;
     case 6:
       if ((!var2)) {
-        this->bN = this->loadSprites(5125, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((5142 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
-        this->dh = this->loadSprites(5124, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((5132 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
-        this->eM = this->loadSprites(6146, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((6150 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->bR = this->loadSprites(5125, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((5142 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->dl = this->loadSprites(5124, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((5132 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->eQ = this->loadSprites(6146, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((6150 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
       }
       break;
     case 7:
       if ((!var2)) {
-        this->dq = this->loadSprites(6147, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((6153 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->du = this->loadSprites(6147, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((6153 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
         this->chestSprites = this->loadSprites(5123, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((5129 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
       }
       break;
     case 8:
       if ((!var2)) {
-        this->cJ = this->loadSprites(2052, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((2062 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
-        cw = this->loadSprites(2053, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((2065 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->cN = this->loadSprites(2052, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((2062 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        cA = this->loadSprites(2053, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((2065 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
       }
       break;
     case 9:
       if ((!var2)) {
-        this->bX = this->loadSprites(3077, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((3087 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
-        this->ce = this->loadSprites(3075, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((3081 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
-        this->bH = this->loadSprites(7169, nullptr);
+        this->cb = this->loadSprites(3077, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((3087 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->ci = this->loadSprites(3075, ((levelPaletteVariants[this->levelIndex] >= 0) ? this->getResourceBytes((3081 + levelPaletteVariants[this->levelIndex])) : (Arr<int8_t>)nullptr));
+        this->bL = this->loadSprites(7169, nullptr);
         this->startAnim(137, 7168, 31);
       }
     }
   }
   if ((((this->levelLoadStep == 10) && (!var2)) || var2)) {
-    this->br = 0;
+    this->bt = 0;
     if ((!var2)) {
       this->scene->initObjects(1000);
     }
     this->sceneObjectCount = 0;
-    while (((this->bw--) > 0)) {
+    while (((this->by--) > 0)) {
       int var11 = this->readBits(10);
       int var14 = this->readBits(16);
       int var15 = 0;
-      this->bs = newArr<int>(var14);
-      this->bt = newArr<int>(var14);
+      this->bu = newArr<int>(var14);
+      this->bv = newArr<int>(var14);
       int var16 = 0;
       for (int var17 = 0; (var17 < var14); (var17++)) {
-        for ((var15 += this->readBits(this->bz)); (var15 >= worldWidthPx); (var16++)) {
+        for ((var15 += this->readBits(this->bB)); (var15 >= worldWidthPx); (var16++)) {
           var15 -= worldWidthPx;
         }
-        this->bs[var17] = var15;
-        this->bt[var17] = var16;
+        this->bu[var17] = var15;
+        this->bv[var17] = var16;
       }
       this->spawnObjects(var11, var14);
     }
     for (int var12 = this->chestLast; (var12 >= 0); (var12--)) {
       if (chestOpened[var12]) {
-        this->e((this->chestX[var12] / 16), (this->chestY[var12] / 16));
+        this->e((this->chestX[var12] / 22), (this->chestY[var12] / 22));
       }
     }
     this->levelData = nullptr;
-    this->buildStaticSprites();
+    this->buildStaticSprites(var2);
     this->stopSounds();
     this->parseBank(nullptr);
   }
   this->levelLoadStep++;
 }
 
-void Game::buildStaticSprites() {
-  Arr<int16_t> var1 = newArr<int16_t>(256);
-  int var2 = 0;
-  for (int var3 = 0; (var3 < this->br); (var3++)) {
-    this->startAnim(136, 3073, this->eI[var3]);
-    var2 += this->getFrameParts(var1, 136, 0);
+void Game::buildStaticSprites(bool var1) {
+  Arr<int16_t> var2 = newArr<int16_t>(256);
+  int var3 = 0;
+  for (int var4 = 0; (var4 < this->bt); (var4++)) {
+    this->startAnim(136, 3073, this->eM[var4]);
+    var3 += this->getFrameParts(var2, 136, 0);
   }
-  this->scene->initStaticSprites((this->br + var2), (mapWidth <= mapHeight));
-  for (int var7 = 0; (var7 <= 7); (var7++)) {
-    for (int var4 = (this->br - 1); (var4 >= 0); (var4--)) {
-      if ((eL[var4] == var7)) {
-        this->startAnim(136, 3073, this->eI[var4]);
-        int var5 = this->getFrameParts(var1, 136, 0);
-        for (int var6 = 0; (var6 < var5); (var6++)) {
-          this->scene->addStaticSprite(this->eH[var1[(var6 * 4)]], (this->eJ[var4] + var1[((var6 * 4) + 1)]), (this->eK[var4] + var1[((var6 * 4) + 2)]), var1[((var6 * 4) + 3)]);
+  if ((!var1)) {
+    this->scene->initStaticSprites((this->bt + var3), (mapWidth <= mapHeight));
+  } else {
+    this->bgScene->initStaticSprites((this->bt + var3), (mapWidth <= mapHeight));
+  }
+  for (int var8 = 0; (var8 <= 7); (var8++)) {
+    for (int var5 = (this->bt - 1); (var5 >= 0); (var5--)) {
+      if ((eP[var5] == var8)) {
+        this->startAnim(136, 3073, this->eM[var5]);
+        int var6 = this->getFrameParts(var2, 136, 0);
+        for (int var7 = 0; (var7 < var6); (var7++)) {
+          if ((!var1)) {
+            this->scene->addStaticSprite(this->eL[var2[(var7 * 4)]], (this->eN[var5] + var2[((var7 * 4) + 1)]), (this->eO[var5] + var2[((var7 * 4) + 2)]), var2[((var7 * 4) + 3)]);
+          } else {
+            this->bgScene->addStaticSprite(this->eL[var2[(var7 * 4)]], (this->eN[var5] + var2[((var7 * 4) + 1)]), (this->eO[var5] + var2[((var7 * 4) + 2)]), var2[((var7 * 4) + 3)]);
+          }
         }
       }
     }
   }
-  this->eJ = nullptr;
-  this->eK = nullptr;
-  this->eI = nullptr;
-  eL = nullptr;
+  this->eN = nullptr;
+  this->eO = nullptr;
+  this->eM = nullptr;
+  eP = nullptr;
 }
 
 void Game::readLevelHeaderFlags(bool var1) {
   if ((!var1)) {
-    this->Q = this->readBits(10);
+    this->P = this->readBits(10);
     facingRight = (this->readBits(1) != 1);
     this->checkpointFacingRight = facingRight;
-    this->dA = (this->readBits(1) == 1);
-    this->dB = (this->readBits(1) == 1);
+    this->dE = (this->readBits(1) == 1);
+    this->dF = (this->readBits(1) == 1);
     this->readBits(1);
     int var2 = this->readBits(16);
     this->orbBudget = ((this->orbBudget < var2) ? var2 : this->orbBudget);
@@ -3080,36 +3170,36 @@ void Game::removeEffect(int var1) {
 }
 
 void Game::o(int var1) {
-  if ((this->bO[bW] >= 0)) {
-    this->copyAnimSlot((bW + 30), (var1 + 30));
+  if ((this->bS[ca] >= 0)) {
+    this->copyAnimSlot((ca + 30), (var1 + 30));
   }
-  this->bO[var1] = this->bO[bW];
-  bP[var1] = bP[bW];
-  this->bQ[var1] = this->bQ[bW];
-  this->bU[var1] = this->bU[bW];
-  this->bT[var1] = this->bT[bW];
-  bR[var1] = bR[bW];
-  this->bS[var1] = this->bS[bW];
-  this->bO[bW] = (-1);
-  if ((bW > 0)) {
-    bW--;
+  this->bS[var1] = this->bS[ca];
+  bT[var1] = bT[ca];
+  this->bU[var1] = this->bU[ca];
+  this->bY[var1] = this->bY[ca];
+  this->bX[var1] = this->bX[ca];
+  bV[var1] = bV[ca];
+  this->bW[var1] = this->bW[ca];
+  this->bS[ca] = (-1);
+  if ((ca > 0)) {
+    ca--;
   }
 }
 
 void Game::p(int var1) {
-  if ((this->di[this->dp] >= 0)) {
-    this->copyAnimSlot((this->dp + 60), (var1 + 60));
+  if ((this->dm[this->dt] >= 0)) {
+    this->copyAnimSlot((this->dt + 60), (var1 + 60));
   }
-  this->di[var1] = this->di[this->dp];
-  dl[var1] = dl[this->dp];
-  dm[var1] = dm[this->dp];
-  this->dk[var1] = this->dk[this->dp];
-  this->dj[var1] = this->dj[this->dp];
-  this->dn[var1] = this->dn[var1];
-  this->do_[var1] = this->do_[var1];
-  this->di[this->dp] = (-1);
-  if ((this->dp >= 0)) {
-    this->dp--;
+  this->dm[var1] = this->dm[this->dt];
+  dp[var1] = dp[this->dt];
+  dq[var1] = dq[this->dt];
+  this->do_[var1] = this->do_[this->dt];
+  this->dn[var1] = this->dn[this->dt];
+  this->dr[var1] = this->dr[var1];
+  this->ds[var1] = this->ds[var1];
+  this->dm[this->dt] = (-1);
+  if ((this->dt >= 0)) {
+    this->dt--;
   }
 }
 
@@ -3172,12 +3262,12 @@ void Game::spawnPickup(int var1, int var2, int var3, int var4) {
     int var7 = (-1);
     if ((var3 == 3)) {
       for (int var8 = this->enemyCount; (var8 >= 0); (var8--)) {
-        if (rectsOverlap((cameraX - 64), (cameraY - 64), (viewW + 128), 448, (enemyX[var8] - this->enemyWidth[var8]), (this->enemyY[var8] - this->enemyHeight[var8]), (this->enemyWidth[var8] << 1), this->enemyHeight[var8])) {
-          if (((++var7) >= this->P.length())) {
-            var7 = (this->P.length() - 1);
+        if (rectsOverlap((cameraX - 88), (cameraY - 88), (viewW + 176), 496, (enemyX[var8] - this->enemyWidth[var8]), (this->enemyY[var8] - this->enemyHeight[var8]), (this->enemyWidth[var8] << 1), this->enemyHeight[var8])) {
+          if (((++var7) >= this->O.length())) {
+            var7 = (this->O.length() - 1);
             break;
           }
-          this->P[var7] = var8;
+          this->O[var7] = var8;
         }
       }
       if ((var7 == (-1))) {
@@ -3201,7 +3291,7 @@ void Game::spawnPickup(int var1, int var2, int var3, int var4) {
         this->pickupLast++;
         int var10 = (this->pickupLast << 2);
         int var11 = (((this->randomValue & 128) > 0) ? 1 : (-1));
-        int var12 = (var1 + (var11 * (this->randomValue & 9)));
+        int var12 = (var1 + (var11 * (this->randomValue & 15)));
         pickupTrailX[(var10++)] = var12;
         pickupTrailX[(var10++)] = var12;
         pickupTrailX[(var10++)] = var12;
@@ -3209,7 +3299,7 @@ void Game::spawnPickup(int var1, int var2, int var3, int var4) {
         var10 -= 4;
         pickupVelX[this->pickupLast] = ((var11 * (this->randomValue & 7)) << 8);
         var11 = (((this->randomValue & 256) > 0) ? 1 : (-1));
-        var12 = ((var2 + (var11 * (this->randomValue & 9))) - 7);
+        var12 = ((var2 + (var11 * (this->randomValue & 15))) - 10);
         pickupTrailY[(var10++)] = var12;
         pickupTrailY[(var10++)] = var12;
         pickupTrailY[(var10++)] = var12;
@@ -3218,7 +3308,7 @@ void Game::spawnPickup(int var1, int var2, int var3, int var4) {
         pickupKind[this->pickupLast] = var3;
         pickupAge[this->pickupLast] = 0;
         if ((var3 == 3)) {
-          pickupTarget[this->pickupLast] = this->P[var13];
+          pickupTarget[this->pickupLast] = this->O[var13];
           if (((++var13) > var7)) {
             var13 = 0;
           }
@@ -3242,31 +3332,31 @@ void Game::spawnPickup(int var1, int var2, int var3, int var4) {
   }
 }
 
-void Game::t() {
+void Game::s() {
   this->blockedHit = false;
   this->grappledEnemy = (-1);
   qteActive = false;
-  this->aR = false;
+  this->aQ = false;
   this->blocking = false;
   this->resetWeaponMode();
-  this->gw = (this->playerX / 16);
-  gx = (this->playerY / 16);
+  this->gA = (this->playerX / 22);
+  gB = (this->playerY / 22);
   this->health = this->maxHealth;
   this->healthPrev = this->health;
   cameraX = ((this->playerX - (viewW >> 1)) - (((facingRight ? 1 : (-1)) * 240) >> 2));
   cameraY = (this->playerY - 266);
-  this->aO = (cameraX << 8);
-  this->aP = (cameraY << 8);
+  this->aN = (cameraX << 8);
+  this->aO = (cameraY << 8);
   this->activeArena = (-1);
   this->arenaBannerTimer = (-1);
   this->setPlayerAction(0);
   this->startAnim(133, 1025, 4);
-  this->getFrameBounds(this->fH, 135, 0, 0, 0, this->P);
-  this->subY = (this->playerY % 16);
-  subX = (this->playerX % 16);
-  playerWidth = (this->P[2] >> 1);
-  this->playerHeight = this->P[3];
-  this->hg = (this->playerHeight / 16);
+  this->getFrameBounds(this->fL, 135, 0, 0, 0, this->O);
+  this->subY = (this->playerY % 22);
+  subX = (this->playerX % 22);
+  playerWidth = (this->O[2] >> 1);
+  this->playerHeight = this->O[3];
+  this->hk = (this->playerHeight / 22);
   this->frontExtent = (playerWidth >> 1);
   this->backExtent = (-(playerWidth >> 1));
 }
@@ -3282,15 +3372,15 @@ void Game::movePlayer(int var1, int var2) {
   }
   int var5 = var1;
   int var6 = this->playerTileY();
-  subX = ((this->playerX - (var5 * 16)) << 8);
+  subX = ((this->playerX - (var5 * 22)) << 8);
   if ((subX <= 0)) {
     var5--;
-    subX += 4096;
-  } else if ((subX >= 4096)) {
+    subX += 5632;
+  } else if ((subX >= 5632)) {
     var5++;
-    subX -= 4096;
+    subX -= 5632;
   }
-  this->subY = ((this->playerY - (var6 * 16)) << 8);
+  this->subY = ((this->playerY - (var6 * 22)) << 8);
   if ((Engine::animDeltaX != 0)) {
     this->playerX = (this->playerX - ((((!facingRight) || (Engine::animDeltaX <= 0)) && (facingRight || (Engine::animDeltaX >= 0))) ? this->backExtent : (this->frontExtent - 1)));
   }
@@ -3306,13 +3396,13 @@ void Game::movePlayer(int var1, int var2) {
   this->canMoveX = true;
   canMoveY = true;
   if ((var7 > var8)) {
-    if ((var7 > 4096)) {
-      var8 = (((var8 * 16) << 8) / var7);
-      var7 = 4096;
+    if ((var7 > 5632)) {
+      var8 = (((var8 * 22) << 8) / var7);
+      var7 = 5632;
     }
-  } else if ((var8 > 4096)) {
-    var7 = (((var7 * 16) << 8) / var8);
-    var8 = 4096;
+  } else if ((var8 > 5632)) {
+    var7 = (((var7 * 22) << 8) / var8);
+    var8 = 5632;
   }
   int var3 = 0;
   if ((((!facingRight) || (Engine::animDeltaX <= 0)) && (facingRight || (Engine::animDeltaX >= 0)))) {
@@ -3328,18 +3418,18 @@ void Game::movePlayer(int var1, int var2) {
   while (((var11 < var9) || (var12 < var10))) {
     subX += var3;
     this->subY += var4;
-    if ((subX >= 4096)) {
-      subX -= 4096;
+    if ((subX >= 5632)) {
+      subX -= 5632;
       var5++;
     } else if ((subX < 0)) {
-      subX += 4096;
+      subX += 5632;
       var5--;
     }
-    if ((this->subY >= 4096)) {
-      this->subY -= 4096;
+    if ((this->subY >= 5632)) {
+      this->subY -= 5632;
       var6++;
     } else if ((this->subY < 0)) {
-      this->subY += 4096;
+      this->subY += 5632;
       var6--;
     }
     this->onPlayerCell(var5, var6);
@@ -3347,7 +3437,7 @@ void Game::movePlayer(int var1, int var2) {
       this->arenaBannerTimer = (-1);
       this->activeArena = (-1);
     } else {
-      this->iB = true;
+      this->iF = true;
       if ((this->activeArena == (-1))) {
         for (int var13 = 0; (var13 < this->arenaTileX.length()); (var13++)) {
           if (pointInRect(var1, var2, this->arenaTileX[var13], this->arenaTileY[var13], this->arenaWidth[var13], arenaHeight[var13])) {
@@ -3355,12 +3445,12 @@ void Game::movePlayer(int var1, int var2) {
               this->activeArena = var13;
               this->arenaBannerTimer = 2000;
               if ((arenaKills[0] < this->arenaKillsNeeded[var13])) {
-                gM = true;
+                gQ = true;
               }
             } else {
               this->arenaBannerTimer = (-1);
               this->activeArena = (-1);
-              this->iB = true;
+              this->iF = true;
             }
           }
         }
@@ -3375,9 +3465,9 @@ void Game::movePlayer(int var1, int var2) {
       if ((((this->getCellFlags(var1, var2) & 1) != 0) && (!this->blockedByWall))) {
         this->moveAccumX = 0;
         if ((((!facingRight) || (Engine::animDeltaX <= 0)) && (facingRight || (Engine::animDeltaX >= 0)))) {
-          this->playerX = ((var1 * 16) + (playerWidth >> 1));
+          this->playerX = ((var1 * 22) + (playerWidth >> 1));
         } else {
-          this->playerX = (((var1 + 1) * 16) - (playerWidth >> 1));
+          this->playerX = (((var1 + 1) * 22) - (playerWidth >> 1));
         }
       }
     }
@@ -3388,7 +3478,7 @@ void Game::movePlayer(int var1, int var2) {
       this->subY -= var4;
       var10 = var12;
       if (((Engine::animDeltaY < 0) && this->climbing)) {
-        var6 += (this->hg + 1);
+        var6 += (this->hk + 1);
       }
     }
   }
@@ -3405,25 +3495,25 @@ void Game::movePlayer(int var1, int var2) {
   if ((!this->canMoveX)) {
     if ((subX < 0)) {
       var5--;
-    } else if ((subX > 16)) {
+    } else if ((subX > 22)) {
       var5++;
     }
   }
-  this->gw = var5;
-  gx = var6;
+  this->gA = var5;
+  gB = var6;
 }
 
 bool Game::tryPushCrate() {
   int var1 = ((((!facingRight) || (this->playerAction != 22)) && (facingRight || (this->playerAction != 23))) ? (-1) : 1);
   int8_t var2 = 0;
-  if ((this->gl == 1)) {
+  if ((this->gp == 1)) {
     var2 = 1;
   }
   int var3 = (pushTileX[pushedCrate] + ((var1 < 0) ? (this->pushTilesW[pushedCrate] - 1) : 0));
-  int var4 = gx;
+  int var4 = gB;
   int var5 = this->pushTilesH[pushedCrate];
-  if (((this->playerAction == 23) && (var5 <= this->hg))) {
-    var5 = (this->hg + 1);
+  if (((this->playerAction == 23) && (var5 <= this->hk))) {
+    var5 = (this->hk + 1);
   }
   for (int var6 = 0; (var6 < var5); (var6++)) {
     if (((this->getCellFlags(((var3 + var1) + var1), (var4 - var6)) & 1) != 0)) {
@@ -3436,14 +3526,14 @@ bool Game::tryPushCrate() {
       var2 = 0;
     }
   }
-  if (((this->playerAction == 23) && ((this->getCellFlags((this->gw + var1), var4) & 1) != 0))) {
+  if (((this->playerAction == 23) && ((this->getCellFlags((this->gA + var1), var4) & 1) != 0))) {
     return false;
   }
   for (int var8 = 0; (var8 < this->pushTilesW[pushedCrate]); (var8++)) {
     for (int var7 = 0; (var7 < this->pushTilesH[pushedCrate]); (var7++)) {
       this->clearCellFlags((pushTileX[pushedCrate] + var8), (var4 - var7), 1);
       this->clearCellFlags((pushTileX[pushedCrate] + var8), (var4 - var7), 512);
-      if (eW[pushedCrate]) {
+      if (fa[pushedCrate]) {
         this->clearCellFlags((pushTileX[pushedCrate] + var8), (var4 - var7), 8);
       }
     }
@@ -3453,12 +3543,12 @@ bool Game::tryPushCrate() {
     for (int var10 = 0; (var10 < this->pushTilesH[pushedCrate]); (var10++)) {
       this->setCellFlags((pushTileX[pushedCrate] + var9), (var4 - var10), 1);
       this->setCellFlags((pushTileX[pushedCrate] + var9), (var4 - var10), 512);
-      if (eW[pushedCrate]) {
+      if (fa[pushedCrate]) {
         this->setCellFlags((((var3 + var9) + var2) + (this->pushTilesW[pushedCrate] * var1)), (var4 - var10), 8);
       }
     }
   }
-  this->hG = true;
+  this->hK = true;
   this->startAnim((111 + pushedCrate), 6144, (this->pushAnim[pushedCrate] + (3 << var2)));
   return true;
 }
@@ -3466,8 +3556,8 @@ bool Game::tryPushCrate() {
 void Game::onPlayerCell(int var1, int var2) {
   bool var3 = ((facingRight && (Engine::animDeltaX > 0)) || ((!facingRight) && (Engine::animDeltaX < 0)));
   if (((this->getCellFlags(var1, var2) & 1024) != 0)) {
-    this->checkpointX = (var1 * 16);
-    this->checkpointY = (var2 * 16);
+    this->checkpointX = (var1 * 22);
+    this->checkpointY = (var2 * 22);
     this->checkpointFacingRight = facingRight;
   }
   if (((this->getCellFlags(var1, var2) & 256) != 0)) {
@@ -3511,18 +3601,18 @@ void Game::onPlayerCell(int var1, int var2) {
       }
     }
     for (int var29 = 0; (var29 <= this->enemyCount); (var29++)) {
-      enemyRespawns[var29] = ed[var29];
+      enemyRespawns[var29] = eh[var29];
       if ((this->waveEnemyX[(this->enemyWaveSlot[var29] + (var26 * 15))] != 0)) {
-        enemyHomeX[var29] = (this->waveEnemyX[(this->enemyWaveSlot[var29] + (var26 * 15))] * 16);
-        enemyHomeY[var29] = (this->waveEnemyY[(this->enemyWaveSlot[var29] + (var26 * 15))] * 16);
-        es[var29] = this->waveEnemyFacing[(this->enemyWaveSlot[var29] + (var26 * 15))];
-        if ((!rectsOverlap((cameraX - 64), (cameraY - 64), (viewW + 128), 448, (enemyX[var29] - this->enemyWidth[var29]), (this->enemyY[var29] - this->enemyHeight[var29]), (this->enemyWidth[var29] << 1), this->enemyHeight[var29]))) {
+        enemyHomeX[var29] = (this->waveEnemyX[(this->enemyWaveSlot[var29] + (var26 * 15))] * 22);
+        enemyHomeY[var29] = (this->waveEnemyY[(this->enemyWaveSlot[var29] + (var26 * 15))] * 22);
+        ew[var29] = this->waveEnemyFacing[(this->enemyWaveSlot[var29] + (var26 * 15))];
+        if ((!rectsOverlap((cameraX - 88), (cameraY - 88), (viewW + 176), 496, (enemyX[var29] - this->enemyWidth[var29]), (this->enemyY[var29] - this->enemyHeight[var29]), (this->enemyWidth[var29] << 1), this->enemyHeight[var29]))) {
           enemyHealth[var29] = enemyMaxHealth[var29];
           enemyX[var29] = enemyHomeX[var29];
           this->enemyY[var29] = enemyHomeY[var29];
           this->clearCellFlags(this->enemyTileX[var29], (this->enemyTileY[var29] - 1), 2);
-          this->enemyTileX[var29] = (enemyX[var29] / 16);
-          this->enemyTileY[var29] = (this->enemyY[var29] / 16);
+          this->enemyTileX[var29] = (enemyX[var29] / 22);
+          this->enemyTileY[var29] = (this->enemyY[var29] / 22);
           this->setCellFlags(this->enemyTileX[var29], (this->enemyTileY[var29] - 1), 2);
           {
             switch (this->enemyClass[var29]) {
@@ -3542,7 +3632,7 @@ void Game::onPlayerCell(int var1, int var2) {
   }
   int var17 = 0;
   this->landed = false;
-  for (int var24 = this->playerHeight; (var24 > 0); (var24 -= 16)) {
+  for (int var24 = this->playerHeight; (var24 > 0); (var24 -= 22)) {
     if ((var2 < mapHeight)) {
       if ((((var2 - var17) < 0) || ((var2 - var17) >= mapHeight))) {
         this->canMoveX = false;
@@ -3565,7 +3655,7 @@ void Game::onPlayerCell(int var1, int var2) {
             for (int var8 = pushLast; (var8 >= 0); (var8--)) {
               if (((pushTileX[var8] == (var1 + var30)) && (this->pushTileY[var8] == (var2 + 1)))) {
                 this->blockedByWall = true;
-                this->playerX = ((var1 * 16) + ((!facingRight) ? this->frontExtent : this->backExtent));
+                this->playerX = ((var1 * 22) + ((!facingRight) ? this->frontExtent : this->backExtent));
                 this->setPlayerAction(21);
                 pushedCrate = var8;
               }
@@ -3582,7 +3672,7 @@ void Game::onPlayerCell(int var1, int var2) {
       } else {
         var17--;
       }
-      if ((((hangingOnBar && ((var24 - 16) <= 0)) && (Engine::animDeltaY == 0)) && ((this->getCellFlags(var1, (var2 - var17)) & 16) == 0))) {
+      if ((((hangingOnBar && ((var24 - 22) <= 0)) && (Engine::animDeltaY == 0)) && ((this->getCellFlags(var1, (var2 - var17)) & 16) == 0))) {
         this->canMoveX = false;
         this->setPlayerAction(26);
         this->playerY++;
@@ -3594,8 +3684,8 @@ void Game::onPlayerCell(int var1, int var2) {
     var25 += (facingRight ? 1 : (-1));
   }
   if ((Engine::animDeltaY >= 0)) {
-    var17 = this->hg;
-    if ((this->subY < 2048)) {
+    var17 = this->hk;
+    if ((this->subY < 2816)) {
       var17++;
     }
   } else {
@@ -3603,23 +3693,23 @@ void Game::onPlayerCell(int var1, int var2) {
   }
   int var28 = (var2 - var17);
   int var32 = (facingRight ? (-1) : 1);
-  if (((((((((((((this->health > 0) && (!this->attacking)) && ((this->getCellFlags(var25, (var28 - 1)) & 1) == 0)) && (((this->getCellFlags(var25, var28) & 1) != 0) || this->atLadderTop)) && ((this->getCellFlags((var25 + var32), var28) & 1) == 0)) && ((this->getCellFlags((var25 + var32), (var28 - 1)) & 1) == 0)) && ((this->getCellFlags((var25 + var32), (var28 + this->hg)) & 1) == 0)) && (Engine::animDeltaY != 0)) && ((!this->climbing) || this->atLadderTop)) && (!ledgeHanging)) && (!this->onGround)) && (state != 105))) {
+  if (((((((((((((this->health > 0) && (!this->attacking)) && ((this->getCellFlags(var25, (var28 - 1)) & 1) == 0)) && (((this->getCellFlags(var25, var28) & 1) != 0) || this->atLadderTop)) && ((this->getCellFlags((var25 + var32), var28) & 1) == 0)) && ((this->getCellFlags((var25 + var32), (var28 - 1)) & 1) == 0)) && ((this->getCellFlags((var25 + var32), (var28 + this->hk)) & 1) == 0)) && (Engine::animDeltaY != 0)) && ((!this->climbing) || this->atLadderTop)) && (!ledgeHanging)) && (!this->onGround)) && (state != 105))) {
     if ((this->atLadderTop && (Engine::animDeltaY < 0))) {
       this->setPlayerAction(38);
       int var34 = 0;
       if (((this->getCellFlags(var25, var2) & 1) == 0)) {
         var34++;
       }
-      this->playerY = (((var2 + var34) * 16) + this->playerHeight);
+      this->playerY = (((var2 + var34) * 22) + this->playerHeight);
     } else if (((this->playerAction != 40) && (!this->climbing))) {
       this->setPlayerAction(37);
-      this->playerY = (((var2 - var17) * 16) + this->playerHeight);
+      this->playerY = (((var2 - var17) * 22) + this->playerHeight);
     }
     this->moveAccumY = 0;
     if ((!facingRight)) {
       var25++;
     }
-    this->playerX = ((var25 * 16) + (facingRight ? (-(playerWidth >> 1)) : (playerWidth >> 1)));
+    this->playerX = ((var25 * 22) + (facingRight ? (-(playerWidth >> 1)) : (playerWidth >> 1)));
     this->moveAccumX = 0;
     canMoveY = false;
     this->canMoveX = false;
@@ -3631,24 +3721,24 @@ void Game::onPlayerCell(int var1, int var2) {
     }
     int var33 = var2;
     int var9 = 0;
-    if (((var9 = ((Engine::animDeltaY > 0) ? (var33 - this->hg) : (var33 + this->hg))) < 0)) {
+    if (((var9 = ((Engine::animDeltaY > 0) ? (var33 - this->hk) : (var33 + this->hk))) < 0)) {
       var9 = 0;
     }
     if ((Engine::animDeltaY != 0)) {
       bool var10 = false;
-      for (int var11 = playerWidth; (var11 > 0); (var11 -= 16)) {
+      for (int var11 = playerWidth; (var11 > 0); (var11 -= 22)) {
         if ((((var1 + var17) >= 0) && ((var1 + var17) < mapWidth))) {
           if (canMoveY) {
             canMoveY = ((this->getCellFlags((var1 + var17), var33) & 1) == 0);
             if (((((((this->getCellFlags((var1 + var17), var9) & 16) != 0) || ((this->getCellFlags((var1 + var17), var9) & 8192) != 0)) && (playerAnim != 121)) && (this->playerAction != 38)) && (this->health > 0))) {
               if ((((((this->getCellFlags((var1 + var17), var9) & 8192) != 0) && (playerAnim != 24)) && (playerAnim != 25)) && (!this->airAttacking))) {
                 this->setPlayerAction(120);
-                this->playerY = (((var9 + 1) * 16) + this->playerHeight);
+                this->playerY = (((var9 + 1) * 22) + this->playerHeight);
                 canMoveY = false;
                 this->moveAccumY = 0;
                 this->onPlatform = true;
               } else if (((this->getCellFlags((var1 + var17), var9) & 16) != 0)) {
-                this->playerY = (((var9 + 1) * 16) + this->playerHeight);
+                this->playerY = (((var9 + 1) * 22) + this->playerHeight);
                 canMoveY = false;
                 this->moveAccumY = 0;
                 this->setPlayerAction(45);
@@ -3656,7 +3746,7 @@ void Game::onPlayerCell(int var1, int var2) {
             }
           }
           if (((((!canMoveY) && (Engine::animDeltaY > 0)) && (!hangingOnBar)) && (this->playerAction != 38))) {
-            this->playerY = (var2 * 16);
+            this->playerY = (var2 * 22);
             this->moveAccumY = 0;
             this->landed = true;
             int var12 = var1;
@@ -3681,10 +3771,10 @@ void Game::onPlayerCell(int var1, int var2) {
               this->onGround = true;
               this->cameraShake += 6;
               this->stopSounds();
-              this->playSound(2);
+              this->playSound(8);
             } else if (((this->playerAction == 95) && (!var10))) {
               var10 = true;
-              this->spawnPickup(this->playerX, ((this->playerY - this->playerHeight) + (this->playerHeight >> 2)), 3, fL[magicCLevel]);
+              this->spawnPickup(this->playerX, ((this->playerY - this->playerHeight) + (this->playerHeight >> 2)), 3, fP[magicCLevel]);
             }
           }
           if ((((!canMoveY) && ((playerAnim == 24) || (playerAnim == 25))) && (Engine::animDeltaY < 0))) {
@@ -3706,7 +3796,7 @@ void Game::onPlayerCell(int var1, int var2) {
       var1 += (facingRight ? 1 : (-1));
       if (((this->getCellFlags(var1, var33) & 8) == 0)) {
         canMoveY = false;
-        this->playerY = (((var33 + ((Engine::animDeltaY < 0) ? 1 : 0)) * 16) + ((Engine::animDeltaY < 0) ? this->playerHeight : 0));
+        this->playerY = (((var33 + ((Engine::animDeltaY < 0) ? 1 : 0)) * 22) + ((Engine::animDeltaY < 0) ? this->playerHeight : 0));
         if (((Engine::animDeltaY >= 0) || ((this->getCellFlags(var1, var33) & 1) != 0))) {
           if ((playerAnim == 34)) {
             this->setPlayerAction(26);
@@ -3722,18 +3812,18 @@ void Game::onPlayerCell(int var1, int var2) {
       var1 = var35;
     }
     if (((((((!this->canMoveX) && (Engine::animDeltaX != 0)) && (!this->landed)) && (this->playerAction != 38)) && (!this->climbing)) && (!this->airAttacking))) {
-      if (((((!facingRight) || (Engine::animDeltaX <= 0)) || ((subX << 8) <= (16 - (playerWidth >> 1)))) && ((facingRight || (Engine::animDeltaX >= 0)) || ((subX >> 8) >= (playerWidth >> 1))))) {
-        if (((((!facingRight) && (Engine::animDeltaX > 0)) && ((subX << 8) > (16 - (playerWidth >> 1)))) || ((facingRight && (Engine::animDeltaX < 0)) && ((subX >> 8) < (playerWidth >> 1))))) {
-          this->playerX = (((var1 + 1) * 16) - this->backExtent);
+      if (((((!facingRight) || (Engine::animDeltaX <= 0)) || ((subX << 8) <= (22 - (playerWidth >> 1)))) && ((facingRight || (Engine::animDeltaX >= 0)) || ((subX >> 8) >= (playerWidth >> 1))))) {
+        if (((((!facingRight) && (Engine::animDeltaX > 0)) && ((subX << 8) > (22 - (playerWidth >> 1)))) || ((facingRight && (Engine::animDeltaX < 0)) && ((subX >> 8) < (playerWidth >> 1))))) {
+          this->playerX = (((var1 + 1) * 22) - this->backExtent);
           this->blockedByWall = true;
-          if (((((this->getCellFlags(var1, (var33 + ((Engine::animDeltaY > 0) ? (-1) : 1))) & 8) != 0) && ((this->getCellFlags(var1, (var33 + ((Engine::animDeltaY > 0) ? (-this->hg) : this->hg))) & 8) != 0)) && (Engine::animDeltaY != 0))) {
+          if (((((this->getCellFlags(var1, (var33 + ((Engine::animDeltaY > 0) ? (-1) : 1))) & 8) != 0) && ((this->getCellFlags(var1, (var33 + ((Engine::animDeltaY > 0) ? (-this->hk) : this->hk))) & 8) != 0)) && (Engine::animDeltaY != 0))) {
             this->setPlayerAction(33);
           }
         }
       } else {
-        this->playerX = ((var1 * 16) - this->frontExtent);
+        this->playerX = ((var1 * 22) - this->frontExtent);
         this->blockedByWall = true;
-        if ((((((this->getCellFlags(var1, (var33 + ((Engine::animDeltaY > 0) ? (-1) : 1))) & 8) != 0) && ((this->getCellFlags(var1, (var33 + ((Engine::animDeltaY > 0) ? (-this->hg) : this->hg))) & 8) != 0)) && (this->playerAction != 38)) && (Engine::animDeltaY != 0))) {
+        if ((((((this->getCellFlags(var1, (var33 + ((Engine::animDeltaY > 0) ? (-1) : 1))) & 8) != 0) && ((this->getCellFlags(var1, (var33 + ((Engine::animDeltaY > 0) ? (-this->hk) : this->hk))) & 8) != 0)) && (this->playerAction != 38)) && (Engine::animDeltaY != 0))) {
           this->setPlayerAction(33);
         }
       }
@@ -3783,45 +3873,45 @@ void Game::abortQte() {
 
 void Game::setEnemyAction(int var1, int var2) {
   this->enemyClimbing[var2] = ((this->enemyClass[var2] == 1) && ((((((((var1 == 13) || (var1 == 17)) || (var1 == 23)) || (var1 == 12)) || (var1 == 15)) || (var1 == 16)) || (var1 == 14)) || (var1 == 21)));
-  this->eh[var2] = ((this->enemyClass[var2] == 1) && ((((var1 == 19) || (var1 == 18)) || (var1 == 26)) || (var1 == 20)));
+  this->el[var2] = ((this->enemyClass[var2] == 1) && ((((var1 == 19) || (var1 == 18)) || (var1 == 26)) || (var1 == 20)));
   if ((this->enemyClass[var2] == 1)) {
     if (((((var1 == 5) || (var1 == 6)) || (var1 == 16)) || (var1 == 15))) {
-      this->dS[var2] = 0;
+      this->dW[var2] = 0;
     } else if (((((var1 == 8) || (var1 == 9)) || (var1 == 10)) || (var1 == 24))) {
       this->enemyStatus[var2] = 0;
-      this->dS[var2] = 1;
+      this->dW[var2] = 1;
     } else if (((var1 == 2) || (var1 == 7))) {
-      this->dS[var2] = 2;
+      this->dW[var2] = 2;
     } else if ((((var1 != 11) && (var1 != 21)) && (var1 != 3))) {
       if ((var1 == 1)) {
-        eu[var2] = (random->nextInt() & 511);
+        ey[var2] = (random->nextInt() & 511);
       }
-      this->dS[var2] = (-1);
+      this->dW[var2] = (-1);
     } else {
-      this->dS[var2] = 3;
+      this->dW[var2] = 3;
     }
   } else if ((this->enemyClass[var2] == 2)) {
     if ((((var1 != 7) && (var1 != 12)) && (var1 != 13))) {
-      this->dS[var2] = (-1);
+      this->dW[var2] = (-1);
     } else {
       this->enemyStatus[var2] = 0;
-      this->dS[var2] = 1;
+      this->dW[var2] = 1;
     }
     if ((var1 == 1)) {
-      eu[var2] = (random->nextInt() & 511);
+      ey[var2] = (random->nextInt() & 511);
     }
   } else if ((this->enemyClass[var2] == 3)) {
     if (((((var1 != 7) && (var1 != 13)) && (var1 != 17)) && (var1 != 16))) {
-      this->dS[var2] = (-1);
+      this->dW[var2] = (-1);
     } else {
       this->enemyStatus[var2] = 0;
-      this->dS[var2] = 1;
+      this->dW[var2] = 1;
     }
     if ((var1 == 1)) {
-      eu[var2] = (random->nextInt() & 511);
+      ey[var2] = (random->nextInt() & 511);
     }
   }
-  if (((((((this->grappledEnemy != (-1)) && (var2 != this->grappledEnemy)) || (this->cameraPanX > 0)) && (!this->eh[var2])) && (var1 != 7)) && (var1 != 11))) {
+  if (((((((this->grappledEnemy != (-1)) && (var2 != this->grappledEnemy)) || (this->cameraPanX > 0)) && (!this->el[var2])) && (var1 != 7)) && (var1 != 11))) {
     {
       switch (this->enemyClass[var2]) {
       case 1:
@@ -3852,13 +3942,13 @@ void Game::setEnemyAction(int var1, int var2) {
   }
   this->enemyAction[var2] = var1;
   if ((this->enemyClass[var2] == 1)) {
-    if (this->dA) {
+    if (this->dE) {
       this->startAnim((85 + var2), 18432, var1);
     } else {
       this->startAnim((85 + var2), 4096, var1);
     }
   } else if ((this->enemyClass[var2] == 2)) {
-    if (this->dB) {
+    if (this->dF) {
       this->startAnim((85 + var2), 16384, var1);
     } else {
       this->startAnim((85 + var2), 17408, var1);
@@ -3878,7 +3968,7 @@ void Game::setEnemyAction(int var1, int var2) {
   }
 }
 
-void Game::w() {
+void Game::v() {
   this->setPlayerAction(14);
   this->setEnemyAction(24, this->grappledEnemy);
   this->spawnPickup(enemyX[this->grappledEnemy], (this->enemyY[this->grappledEnemy] - (this->enemyHeight[this->grappledEnemy] >> 1)), 1, this->enemyDropAmount[this->grappledEnemy]);
@@ -3887,11 +3977,11 @@ void Game::w() {
 }
 
 void Game::setPlayerAction(int var1) {
-  this->fO = 0;
-  this->fP = 0;
-  gc = 0;
+  this->fS = 0;
+  this->fT = 0;
+  gg = 0;
   this->playerAction = var1;
-  hf = 0;
+  hj = 0;
   bool var2 = false;
   if (((var1 == 22) && magicModeA)) {
     var1 = 20;
@@ -3915,7 +4005,7 @@ void Game::setPlayerAction(int var1) {
     qteActive = false;
     this->slowMotionShift = 0;
     this->grappledEnemy = (-1);
-    this->iB = true;
+    this->iF = true;
   }
   if ((var1 != 31)) {
     this->openingChest = false;
@@ -3934,13 +4024,13 @@ void Game::setPlayerAction(int var1) {
   } else if ((((var1 != 54) && (var1 != 36)) && (var1 != 47))) {
     this->attackQueued = false;
     this->attacking = false;
-    this->fN = false;
+    this->fR = false;
   } else {
     this->attacking = true;
     var2 = true;
     if (((!this->climbing) && (!hangingOnBar))) {
-      if (this->fN) {
-        this->fN = false;
+      if (this->fR) {
+        this->fR = false;
         this->comboIndex = 0;
       }
       if (magicModeA) {
@@ -3951,7 +4041,7 @@ void Game::setPlayerAction(int var1) {
           this->attackQueued = false;
           var1 = 77;
           this->playerAction = 77;
-          this->fN = true;
+          this->fR = true;
         }
       } else {
         var1 += this->comboIndex;
@@ -3959,14 +4049,14 @@ void Game::setPlayerAction(int var1) {
           this->comboIndex++;
         } else {
           var1 = 60;
-          this->fN = true;
+          this->fR = true;
           this->attackQueued = false;
           this->playerAction = 60;
         }
       }
     }
   }
-  gh = (((((((((var1 == 7) || (var1 == 5)) || (var1 == 8)) || (var1 == 6)) || (var1 == 101)) || (var1 == 119)) || (var1 == 118)) || (var1 == 100)) || (var1 == 5));
+  gl = (((((((((var1 == 7) || (var1 == 5)) || (var1 == 8)) || (var1 == 6)) || (var1 == 101)) || (var1 == 119)) || (var1 == 118)) || (var1 == 100)) || (var1 == 5));
   if ((var1 == 67)) {
     var2 = true;
     this->airAttacking = true;
@@ -4019,7 +4109,7 @@ void Game::setPlayerAction(int var1) {
     ledgeHanging = true;
   }
   this->grabbingLedge = (var1 == 30);
-  this->gk = ((((var1 == 21) || (var1 == 22)) || (var1 == 23)) || (var1 == 20));
+  this->go = ((((var1 == 21) || (var1 == 22)) || (var1 == 23)) || (var1 == 20));
   this->balancing = ((var1 == 50) || (var1 == 51));
   if (((var1 != 15) && (var1 != 17))) {
     this->usingSwitch = false;
@@ -4031,7 +4121,11 @@ void Game::setPlayerAction(int var1) {
   }
   if (((var2 && (!hangingOnBar)) && (this->health > 0))) {
     int var3 = (this->randomValue & 1);
-    this->playSound((3 + var3));
+    if ((magicModeA && (!this->climbing))) {
+      this->playSound((4 + var3));
+    } else {
+      this->playSound((6 + var3));
+    }
   }
   playerAnim = var1;
   this->startAnim(135, 28672, var1);
@@ -4042,27 +4136,27 @@ bool Game::stepSlot(int var1) {
 }
 
 int Game::playerTileX() {
-  return (this->playerX / 16);
+  return (this->playerX / 22);
 }
 
 int Game::playerTileY() {
   int var1 = 0;
-  return (((var1 = (this->playerY / 16)) > mapHeight) ? mapHeight : var1);
+  return (((var1 = (this->playerY / 22)) > mapHeight) ? mapHeight : var1);
 }
 
 void Game::updateGameplay() {
   int var1 = this->playerTileX();
-  int var2 = ((((this->subY >> 8) + 1) >= 16) ? (gx + 1) : gx);
+  int var2 = ((((this->subY >> 8) + 1) >= 22) ? (gB + 1) : gB);
   int var3 = 0;
   int var4 = (this->playerX - (playerWidth >> 1));
   int var5 = this->playerY;
-  this->onGround = gg;
+  this->onGround = gk;
   bool var6 = this->onPlatform;
   if ((!this->onGround)) {
     this->onPlatform = ((((((this->getCellFlags(var1, var2) & 8192) != 0) && (playerAnim != 99)) && (playerAnim != 24)) && (playerAnim != 25)) && (playerAnim != 26));
     this->onGround = ((this->getCellFlags(var1, var2) & 1) != 0);
-    this->gA = ((this->getCellFlags(var1, (var2 - 1)) & 2048) != 0);
-    gB = ((this->getCellFlags(var1, (var2 - 1)) & 4096) != 0);
+    this->gE = ((this->getCellFlags(var1, (var2 - 1)) & 2048) != 0);
+    gF = ((this->getCellFlags(var1, (var2 - 1)) & 4096) != 0);
   }
   if ((this->onPlatform && (!var6))) {
     if (this->pushing) {
@@ -4073,19 +4167,19 @@ void Game::updateGameplay() {
     this->setPlayerAction(9);
   }
   bool var7 = this->stepAnim(135, this->frameDelta);
-  gc = (gc + this->frameDelta);
+  gg = (gg + this->frameDelta);
   if (((!qteActive) && ((this->getCellFlags(var1, var2) & 128) > 0))) {
-    for (int var8 = cv; (var8 >= 0); (var8--)) {
-      if (((this->cl[var8] == var1) && (cm[var8] == var2))) {
-        this->cs = this->cn[var8];
-        this->ct = this->cn[var8];
-        String var9 = this->getString(this->cs);
-        if (((!this->aR) && (var9.charAt(0) == ((char16_t)64)))) {
-          this->aR = true;
-          this->aS = (Engine::parseIntOr(var9.substring(2, 3), 0) == 1);
-          this->aT = Engine::parseIntOr(var9.substring(1, 2), 0);
-          this->startAnim(131, 1027, this->aT);
-        } else if (this->aR) {
+    for (int var8 = cz; (var8 >= 0); (var8--)) {
+      if (((this->cp[var8] == var1) && (cq[var8] == var2))) {
+        this->cw = this->cr[var8];
+        this->cx = this->cr[var8];
+        String var9 = this->getString(this->cw);
+        if (((!this->aQ) && (var9.charAt(0) == ((char16_t)64)))) {
+          this->aQ = true;
+          this->aR = (Engine::parseIntOr(var9.substring(2, 3), 0) == 1);
+          this->aS = Engine::parseIntOr(var9.substring(1, 2), 0);
+          this->startAnim(131, 1027, this->aS);
+        } else if (this->aQ) {
           int var67 = Engine::animDeltaX;
           int var11 = Engine::animDeltaY;
           this->stepSlot(131);
@@ -4093,12 +4187,12 @@ void Game::updateGameplay() {
           Engine::animDeltaY = var11;
         } else {
           state = 101;
-          this->setBarTargets(79, 25, 35, 35);
+          this->setBarTargets(95, 35, 35, 35);
           if ((state != 105)) {
-            this->cu = (this->ct + this->co[var8]);
-            for (int var10 = cv; (var10 >= 0); (var10--)) {
-              if ((this->cn[var10] == this->cs)) {
-                this->clearCellFlags(this->cl[var10], cm[var10], 128);
+            this->cy = (this->cx + this->cs[var8]);
+            for (int var10 = cz; (var10 >= 0); (var10--)) {
+              if ((this->cr[var10] == this->cw)) {
+                this->clearCellFlags(this->cp[var10], cq[var10], 128);
               }
             }
             panelText = newArr<String>(2);
@@ -4108,7 +4202,7 @@ void Game::updateGameplay() {
       }
     }
   } else {
-    this->aR = false;
+    this->aQ = false;
   }
   if (((this->playerAction != 52) && (this->playerAction != 53))) {
     if ((this->playerAction == 26)) {
@@ -4132,13 +4226,13 @@ void Game::updateGameplay() {
           int var31;
           switch (this->heldKey) {
           case 1:
-            if (((this->climbing && (this->playerAction == 33)) && (((this->getCellFlags((this->gw + (facingRight ? 1 : (-1))), ((gx - this->hg) - 1)) & 8) != 0) || ((this->getCellFlags((this->gw + (facingRight ? 1 : (-1))), ((gx - this->hg) - 1)) & 1) == 0)))) {
+            if (((this->climbing && (this->playerAction == 33)) && (((this->getCellFlags((this->gA + (facingRight ? 1 : (-1))), ((gB - this->hk) - 1)) & 8) != 0) || ((this->getCellFlags((this->gA + (facingRight ? 1 : (-1))), ((gB - this->hk) - 1)) & 1) == 0)))) {
               this->setPlayerAction(35);
             }
             break;
           case 2:
-            if (((((((!this->climbing) && (!ledgeHanging)) && (!this->gk)) && (this->playerAction != 44)) && (this->playerAction != 22)) && (this->playerAction != 38))) {
-              if (((hangingOnBar && (!gh)) && (!this->attacking))) {
+            if (((((((!this->climbing) && (!ledgeHanging)) && (!this->go)) && (this->playerAction != 44)) && (this->playerAction != 22)) && (this->playerAction != 38))) {
+              if (((hangingOnBar && (!gl)) && (!this->attacking))) {
                 if ((this->playerAction != 46)) {
                   this->setPlayerAction(46);
                 }
@@ -4146,21 +4240,21 @@ void Game::updateGameplay() {
               } else {
                 if (((this->playerAction == 0) || (this->playerAction == 3))) {
                   facingRight = false;
-                  if (((((((this->getCellFlags((this->gw - 1), gx) & 1) != 0) || ((this->getCellFlags(this->gw, gx) & 1) != 0)) || ((this->getCellFlags((this->gw - 1), (gx - 1)) & 1) != 0)) || ((this->getCellFlags((this->gw - 1), (gx - 2)) & 1) != 0)) && ((this->getCellFlags((this->gw - 1), gx) & 512) == 0))) {
-                    if ((((((this->getCellFlags((this->gw - 1), gx) & 1) != 0) || ((this->getCellFlags(this->gw, gx) & 1) != 0)) || ((this->getCellFlags((this->gw - 1), (gx - 1)) & 1) != 0)) || ((this->getCellFlags((this->gw - 1), (gx - 2)) & 1) != 0))) {
-                      this->playerX = (((this->gw + (((this->getCellFlags(this->gw, gx) & 1) != 0) ? 1 : 0)) * 16) + (playerWidth >> 1));
+                  if (((((((this->getCellFlags((this->gA - 1), gB) & 1) != 0) || ((this->getCellFlags(this->gA, gB) & 1) != 0)) || ((this->getCellFlags((this->gA - 1), (gB - 1)) & 1) != 0)) || ((this->getCellFlags((this->gA - 1), (gB - 2)) & 1) != 0)) && ((this->getCellFlags((this->gA - 1), gB) & 512) == 0))) {
+                    if ((((((this->getCellFlags((this->gA - 1), gB) & 1) != 0) || ((this->getCellFlags(this->gA, gB) & 1) != 0)) || ((this->getCellFlags((this->gA - 1), (gB - 1)) & 1) != 0)) || ((this->getCellFlags((this->gA - 1), (gB - 2)) & 1) != 0))) {
+                      this->playerX = (((this->gA + (((this->getCellFlags(this->gA, gB) & 1) != 0) ? 1 : 0)) * 22) + (playerWidth >> 1));
                     }
                   } else {
-                    if (((this->getCellFlags((this->gw - 1), gx) & 512) != 0)) {
-                      var32 = (((this->getCellFlags(this->gw, gx) & 512) != 0) ? 1 : 0);
-                      this->playerX = (((this->gw + var32) * 16) + (playerWidth >> 1));
+                    if (((this->getCellFlags((this->gA - 1), gB) & 512) != 0)) {
+                      var32 = (((this->getCellFlags(this->gA, gB) & 512) != 0) ? 1 : 0);
+                      this->playerX = (((this->gA + var32) * 22) + (playerWidth >> 1));
                     }
                     this->setPlayerAction(9);
                     this->blocking = false;
                   }
                 } else if ((this->playerAction == 50)) {
                   facingRight = false;
-                  if (((this->getCellFlags((this->gw - 1), gx) & 1) == 0)) {
+                  if (((this->getCellFlags((this->gA - 1), gB) & 1) == 0)) {
                     this->setPlayerAction(51);
                   }
                 }
@@ -4176,22 +4270,22 @@ void Game::updateGameplay() {
           default:
             break;
           case 5:
-            if (((((((!this->climbing) && (!ledgeHanging)) && (!this->gk)) && (this->playerAction != 44)) && (this->playerAction != 22)) && (this->playerAction != 38))) {
-              if (((hangingOnBar && (!gh)) && (!this->attacking))) {
+            if (((((((!this->climbing) && (!ledgeHanging)) && (!this->go)) && (this->playerAction != 44)) && (this->playerAction != 22)) && (this->playerAction != 38))) {
+              if (((hangingOnBar && (!gl)) && (!this->attacking))) {
                 if ((this->playerAction != 46)) {
                   this->setPlayerAction(46);
                 }
                 facingRight = true;
               } else {
                 if (((this->playerAction == 0) || (this->playerAction == 3))) {
-                  if ((((((this->getCellFlags((this->gw + 1), (gx - 1)) & 1) != 0) || ((this->getCellFlags((this->gw + 1), gx) & 1) != 0)) || ((this->getCellFlags((this->gw + 1), (gx - 2)) & 1) != 0)) && ((this->getCellFlags((this->gw + 1), gx) & 512) == 0))) {
-                    if (((this->getCellFlags((this->gw + 1), gx) & 1) != 0)) {
-                      this->playerX = (((this->gw + 1) * 16) - (playerWidth >> 1));
+                  if ((((((this->getCellFlags((this->gA + 1), (gB - 1)) & 1) != 0) || ((this->getCellFlags((this->gA + 1), gB) & 1) != 0)) || ((this->getCellFlags((this->gA + 1), (gB - 2)) & 1) != 0)) && ((this->getCellFlags((this->gA + 1), gB) & 512) == 0))) {
+                    if (((this->getCellFlags((this->gA + 1), gB) & 1) != 0)) {
+                      this->playerX = (((this->gA + 1) * 22) - (playerWidth >> 1));
                     }
                   } else {
-                    if (((this->getCellFlags((this->gw + 1), gx) & 512) != 0)) {
-                      var31 = (((this->getCellFlags(this->gw, gx) & 512) != 0) ? (-1) : 0);
-                      this->playerX = ((((this->gw + 1) + var31) * 16) - (playerWidth >> 1));
+                    if (((this->getCellFlags((this->gA + 1), gB) & 512) != 0)) {
+                      var31 = (((this->getCellFlags(this->gA, gB) & 512) != 0) ? (-1) : 0);
+                      this->playerX = ((((this->gA + 1) + var31) * 22) - (playerWidth >> 1));
                     }
                     this->setPlayerAction(9);
                     this->blocking = false;
@@ -4199,7 +4293,7 @@ void Game::updateGameplay() {
                   facingRight = true;
                 } else if ((this->playerAction == 50)) {
                   facingRight = true;
-                  if (((this->getCellFlags((this->gw + 1), gx) & 1) == 0)) {
+                  if (((this->getCellFlags((this->gA + 1), gB) & 1) == 0)) {
                     this->setPlayerAction(51);
                   }
                 }
@@ -4212,7 +4306,7 @@ void Game::updateGameplay() {
           case 6:
             if (this->climbing) {
               if ((this->playerAction == 33)) {
-                if (((this->getCellFlags((this->gw + (facingRight ? 1 : (-1))), (gx + 1)) & 8) != 0)) {
+                if (((this->getCellFlags((this->gA + (facingRight ? 1 : (-1))), (gB + 1)) & 8) != 0)) {
                   this->setPlayerAction(34);
                 } else {
                   this->setPlayerAction(26);
@@ -4222,7 +4316,7 @@ void Game::updateGameplay() {
               this->setPlayerAction(26);
             } else if ((playerAnim == 120)) {
               this->setPlayerAction(26);
-              this->playerY += 16;
+              this->playerY += 22;
             }
           }
         }
@@ -4243,11 +4337,11 @@ void Game::updateGameplay() {
               this->setPlayerAction(24);
             } else if ((playerAnim == 120)) {
               this->setPlayerAction(121);
-            } else if ((((!this->grabbingLedge) && facingRight) && this->gA)) {
+            } else if ((((!this->grabbingLedge) && facingRight) && this->gE)) {
               this->setPlayerAction(30);
-            } else if ((((!this->grabbingLedge) && (!facingRight)) && gB)) {
+            } else if ((((!this->grabbingLedge) && (!facingRight)) && gF)) {
               this->setPlayerAction(30);
-            } else if ((((((((((!this->openingChest) && (!this->usingSwitch)) && (!this->climbing)) && (!hangingOnBar)) && (!ledgeHanging)) && (this->onGround || this->onPlatform)) && (!this->gk)) && (this->grappledEnemy < 0)) && (!this->attacking))) {
+            } else if ((((((((((!this->openingChest) && (!this->usingSwitch)) && (!this->climbing)) && (!hangingOnBar)) && (!ledgeHanging)) && (this->onGround || this->onPlatform)) && (!this->go)) && (this->grappledEnemy < 0)) && (!this->attacking))) {
               if (this->blocking) {
                 this->blocking = false;
                 this->setPlayerAction(0);
@@ -4261,23 +4355,23 @@ void Game::updateGameplay() {
             }
             break;
           case 2:
-            if ((this->gk && (this->playerAction == 21))) {
+            if ((this->go && (this->playerAction == 21))) {
               if (facingRight) {
                 this->setPlayerAction(23);
-                this->gl = 0;
+                this->gp = 0;
               } else {
                 this->setPlayerAction(22);
-                this->gl = 1;
+                this->gp = 1;
               }
               if ((!this->tryPushCrate())) {
                 this->setPlayerAction(21);
               } else {
-                this->playSound(3);
+                this->playSound(6);
               }
             } else if ((((((this->grappledEnemy >= 0) && (enemyHealth[this->grappledEnemy] > 0)) && (this->enemyClass[this->grappledEnemy] == 1)) && (this->playerAction != 14)) && (!this->climbing))) {
               facingRight = false;
               this->enemyFacingRight[this->grappledEnemy] = false;
-              this->w();
+              this->v();
             } else if ((((facingRight && (this->attacking || this->airAttacking)) && (this->grappledEnemy < 0)) && (!this->climbing))) {
               var40 = 150;
               if (((magicModeA && (this->comboIndex > this->magicAComboLength)) || ((!magicModeA) && (this->comboIndex > bladesComboLength)))) {
@@ -4297,23 +4391,23 @@ void Game::updateGameplay() {
             }
             break;
           case 5:
-            if ((this->gk && (this->playerAction == 21))) {
+            if ((this->go && (this->playerAction == 21))) {
               if (facingRight) {
                 this->setPlayerAction(22);
-                this->gl = 1;
+                this->gp = 1;
               } else {
                 this->setPlayerAction(23);
-                this->gl = 0;
+                this->gp = 0;
               }
               if ((!this->tryPushCrate())) {
                 this->setPlayerAction(21);
               } else {
-                this->playSound(3);
+                this->playSound(6);
               }
             } else if ((((((this->grappledEnemy >= 0) && (enemyHealth[this->grappledEnemy] > 0)) && (this->enemyClass[this->grappledEnemy] == 1)) && (this->playerAction != 14)) && (!this->climbing))) {
               facingRight = true;
               this->enemyFacingRight[this->grappledEnemy] = true;
-              this->w();
+              this->v();
             } else if ((((((!facingRight) && (this->attacking || this->airAttacking)) && (this->grappledEnemy < 0)) && (!this->climbing)) && (!hangingOnBar))) {
               var39 = 150;
               if (((magicModeA && (this->comboIndex > this->magicAComboLength)) || ((!magicModeA) && (this->comboIndex > bladesComboLength)))) {
@@ -4337,11 +4431,11 @@ void Game::updateGameplay() {
               for (int var36 = this->enemyCount; (var36 >= 0); (var36--)) {
                 if ((((this->playerY == this->enemyY[var36]) || ((this->playerY + 1) == this->enemyY[var36])) && rectsOverlap(((enemyX[var36] - (this->enemyWidth[var36] >> 1)) - (playerWidth >> 1)), this->enemyY[var36], (this->enemyWidth[var36] + playerWidth), this->enemyHeight[var36], this->playerX, this->playerY, playerWidth, this->playerHeight))) {
                   var56 = true;
-                  for (int var69 = this->gw; (var69 < this->enemyTileX[var36]); (var69++)) {
-                    var56 &= ((this->getCellFlags(var69, gx) & 1) == 0);
+                  for (int var69 = this->gA; (var69 < this->enemyTileX[var36]); (var69++)) {
+                    var56 &= ((this->getCellFlags(var69, gB) & 1) == 0);
                   }
                   if ((((this->enemyStatus[var36] <= 0) || ((this->enemyClass[var36] == 3) && (this->enemyAction[var36] == 12))) && var56)) {
-                    this->iB = true;
+                    this->iF = true;
                     if (((((bossIndex != var36) && (this->enemyClass[var36] == 1)) && (enemyHealth[var36] > 0)) && (enemyHealth[var36] < (enemyMaxHealth[var36] >> 1)))) {
                       this->grappledEnemy = var36;
                       this->playerX = enemyX[var36];
@@ -4420,16 +4514,16 @@ void Game::updateGameplay() {
             } else if ((this->playerAction == 0)) {
               if (facingRight) {
                 for (int var37 = this->chestLast; (var37 >= 0); (var37--)) {
-                  if ((((!chestOpened[var37]) && rectsOverlap(this->chestX[var37], this->chestY[var37], this->chestWidth, this->chestHeight, (this->playerX - this->frontExtent), this->playerY, playerWidth, this->playerHeight)) && (jlang::abs<int>((int)((this->playerY - this->chestY[var37]))) < 8))) {
+                  if ((((!chestOpened[var37]) && rectsOverlap(this->chestX[var37], this->chestY[var37], this->chestWidth, this->chestHeight, (this->playerX - this->frontExtent), this->playerY, playerWidth, this->playerHeight)) && (jlang::abs<int>((int)((this->playerY - this->chestY[var37]))) < 11))) {
                     this->setPlayerAction(31);
                     this->playerX = (this->chestX[var37] + (this->chestWidth >> 1));
                   }
                 }
               }
               for (int var38 = this->switchLast; (var38 >= 0); (var38--)) {
-                if (((facingRight && this->switchIsLever[var38]) && rectsOverlap((this->playerX - (playerWidth >> 1)), (this->playerY - this->playerHeight), playerWidth, this->playerHeight, (this->switchX[var38] - 16), switchY[var38], 32, 16))) {
-                  this->hO = var38;
-                  this->hP = var38;
+                if (((facingRight && this->switchIsLever[var38]) && rectsOverlap((this->playerX - (playerWidth >> 1)), (this->playerY - this->playerHeight), playerWidth, this->playerHeight, (this->switchX[var38] - 22), switchY[var38], 44, 22))) {
+                  this->hS = var38;
+                  this->hT = var38;
                   if ((!this->switchOn[var38])) {
                     this->setPlayerAction(15);
                   } else {
@@ -4440,7 +4534,7 @@ void Game::updateGameplay() {
                 }
               }
             }
-            if (((((((((this->onGround && (!this->balancing)) && (!this->gk)) && (!this->usingSwitch)) && (!this->openingChest)) && (this->grappledEnemy < 0)) && (playerAnim != 24)) && (playerAnim != 48)) && (playerAnim != 30))) {
+            if (((((((((this->onGround && (!this->balancing)) && (!this->go)) && (!this->usingSwitch)) && (!this->openingChest)) && (this->grappledEnemy < 0)) && (playerAnim != 24)) && (playerAnim != 48)) && (playerAnim != 30))) {
               this->blocking = true;
               this->setPlayerAction(3);
             }
@@ -4449,7 +4543,7 @@ void Game::updateGameplay() {
             }
             break;
           case 8:
-            if (((((((!this->openingChest) && (!this->gk)) && (!this->usingSwitch)) && this->onGround) && (this->grappledEnemy < 0)) && (!this->onPlatform))) {
+            if (((((((!this->openingChest) && (!this->go)) && (!this->usingSwitch)) && this->onGround) && (this->grappledEnemy < 0)) && (!this->onPlatform))) {
               if (((this->playerAction != 0) && (this->playerAction != 3))) {
                 if (((((!this->onGround) || magicModeB) || this->magicModeC) || (magicModeA && (magic < 0)))) {
                   break;
@@ -4534,16 +4628,19 @@ void Game::updateGameplay() {
             break;
           case 29:
             if ((this->topBarTarget == this->topBar)) {
-              this->af = (this->topBarTarget >> 8);
-              this->ag = (this->bottomBarTarget >> 8);
-              this->J = state;
+              this->ae = (this->topBarTarget >> 8);
+              this->af = (this->bottomBarTarget >> 8);
+              this->I = state;
               this->setBarTargets(halfHeight, halfHeight, 35, 35);
               state = 102;
               pauseMenuIndex = 4;
             }
             break;
           case 35:
-            this->bi = false;
+            this->bh = false;
+            this->startAnim(133, 1025, 2);
+            this->startAnim(134, 1025, 3);
+            this->bm = (((256 - (this->upgradePoints & 0xFF)) * 320) >> 8);
             state = 106;
           }
         }
@@ -4552,13 +4649,13 @@ void Game::updateGameplay() {
             this->health = (-1);
           }
           if ((this->pressedKey == 48)) {
-            this->C = (!this->C);
+            this->B = (!this->B);
           }
           if ((this->pressedKey == 57)) {
             this->health = this->maxHealth;
           }
           if ((this->pressedKey == 51)) {
-            this->D = (!this->D);
+            this->C = (!this->C);
           }
         }
       } else if ((this->cameraPanX < 0)) {
@@ -4637,7 +4734,7 @@ void Game::updateGameplay() {
       if (((this->heldKey == 8) && (this->playerAction == 94))) {
         magic -= 12;
       }
-      if ((((((((((((!this->onGround) && (!this->onPlatform)) && (!this->airAttacking)) && (!hangingOnBar)) && (!gg)) && (this->playerAction != 26)) && (this->playerAction != 99)) && (this->playerAction != 48)) && ((((this->comboIndex != 5) && (this->comboIndex != 6)) && (this->comboIndex != this->magicAComboLength)) || (!magicModeA))) && (!this->grabbingLedge)) && var7)) {
+      if ((((((((((((!this->onGround) && (!this->onPlatform)) && (!this->airAttacking)) && (!hangingOnBar)) && (!gk)) && (this->playerAction != 26)) && (this->playerAction != 99)) && (this->playerAction != 48)) && ((((this->comboIndex != 5) && (this->comboIndex != 6)) && (this->comboIndex != this->magicAComboLength)) || (!magicModeA))) && (!this->grabbingLedge)) && var7)) {
         if (((((((this->playerAction != 24) && (this->playerAction != 25)) && (this->playerAction != 44)) && (this->playerAction != 38)) || var7) && ((((((((((((((this->playerAction == 24) || (this->playerAction == 25)) || (this->playerAction == 44)) || (this->playerAction == 40)) || (this->playerAction == 38)) || (this->playerAction == 108)) || (this->playerAction == 114)) || (this->playerAction == 116)) || (this->playerAction == 115)) || (playerAnim == 121)) || (playerAnim == 120)) || ledgeHanging) || this->climbing) || hangingOnBar))) {
           if (((((this->playerAction == 47) || (this->playerAction == 118)) || (this->playerAction == 119)) && (!var7))) {
             this->setPlayerAction(45);
@@ -4655,7 +4752,7 @@ void Game::updateGameplay() {
               this->setPlayerAction(31);
               this->startAnim((121 + var41), 5120, this->chestAnim[var41]);
               chestOpened[var41] = true;
-              this->e(this->gw, gx);
+              this->e(this->gA, gB);
             }
           }
         }
@@ -4670,12 +4767,12 @@ void Game::updateGameplay() {
         } else if ((this->playerAction == 40)) {
           this->setPlayerAction(26);
         } else if ((playerAnim == 121)) {
-          if (((this->getCellFlags(this->gw, (gx + 1)) & 8192) != 0)) {
+          if (((this->getCellFlags(this->gA, (gB + 1)) & 8192) != 0)) {
             this->onPlatform = true;
           }
           this->setPlayerAction(0);
         } else if ((playerAnim == 120)) {
-          this->playerY += 16;
+          this->playerY += 22;
           this->setPlayerAction(26);
         } else if ((((this->playerAction == 47) || (this->playerAction == 119)) || (this->playerAction == 118))) {
           this->setPlayerAction(45);
@@ -4770,7 +4867,7 @@ void Game::updateGameplay() {
       } else if (((this->playerAction == 3) && (!this->blocking))) {
         this->setPlayerAction(28);
       }
-      if ((((this->health <= 0) && (this->grappledEnemy < 0)) && ((!this->gk) || (playerAnim == 21)))) {
+      if ((((this->health <= 0) && (this->grappledEnemy < 0)) && ((!this->go) || (playerAnim == 21)))) {
         if (((!this->onGround) && (playerAnim != 26))) {
           this->setPlayerAction(26);
         } else if (((this->onGround && (playerAnim != 52)) && (playerAnim != 53))) {
@@ -4779,7 +4876,7 @@ void Game::updateGameplay() {
         }
       }
     } else if ((state == 105)) {
-      if (((((((!this->onGround) && (!this->airAttacking)) && (this->playerAction != 24)) && (!this->onPlatform)) && (!hangingOnBar)) && (!gg))) {
+      if (((((((!this->onGround) && (!this->airAttacking)) && (this->playerAction != 24)) && (!this->onPlatform)) && (!hangingOnBar)) && (!gk))) {
         if ((this->playerAction == 37)) {
           this->setPlayerAction(40);
           this->playerY++;
@@ -4788,21 +4885,21 @@ void Game::updateGameplay() {
         }
       }
       if (((!var7) && (this->playerAction != 26))) {
-        if (((this->aY[(this->ba + 1)] != 0) || ((this->aZ[(this->bb + 1)] != 0) && (this->dL >= 0)))) {
-          if ((this->aY[(this->ba + 1)] == 0)) {
-            this->setPlayerAction(this->aY[this->ba]);
+        if (((this->aX[(this->aZ + 1)] != 0) || ((this->aY[(this->ba + 1)] != 0) && (this->dP >= 0)))) {
+          if ((this->aX[(this->aZ + 1)] == 0)) {
+            this->setPlayerAction(this->aX[this->aZ]);
           } else {
-            this->ba++;
-            this->setPlayerAction(this->aY[this->ba]);
+            this->aZ++;
+            this->setPlayerAction(this->aX[this->aZ]);
           }
         } else {
           this->advanceScript();
         }
       }
       if ((((this->pressedKey == 29) && (this->topBarTarget == this->topBar)) && (this->bottomBarTarget == this->bottomBar))) {
-        this->af = (this->topBarTarget >> 8);
-        this->ag = (this->bottomBarTarget >> 8);
-        this->J = state;
+        this->ae = (this->topBarTarget >> 8);
+        this->af = (this->bottomBarTarget >> 8);
+        this->I = state;
         state = 102;
         pauseMenuIndex = 4;
         this->setBarTargets(halfHeight, halfHeight, 35, 35);
@@ -4820,11 +4917,11 @@ void Game::updateGameplay() {
   } else {
     attackTimer = (attackTimer + this->frameDelta);
   }
-  if (this->C) {
+  if (this->B) {
     this->health = this->maxHealth;
   }
-  if ((((((((((((this->health >= this->healthPrev) && (!this->blockedHit)) || (this->grappledEnemy >= 0)) || gh) || this->gk) || this->attacking) || (playerAnim == 60)) || (playerAnim == 77)) || (this->health <= 0)) || (!this->onGround)) || ((this->playerX == this->checkpointX) && (this->playerY == this->checkpointY)))) {
-    if ((((hangingOnBar && (this->health < this->healthPrev)) && (!gh)) && (!this->attacking))) {
+  if ((((((((((((this->health >= this->healthPrev) && (!this->blockedHit)) || (this->grappledEnemy >= 0)) || gl) || this->go) || this->attacking) || (playerAnim == 60)) || (playerAnim == 77)) || (this->health <= 0)) || (!this->onGround)) || ((this->playerX == this->checkpointX) && (this->playerY == this->checkpointY)))) {
+    if ((((hangingOnBar && (this->health < this->healthPrev)) && (!gl)) && (!this->attacking))) {
       if ((this->hitFromRight == facingRight)) {
         this->setPlayerAction(118);
       } else {
@@ -4853,7 +4950,7 @@ void Game::updateGameplay() {
     }
   }
   this->healthPrev = this->health;
-  if (((playerAnim == 9) && (((this->getCellFlags((this->gw + (facingRight ? 1 : (-1))), (gx + 2)) & 16384) != 0) || ((this->getCellFlags((this->gw + (facingRight ? 1 : (-1))), (gx + 3)) & 16384) != 0)))) {
+  if (((playerAnim == 9) && (((this->getCellFlags((this->gA + (facingRight ? 1 : (-1))), (gB + 2)) & 16384) != 0) || ((this->getCellFlags((this->gA + (facingRight ? 1 : (-1))), (gB + 3)) & 16384) != 0)))) {
     this->setPlayerAction(48);
   }
   this->getBoxesAt(this->playerX, this->playerY, 135, this->playerBoxes, facingRight);
@@ -4861,20 +4958,20 @@ void Game::updateGameplay() {
   if (((this->comboTimer < 0) && (comboHits != 0))) {
     this->comboTimer = 0;
     comboHits = 0;
-    this->iB = true;
+    this->iF = true;
   }
   if ((((this->activeArena != (-1)) && ((this->arenaKillsNeeded[this->activeArena] - arenaKills[this->activeArena]) <= 3)) && (this->arenaBannerTimer > 0))) {
     if ((this->arenaKillsNeeded[this->activeArena] <= 0)) {
       this->arenaBannerTimer = (this->arenaBannerTimer - this->frameDelta);
       if ((this->arenaBannerTimer <= 0)) {
-        this->iB = true;
+        this->iF = true;
       }
     }
-    this->gL = (this->gL - this->frameDelta);
-    if ((this->gL < 0)) {
-      this->gL = (200 - this->gL);
-      gM = (!gM);
-      this->iB = true;
+    this->gP = (this->gP - this->frameDelta);
+    if ((this->gP < 0)) {
+      this->gP = (200 - this->gP);
+      gQ = (!gQ);
+      this->iF = true;
     }
   }
   for (int var42 = this->effectLast; (var42 >= 0); (var42--)) {
@@ -4904,26 +5001,26 @@ void Game::updateGameplay() {
           this->chestPopupKind = 9;
           this->startAnim(136, 1026, 1);
         } else if ((chestReward[var43] != 0)) {
-          this->spawnPickup((this->chestX[var43] + (this->chestWidth >> 1)), ((this->chestY[var43] - this->chestHeight) - 7), (this->chestAnim[var43] - 8), chestReward[var43]);
+          this->spawnPickup((this->chestX[var43] + (this->chestWidth >> 1)), ((this->chestY[var43] - this->chestHeight) - 10), (this->chestAnim[var43] - 8), chestReward[var43]);
         }
       }
     }
   }
   for (int var44 = this->pickupLast; (var44 >= 0); (var44--)) {
     int var58 = (var44 << 2);
-    int var71 = (9 * this->frameDelta);
+    int var71 = (12 * this->frameDelta);
     int var80 = ((pickupTarget[var44] < 0) ? this->playerX : enemyX[pickupTarget[var44]]);
     int var12 = ((pickupTarget[var44] < 0) ? this->playerY : this->enemyY[pickupTarget[var44]]);
-    if (((var80 < pickupTrailX[var58]) && (pickupVelX[var44] > (-3584)))) {
+    if (((var80 < pickupTrailX[var58]) && (pickupVelX[var44] > (-4608)))) {
       pickupVelX[var44] = (pickupVelX[var44] - var71);
-    } else if (((var80 > pickupTrailX[var58]) && (pickupVelX[var44] < 3584))) {
+    } else if (((var80 > pickupTrailX[var58]) && (pickupVelX[var44] < 4608))) {
       pickupVelX[var44] = (pickupVelX[var44] + var71);
     } else {
       pickupVelX[var44] = (pickupVelX[var44] >> 2);
     }
-    if (((((var12 - (this->playerHeight >> 1)) + 8) < pickupTrailY[var58]) && (pickupVelY[var44] > (-3584)))) {
+    if (((((var12 - (this->playerHeight >> 1)) + 11) < pickupTrailY[var58]) && (pickupVelY[var44] > (-4608)))) {
       pickupVelY[var44] = (pickupVelY[var44] - var71);
-    } else if (((((var12 - (this->playerHeight >> 1)) - 8) > pickupTrailY[var58]) && (pickupVelY[var44] < 3584))) {
+    } else if (((((var12 - (this->playerHeight >> 1)) - 11) > pickupTrailY[var58]) && (pickupVelY[var44] < 4608))) {
       pickupVelY[var44] = (pickupVelY[var44] + var71);
     } else {
       pickupVelY[var44] = (pickupVelY[var44] - (pickupVelY[var44] >> 3));
@@ -4958,12 +5055,12 @@ void Game::updateGameplay() {
             enemyHealth[pickupTarget[var44]] = (enemyHealth[pickupTarget[var44]] - pickupAmount[var44]);
           }
           pickupTarget[var44] = (-1);
-          if ((((((var13 != this->grappledEnemy) && (enemyHealth[var13] <= 0)) && (this->dS[var13] != 1)) && ((this->enemyClass[var13] != 1) || (this->enemyAction[var13] != 22))) && (this->dS[var13] != 3))) {
+          if ((((((var13 != this->grappledEnemy) && (enemyHealth[var13] <= 0)) && (this->dW[var13] != 1)) && ((this->enemyClass[var13] != 1) || (this->enemyAction[var13] != 22))) && (this->dW[var13] != 3))) {
             if ((bossIndex == var13)) {
               enemyHealth[var13] = ((enemyMaxHealth[var13] >> 1) - 1);
             } else {
               enemyHealth[var13] = (-1);
-              if ((this->enemyClimbing[var13] || this->eh[var13])) {
+              if ((this->enemyClimbing[var13] || this->el[var13])) {
                 this->setEnemyAction(11, var13);
               } else if ((var14 == 1)) {
                 this->setEnemyAction(8, var13);
@@ -4992,46 +5089,46 @@ void Game::updateGameplay() {
     arraycopy(pickupTrailX, var58, pickupTrailX, (var58 + 1), 3);
     arraycopy(pickupTrailY, var58, pickupTrailY, (var58 + 1), 3);
   }
-  for (int var45 = (cd + 10); (var45 >= 10); (var45--)) {
+  for (int var45 = (ch + 10); (var45 >= 10); (var45--)) {
     var3 = (var45 - 10);
-    if ((this->bY[var3] >= 0)) {
-      int var59 = (bZ[var3] - cameraX);
-      int var72 = (ca[var3] - cameraY);
-      if ((((((var59 + this->cc[var3]) >= 0) && ((var72 + this->cb[var3]) >= 0)) && ((var59 - this->cc[var3]) <= viewW)) && ((var72 - this->cb[var3]) <= 320))) {
+    if ((this->cc[var3] >= 0)) {
+      int var59 = (cd[var3] - cameraX);
+      int var72 = (ce[var3] - cameraY);
+      if ((((((var59 + this->cg[var3]) >= 0) && ((var72 + this->cf[var3]) >= 0)) && ((var59 - this->cg[var3]) <= viewW)) && ((var72 - this->cf[var3]) <= 320))) {
         if ((!this->stepSlot(var45))) {
-          this->bY[var3] = (-1);
+          this->cc[var3] = (-1);
         }
-        bZ[var3] = (bZ[var3] + Engine::animDeltaX);
-        ca[var3] = (ca[var3] + Engine::animDeltaY);
+        cd[var3] = (cd[var3] + Engine::animDeltaX);
+        ce[var3] = (ce[var3] + Engine::animDeltaY);
       }
     }
   }
-  for (int var46 = (ck + 40); (var46 >= 40); (var46--)) {
+  for (int var46 = (co + 40); (var46 >= 40); (var46--)) {
     var3 = (var46 - 40);
-    if ((this->cf[var3] >= 0)) {
-      int var60 = (this->cg[var3] - cameraX);
-      int var73 = (ch[var3] - cameraY);
-      if ((((((var60 + this->cj[var3]) >= 0) && ((var73 + this->ci[var3]) >= 0)) && ((var60 - this->cj[var3]) <= viewW)) && ((var73 - this->ci[var3]) <= 320))) {
+    if ((this->cj[var3] >= 0)) {
+      int var60 = (this->ck[var3] - cameraX);
+      int var73 = (cl[var3] - cameraY);
+      if ((((((var60 + this->cn[var3]) >= 0) && ((var73 + this->cm[var3]) >= 0)) && ((var60 - this->cn[var3]) <= viewW)) && ((var73 - this->cm[var3]) <= 320))) {
         if ((!this->stepSlot(var46))) {
-          this->cf[var3] = (-1);
+          this->cj[var3] = (-1);
         }
-        this->cg[var3] = (this->cg[var3] + Engine::animDeltaX);
-        ch[var3] = (ch[var3] + Engine::animDeltaY);
+        this->ck[var3] = (this->ck[var3] + Engine::animDeltaX);
+        cl[var3] = (cl[var3] + Engine::animDeltaY);
       }
     }
   }
-  for (int var47 = (bW + 30); (var47 >= 30); (var47--)) {
+  for (int var47 = (ca + 30); (var47 >= 30); (var47--)) {
     var3 = (var47 - 30);
-    if ((this->bO[var3] >= 0)) {
-      if (((!this->stepSlot(var47)) && this->bV[var3])) {
-        this->bO[var3] = (-1);
+    if ((this->bS[var3] >= 0)) {
+      if (((!this->stepSlot(var47)) && this->bZ[var3])) {
+        this->bS[var3] = (-1);
         this->o(var3);
-      } else if ((((this->bO[var3] & 1) == 0) && rectsOverlap(bR[var3], this->bS[var3], this->bU[var3], this->bT[var3], (this->playerX - this->frontExtent), (this->playerY - this->playerHeight), playerWidth, this->playerHeight))) {
-        this->bO[var3]++;
-        this->startAnim(var47, 5122, this->bO[var3]);
+      } else if ((((this->bS[var3] & 1) == 0) && rectsOverlap(bV[var3], this->bW[var3], this->bY[var3], this->bX[var3], (this->playerX - this->frontExtent), (this->playerY - this->playerHeight), playerWidth, this->playerHeight))) {
+        this->bS[var3]++;
+        this->startAnim(var47, 5122, this->bS[var3]);
       }
-      bP[var3] = (bP[var3] + Engine::animDeltaX);
-      this->bQ[var3] = (this->bQ[var3] + Engine::animDeltaY);
+      bT[var3] = (bT[var3] + Engine::animDeltaX);
+      this->bU[var3] = (this->bU[var3] + Engine::animDeltaY);
     }
   }
   for (int var48 = this->switchLast; (var48 >= 0); (var48--)) {
@@ -5039,16 +5136,16 @@ void Game::updateGameplay() {
     int var74 = (this->switchIsLever[var48] ? 4 : 0);
     bool var81 = this->stepSlot(var61);
     int var86 = switchAnim[var48];
-    if (((!this->switchIsLever[var48]) && ((this->onGround && rectsOverlap((this->playerX - (playerWidth >> 1)), (this->playerY - this->playerHeight), playerWidth, this->playerHeight, this->switchX[var48], switchY[var48], 16, 16)) || ((this->getCellFlags(this->switchTileX[var48], switchTileY[var48]) & 1) != 0)))) {
+    if (((!this->switchIsLever[var48]) && ((this->onGround && rectsOverlap((this->playerX - (playerWidth >> 1)), (this->playerY - this->playerHeight), playerWidth, this->playerHeight, this->switchX[var48], switchY[var48], 22, 22)) || ((this->getCellFlags(this->switchTileX[var48], switchTileY[var48]) & 1) != 0)))) {
       if ((!this->switchOn[var48])) {
         this->switchOn[var48] = true;
         this->triggerSwitchTargets(var48);
-        this->hP = var48;
+        this->hT = var48;
       }
     } else if (((!this->switchIsLever[var48]) && this->switchOn[var48])) {
       this->switchOn[var48] = false;
       this->triggerSwitchTargets(var48);
-      this->hP = var48;
+      this->hT = var48;
     }
     if ((!var81)) {
       bool var91 = false;
@@ -5063,13 +5160,13 @@ void Game::updateGameplay() {
         this->startAnim(var61, 2050, switchAnim[var48]);
         var91 = true;
       }
-      if (((((var86 == (3 + var74)) || (var86 == (1 + var74))) && (!var91)) && (this->hO >= 0))) {
-        this->triggerSwitchTargets(this->hO);
-        this->hO = (-1);
+      if (((((var86 == (3 + var74)) || (var86 == (1 + var74))) && (!var91)) && (this->hS >= 0))) {
+        this->triggerSwitchTargets(this->hS);
+        this->hS = (-1);
       }
     }
-    if (((this->hP >= 0) && (this->hP == var48))) {
-      this->hP = (-1);
+    if (((this->hT >= 0) && (this->hT == var48))) {
+      this->hT = (-1);
       if (((var86 == (0 + var74)) || (var86 == (3 + var74)))) {
         switchAnim[var48] = (1 + var74);
         this->startAnim(var61, 2050, switchAnim[var48]);
@@ -5119,36 +5216,36 @@ void Game::updateGameplay() {
       }
     }
   }
-  for (int var50 = (this->dp + 60); (var50 >= 60); (var50--)) {
+  for (int var50 = (this->dt + 60); (var50 >= 60); (var50--)) {
     var3 = (var50 - 60);
-    if ((this->di[var3] >= 0)) {
-      int var63 = (dl[var3] - cameraX);
-      int var76 = (dm[var3] - cameraY);
-      if ((((((var63 + this->do_[var3]) >= 0) && ((var76 + this->dn[var3]) >= 0)) && ((var63 - this->do_[var3]) <= viewW)) && ((var76 - this->dn[var3]) <= 320))) {
+    if ((this->dm[var3] >= 0)) {
+      int var63 = (dp[var3] - cameraX);
+      int var76 = (dq[var3] - cameraY);
+      if ((((((var63 + this->ds[var3]) >= 0) && ((var76 + this->dr[var3]) >= 0)) && ((var63 - this->ds[var3]) <= viewW)) && ((var76 - this->dr[var3]) <= 320))) {
         bool var83 = (!this->stepSlot(var50));
-        if ((this->dk[var3] == 2)) {
-          dl[var3] = (dl[var3] - Engine::animDeltaX);
-          dm[var3] = (dm[var3] - Engine::animDeltaY);
+        if ((this->do_[var3] == 2)) {
+          dp[var3] = (dp[var3] - Engine::animDeltaX);
+          dq[var3] = (dq[var3] - Engine::animDeltaY);
         } else {
-          dl[var3] = (dl[var3] + Engine::animDeltaX);
-          dm[var3] = (dm[var3] + Engine::animDeltaY);
+          dp[var3] = (dp[var3] + Engine::animDeltaX);
+          dq[var3] = (dq[var3] + Engine::animDeltaY);
         }
-        if (((((((!this->attacking) && (!this->airAttacking)) && (playerAnim != 30)) || ((this->di[var3] & 1) != 0)) || ((this->playerBoxes[2] == 0) && (this->playerBoxes[7] == 0))) || ((!rectsOverlap(this->playerBoxes[0], this->playerBoxes[1], this->playerBoxes[2], this->playerBoxes[3], dl[var3], (dm[var3] - this->dn[var3]), this->do_[var3], this->dn[var3])) && (!rectsOverlap(this->playerBoxes[5], this->playerBoxes[6], this->playerBoxes[7], this->playerBoxes[8], dl[var3], (dm[var3] - this->dn[var3]), this->do_[var3], this->dn[var3]))))) {
-          if ((var83 && ((this->di[var3] & 1) == 1))) {
+        if (((((((!this->attacking) && (!this->airAttacking)) && (playerAnim != 30)) || ((this->dm[var3] & 1) != 0)) || ((this->playerBoxes[2] == 0) && (this->playerBoxes[7] == 0))) || ((!rectsOverlap(this->playerBoxes[0], this->playerBoxes[1], this->playerBoxes[2], this->playerBoxes[3], dp[var3], (dq[var3] - this->dr[var3]), this->ds[var3], this->dr[var3])) && (!rectsOverlap(this->playerBoxes[5], this->playerBoxes[6], this->playerBoxes[7], this->playerBoxes[8], dp[var3], (dq[var3] - this->dr[var3]), this->ds[var3], this->dr[var3]))))) {
+          if ((var83 && ((this->dm[var3] & 1) == 1))) {
             this->spawnDebris(var3, 1);
             this->p(var3);
           }
         } else {
-          this->di[var3]++;
-          this->startAnim(var50, 5121, this->di[var3]);
-          this->spawnPickup(dl[var3], (dm[var3] - (this->dn[var3] >> 1)), 1, 25);
+          this->dm[var3]++;
+          this->startAnim(var50, 5121, this->dm[var3]);
+          this->spawnPickup(dp[var3], (dq[var3] - (this->dr[var3] >> 1)), 1, 25);
         }
       }
     }
   }
   for (int var51 = pushLast; (var51 >= 0); (var51--)) {
-    if (this->hG) {
-      this->hG = false;
+    if (this->hK) {
+      this->hK = false;
     } else if (this->stepSlot((var51 + 111))) {
       this->pushX[var51] = (this->pushX[var51] + ((((!facingRight) || (this->playerAction != 22)) && (facingRight || (this->playerAction != 23))) ? (-Engine::animDeltaX) : Engine::animDeltaX));
       this->pushY[var51] = (this->pushY[var51] + Engine::animDeltaY);
@@ -5203,7 +5300,7 @@ void Game::updateGameplay() {
           }
         }
         this->healthPrev = this->health;
-        if (((((((((!gh) && (!this->gk)) && (!this->attacking)) && (playerAnim != 52)) && (playerAnim != 53)) && (playerAnim != 60)) && (playerAnim != 77)) && this->onGround)) {
+        if (((((((((!gl) && (!this->go)) && (!this->attacking)) && (playerAnim != 52)) && (playerAnim != 53)) && (playerAnim != 60)) && (playerAnim != 77)) && this->onGround)) {
           this->setPlayerAction(5);
         }
       }
@@ -5219,17 +5316,17 @@ void Game::updateGameplay() {
       int8_t var90 = this->enemyClass[var3];
       int var95 = this->enemyAction[var3];
       this->clearCellFlags(this->enemyTileX[var3], (this->enemyTileY[var3] - 1), 2);
-      this->enemySubY[var3] = ((var78 - (this->enemyTileY[var3] * 16)) << 8);
+      this->enemySubY[var3] = ((var78 - (this->enemyTileY[var3] * 22)) << 8);
       this->enemyTileX[var3] = enemyTileXOf(var3);
       int var96 = this->enemyTileX[var3];
-      int var15 = ((((this->enemySubY[var3] >> 8) + 1) >= 16) ? (this->enemyTileY[var3] + 1) : this->enemyTileY[var3]);
+      int var15 = ((((this->enemySubY[var3] >> 8) + 1) >= 22) ? (this->enemyTileY[var3] + 1) : this->enemyTileY[var3]);
       int var16 = (this->playerX - var85);
       int var17 = (this->playerY - var78);
       int var18 = jlang::abs<int>((int)(var16));
-      this->dG = var18;
+      this->dK = var18;
       int var19 = jlang::abs<int>((int)(var17));
       enemyOnGround = ((this->getCellFlags(var96, var15) & 1) != 0);
-      if (((((this->getCellFlags(var96, var15) & 64) != 0) && (this->dS[var3] != 1)) && (enemyX[var3] > 0))) {
+      if (((((this->getCellFlags(var96, var15) & 64) != 0) && (this->dW[var3] != 1)) && (enemyX[var3] > 0))) {
         enemyHealth[var3] = (-1);
         if ((var90 == 1)) {
           this->setEnemyAction(8, var3);
@@ -5239,21 +5336,21 @@ void Game::updateGameplay() {
           this->spawnPickup(enemyX[var3], (this->enemyY[var3] - (this->enemyHeight[var3] >> 1)), 2, this->enemyDropAmount[var3]);
         }
       }
-      if ((((enemyX[var3] > (-10)) && (this->enemyY[var3] > (-10))) && ((((rectsOverlap((cameraX - 64), (cameraY - 64), (viewW + 128), 448, (enemyX[var3] - this->enemyWidth[var3]), (this->enemyY[var3] - this->enemyHeight[var3]), (this->enemyWidth[var3] << 1), this->enemyHeight[var3]) || ((this->dL == var3) && (state == 105))) || ((this->enemyClass[var3] == 1) && ((((((this->enemyAction[var3] == 11) || (this->enemyAction[var3] == 27)) || (this->enemyAction[var3] == 8)) || (this->enemyAction[var3] == 9)) || (this->enemyAction[var3] == 10)) || (this->enemyAction[var3] == 7)))) || ((this->enemyClass[var3] == 2) && (((((this->enemyAction[var3] == 8) || (this->enemyAction[var3] == 14)) || (this->enemyAction[var3] == 7)) || (this->enemyAction[var3] == 10)) || (this->enemyAction[var3] == 9)))) || ((this->enemyClass[var3] == 3) && ((((((this->enemyAction[var3] == 10) || (this->enemyAction[var3] == 18)) || (this->enemyAction[var3] == 7)) || (this->enemyAction[var3] == 13)) || (this->enemyAction[var3] == 17)) || (this->enemyAction[var3] == 8)))))) {
+      if ((((enemyX[var3] > (-10)) && (this->enemyY[var3] > (-10))) && ((((rectsOverlap((cameraX - 88), (cameraY - 88), (viewW + 176), 496, (enemyX[var3] - this->enemyWidth[var3]), (this->enemyY[var3] - this->enemyHeight[var3]), (this->enemyWidth[var3] << 1), this->enemyHeight[var3]) || ((this->dP == var3) && (state == 105))) || ((this->enemyClass[var3] == 1) && ((((((this->enemyAction[var3] == 11) || (this->enemyAction[var3] == 27)) || (this->enemyAction[var3] == 8)) || (this->enemyAction[var3] == 9)) || (this->enemyAction[var3] == 10)) || (this->enemyAction[var3] == 7)))) || ((this->enemyClass[var3] == 2) && (((((this->enemyAction[var3] == 8) || (this->enemyAction[var3] == 14)) || (this->enemyAction[var3] == 7)) || (this->enemyAction[var3] == 10)) || (this->enemyAction[var3] == 9)))) || ((this->enemyClass[var3] == 3) && ((((((this->enemyAction[var3] == 10) || (this->enemyAction[var3] == 18)) || (this->enemyAction[var3] == 7)) || (this->enemyAction[var3] == 13)) || (this->enemyAction[var3] == 17)) || (this->enemyAction[var3] == 8)))))) {
         bool var20 = false;
         if ((this->enemyStatus[var3] <= 500)) {
           var20 = (!this->stepAnim(var54, (this->frameDelta - (this->enemyStatus[var3] >> 5))));
         }
         if (((((this->enemyAction[var3] == 11) && (this->enemyClass[var3] == 1)) || ((this->enemyAction[var3] == 8) && (this->enemyClass[var3] == 2))) || ((this->enemyAction[var3] == 10) && (this->enemyClass[var3] == 3)))) {
-          Engine::animDeltaY = (Engine::animDeltaY + dJ[var3]);
-          this->dK[var3] = (this->dK[var3] + this->frameDelta);
-          if ((this->dK[var3] > 200)) {
-            this->dK[var3] = (this->dK[var3] - 200);
-            dJ[var3] = (dJ[var3] + ((dJ[var3] >= 8) ? 0 : 4));
+          Engine::animDeltaY = (Engine::animDeltaY + dN[var3]);
+          this->dO[var3] = (this->dO[var3] + this->frameDelta);
+          if ((this->dO[var3] > 200)) {
+            this->dO[var3] = (this->dO[var3] - 200);
+            dN[var3] = (dN[var3] + ((dN[var3] >= 8) ? 0 : 4));
           }
         } else {
-          this->dK[var3] = 0;
-          dJ[var3] = 0;
+          this->dO[var3] = 0;
+          dN[var3] = 0;
         }
         if (((state != 105) && (this->enemyStatus[var3] <= 500))) {
           if (var20) {
@@ -5266,20 +5363,20 @@ void Game::updateGameplay() {
                 switch (var90) {
                 case 1:
                   if ((((var95 != 8) && (var95 != 9)) && (var95 != 10))) {
-                    if (((!this->enemyClimbing[var3]) && (!this->eh[var3]))) {
-                      if (((var18 < 48) && (var19 < 16))) {
+                    if (((!this->enemyClimbing[var3]) && (!this->el[var3]))) {
+                      if (((var18 < 66) && (var19 < 22))) {
                         if ((jlang::abs<int>((int)((this->randomValue & 3))) == 3)) {
                           this->setEnemyAction(6, var3);
                         } else {
                           this->setEnemyAction(5, var3);
                         }
                         this->enemyFacingRight[var3] = (var16 >= 0);
-                      } else if (((((((var95 != 0) && (var19 < 32)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), this->enemyTileY[var3]) & 3) != 0)) && (var18 < 144))) {
-                        if ((eu[var3] < 0)) {
+                      } else if (((((((var95 != 0) && (var19 < 44)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), this->enemyTileY[var3]) & 3) != 0)) && (var18 < 198))) {
+                        if ((ey[var3] < 0)) {
                           this->setEnemyAction(1, var3);
                         } else {
                           this->setEnemyAction(0, var3);
-                          eu[var3] = (eu[var3] - this->frameDelta);
+                          ey[var3] = (ey[var3] - this->frameDelta);
                         }
                       } else if ((this->enemyAction[var3] == 25)) {
                         this->setEnemyAction(1, var3);
@@ -5289,17 +5386,17 @@ void Game::updateGameplay() {
                         }
                         this->setEnemyAction(0, var3);
                       }
-                      if ((ev[var3] && (this->enemyAction[var3] == 1))) {
-                        if (((var102 = (enemyX[var3] - enemyHomeX[var3])) > 64)) {
+                      if ((ez[var3] && (this->enemyAction[var3] == 1))) {
+                        if (((var102 = (enemyX[var3] - enemyHomeX[var3])) > 88)) {
                           this->enemyFacingRight[var3] = false;
-                        } else if ((var102 < 64)) {
+                        } else if ((var102 < 88)) {
                           this->enemyFacingRight[var3] = true;
                         }
                       }
                     } else if (this->enemyClimbing[var3]) {
-                      if ((((((var95 != 16) && (var95 != 15)) && (var17 > 0)) && (var17 < 32)) && (var18 < 16))) {
+                      if ((((((var95 != 16) && (var95 != 15)) && (var17 > 0)) && (var17 < 44)) && (var18 < 22))) {
                         this->setEnemyAction(16, var3);
-                      } else if ((((((var95 != 15) && (var95 != 16)) && (var17 < 0)) && (var17 > (-64))) && (var18 < 16))) {
+                      } else if ((((((var95 != 15) && (var95 != 16)) && (var17 < 0)) && (var17 > (-88))) && (var18 < 22))) {
                         this->setEnemyAction(15, var3);
                       } else if ((((((var17 < 0) && (var95 != 12)) && (var95 != 15)) && (var95 != 16)) && (var95 != 21))) {
                         this->setEnemyAction(12, var3);
@@ -5308,11 +5405,11 @@ void Game::updateGameplay() {
                       } else if ((var95 != 21)) {
                         this->setEnemyAction(23, var3);
                       }
-                    } else if ((this->eh[var3] && ((var95 == 20) || (var95 == 19)))) {
+                    } else if ((this->el[var3] && ((var95 == 20) || (var95 == 19)))) {
                       this->setEnemyAction(26, var3);
                     }
                   } else {
-                    if ((this->dH < 25)) {
+                    if ((this->dL < 25)) {
                       this->spawnDebris(var3, 0);
                     }
                     this->countArenaKill(var3);
@@ -5323,7 +5420,7 @@ void Game::updateGameplay() {
                     var78 = (-1000);
                     this->killCount++;
                     if (challengeMode) {
-                      this->iB = true;
+                      this->iF = true;
                     }
                     this->setEnemyAction(0, var3);
                   }
@@ -5332,12 +5429,12 @@ void Game::updateGameplay() {
                   if ((((var95 != 7) && (var95 != 12)) && (var95 != 13))) {
                     if ((var95 != 12)) {
                       var100 = 0;
-                      if (this->dB) {
+                      if (this->dF) {
                         var100 = 1;
                       }
                       if ((this->enemyAction[var3] == 10)) {
                         this->setEnemyAction(12, var3);
-                      } else if (((var18 < (16 * (3 + var100))) && (var19 < 16))) {
+                      } else if (((var18 < (22 * (3 + var100))) && (var19 < 22))) {
                         if ((jlang::abs<int>((int)((this->randomValue & 3))) == 3)) {
                           this->setEnemyAction(6, var3);
                         } else {
@@ -5352,7 +5449,7 @@ void Game::updateGameplay() {
                       }
                     }
                   } else {
-                    if ((this->dH < 25)) {
+                    if ((this->dL < 25)) {
                       this->spawnDebris(var3, 0);
                     }
                     this->countArenaKill(var3);
@@ -5364,13 +5461,13 @@ void Game::updateGameplay() {
                     this->setEnemyAction(0, var3);
                     this->killCount++;
                     if (challengeMode) {
-                      this->iB = true;
+                      this->iF = true;
                     }
                   }
-                  if ((ev[var3] && (this->enemyAction[var3] == 1))) {
-                    if (((var101 = (enemyX[var3] - enemyHomeX[var3])) > 64)) {
+                  if ((ez[var3] && (this->enemyAction[var3] == 1))) {
+                    if (((var101 = (enemyX[var3] - enemyHomeX[var3])) > 88)) {
                       this->enemyFacingRight[var3] = false;
-                    } else if ((var101 < 64)) {
+                    } else if ((var101 < 88)) {
                       this->enemyFacingRight[var3] = true;
                     }
                   }
@@ -5379,19 +5476,19 @@ void Game::updateGameplay() {
                   if ((((((((var95 == 7) || (var95 == 13)) || (var95 == 17)) && (bossIndex != var3)) && (this->finalBossIndex != var3)) || ((bossIndex == var3) && ((var95 == 7) || (var95 == 16)))) || ((this->finalBossIndex == var3) && (var95 == 16)))) {
                     if ((((bossIndex == var3) && (var95 == 7)) || (this->finalBossIndex == var3))) {
                       if ((this->finalBossIndex != var3)) {
-                        this->cs = 266;
-                        this->ct = 266;
-                        this->cu = 274;
+                        this->cw = 266;
+                        this->cx = 266;
+                        this->cy = 274;
                       } else {
-                        this->cs = 243;
-                        this->ct = 243;
-                        this->cu = 245;
+                        this->cw = 243;
+                        this->cx = 243;
+                        this->cy = 245;
                       }
-                      this->setBarTargets(79, 25, 35, 35);
+                      this->setBarTargets(95, 35, 35, 35);
                       state = 101;
                       this->startDialogueLine();
                     }
-                    if ((this->dH < 25)) {
+                    if ((this->dL < 25)) {
                       this->spawnDebris(var3, 0);
                     }
                     this->countArenaKill(var3);
@@ -5405,7 +5502,7 @@ void Game::updateGameplay() {
                     this->setEnemyAction(0, var3);
                     this->killCount++;
                     if (challengeMode) {
-                      this->iB = true;
+                      this->iF = true;
                     }
                   } else if ((((bossIndex == var3) && (this->finalBossIndex != var3)) && (this->enemyAction[var3] == 15))) {
                     this->setEnemyAction(16, var3);
@@ -5420,7 +5517,7 @@ void Game::updateGameplay() {
                       this->spawnPickup(enemyX[var3], (this->enemyY[var3] - (this->enemyHeight[var3] >> 1)), 1, this->enemyDropAmount[var3]);
                       this->setEnemyAction(13, var3);
                       enemyHealth[var3] = (-1);
-                    } else if ((((var18 < (16 * (3 + ((bossIndex == var3) ? 1 : 0)))) && (var19 < 16)) && (this->grappledEnemy < 0))) {
+                    } else if ((((var18 < (22 * (3 + ((bossIndex == var3) ? 1 : 0)))) && (var19 < 22)) && (this->grappledEnemy < 0))) {
                       if ((jlang::abs<int>((int)((this->randomValue & 3))) == 3)) {
                         if (((bossIndex == var3) && ((this->randomValue & 1) != 0))) {
                           this->setEnemyAction(12, var3);
@@ -5431,17 +5528,17 @@ void Game::updateGameplay() {
                         this->setEnemyAction(3, var3);
                       }
                       if ((!qteActive)) {
-                        this->enemyFacingRight[var3] = (var16 >= 8);
+                        this->enemyFacingRight[var3] = (var16 >= 11);
                       }
                     } else if (((var95 != 0) && (this->grappledEnemy != var3))) {
                       Engine::animDeltaX = 0;
                       Engine::animDeltaY = 0;
                       this->setEnemyAction(0, var3);
                     }
-                    if ((ev[var3] && (this->enemyAction[var3] == 1))) {
-                      if (((var99 = (enemyX[var3] - enemyHomeX[var3])) > 64)) {
+                    if ((ez[var3] && (this->enemyAction[var3] == 1))) {
+                      if (((var99 = (enemyX[var3] - enemyHomeX[var3])) > 88)) {
                         this->enemyFacingRight[var3] = false;
-                      } else if ((var99 < 64)) {
+                      } else if ((var99 < 88)) {
                         this->enemyFacingRight[var3] = true;
                       }
                     }
@@ -5462,21 +5559,21 @@ void Game::updateGameplay() {
               switch (var90) {
               case 1:
                 if ((var95 == 1)) {
-                  if (((var16 > 16) && (!this->enemyFacingRight[var3]))) {
+                  if (((var16 > 22) && (!this->enemyFacingRight[var3]))) {
                     this->enemyFacingRight[var3] = true;
-                  } else if (((var16 < (-16)) && this->enemyFacingRight[var3])) {
+                  } else if (((var16 < (-22)) && this->enemyFacingRight[var3])) {
                     this->enemyFacingRight[var3] = false;
                   }
-                  if (((var18 < 48) && (var19 < 16))) {
+                  if (((var18 < 66) && (var19 < 22))) {
                     this->setEnemyAction(6, var3);
                     this->enemyFacingRight[var3] = (var16 >= 0);
-                  } else if ((((((((var18 < 32) && (var19 > 16)) && (var19 < 128)) && this->climbing) && (!this->dA)) || (((((var18 < 64) && (var19 > 16)) && (var19 < 32)) && hangingOnBar) && (!this->dA))) || ((((((((var17 > 0) && (var19 < 32)) && (var18 < 48)) && (this->playerAction != 37)) && (this->playerAction != 38)) && (!hangingOnBar)) && (!ledgeHanging)) && (this->playerAction != 38)))) {
+                  } else if ((((((((var18 < 44) && (var19 > 22)) && (var19 < 176)) && this->climbing) && (!this->dE)) || (((((var18 < 88) && (var19 > 22)) && (var19 < 44)) && hangingOnBar) && (!this->dE))) || ((((((((var17 > 0) && (var19 < 44)) && (var18 < 66)) && (this->playerAction != 37)) && (this->playerAction != 38)) && (!hangingOnBar)) && (!ledgeHanging)) && (this->playerAction != 38)))) {
                     this->setEnemyAction(3, var3);
                   }
                 } else if (this->enemyClimbing[var3]) {
-                  if ((((((var95 != 16) && (var95 != 21)) && (var17 > 0)) && (var17 < 32)) && (var18 < 16))) {
+                  if ((((((var95 != 16) && (var95 != 21)) && (var17 > 0)) && (var17 < 44)) && (var18 < 22))) {
                     this->setEnemyAction(16, var3);
-                  } else if ((((((var95 != 15) && (var95 != 21)) && (var17 < 0)) && (var17 > (-64))) && (var18 < 16))) {
+                  } else if ((((((var95 != 15) && (var95 != 21)) && (var17 < 0)) && (var17 > (-88))) && (var18 < 22))) {
                     this->setEnemyAction(15, var3);
                   } else if ((((((var17 < 0) && (var95 != 12)) && (var95 != 15)) && (var95 != 16)) && (var95 != 21))) {
                     this->setEnemyAction(12, var3);
@@ -5485,23 +5582,23 @@ void Game::updateGameplay() {
                   } else if (((var95 == 21) && enemyOnGround)) {
                     this->setEnemyAction(0, var3);
                   }
-                } else if ((!this->eh[var3])) {
+                } else if ((!this->el[var3])) {
                   if ((((this->getCellFlags(this->enemyTileX[var3], (this->enemyTileY[var3] - 1)) & 512) != 0) && (this->enemyAction[var3] != 8))) {
                     this->enemyFacingRight[var3] = (!facingRight);
                     enemyHealth[var3] = (-1);
                     this->setEnemyAction(8, var3);
                     this->spawnPickup(enemyX[var3], (this->enemyY[var3] - (this->enemyHeight[var3] >> 1)), 0, this->enemyDropAmount[var3]);
-                  } else if ((((((((var95 == 0) && (var19 < 32)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), this->enemyTileY[var3]) & 3) != 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), this->enemyTileY[var3]) & 3) != 0)) && (var18 < 144))) {
-                    if ((eu[var3] < 0)) {
+                  } else if ((((((((var95 == 0) && (var19 < 44)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), this->enemyTileY[var3]) & 3) != 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), this->enemyTileY[var3]) & 3) != 0)) && (var18 < 198))) {
+                    if ((ey[var3] < 0)) {
                       this->setEnemyAction(1, var3);
                     } else {
-                      eu[var3] = (eu[var3] - this->frameDelta);
+                      ey[var3] = (ey[var3] - this->frameDelta);
                     }
-                  } else if ((((((var95 == 0) && (var17 <= 32)) && (var17 > 0)) && this->onGround) && (var18 < 48))) {
+                  } else if ((((((var95 == 0) && (var17 <= 44)) && (var17 > 0)) && this->onGround) && (var18 < 66))) {
                     this->setEnemyAction(3, var3);
                   } else if ((var95 == 21)) {
                     this->setEnemyAction(0, var3);
-                  } else if ((((this->enemyAction[var3] == 0) && (var18 < 48)) && (var19 < 16))) {
+                  } else if ((((this->enemyAction[var3] == 0) && (var18 < 66)) && (var19 < 22))) {
                     if ((jlang::abs<int>((int)((this->randomValue & 3))) == 3)) {
                       this->setEnemyAction(6, var3);
                     } else {
@@ -5510,14 +5607,14 @@ void Game::updateGameplay() {
                     this->enemyFacingRight[var3] = (var16 >= 0);
                   }
                 } else {
-                  if ((((((var16 > 16) && (var18 < 72)) && (this->enemyAction[var3] != 19)) && (this->enemyAction[var3] != 18)) && ((this->getCellFlags((this->enemyTileX[var3] + 1), ((this->enemyTileY[var3] - this->enemyHeightTiles[var3]) - 1)) & 16) != 0))) {
+                  if ((((((var16 > 22) && (var18 < 99)) && (this->enemyAction[var3] != 19)) && (this->enemyAction[var3] != 18)) && ((this->getCellFlags((this->enemyTileX[var3] + 1), ((this->enemyTileY[var3] - this->enemyHeightTiles[var3]) - 1)) & 16) != 0))) {
                     this->setEnemyAction(18, var3);
                     this->enemyFacingRight[var3] = true;
-                  } else if ((((((var16 < (-16)) && (var18 < 72)) && (this->enemyAction[var3] != 19)) && (this->enemyAction[var3] != 18)) && ((this->getCellFlags((this->enemyTileX[var3] - 1), ((this->enemyTileY[var3] - this->enemyHeightTiles[var3]) - 1)) & 16) != 0))) {
+                  } else if ((((((var16 < (-22)) && (var18 < 99)) && (this->enemyAction[var3] != 19)) && (this->enemyAction[var3] != 18)) && ((this->getCellFlags((this->enemyTileX[var3] - 1), ((this->enemyTileY[var3] - this->enemyHeightTiles[var3]) - 1)) & 16) != 0))) {
                     this->setEnemyAction(18, var3);
                     this->enemyFacingRight[var3] = false;
                   }
-                  if ((((this->enemyAction[var3] != 19) && (var18 < 48)) && (var19 < 16))) {
+                  if ((((this->enemyAction[var3] != 19) && (var18 < 66)) && (var19 < 22))) {
                     this->setEnemyAction(19, var3);
                     this->enemyFacingRight[var3] = (var16 >= 0);
                   }
@@ -5525,7 +5622,7 @@ void Game::updateGameplay() {
                 break;
               case 2:
                 var21 = 0;
-                if (this->dB) {
+                if (this->dF) {
                   var21 = 1;
                 }
                 if ((var95 != 1)) {
@@ -5534,18 +5631,18 @@ void Game::updateGameplay() {
                     enemyHealth[var3] = (-1);
                     this->setEnemyAction(7, var3);
                     this->spawnPickup(enemyX[var3], (this->enemyY[var3] - (this->enemyHeight[var3] >> 1)), 2, this->enemyDropAmount[var3]);
-                  } else if ((((((((var95 == 0) && (var19 < 32)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), this->enemyTileY[var3]) & 3) != 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), this->enemyTileY[var3]) & 3) != 0)) && (var18 < 144))) {
-                    if ((eu[var3] < 0)) {
+                  } else if ((((((((var95 == 0) && (var19 < 44)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (int)(enemyHalfWidthTiles[var3]) : (int)((-enemyHalfWidthTiles[var3])))), this->enemyTileY[var3]) & 3) != 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), this->enemyTileY[var3]) & 3) != 0)) && (var18 < 198))) {
+                    if ((ey[var3] < 0)) {
                       this->setEnemyAction(1, var3);
                     } else {
-                      eu[var3] = (eu[var3] - this->frameDelta);
+                      ey[var3] = (ey[var3] - this->frameDelta);
                     }
                   } else if ((this->enemyAction[var3] == 0)) {
                     var22 = 0;
-                    if (this->dB) {
+                    if (this->dF) {
                       var22 = 1;
                     }
-                    if (((var18 < (16 * (3 + var22))) && (var19 < 16))) {
+                    if (((var18 < (22 * (3 + var22))) && (var19 < 22))) {
                       if ((jlang::abs<int>((int)((this->randomValue & 3))) == 3)) {
                         this->setEnemyAction(6, var3);
                       } else {
@@ -5555,12 +5652,12 @@ void Game::updateGameplay() {
                     }
                   }
                 } else {
-                  if (((var16 > 16) && (!this->enemyFacingRight[var3]))) {
+                  if (((var16 > 22) && (!this->enemyFacingRight[var3]))) {
                     this->enemyFacingRight[var3] = true;
-                  } else if (((var16 < (-16)) && this->enemyFacingRight[var3])) {
+                  } else if (((var16 < (-22)) && this->enemyFacingRight[var3])) {
                     this->enemyFacingRight[var3] = false;
                   }
-                  if (((var18 < (16 * (3 + var21))) && (var19 < 16))) {
+                  if (((var18 < (22 * (3 + var21))) && (var19 < 22))) {
                     this->setEnemyAction(6, var3);
                     this->enemyFacingRight[var3] = (var16 >= 0);
                   }
@@ -5569,12 +5666,12 @@ void Game::updateGameplay() {
               case 3:
                 if ((var95 != 12)) {
                   if ((var95 == 1)) {
-                    if (((var16 > 16) && (!this->enemyFacingRight[var3]))) {
+                    if (((var16 > 22) && (!this->enemyFacingRight[var3]))) {
                       this->enemyFacingRight[var3] = true;
-                    } else if (((var16 < (-16)) && this->enemyFacingRight[var3])) {
+                    } else if (((var16 < (-22)) && this->enemyFacingRight[var3])) {
                       this->enemyFacingRight[var3] = false;
                     }
-                    if (((var18 < (16 * (3 + ((bossIndex == var3) ? 1 : 0)))) && (var19 < 16))) {
+                    if (((var18 < (22 * (3 + ((bossIndex == var3) ? 1 : 0)))) && (var19 < 22))) {
                       this->setEnemyAction(6, var3);
                       this->enemyFacingRight[var3] = (var16 >= 0);
                     }
@@ -5583,15 +5680,15 @@ void Game::updateGameplay() {
                     this->spawnPickup(enemyX[var3], (this->enemyY[var3] - (this->enemyHeight[var3] >> 1)), 0, this->enemyDropAmount[var3]);
                     this->setEnemyAction(7, var3);
                     this->enemyFacingRight[var3] = (!facingRight);
-                  } else if ((((((((var95 == 0) && (var19 < 32)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), this->enemyTileY[var3]) & 3) != 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), this->enemyTileY[var3]) & 3) != 0)) && (var18 < 144))) {
-                    if ((eu[var3] < 0)) {
+                  } else if ((((((((var95 == 0) && (var19 < 44)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), (this->enemyTileY[var3] - 1)) & 3) == 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), this->enemyTileY[var3]) & 3) != 0)) && ((this->getCellFlags((this->enemyTileX[var3] + ((var16 > 0) ? (enemyHalfWidthTiles[var3] + 1) : (-(enemyHalfWidthTiles[var3] + 1)))), this->enemyTileY[var3]) & 3) != 0)) && (var18 < 198))) {
+                    if ((ey[var3] < 0)) {
                       this->setEnemyAction(1, var3);
                     } else {
-                      eu[var3] = (eu[var3] - this->frameDelta);
+                      ey[var3] = (ey[var3] - this->frameDelta);
                     }
                   }
                 }
-                if (((((var95 == 0) && (var18 < (16 * (3 + ((bossIndex == var3) ? 1 : 0))))) && (var19 < 16)) && (this->grappledEnemy < 0))) {
+                if (((((var95 == 0) && (var18 < (22 * (3 + ((bossIndex == var3) ? 1 : 0))))) && (var19 < 22)) && (this->grappledEnemy < 0))) {
                   if ((jlang::abs<int>((int)((this->randomValue & 3))) == 3)) {
                     if (((bossIndex == var3) && ((this->randomValue & 1) != 0))) {
                       this->setEnemyAction(12, var3);
@@ -5602,26 +5699,26 @@ void Game::updateGameplay() {
                     this->setEnemyAction(3, var3);
                   }
                   if ((!qteActive)) {
-                    this->enemyFacingRight[var3] = (var16 >= 8);
+                    this->enemyFacingRight[var3] = (var16 >= 11);
                   }
                 }
               }
             }
           }
-        } else if (((((var3 == this->dL) || (this->enemyStatus[var3] > 0)) && (this->enemyStatus[var3] <= 0)) && var20)) {
-          if (((this->aY[(this->ba + 1)] == 0) && (this->aZ[this->bb] == 0))) {
+        } else if (((((var3 == this->dP) || (this->enemyStatus[var3] > 0)) && (this->enemyStatus[var3] <= 0)) && var20)) {
+          if (((this->aX[(this->aZ + 1)] == 0) && (this->aY[this->ba] == 0))) {
             this->advanceScript();
-          } else if ((this->aZ[(this->bb + 1)] == 0)) {
-            this->setEnemyAction(this->aZ[this->bb], var3);
+          } else if ((this->aY[(this->ba + 1)] == 0)) {
+            this->setEnemyAction(this->aY[this->ba], var3);
           } else {
-            this->bb++;
-            this->setEnemyAction(this->aZ[this->bb], var3);
+            this->ba++;
+            this->setEnemyAction(this->aY[this->ba], var3);
           }
         }
         if ((this->enemyStatus[var3] <= 500)) {
           this->moveEnemy(this->enemyTileX[var3], this->enemyTileY[var3], var3);
         }
-        if (((((((!enemyOnGround) && (!this->enemyClimbing[var3])) && (!this->eh[var3])) && (this->dS[var3] != 1)) && ((((((((this->enemyClass[var3] == 1) && (this->enemyAction[var3] != 11)) && (this->enemyAction[var3] != 27)) && (this->enemyAction[var3] != 3)) && (this->enemyAction[var3] != 11)) && (this->enemyAction[var3] != 24)) || (((this->enemyClass[var3] == 2) && (this->enemyAction[var3] != 8)) && (this->enemyAction[var3] != 14))) || (((this->enemyClass[var3] == 3) && (this->enemyAction[var3] != 10)) && (this->enemyAction[var3] != 18)))) && (this->finalBossIndex != var3))) {
+        if (((((((!enemyOnGround) && (!this->enemyClimbing[var3])) && (!this->el[var3])) && (this->dW[var3] != 1)) && ((((((((this->enemyClass[var3] == 1) && (this->enemyAction[var3] != 11)) && (this->enemyAction[var3] != 27)) && (this->enemyAction[var3] != 3)) && (this->enemyAction[var3] != 11)) && (this->enemyAction[var3] != 24)) || (((this->enemyClass[var3] == 2) && (this->enemyAction[var3] != 8)) && (this->enemyAction[var3] != 14))) || (((this->enemyClass[var3] == 3) && (this->enemyAction[var3] != 10)) && (this->enemyAction[var3] != 18)))) && (this->finalBossIndex != var3))) {
           {
             switch (this->enemyClass[var3]) {
             case 1:
@@ -5652,22 +5749,22 @@ void Game::updateGameplay() {
       }
       if ((((state != 105) && (enemyX[var3] < 0)) && ((enemyRespawns[var3] > 0) || challengeMode))) {
         enemyRespawnTimer[var3] = (enemyRespawnTimer[var3] - this->frameDelta);
-        if ((((enemyRespawnTimer[var3] <= 0) && (this->effectLast < 9)) && ((jlang::abs<int>((int)((enemyHomeX[var3] - this->playerX))) > 32) || (jlang::abs<int>((int)((enemyHomeY[var3] - this->playerY))) > 32)))) {
-          if ((((this->getCellFlags((enemyHomeX[var3] / 16), ((enemyHomeY[var3] / 16) - 1)) & 1) == 0) && ((this->getCellFlags((enemyHomeX[var3] / 16), ((enemyHomeY[var3] / 16) - 1)) & 2) == 0))) {
+        if ((((enemyRespawnTimer[var3] <= 0) && (this->effectLast < 9)) && ((jlang::abs<int>((int)((enemyHomeX[var3] - this->playerX))) > 44) || (jlang::abs<int>((int)((enemyHomeY[var3] - this->playerY))) > 44)))) {
+          if ((((this->getCellFlags((enemyHomeX[var3] / 22), ((enemyHomeY[var3] / 22) - 1)) & 1) == 0) && ((this->getCellFlags((enemyHomeX[var3] / 22), ((enemyHomeY[var3] / 22) - 1)) & 2) == 0))) {
             enemyRespawns[var3]--;
             enemyRespawnTimer[var3] = this->enemyRespawnDelay[var3];
-            this->eh[var3] = false;
+            this->el[var3] = false;
             enemyX[var3] = enemyHomeX[var3];
             this->enemyY[var3] = enemyHomeY[var3];
             enemyHealth[var3] = enemyMaxHealth[var3];
-            this->enemyTileX[var3] = (enemyX[var3] / 16);
-            this->enemyTileY[var3] = (this->enemyY[var3] / 16);
+            this->enemyTileX[var3] = (enemyX[var3] / 22);
+            this->enemyTileY[var3] = (this->enemyY[var3] / 22);
             this->setCellFlags(this->enemyTileX[var3], (this->enemyTileY[var3] - 1), 2);
             this->spawnEffect(enemyX[var3], this->enemyY[var3], 25, 0, false);
             {
               switch (this->enemyClass[var3]) {
               case 1:
-                if (this->eh[var3]) {
+                if (this->el[var3]) {
                   this->setEnemyAction(26, var3);
                 } else {
                   this->setEnemyAction(27, var3);
@@ -5692,9 +5789,9 @@ void Game::updateGameplay() {
           if ((magicModeA || magicModeB)) {
             var97 = 0;
           } else if ((var103 == 0)) {
-            var97 = this->fO;
+            var97 = this->fS;
           } else {
-            var97 = this->fP;
+            var97 = this->fT;
           }
           if (((var97 < 2) && rectsOverlap(this->playerBoxes[var103], this->playerBoxes[(var103 + 1)], this->playerBoxes[(var103 + 2)], this->playerBoxes[(var103 + 3)], enemyBoxes[0], enemyBoxes[1], enemyBoxes[2], enemyBoxes[3]))) {
             int var105 = (enemyBoxes[0] + (this->enemyFacingRight[var3] ? (int)(enemyBoxes[7]) : (int)(0)));
@@ -5705,34 +5802,34 @@ void Game::updateGameplay() {
               var23 = this->enemyY[var3];
             }
             var97++;
-            int var24 = (magicModeA ? (fJ[this->comboIndex] << magicALevel) : (fI[this->comboIndex] << bladesLevel));
-            if (this->D) {
+            int var24 = (magicModeA ? (fN[this->comboIndex] << magicALevel) : (fM[this->comboIndex] << bladesLevel));
+            if (this->C) {
               var24 = 10000;
             }
             if (magicModeA) {
-              magic = (magic - ((fJ[this->comboIndex] << 1) + fJ[this->comboIndex]));
+              magic = (magic - ((fN[this->comboIndex] << 1) + fN[this->comboIndex]));
             }
-            if ((((magicModeA && (!this->airAttacking)) && (hf < 3)) || ((!magicModeA) && (!magicModeB)))) {
+            if ((((magicModeA && (!this->airAttacking)) && (hj < 3)) || ((!magicModeA) && (!magicModeB)))) {
               enemyHealth[var3] = (enemyHealth[var3] - var24);
               if ((!magicModeA)) {
                 if ((!var66)) {
-                  this->playSound((3 + (this->randomValue & 1)));
+                  this->playSound((2 + (this->randomValue & 1)));
                 }
                 if ((var97 == 1)) {
                   comboHits++;
                 }
               } else if ((!var66)) {
-                this->playSound((3 + (this->randomValue & 1)));
+                this->playSound((0 + (this->randomValue & 1)));
               }
               var66 = true;
-              this->iB = true;
+              this->iF = true;
               this->comboTimer = 2000;
             } else if (magicModeB) {
-              this->enemyStatus[var3] = ((this->enemyStatus[var3] + (fK[magicBLevel] << 5)) + this->frameDelta);
+              this->enemyStatus[var3] = ((this->enemyStatus[var3] + (fO[magicBLevel] << 5)) + this->frameDelta);
             }
-            if (((enemyHealth[var3] <= 0) && (this->dS[var3] != 1))) {
+            if (((enemyHealth[var3] <= 0) && (this->dW[var3] != 1))) {
               enemyHealth[var3] = (-1);
-              if (((!this->enemyClimbing[var3]) && (!this->eh[var3]))) {
+              if (((!this->enemyClimbing[var3]) && (!this->el[var3]))) {
                 if (enemyOnGround) {
                   if ((var90 == 1)) {
                     this->spawnPickup(enemyX[var3], (this->enemyY[var3] - (this->enemyHeight[var3] >> 1)), 0, this->enemyDropAmount[var3]);
@@ -5756,11 +5853,11 @@ void Game::updateGameplay() {
                 this->setEnemyAction(11, var3);
               }
               this->spawnEffect(var105, var23, 0, ((!facingRight) ? 2 : 0), true);
-            } else if (((this->dS[var3] != 1) && (this->dS[var3] != 3))) {
+            } else if (((this->dW[var3] != 1) && (this->dW[var3] != 3))) {
               if ((this->enemyStatus[var3] <= 0)) {
                 if (this->enemyClimbing[var3]) {
                   this->setEnemyAction(17, var3);
-                } else if (this->eh[var3]) {
+                } else if (this->el[var3]) {
                   this->setEnemyAction(20, var3);
                 } else {
                   this->enemyFacingRight[var3] = (var16 > 0);
@@ -5791,8 +5888,8 @@ void Game::updateGameplay() {
                   }
                 }
               }
-              if ((((!magicModeA) || (magicModeA && (hf < 3))) && (!magicModeB))) {
-                hf++;
+              if ((((!magicModeA) || (magicModeA && (hj < 3))) && (!magicModeB))) {
+                hj++;
                 this->spawnEffect(var105, var23, 0, ((!facingRight) ? 2 : 0), true);
               }
             }
@@ -5803,44 +5900,44 @@ void Game::updateGameplay() {
               this->playerBoxes[(var103 + 3)] = 0;
             }
             if ((var103 == 0)) {
-              this->fO = var97;
+              this->fS = var97;
             } else {
-              this->fP = var97;
+              this->fT = var97;
             }
           }
           if (((var97 < 2) && rectsOverlap(this->playerBoxes[var103], this->playerBoxes[(var103 + 1)], this->playerBoxes[(var103 + 2)], this->playerBoxes[(var103 + 3)], enemyBoxes[5], enemyBoxes[6], enemyBoxes[7], enemyBoxes[8]))) {
             int var106 = (enemyBoxes[5] + (this->enemyFacingRight[var3] ? (int)(enemyBoxes[7]) : (int)(0)));
             int var107 = (this->playerBoxes[(var103 + 1)] + (this->playerBoxes[(var103 + 3)] >> 1));
             var97++;
-            int var108 = (magicModeA ? (fJ[this->comboIndex] << magicALevel) : (fI[this->comboIndex] << bladesLevel));
-            if (this->D) {
+            int var108 = (magicModeA ? (fN[this->comboIndex] << magicALevel) : (fM[this->comboIndex] << bladesLevel));
+            if (this->C) {
               var108 = 10000;
             }
-            if (((magicModeA && (hf < 3)) || ((!magicModeA) && (!magicModeB)))) {
+            if (((magicModeA && (hj < 3)) || ((!magicModeA) && (!magicModeB)))) {
               {
                 enemyHealth[var3] = (enemyHealth[var3] - var108);
                 if ((!magicModeA)) {
                   if ((!var66)) {
-                    this->playSound((3 + (this->randomValue & 1)));
+                    this->playSound((2 + (this->randomValue & 1)));
                   }
                   if ((var97 != 1)) {
                     goto label2440_end;
                   }
                 } else if ((!var66)) {
-                  this->playSound((3 + (this->randomValue & 1)));
+                  this->playSound((0 + (this->randomValue & 1)));
                 }
                 comboHits++;
               }
               label2440_end:;
-              this->iB = true;
+              this->iF = true;
               var66 = true;
               this->comboTimer = 2000;
             } else if (magicModeB) {
-              this->enemyStatus[var3] = ((this->enemyStatus[var3] + (fK[magicBLevel] << 5)) + this->frameDelta);
+              this->enemyStatus[var3] = ((this->enemyStatus[var3] + (fO[magicBLevel] << 5)) + this->frameDelta);
             }
-            if (((enemyHealth[var3] <= 0) && (this->dS[var3] != 1))) {
+            if (((enemyHealth[var3] <= 0) && (this->dW[var3] != 1))) {
               enemyHealth[var3] = (-1);
-              if ((this->enemyClimbing[var3] || this->eh[var3])) {
+              if ((this->enemyClimbing[var3] || this->el[var3])) {
                 this->setEnemyAction(11, var3);
               } else if (enemyOnGround) {
                 if ((var90 == 1)) {
@@ -5862,11 +5959,11 @@ void Game::updateGameplay() {
                 }
               }
               this->spawnEffect(var106, var107, 0, ((!facingRight) ? 2 : 0), true);
-            } else if (((this->dS[var3] != 1) && (this->dS[var3] != 3))) {
+            } else if (((this->dW[var3] != 1) && (this->dW[var3] != 3))) {
               if ((this->enemyStatus[var3] <= 0)) {
                 if (this->enemyClimbing[var3]) {
                   this->setEnemyAction(17, var3);
-                } else if (this->eh[var3]) {
+                } else if (this->el[var3]) {
                   this->setEnemyAction(20, var3);
                 } else {
                   this->enemyFacingRight[var3] = (var16 > 0);
@@ -5891,8 +5988,8 @@ void Game::updateGameplay() {
                   }
                 }
               }
-              if ((((!magicModeA) || (magicModeA && (hf < 3))) && (!magicModeB))) {
-                hf++;
+              if ((((!magicModeA) || (magicModeA && (hj < 3))) && (!magicModeB))) {
+                hj++;
                 this->spawnEffect(var106, var107, 0, ((!facingRight) ? 2 : 0), true);
               }
             }
@@ -5903,9 +6000,9 @@ void Game::updateGameplay() {
               this->playerBoxes[(var103 + 3)] = 0;
             }
             if ((var103 == 0)) {
-              this->fO = var97;
+              this->fS = var97;
             } else {
-              this->fP = var97;
+              this->fT = var97;
             }
           }
         }
@@ -5957,36 +6054,37 @@ int Game::randomQteDirection() {
 }
 
 void Game::advanceScript() {
+  this->aZ += 2;
   this->ba += 2;
-  this->bb += 2;
-  this->cs++;
-  if ((this->cs >= this->cu)) {
+  this->cw++;
+  if ((this->cw >= this->cy)) {
     this->setBarTargets(0, 0, 35, 35);
     state = 100;
-    this->iB = true;
-    this->aW = false;
-    this->cu = (-1);
-    this->cs = (-1);
-    this->ct = (-1);
+    this->iF = true;
+    this->aV = false;
+    this->cy = (-1);
+    this->cw = (-1);
+    this->cx = (-1);
   } else {
-    this->ct = this->cs;
+    this->cx = this->cw;
     this->startDialogueLine();
-    if ((!this->be)) {
+    if ((!this->bd)) {
       state = 101;
     } else {
-      this->iI = false;
+      this->iN = false;
       this->levelIndex++;
       if (((this->levelIndex > this->furthestLevel) && ((this->demoMode <= 0) || (this->levelIndex < this->demoMode)))) {
         this->furthestLevel = this->levelIndex;
       }
       this->levelResourceId++;
       this->levelResourceId = levelIds[this->levelIndex];
-      this->bf = true;
+      this->bgLevelResourceId = bgLevelIds[this->levelIndex];
+      this->be = true;
       this->levelLoadStarted = false;
-      this->ae = true;
+      this->ad = true;
       this->setBarTargets(halfHeight, halfHeight, 35, 35);
       state = 109;
-      this->ae = true;
+      this->ad = true;
     }
   }
 }
@@ -5999,27 +6097,27 @@ void Game::spawnDebris(int var1, int var2) {
   int var7 = 0;
   if ((var2 == 0)) {
     if ((this->enemyClass[var1] == 1)) {
-      var3 = this->dC;
+      var3 = this->dG;
     } else if ((this->enemyClass[var1] == 2)) {
-      var3 = dD;
+      var3 = dH;
     } else if ((this->enemyClass[var1] == 3)) {
       if ((bossIndex != var1)) {
-        var3 = this->dE;
+        var3 = this->dI;
       } else {
-        var3 = this->dF;
+        var3 = this->dJ;
       }
     }
     var5 = this->enemyFacingRight[var1];
     var6 = enemyX[var1];
     var7 = this->enemyY[var1];
   } else if ((var2 == 1)) {
-    var3 = this->dh;
+    var3 = this->dl;
     var4 = (60 + var1);
-    var5 = (this->dk[var1] != 2);
-    var6 = dl[var1];
-    var7 = dm[var1];
+    var5 = (this->do_[var1] != 2);
+    var6 = dp[var1];
+    var7 = dq[var1];
   } else {
-    var3 = this->eY;
+    var3 = this->fc;
     var4 = (116 + var1);
     var5 = true;
     var6 = breakX[var1];
@@ -6036,12 +6134,12 @@ void Game::spawnDebris(int var1, int var2) {
 }
 
 int Game::enemyTileXOf(int var0) {
-  return (enemyX[var0] / 16);
+  return (enemyX[var0] / 22);
 }
 
 int Game::enemyTileYOf(int var1) {
   int var2 = 0;
-  return (((var2 = (this->enemyY[var1] / 16)) > mapHeight) ? mapHeight : var2);
+  return (((var2 = (this->enemyY[var1] / 22)) > mapHeight) ? mapHeight : var2);
 }
 
 void Game::moveEnemy(int var1, int var2, int var3) {
@@ -6065,15 +6163,15 @@ void Game::moveEnemy(int var1, int var2, int var3) {
   }
   int var15 = var1;
   int var16 = this->enemyTileYOf(var3);
-  this->enemySubX[var3] = ((var6 - (var1 * 16)) << 8);
+  this->enemySubX[var3] = ((var6 - (var1 * 22)) << 8);
   if ((this->enemySubX[var3] < 0)) {
     var15--;
-    this->enemySubX[var3] = (this->enemySubX[var3] + 4096);
-  } else if ((this->enemySubX[var3] > 4096)) {
+    this->enemySubX[var3] = (this->enemySubX[var3] + 5632);
+  } else if ((this->enemySubX[var3] > 5632)) {
     var15++;
-    this->enemySubX[var3] = (this->enemySubX[var3] - 4096);
+    this->enemySubX[var3] = (this->enemySubX[var3] - 5632);
   }
-  this->enemySubY[var3] = ((var7 - (var16 * 16)) << 8);
+  this->enemySubY[var3] = ((var7 - (var16 * 22)) << 8);
   if ((Engine::animDeltaX != 0)) {
     var6 -= ((((!var8) || (Engine::animDeltaX <= 0)) && (var8 || (Engine::animDeltaX >= 0))) ? (-var10) : (var10 - 1));
   }
@@ -6086,13 +6184,13 @@ void Game::moveEnemy(int var1, int var2, int var3) {
   enemyCanMoveX = true;
   this->enemyCanMoveY = true;
   if ((var11 > var12)) {
-    if ((var11 > 4096)) {
-      var12 = (((var12 * 16) << 8) / var11);
-      var11 = 4096;
+    if ((var11 > 5632)) {
+      var12 = (((var12 * 22) << 8) / var11);
+      var11 = 5632;
     }
-  } else if ((var12 > 4096)) {
-    var11 = (((var11 * 16) << 8) / var12);
-    var12 = 4096;
+  } else if ((var12 > 5632)) {
+    var11 = (((var11 * 22) << 8) / var12);
+    var12 = 5632;
   }
   int var4 = 0;
   if ((((!var8) || (Engine::animDeltaX <= 0)) && (var8 || (Engine::animDeltaX >= 0)))) {
@@ -6105,24 +6203,24 @@ void Game::moveEnemy(int var1, int var2, int var3) {
   int var18 = 0;
   this->moveAccumX = 0;
   this->moveAccumY = 0;
-  if ((((Engine::animDeltaX != 0) && (!this->eh[var3])) && (this->dS[var3] != 1))) {
+  if ((((Engine::animDeltaX != 0) && (!this->el[var3])) && (this->dW[var3] != 1))) {
     this->checkEnemyCell(this->enemyTileX[var3], ((this->enemyTileY[var3] - 1) - ((Engine::animDeltaY < 0) ? (int)(this->enemyHeightTiles[var3]) : (int)(0))), var3);
   }
   while (((var17 < var13) || (var18 < var14))) {
     this->enemySubX[var3] = (this->enemySubX[var3] + var4);
     this->enemySubY[var3] = (this->enemySubY[var3] + var5);
-    if ((this->enemySubX[var3] >= 4096)) {
-      this->enemySubX[var3] = (this->enemySubX[var3] - 4096);
+    if ((this->enemySubX[var3] >= 5632)) {
+      this->enemySubX[var3] = (this->enemySubX[var3] - 5632);
       var15++;
     } else if ((this->enemySubX[var3] < 0)) {
-      this->enemySubX[var3] = (this->enemySubX[var3] + 4096);
+      this->enemySubX[var3] = (this->enemySubX[var3] + 5632);
       var15--;
     }
-    if ((this->enemySubY[var3] >= 4096)) {
-      this->enemySubY[var3] = (this->enemySubY[var3] - 4096);
+    if ((this->enemySubY[var3] >= 5632)) {
+      this->enemySubY[var3] = (this->enemySubY[var3] - 5632);
       var16++;
     } else if ((this->enemySubY[var3] < 0)) {
-      this->enemySubY[var3] = (this->enemySubY[var3] + 4096);
+      this->enemySubY[var3] = (this->enemySubY[var3] + 5632);
       var16--;
     }
     this->blockedByWall = false;
@@ -6137,9 +6235,9 @@ void Game::moveEnemy(int var1, int var2, int var3) {
         this->moveAccumX = 0;
         this->blockedByWall = true;
         if ((((!this->enemyFacingRight[var3]) || (Engine::animDeltaX <= 0)) && (this->enemyFacingRight[var3] || (Engine::animDeltaX >= 0)))) {
-          enemyX[var3] = ((var1 * 16) + (this->enemyWidth[var3] >> 1));
+          enemyX[var3] = ((var1 * 22) + (this->enemyWidth[var3] >> 1));
         } else {
-          enemyX[var3] = (((var1 + 1) * 16) - (this->enemyWidth[var3] >> 1));
+          enemyX[var3] = (((var1 + 1) * 22) - (this->enemyWidth[var3] >> 1));
         }
       }
     }
@@ -6165,7 +6263,7 @@ void Game::moveEnemy(int var1, int var2, int var3) {
     enemyX[var3] = var6;
   }
   if (this->enemyCanMoveY) {
-    this->enemyTileY[var3] = (var7 / 16);
+    this->enemyTileY[var3] = (var7 / 22);
     this->enemyY[var3] = var7;
   }
   this->setCellFlags(this->enemyTileX[var3], (this->enemyTileY[var3] - 1), 2);
@@ -6173,16 +6271,16 @@ void Game::moveEnemy(int var1, int var2, int var3) {
 
 void Game::resetLevelState() {
   this->playerInvulnerable = false;
-  this->im = 0;
-  this->il = 0;
-  this->be = false;
-  this->ba = 0;
+  this->iq = 0;
+  this->ip = 0;
+  this->bd = false;
+  this->aZ = 0;
   this->finalBossPhase = 0;
-  this->bb = 0;
+  this->ba = 0;
+  this->aX = newArr<int>(40);
   this->aY = newArr<int>(40);
-  this->aZ = newArr<int>(40);
   this->pauseConfirming = false;
-  this->hO = (-1);
+  this->hS = (-1);
   this->cameraPanX = (-1);
   this->cameraPanTimer = 0;
   this->cameraPanY = (-1);
@@ -6192,33 +6290,33 @@ void Game::resetLevelState() {
   bossIndex = (-1);
   this->finalBossIndex = (-1);
   pushLast = (-1);
-  this->dp = (-1);
+  this->dt = (-1);
   this->effectLast = (-1);
-  bW = (-1);
-  ck = (-1);
+  ca = (-1);
+  co = (-1);
   this->switchLast = (-1);
   gateLast = (-1);
   this->breakLast = (-1);
   this->chestLast = (-1);
   this->pickupLast = (-1);
-  cd = (-1);
-  this->eY = nullptr;
-  cw = nullptr;
-  this->cJ = nullptr;
-  this->eH = nullptr;
-  this->bX = nullptr;
-  this->ce = nullptr;
-  this->dC = nullptr;
-  dD = nullptr;
-  this->dE = nullptr;
-  this->dF = nullptr;
-  this->bN = nullptr;
-  this->dh = nullptr;
+  ch = (-1);
+  this->fc = nullptr;
+  cA = nullptr;
+  this->cN = nullptr;
+  this->eL = nullptr;
+  this->cb = nullptr;
+  this->ci = nullptr;
+  this->dG = nullptr;
+  dH = nullptr;
+  this->dI = nullptr;
+  this->dJ = nullptr;
+  this->bR = nullptr;
+  this->dl = nullptr;
   this->chestSprites = nullptr;
-  this->dq = nullptr;
-  this->eM = nullptr;
-  this->fH = nullptr;
-  this->aW = false;
+  this->du = nullptr;
+  this->eQ = nullptr;
+  this->fL = nullptr;
+  this->aV = false;
   this->lockRectCount = (-1);
   this->releaseAnimSetsAlias();
   this->scene = nullptr;
@@ -6233,7 +6331,7 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
   bool var8 = false;
   this->landed = false;
   this->blockedByWall = false;
-  for (int16_t var9 = var4; ((var9 > 0) && enemyCanMoveX); (var9 -= 16)) {
+  for (int16_t var9 = var4; ((var9 > 0) && enemyCanMoveX); (var9 -= 22)) {
     if ((var2 < mapHeight)) {
       if ((((var2 - var7) < 0) || ((var2 - var7) >= mapHeight))) {
         break;
@@ -6246,10 +6344,10 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
           }
           bool var10 = enemyCanMoveX;
           if (((((this->enemyClass[var3] == 1) && (this->enemyAction[var3] == 1)) || ((this->enemyClass[var3] == 2) && (this->enemyAction[var3] == 1))) || ((this->enemyClass[var3] == 3) && (this->enemyAction[var3] == 1)))) {
-            enemyCanMoveX = (enemyCanMoveX & (((((this->getCellFlags(var1, (var2 - var7)) & 2) == 0) || (!enemyOnGround)) || this->eh[var3]) || (var1 == this->enemyTileX[var3])));
+            enemyCanMoveX = (enemyCanMoveX & (((((this->getCellFlags(var1, (var2 - var7)) & 2) == 0) || (!enemyOnGround)) || this->el[var3]) || (var1 == this->enemyTileX[var3])));
           }
           if ((var10 != enemyCanMoveX)) {
-            eu[var3] = 1500;
+            ey[var3] = 1500;
           }
         }
         if ((!enemyCanMoveX)) {
@@ -6277,7 +6375,7 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
       } else {
         var7--;
       }
-      if ((((((this->enemyClass[var3] == 1) && this->eh[var3]) && (this->enemyAction[var3] != 26)) && ((var9 - 16) < 0)) && ((this->getCellFlags(var1, (var2 - var7)) & 16) == 0))) {
+      if ((((((this->enemyClass[var3] == 1) && this->el[var3]) && (this->enemyAction[var3] != 26)) && ((var9 - 22) < 0)) && ((this->getCellFlags(var1, (var2 - var7)) & 16) == 0))) {
         enemyCanMoveX = false;
         this->setEnemyAction(26, var3);
         this->enemyY[var3]++;
@@ -6294,7 +6392,7 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
   }
   if ((Engine::animDeltaY >= 0)) {
     var7 = this->enemyHeightTiles[var3];
-    if ((this->enemySubY[var3] < 2048)) {
+    if ((this->enemySubY[var3] < 2816)) {
       var7++;
     }
   } else {
@@ -6309,14 +6407,14 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
       if (((this->getCellFlags(var27, var2) & 1) == 0)) {
         var29++;
       }
-      this->enemyY[var3] = (((var2 + var29) * 16) + var4);
+      this->enemyY[var3] = (((var2 + var29) * 22) + var4);
     }
     this->moveAccumY = 0;
     if ((!var5)) {
       var27++;
     }
     this->blockedByWall = true;
-    enemyX[var3] = ((var27 * 16) + (var5 ? (-(this->enemyWidth[var3] >> 1)) : (this->enemyWidth[var3] >> 1)));
+    enemyX[var3] = ((var27 * 22) + (var5 ? (-(this->enemyWidth[var3] >> 1)) : (this->enemyWidth[var3] >> 1)));
     this->moveAccumX = 0;
     this->enemyCanMoveY = false;
     enemyCanMoveX = false;
@@ -6332,19 +6430,19 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
       var13 = 0;
     }
     if ((Engine::animDeltaY != 0)) {
-      for (int16_t var14 = this->enemyWidth[var3]; (var14 > 0); (var14 -= 16)) {
+      for (int16_t var14 = this->enemyWidth[var3]; (var14 > 0); (var14 -= 22)) {
         if ((((var1 + var7) >= 0) && ((var1 + var7) < mapWidth))) {
           if (this->enemyCanMoveY) {
             this->enemyCanMoveY = ((this->getCellFlags((var1 + var7), var12) & 1) == 0);
-            if (((((this->enemyClass[var3] == 1) && (!this->dA)) && (enemyHealth[var3] > 0)) && ((this->getCellFlags((var1 + var7), var13) & 16) != 0))) {
-              this->enemyY[var3] = (((var13 + 1) * 16) + var4);
+            if (((((this->enemyClass[var3] == 1) && (!this->dE)) && (enemyHealth[var3] > 0)) && ((this->getCellFlags((var1 + var7), var13) & 16) != 0))) {
+              this->enemyY[var3] = (((var13 + 1) * 22) + var4);
               this->enemyCanMoveY = false;
               this->moveAccumY = 0;
               this->setEnemyAction(26, var3);
             }
           }
-          if (((((!this->enemyCanMoveY) && (Engine::animDeltaY > 0)) && (!this->eh[var3])) && (this->enemyAction[var3] != 21))) {
-            this->enemyY[var3] = (var2 * 16);
+          if (((((!this->enemyCanMoveY) && (Engine::animDeltaY > 0)) && (!this->el[var3])) && (this->enemyAction[var3] != 21))) {
+            this->enemyY[var3] = (var2 * 22);
             this->moveAccumY = 0;
             this->landed = true;
             enemyOnGround = true;
@@ -6386,7 +6484,7 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
                     this->setEnemyAction(8, var3);
                   }
                 } else if ((bossIndex != var3)) {
-                  if ((((((this->onGround && (this->grappledEnemy < 0)) && (this->dG < 64)) && (playerAnim != 52)) && (playerAnim != 53)) && (playerAnim != 48))) {
+                  if ((((((this->onGround && (this->grappledEnemy < 0)) && (this->dK < 88)) && (playerAnim != 52)) && (playerAnim != 53)) && (playerAnim != 48))) {
                     this->setPlayerAction(27);
                   }
                 } else if ((enemyHealth[var3] < 0)) {
@@ -6416,7 +6514,7 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
       var1 += (var5 ? 1 : (-1));
       if (((this->getCellFlags(var1, var12) & 8) == 0)) {
         this->enemyCanMoveY = false;
-        this->enemyY[var3] = (((var12 + ((Engine::animDeltaY < 0) ? 1 : ((-this->enemyHeightTiles[var3]) - 1))) * 16) + var4);
+        this->enemyY[var3] = (((var12 + ((Engine::animDeltaY < 0) ? 1 : ((-this->enemyHeightTiles[var3]) - 1))) * 22) + var4);
         this->enemyAtLadderTop[var3] = true;
       }
       var1 = var30;
@@ -6427,9 +6525,9 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
       if ((((!var5) || (Engine::animDeltaX <= 0)) && (var5 || (Engine::animDeltaX >= 0)))) {
         this->blockedByWall = true;
         int var32 = 0;
-        int var33 = ((var32 = ((((var1 + 1) * 16) + (this->enemyWidth[var3] >> 1)) + 1)) + (this->enemyWidth[var3] >> 1));
-        int var34 = (var32 / 16);
-        int var35 = (var33 / 16);
+        int var33 = ((var32 = ((((var1 + 1) * 22) + (this->enemyWidth[var3] >> 1)) + 1)) + (this->enemyWidth[var3] >> 1));
+        int var34 = (var32 / 22);
+        int var35 = (var33 / 22);
         int var36 = ((var34 < var35) ? 1 : (-1));
         bool var37 = true;
         int var38 = jlang::abs<int>((int)((var35 - var34)));
@@ -6439,15 +6537,15 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
         if (var37) {
           enemyX[var3] = var32;
         }
-        if (((((((this->enemyClass[var3] == 1) && (enemyHealth[var3] > 0)) && (!this->dA)) && ((this->getCellFlags(var1, (var12 + ((Engine::animDeltaY > 0) ? (-1) : 1))) & 8) != 0)) && ((this->getCellFlags(var1, (var12 + ((Engine::animDeltaY > 0) ? (int)((-this->enemyHeightTiles[var3])) : (int)(this->enemyHeightTiles[var3])))) & 8) != 0)) && (Engine::animDeltaY != 0))) {
+        if (((((((this->enemyClass[var3] == 1) && (enemyHealth[var3] > 0)) && (!this->dE)) && ((this->getCellFlags(var1, (var12 + ((Engine::animDeltaY > 0) ? (-1) : 1))) & 8) != 0)) && ((this->getCellFlags(var1, (var12 + ((Engine::animDeltaY > 0) ? (int)((-this->enemyHeightTiles[var3])) : (int)(this->enemyHeightTiles[var3])))) & 8) != 0)) && (Engine::animDeltaY != 0))) {
           this->setEnemyAction(23, var3);
         }
       } else {
         this->blockedByWall = true;
         int var31 = 0;
-        int var15 = ((var31 = (((var1 * 16) - (this->enemyWidth[var3] >> 1)) - 1)) - (this->enemyWidth[var3] >> 1));
-        int var16 = (var31 / 16);
-        int var17 = (var15 / 16);
+        int var15 = ((var31 = (((var1 * 22) - (this->enemyWidth[var3] >> 1)) - 1)) - (this->enemyWidth[var3] >> 1));
+        int var16 = (var31 / 22);
+        int var17 = (var15 / 22);
         int var18 = ((var16 < var17) ? 1 : (-1));
         bool var19 = true;
         int var20 = jlang::abs<int>((int)((var17 - var16)));
@@ -6457,7 +6555,7 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
         if (var19) {
           enemyX[var3] = var31;
         }
-        if (((((((this->enemyClass[var3] == 1) && (enemyHealth[var3] > 0)) && (!this->dA)) && ((this->getCellFlags(var1, (var12 + ((Engine::animDeltaY > 0) ? (-1) : 1))) & 8) != 0)) && ((this->getCellFlags(var1, (var12 + ((Engine::animDeltaY > 0) ? (int)((-this->enemyHeightTiles[var3])) : (int)(this->enemyHeightTiles[var3])))) & 8) != 0)) && (Engine::animDeltaY != 0))) {
+        if (((((((this->enemyClass[var3] == 1) && (enemyHealth[var3] > 0)) && (!this->dE)) && ((this->getCellFlags(var1, (var12 + ((Engine::animDeltaY > 0) ? (-1) : 1))) & 8) != 0)) && ((this->getCellFlags(var1, (var12 + ((Engine::animDeltaY > 0) ? (int)((-this->enemyHeightTiles[var3])) : (int)(this->enemyHeightTiles[var3])))) & 8) != 0)) && (Engine::animDeltaY != 0))) {
           this->setEnemyAction(23, var3);
         }
       }
@@ -6467,8 +6565,8 @@ void Game::checkEnemyCell(int var1, int var2, int var3) {
 }
 
 void Game::countArenaKill(int var1) {
-  int var2 = (enemyHomeX[var1] / 16);
-  int var3 = (enemyHomeY[var1] / 16);
+  int var2 = (enemyHomeX[var1] / 22);
+  int var3 = (enemyHomeY[var1] / 22);
   if (((this->getCellFlags(var2, var3) & 32) > 0)) {
     int var4 = (-1);
     for (int var5 = 0; (var5 < this->arenaTileX.length()); (var5++)) {
@@ -6485,7 +6583,7 @@ void Game::countArenaKill(int var1) {
           if ((this->gateId[var6] == this->arenaGateId[var4])) {
             gateOpen[var6] = (!gateOpen[var6]);
             if (this->gateShowsCamera[var6]) {
-              this->iB = true;
+              this->iF = true;
               this->cameraPanX = gateX[var6];
               this->cameraPanY = this->gateY[var6];
             }
@@ -6505,7 +6603,7 @@ void Game::triggerSwitchTargets(int var1) {
           if (this->gateShowsCamera[var3]) {
             this->cameraPanX = gateX[var3];
             this->cameraPanY = this->gateY[var3];
-            this->iB = true;
+            this->iF = true;
           }
         }
       }
@@ -6547,21 +6645,21 @@ void Game::spawnEffect(int var1, int var2, int var3, int var4, bool var5) {
 }
 
 void Game::a(Arr<int> var1, Arr<int8_t> var2) {
-  this->hQ = 220;
+  this->hU = 220;
   this->setFont(this->mainFont);
-  this->a(var1, var2, 12, 30, 211, 270, this->hQ);
+  this->a(var1, var2, 17, 42, 200, 250, this->hU);
 }
 
-void Game::E() {
-  this->M = (this->M + this->frameDelta);
-  if ((this->M >= 50)) {
-    this->M = 0;
+void Game::D() {
+  this->L = (this->L + this->frameDelta);
+  if ((this->L >= 50)) {
+    this->L = 0;
     if ((this->heldKey == 1)) {
-      this->d(true);
+      this->e(true);
       this->requestClear();
     }
     if ((this->heldKey == 6)) {
-      this->d(false);
+      this->e(false);
       this->requestClear();
     }
   }
@@ -6576,64 +6674,60 @@ bool Game::rectsOverlap(int var0, int var1, int var2, int var3, int var4, int va
 }
 
 void Game::playSound(int var1) {
-  if (((((var1 != 3) && (var1 != 3)) && (var1 != 3)) && (var1 != 3))) {
-    if ((((var1 == 0) || (var1 == 2)) || (var1 == 1))) {
-      if ((!this->hR)) {
-        this->soundPlayer->play(var1);
-        if (((var1 == 0) && iL)) {
-          this->hR = true;
-        }
-      }
+  if ((!this->hV)) {
+    this->soundPlayer->play(var1);
+    if (((var1 == 9) && iQ)) {
+      this->hV = true;
     }
   }
 }
 
 void Game::stopSounds() {
-  this->hR = false;
+  this->hV = false;
   this->soundPlayer->stop();
 }
 
 void Game::u(Surface* var1) {
   this->v(var1);
-  if ((!iT)) {
-    this->iS[1]->draw(var1, 120, halfHeight, 0);
-    this->iS[0]->draw(var1, 120, halfHeight, 0);
+  if ((!iZ)) {
+    this->iY[1]->draw(var1, 120, halfHeight, 0);
+    this->iY[0]->draw(var1, 120, halfHeight, 0);
   } else {
-    this->drawFrame(var1, this->iS, 0, 120, halfHeight, 0);
+    this->drawFrame(var1, this->iY, 0, 120, halfHeight, 0);
   }
 }
 
 void Game::v(Surface* var1) {
   this->setClip(var1, (-uiX()), 0, viewW, 320);
-  this->iB = true;
+  this->iF = true;
   var1->setColor(0);
-  this->iC = false;
+  this->iG = false;
   var1->fillRect((-uiX()), 0, viewW, 320);
 }
 
 void Game::a(Arr<int> var1, Arr<int8_t> var2, int var3, int var4, int var5, int var6, int var7) {
   var3 -= uiX();
   var5 += (uiX() << 1);
-  hW = newArr<String>(var7);
-  hY = newArr<int8_t>(var7);
-  hS = var3;
-  hT = var4;
-  hU = var5;
-  hV = var6;
-  ib = var1[0];
+  ia = newArr<String>(var7);
+  ic = newArr<int8_t>(var7);
+  hW = var3;
+  hX = var4;
+  hY = var5;
+  hZ = var6;
+  if_ = var1[0];
   int var9 = 0;
   this->requestClear();
   int var10 = 0;
   String var11 = String(u"");
-  this->ii = 0;
+  this->im = 0;
   for (int var8 = 0; (var8 < var1.length()); (var8++)) {
     int8_t var12 = var2[var8];
     int var14 = 0;
     if (((var14 = var1[var8]) >= 0)) {
       var11 = this->getString(var1[var8]);
     } else if ((var14 == (-1))) {
-      hW[var10] = String(u"");
-      hY[(var10++)] = var12;
+      ia[var10] = String(u"");
+      ic[(var10++)] = var12;
       var11 = String(u"");
     } else if ((var14 == (-3))) {
       var11 = panelText[(var9++)];
@@ -6654,10 +6748,10 @@ void Game::a(Arr<int> var1, Arr<int8_t> var2, int var3, int var4, int var5, int 
       int var18 = 0;
       bool var19 = false;
       int var17 = 0;
-      if (((this->cr >= 0) && (((var10 % 5) * lineHeight) < (this->cp[0]->height << 1)))) {
-        var17 = (var5 - (this->cp[0]->width + 8));
+      if (((this->cv >= 0) && (((var10 % 5) * lineHeight) < (this->ct[0]->height << 1)))) {
+        var17 = (var5 - (this->ct[0]->width + 8));
       } else {
-        var17 = ((var5 - 1) - 4);
+        var17 = ((var5 - 1) - 5);
       }
       while (((var18 <= var17) && (var16 < var13))) {
         char16_t var20 = 0;
@@ -6668,9 +6762,9 @@ void Game::a(Arr<int> var1, Arr<int8_t> var2, int var3, int var4, int var5, int 
         var18 += this->charWidth(var20);
         var16++;
       }
-      if (((var8 == 0) && (ib != (-1)))) {
-        this->ij = 0;
-        this->ik = var16;
+      if (((var8 == 0) && (if_ != (-1)))) {
+        this->in = 0;
+        this->io = var16;
         var16 = var13;
       }
       int var21 = 0;
@@ -6686,50 +6780,50 @@ void Game::a(Arr<int> var1, Arr<int8_t> var2, int var3, int var4, int var5, int 
       if ((var21 == var11.length())) {
         var21--;
       }
-      hW[var10] = var11.substring(var15, (var21 + 1)).trim();
-      hY[(var10++)] = var12;
-      this->ii = (this->ii + lineHeight);
+      ia[var10] = var11.substring(var15, (var21 + 1)).trim();
+      ic[(var10++)] = var12;
+      this->im = (this->im + lineHeight);
       var16 = (var15 = (var21 + 1));
     }
   }
-  hZ = var10;
-  ia = 0;
-  this->il = 0;
-  ic = false;
+  id = var10;
+  ie = 0;
+  this->ip = 0;
+  ig = false;
   this->resetFrameTimerAlias();
 }
 
 void Game::clearPanelText() {
-  hW = nullptr;
-  hY = nullptr;
+  ia = nullptr;
+  ic = nullptr;
   panelText = nullptr;
 }
 
-void Game::d(bool var1) {
+void Game::e(bool var1) {
   if (var1) {
-    if ((ia > 0)) {
-      ia--;
+    if ((ie > 0)) {
+      ie--;
       this->requestClear();
       return;
     }
-  } else if (((ia < hZ) && (!ic))) {
-    ia++;
+  } else if (((ie < id) && (!ig))) {
+    ie++;
     this->requestClear();
   }
 }
 
 void Game::drawDialogueText(Surface* var1, bool var2) {
-  this->setClip(var1, (-uiX()), hT, viewW, hV);
+  this->setClip(var1, (-uiX()), hX, viewW, hZ);
   int8_t var4 = 0;
-  this->ip = true;
-  if (((hV / lineHeight) >= hZ)) {
-    var4 = 2;
+  this->it = true;
+  if (((hZ / lineHeight) >= id)) {
+    var4 = 3;
   }
-  int var6 = hT;
-  if (this->aW) {
-    var6 = (295 - (this->in >> 8));
+  int var6 = hX;
+  if (this->aV) {
+    var6 = (285 - (this->ir >> 8));
   } else if ((state == 79)) {
-    var6 += 25;
+    var6 += 35;
   }
   int var9 = 0;
   int var10 = 0;
@@ -6737,30 +6831,30 @@ void Game::drawDialogueText(Surface* var1, bool var2) {
   if ((state == 101)) {
     var6 -= (this->fontHeight() >> 1);
   }
-  this->io = 0;
+  this->is = 0;
   int var3 = 0;
-  for ((var3 = ((this->il > 0) ? this->il : ia)); ((var3 < hZ) && (var6 < (hT + hV))); (var3++)) {
+  for ((var3 = ((this->ip > 0) ? this->ip : ie)); ((var3 < id) && (var6 < (hX + hZ))); (var3++)) {
     var11 = var3;
     if ((var9 < 1)) {
       var11 = var9;
     }
     int8_t var8 = 0;
-    int var12 = ((((var8 = hY[var11]) & 2) != 0) ? 4 : 1);
-    int var7 = (((hS + var4) + (((var8 & 2) != 0) ? 0 : ((hU - 4) >> 1))) + 1);
-    if (((this->cr >= 0) && (((var6 - lineHeight) - hT) < this->cp[0]->height))) {
-      var7 += (this->cp[0]->width + 8);
+    int var12 = ((((var8 = ic[var11]) & 2) != 0) ? 4 : 1);
+    int var7 = (((hW + var4) + (((var8 & 2) != 0) ? 0 : ((hY - 5) >> 1))) + 1);
+    if (((this->cv >= 0) && (((var6 - lineHeight) - hX) < this->ct[0]->height))) {
+      var7 += (this->ct[0]->width + 8);
     }
-    String var13 = hW[var11];
+    String var13 = ia[var11];
     if (((state == 101) && (!var13.equals(String(u""))))) {
-      if ((var13.length() > (this->bd - this->io))) {
-        var13 = var13.substring(0, (this->bd - this->io));
-        this->io = (this->io + var13.length());
-        this->ip = false;
+      if ((var13.length() > (this->bc - this->is))) {
+        var13 = var13.substring(0, (this->bc - this->is));
+        this->is = (this->is + var13.length());
+        this->it = false;
       } else {
-        this->io = (this->io + var13.length());
+        this->is = (this->is + var13.length());
       }
     }
-    if (((var3 != ia) || (ib == (-1)))) {
+    if (((var3 != ie) || (if_ == (-1)))) {
       this->setFont(this->mainFont);
     } else if ((this->menuFont != nullptr)) {
       this->setFont(this->titleFont);
@@ -6768,57 +6862,57 @@ void Game::drawDialogueText(Surface* var1, bool var2) {
       this->setFont(this->mainFont);
     }
     this->requestClear();
-    this->drawString(var1, (((var3 == ia) && (ib != (-1))) ? var13.substring(this->ij, this->ik) : var13), var7, var6, var12);
+    this->drawString(var1, (((var3 == ie) && (if_ != (-1))) ? var13.substring(this->in, this->io) : var13), var7, var6, var12);
     var6 += lineHeight;
-    if ((((state == 101) && (var6 >= hV)) && (var11 < hZ))) {
-      this->im = var11;
-      if ((hW[var11].equals(String(u"")) || ((this->im + 1) == hZ))) {
-        this->im = (-1);
+    if ((((state == 101) && (var6 >= hZ)) && (var11 < id))) {
+      this->iq = var11;
+      if ((ia[var11].equals(String(u"")) || ((this->iq + 1) == id))) {
+        this->iq = (-1);
       }
       break;
     }
-    this->im = (-1);
+    this->iq = (-1);
     if (((var9++) < 2)) {
       var10 = var6;
     }
   }
-  ic = (var3 == hZ);
+  ig = (var3 == id);
   this->setClip(var1, (-uiX()), 0, viewW, 320);
-  this->iB = true;
-  if ((((var4 == 0) && var2) && (!this->aW))) {
+  this->iF = true;
+  if ((((var4 == 0) && var2) && (!this->aV))) {
     var1->setColor(10377532);
-    int var16 = ((hV - (var10 - 25)) - 4);
-    var1->drawRect((((hS + hU) + 7) - 1), (var10 - 4), 4, var16);
-    int var18 = ((var10 + ((ia * var16) / hZ)) - 3);
-    int var14 = ((var10 + ((var3 * var16) / hZ)) - 3);
+    int var16 = ((hZ - (var10 - 35)) - 4);
+    var1->drawRect((((hW + hY) + 10) - 1), (var10 - 4), 5, var16);
+    int var18 = ((var10 + ((ie * var16) / id)) - 3);
+    int var14 = ((var10 + ((var3 * var16) / id)) - 3);
     var1->setColor(15425792);
-    var1->fillRect(((hS + hU) + 7), var18, 3, ((var14 - var18) - 1));
+    var1->fillRect(((hW + hY) + 10), var18, 4, ((var14 - var18) - 1));
   }
-  if ((this->cr >= 0)) {
-    if ((this->cr > 3)) {
-      int var17 = (((this->cr - 3) - 1) + 5);
+  if ((this->cv >= 0)) {
+    if ((this->cv > 3)) {
+      int var17 = (((this->cv - 3) - 1) + 38);
       int8_t var19 = 0;
       int8_t var20 = 0;
-      if ((var17 == 8)) {
+      if ((var17 == 41)) {
         var19 = (-3);
       }
-      if ((var17 == 6)) {
+      if ((var17 == 39)) {
         var20 = (-3);
       }
       int var15 = 0;
-      if (((var15 = (var17 + ((upgradeSelection > 0) ? (4 - upgradeSelection) : 0))) > 8)) {
-        var15 = ((5 + (var15 - 8)) - 1);
+      if (((var15 = (var17 + ((upgradeSelection > 0) ? (4 - upgradeSelection) : 0))) > 41)) {
+        var15 = ((38 + (var15 - 41)) - 1);
       }
-      aL[40]->draw(var1, ((hS + (this->cp[this->cr]->width >> 3)) - aL[40]->offsetX), ((hT + lineHeight) - aL[40]->offsetY), 0);
-      aL[var15]->draw(var1, ((13 - aL[var15]->offsetX) + var19), ((15 - aL[var15]->offsetY) + var20), 0);
+      aK[89]->draw(var1, ((hW + (this->ct[this->cv]->width >> 3)) - aK[89]->offsetX), ((hX + lineHeight) - aK[89]->offsetY), 0);
+      aK[var15]->draw(var1, (((19 - uiX()) - aK[var15]->offsetX) + var19), ((19 - aK[var15]->offsetY) + var20), 0);
     } else {
-      this->cp[this->cr]->draw(var1, (hS + (this->cp[this->cr]->width >> 3)), (hT + lineHeight), 0);
+      this->ct[this->cv]->draw(var1, (hW + (this->ct[this->cv]->width >> 3)), (hX + lineHeight), 0);
     }
     this->startAnim(136, 1024, 0);
-    this->drawFrame(var1, this->cp, 136, (hS + (this->cp[this->cr]->width >> 3)), (hT + lineHeight), 0);
+    this->drawFrame(var1, this->ct, 136, (hW + (this->ct[this->cv]->width >> 3)), (hX + lineHeight), 0);
   }
-  if ((((var11 < (hZ - 1)) || (this->cs < (this->cu - 1))) && (state == 101))) {
-    bo[1]->draw(var1, halfWidth, ((79 - bo[1]->height) - 2), 0);
+  if ((((var11 < (id - 1)) || (this->cw < (this->cy - 1))) && (state == 101))) {
+    bq[1]->draw(var1, halfWidth, ((95 - bq[1]->height) - 2), 0);
   }
 }
 
@@ -6930,7 +7024,7 @@ int Game::readIntBE(Arr<int8_t> var0, int var1) {
 }
 
 void Game::updateFireEffect() {
-  int var2 = (viewW - (this->iu - (this->iu >> 2)));
+  int var2 = (viewW - (this->iy - (this->iy >> 2)));
   if (((fireHeat == nullptr) || (fireHeat.length() != (var2 * 140)))) {
     fireHeat = newArr<int8_t>((var2 * 140));
     firePixels = newArr<int>((var2 * 140));
@@ -6960,8 +7054,7 @@ void Game::updateFireEffect() {
       } else {
         var7 >>= 1;
       }
-      var7 -= 2;
-      if ((var7 < 0)) {
+      if (((--var7) < 0)) {
         var7 = 0;
       }
       fireHeat[(var9 - var2)] = ((int8_t)(var7));
@@ -6971,7 +7064,7 @@ void Game::updateFireEffect() {
   for (int var14 = 0; (var14 < 140); (var14++)) {
     for (int var8 = 0; (var8 < var2); (var8++)) {
       int var11 = jlang::max<int>((int)((fireHeat[var10] & 255)), (int)(0));
-      firePixels[var10] = R[var11];
+      firePixels[var10] = Q[var11];
       var10++;
     }
   }
@@ -6980,13 +7073,13 @@ void Game::updateFireEffect() {
 void Game::drawFireEffect(Surface* var1, bool var2) {
   this->updateFireEffect();
   int var3 = (var2 ? 0 : 95);
-  int var4 = (var2 ? 172 : 173);
-  Engine::drawRgbAlias(var1, firePixels, 0, (viewW - (this->iu - (this->iu >> 2))), (var3 - uiX()), var4, (viewW - ((this->iu - (this->iu >> 2)) + 1)), 140, false);
+  int var4 = (var2 ? 168 : 173);
+  Engine::drawRgbAlias(var1, firePixels, 0, (viewW - (this->iy - (this->iy >> 2))), (var3 - uiX()), var4, (viewW - ((this->iy - (this->iy >> 2)) + 1)), 140, false);
 }
 
 void Game::drawBottomBar(Surface* var1, int var2, int var3) {
-  this->iA = var3;
-  this->iz = var2;
+  this->iE = var3;
+  this->iD = var2;
   this->setFont(this->mainFont);
   var1->setColor(0);
   var1->fillRect((-uiX()), 306, viewW, 14);
@@ -7004,18 +7097,30 @@ void Game::drawBottomBar(Surface* var1, int var2, int var3) {
     if ((state == 100)) {
       if ((!challengeMode)) {
         if (((this->activeArena == (-1)) || ((this->arenaKillsNeeded[this->activeArena] <= 0) && (this->arenaBannerTimer <= 0)))) {
-          if ((((((comboHits > 1) && (this->comboTimer > 0)) && (state == 100)) && (this->bottomBar <= 0)) && (this->iv < comboHits))) {
-            this->drawString(var1, (jstr((jstr(comboHits) + jstr(String(u" ")))) + jstr(this->getString(171))), 120, ((306 + halfLineHeight) - 3), 1);
+          if ((((((comboHits > 1) && (this->comboTimer > 0)) && (state == 100)) && (this->bottomBar <= 0)) && (this->iz < comboHits))) {
+            this->drawString(var1, (jstr((jstr(comboHits) + jstr(String(u" ")))) + jstr(this->getString(171))), 120, ((306 + halfLineHeight) - 6), 1);
           }
         } else {
           String var4 = (jstr((jstr((this->arenaKillsNeeded[this->activeArena] - arenaKills[this->activeArena])) + jstr(String(u" ")))) + jstr(this->getString(195)));
           int var5 = this->stringWidth(var4);
-          if ((gM && (this->arenaKillsNeeded[this->activeArena] > 0))) {
-            this->drawString(var1, var4, halfWidth, ((306 + halfLineHeight) - 3), 1);
+          if ((gQ && (this->arenaKillsNeeded[this->activeArena] > 0))) {
+            this->drawString(var1, var4, halfWidth, ((306 + halfLineHeight) - 6), 1);
           }
           if (((this->activeArena >= 0) && (this->arenaKillsNeeded[this->activeArena] > 0))) {
-            int var6 = ((halfWidth - (var5 >> 1)) - 5);
-            int var7 = ((halfWidth + (var5 >> 1)) + 5);
+            int var6 = ((halfWidth - (var5 >> 1)) - 7);
+            int var7 = ((halfWidth + (var5 >> 1)) + 7);
+            var1->setColor(13868629);
+            var1->drawLine((var6 - 8), 307, (var6 - 8), 320);
+            var1->drawLine((var7 + 8), 307, (var7 + 8), 320);
+            var1->setColor(14116120);
+            var1->drawLine((var6 - 7), 307, (var6 - 7), 320);
+            var1->drawLine((var7 + 7), 307, (var7 + 7), 320);
+            var1->setColor(14114838);
+            var1->drawLine((var6 - 6), 307, (var6 - 6), 320);
+            var1->drawLine((var7 + 6), 307, (var7 + 6), 320);
+            var1->setColor(14111501);
+            var1->drawLine((var6 - 5), 307, (var6 - 5), 320);
+            var1->drawLine((var7 + 5), 307, (var7 + 5), 320);
             var1->setColor(14172934);
             var1->drawLine((var6 - 4), 307, (var6 - 4), 320);
             var1->drawLine((var7 + 4), 307, (var7 + 4), 320);
@@ -7034,20 +7139,20 @@ void Game::drawBottomBar(Surface* var1, int var2, int var3) {
           }
         }
       } else if ((this->killCount >= 1000)) {
-        this->drawString(var1, this->getString(275), 120, ((306 + halfLineHeight) - 3), 1);
+        this->drawString(var1, this->getString(275), 120, ((306 + halfLineHeight) - 6), 1);
       } else {
-        this->drawString(var1, (jstr(this->getString(246)) + jstr(this->killCount)), 120, ((306 + halfLineHeight) - 3), 1);
+        this->drawString(var1, (jstr(this->getString(246)) + jstr(this->killCount)), 120, ((306 + halfLineHeight) - 6), 1);
       }
     } else {
-      this->iB = true;
+      this->iF = true;
     }
   }
-  this->iB = false;
+  this->iF = false;
 }
 
 void Game::drawSoftKeyLabel(Surface* var1, int var2, int var3, int var4) {
   String var5 = this->getString(var3);
-  this->drawString(var1, var5, (var2 - ((var4 == 0) ? (this->stringWidth(var5) + 2) : (-2))), ((306 + halfLineHeight) - 3), 20);
+  this->drawString(var1, var5, (var2 - ((var4 == 0) ? (this->stringWidth(var5) + 3) : (-3))), ((306 + halfLineHeight) - 6), 20);
 }
 
 void Game::drawProgressBar(Surface* var0, int var1, int var2, bool var3) {
@@ -7055,7 +7160,7 @@ void Game::drawProgressBar(Surface* var0, int var1, int var2, bool var3) {
     var2 -= 2;
     var1 -= 2;
   }
-  int var4 = 307;
+  int var4 = 302;
   if ((state == 1)) {
     var4 = ((halfHeight + 5) + (lineHeight >> 2));
     if (challengeMode) {
@@ -7149,12 +7254,13 @@ void Game::updateMenu() {
           challengeMode = false;
           this->levelIndex = 0;
           this->levelResourceId = 9217;
+          this->bgLevelResourceId = 9219;
           this->setBarTargets(halfHeight, halfHeight, 35, 35);
           state = 1;
           this->resetLevelState();
           this->soundPlayer->stop();
           this->levelLoadStarted = false;
-          this->W = true;
+          this->V = true;
         } else {
           var1 = var4;
         }
@@ -7163,11 +7269,11 @@ void Game::updateMenu() {
     case 1:
       if (((this->pressedKey == 8) || (this->pressedKey == 27))) {
         this->soundPlayer->setSoundOn((!this->soundPlayer->isSoundOn()));
-        iL = this->soundPlayer->isSoundOn();
+        iQ = this->soundPlayer->isSoundOn();
         if ((!this->soundPlayer->isSoundOn())) {
-          this->hR = false;
+          this->hV = false;
         }
-        this->playSound(0);
+        this->playSound(9);
       }
     case 2:
     case 7:
@@ -7175,24 +7281,25 @@ void Game::updateMenu() {
       break;
     case 3:
       if (((this->pressedKey == 8) || (this->pressedKey == 27))) {
-        this->ai = false;
-        this->aj = true;
+        this->ah = false;
+        this->ai = true;
         this->setBarTargets(halfHeight, halfHeight, 35, 35);
       }
       break;
     case 4:
       if (((this->pressedKey == 8) || (this->pressedKey == 27))) {
+        this->ah = true;
         this->ai = true;
-        this->aj = true;
         this->setBarTargets(halfHeight, halfHeight, 35, 35);
       }
       break;
     case 5:
       if (((this->pressedKey == 8) || (this->pressedKey == 27))) {
-        this->levelIndex = (menuCursor - this->iG);
-        this->bf = false;
+        this->levelIndex = (menuCursor - this->iL);
+        this->be = false;
         this->levelResourceId = levelIds[this->levelIndex];
         challengeMode = false;
+        this->bgLevelResourceId = bgLevelIds[this->levelIndex];
         this->setBarTargets(halfHeight, halfHeight, 35, 35);
         state = 1;
         this->levelLoadStarted = false;
@@ -7206,6 +7313,7 @@ void Game::updateMenu() {
         this->levelIndex = 0;
         this->killCount = 0;
         challengeMode = true;
+        this->bgLevelResourceId = 9218;
         this->setBarTargets(halfHeight, halfHeight, 35, 35);
         state = 1;
         this->levelLoadStarted = false;
@@ -7221,27 +7329,37 @@ void Game::updateMenu() {
     case 9:
       if (((this->pressedKey == 8) || (this->pressedKey == 27))) {
         this->loadMenuSprites(false);
-        state = this->J;
+        state = this->I;
       }
       break;
     case 10:
       if (((this->pressedKey == 8) || (this->pressedKey == 27))) {
         this->resetLevelState();
-        this->playSound(0);
+        this->playSound(9);
         this->parseBank(nullptr);
         this->saveGame(1);
-        this->iy = menuCursor;
+        this->iC = menuCursor;
         var1 = var4;
       }
       break;
     case 11:
       if ((((this->pressedKey == 8) || (this->pressedKey == 27)) || (this->pressedKey == 29))) {
         if ((this->pressedKey != 29)) {
-          var5 = newArr<int8_t>(76);
-          Engine::writeRecord(2, var5);
-          this->loadGame(1);
+          if (this->iH) {
+            iP = true;
+            this->openUrl(this->carrierUrl);
+            this->saveAndQuit();
+          } else {
+            var5 = newArr<int8_t>(76);
+            Engine::writeRecord(2, var5);
+            this->loadGame(1);
+          }
         }
         var1 = var4;
+        if (this->iH) {
+          var1 = 0;
+          this->iH = false;
+        }
       }
       break;
     case 13:
@@ -7249,7 +7367,7 @@ void Game::updateMenu() {
     case 15:
       if (((this->pressedKey == 8) || (this->pressedKey == 27))) {
         Port::change((var3 - 13), 1);
-        this->iB = true;
+        this->iF = true;
       }
       break;
     case 12:
@@ -7259,13 +7377,13 @@ void Game::updateMenu() {
           languageIndex = 0;
         }
         this->loadStringTable(languageStringBanks[languageIndex]);
-        this->iB = true;
+        this->iF = true;
       }
     }
   }
   if ((this->pressedKey != 0)) {
-    this->iI = false;
-    this->iC = true;
+    this->iN = false;
+    this->iG = true;
   }
   if ((this->pressedKey == 2)) {
     var1 = menuPrevWithFlag(var1, 33554432);
@@ -7273,29 +7391,30 @@ void Game::updateMenu() {
   if ((this->pressedKey == 5)) {
     var1 = menuNextWithFlag(var1, 33554432);
   }
-  if (this->be) {
-    this->iI = false;
+  if (this->bd) {
+    this->iN = false;
     menuCursor++;
     this->levelIndex++;
     if ((this->levelIndex > this->furthestLevel)) {
       this->furthestLevel = this->levelIndex;
     }
     this->levelResourceId++;
+    this->bgLevelResourceId = bgLevelIds[this->levelIndex];
     state = 1;
-    this->ae = true;
+    this->ad = true;
     this->levelLoadStarted = false;
     this->stopSounds();
   }
   if (((this->pressedKey == 29) && (var3 != 11))) {
-    if (((this->iA == 2) || (this->iA == 29))) {
-      var1 = this->iy;
-      this->iI = false;
-    } else if ((this->iA == 1)) {
+    if (((this->iE == 2) || (this->iE == 29))) {
+      var1 = this->iC;
+      this->iN = false;
+    } else if ((this->iE == 1)) {
       var1 = 26;
     }
-  } else if (((((this->pressedKey == 27) && (var3 == 0)) && (this->iz == 0)) && ((var4 != 9) || (this->levelIndex != 0)))) {
+  } else if (((((this->pressedKey == 27) && (var3 == 0)) && (this->iD == 0)) && ((var4 != 9) || (this->levelIndex != 0)))) {
     var1 = var4;
-    this->iI = false;
+    this->iN = false;
   }
   if ((menuCursor != var1)) {
     menuCursor = var1;
@@ -7306,14 +7425,21 @@ void Game::updateMenu() {
   }
 }
 
-void Game::L() {
+void Game::K() {
   if (((this->pressedKey == 8) || (this->pressedKey == 27))) {
-    this->iC = true;
+    int var1 = menuTable[menuCursor];
+    this->iG = true;
+    {
+      switch ((var1 & 0xFF)) {
+      case 5:
+        this->iH = true;
+      }
+    }
   }
 }
 
 void Game::saveAndQuit() {
-  if ((((state != 0) && (state != 79)) && (!iK))) {
+  if ((((state != 0) && (state != 79)) && (!iP))) {
     this->saveGame(1);
   }
   this->postLifecycle(3);
@@ -7325,7 +7451,7 @@ void Game::drawMenu(Surface* var1) {
   if ((this->screenWidth > this->screenHeight)) {
     var2 = (-(this->screenWidth >> 3));
   }
-  if ((this->iC || ((((this->topBar > 0) || this->ak) && this->iI) && (state != 1)))) {
+  if ((this->iG || ((((this->topBar > 0) || this->aj) && this->iN) && (state != 1)))) {
     this->v(var1);
   }
   this->setFont(this->titleFont);
@@ -7343,29 +7469,29 @@ void Game::drawMenu(Surface* var1) {
   for (int var8 = 0; (var8 < var6); (var8++)) {
     var4 = menuPrevWithFlag(var4, 16777216);
   }
-  this->iG = var4;
+  this->iL = var4;
   for (int var18 = 0; (var18 < var6); (var18++)) {
     var4 = menuPrevWithFlag(var4, 33554432);
   }
-  this->iH = var4;
-  this->iD = 0;
+  this->iM = var4;
+  this->iI = 0;
   int var10 = var4;
   int var11 = var4;
-  if (((this->iI && (this->topBar <= 0)) && (!this->ak))) {
+  if (((this->iN && (this->topBar <= 0)) && (!this->aj))) {
     this->setClip(var1, (-uiX()), 166, viewW, 140);
   } else {
     this->setClip(var1, (-uiX()), 0, viewW, 320);
   }
   this->drawFireEffect(var1, true);
-  for (int var13 = (((this->iI && (this->topBar <= 0)) && (!this->ak)) ? 2 : 0); (var13 <= 4); (var13++)) {
+  for (int var13 = (((this->iN && (this->topBar <= 0)) && (!this->aj)) ? 2 : 0); (var13 <= 4); (var13++)) {
     this->menuSprites[var13]->draw(var1, ((var13 < 2) ? (halfWidth + var2) : (this->screenWidth + uiX())), ((var13 < 2) ? 0 : this->screenHeight), 0);
   }
-  if (this->ak) {
-    this->ak = false;
+  if (this->aj) {
+    this->aj = false;
   }
-  this->iI = true;
-  this->iF = ((this->menuSprites[0]->height + this->menuSprites[1]->height) + (lineHeight << 1));
-  if (((((-this->menuSprites[2]->offsetY) + this->iF) >= this->screenHeight) && (var2 == 0))) {
+  this->iN = true;
+  this->iK = ((this->menuSprites[0]->height + this->menuSprites[1]->height) + (lineHeight << 1));
+  if (((((-this->menuSprites[2]->offsetY) + this->iK) >= this->screenHeight) && (var2 == 0))) {
     var3 = (-(this->screenWidth >> 3));
   }
   while (true) {
@@ -7376,10 +7502,10 @@ void Game::drawMenu(Surface* var1) {
       var7 = var11;
     }
     if (((menuTable[var11] & 4194304) != 0)) {
-      this->iD = ((this->screenWidth < this->iD) ? this->screenWidth : this->iD);
-      this->iE = 120;
+      this->iI = ((this->screenWidth < this->iI) ? this->screenWidth : this->iI);
+      this->iJ = 120;
       var1->setColor(0, 0, 255);
-      var4 = this->iG;
+      var4 = this->iL;
       this->setFont(this->menuFont);
       bool var19 = false;
       do {
@@ -7393,18 +7519,18 @@ void Game::drawMenu(Surface* var1) {
           }
           String var20 = this->getString(var14);
           if ((this->arrowBase < 0)) {
-            this->arrowBase = this->iJ;
+            this->arrowBase = this->iO;
           }
           if (((var5 >= 13) && (var5 <= 15))) {
             var20 = Port::label((var5 - 13));
-            this->iJ = jlang::max<int>((int)(this->arrowBase), (int)(((this->stringWidth(var20) >> 1) + 14)));
+            this->iO = jlang::max<int>((int)(this->arrowBase), (int)(((this->stringWidth(var20) >> 1) + 14)));
           } else {
-            this->iJ = this->arrowBase;
+            this->iO = this->arrowBase;
           }
           {
             switch (var5) {
             case 1:
-              var20 = (jstr((jstr(var20) + jstr(String(u" ")))) + jstr((iL ? this->getString(234) : this->getString(235))));
+              var20 = (jstr((jstr(var20) + jstr(String(u" ")))) + jstr((iQ ? this->getString(234) : this->getString(235))));
             case 0:
             case 3:
             case 4:
@@ -7420,15 +7546,15 @@ void Game::drawMenu(Surface* var1) {
             case 15:
               if ((var4 == menuCursor)) {
                 if (((var14 != 28) && (var14 != 29))) {
-                  if ((var4 > this->iH)) {
-                    bo[2]->draw(var1, ((((halfWidth - this->iJ) - (bo[2]->width << 1)) + var2) + var3), ((this->iF + (lineHeight >> 3)) + 4), 0);
+                  if ((var4 > this->iM)) {
+                    bq[2]->draw(var1, ((((halfWidth - this->iO) - (bq[2]->width << 1)) + var2) + var3), ((this->iK + (lineHeight >> 3)) + 1), 0);
                   }
-                  this->drawString(var1, var20, ((this->iE + var2) + var3), this->iF, 1);
+                  this->drawString(var1, var20, ((this->iJ + var2) + var3), this->iK, 1);
                   if ((var4 < var7)) {
-                    bo[3]->draw(var1, ((((halfWidth + this->iJ) + bo[3]->width) + var2) + var3), ((this->iF + (lineHeight >> 3)) + 4), 0);
+                    bq[3]->draw(var1, ((((halfWidth + this->iO) + bq[3]->width) + var2) + var3), ((this->iK + (lineHeight >> 3)) + 1), 0);
                   }
                 }
-                this->iF = ((this->iF + lineHeight) + (lineHeight >> 2));
+                this->iK = ((this->iK + lineHeight) + (lineHeight >> 2));
               }
             case 2:
             case 7:

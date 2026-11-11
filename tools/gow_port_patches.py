@@ -3,7 +3,7 @@
 Two features, both driven by the C++ `Port` class (betrayal/port/src/main.cpp / platform.h):
 
 1. WIDESCREEN. The phone canvas is 240x320. `Game.viewW` is the logical width (240 = original, up to 853); the
-   port resizes its surface to it. Only the *world* uses the extra width: the Scene ring buffer, the camera, and
+   port resizes its surface to it. Only the *world* uses the extra width: both Scenes (level and parallax background), the camera, and
    the visibility/activation tests. Everything laid out in 240-px design coordinates (menus, HUD, dialogue,
    pop-ups, soft-key labels) is drawn centred by translating the whole frame by uiX() = (viewW - 240) / 2, so
    nothing is ever stretched. The world layer undoes that translation for itself, and the full-width fills
@@ -59,29 +59,29 @@ INTERP = """   // ---- render interpolation (tools/gow_port_patches.py)
 
       for (int var6 = 0; var6 < 20; var6++) {
          var1[var2] = 0;
-         var1[var2 + 1] = bZ[var6];
-         var1[var2 + 2] = ca[var6];
+         var1[var2 + 1] = cd[var6];
+         var1[var2 + 2] = ce[var6];
          var2 += 3;
       }
 
       for (int var7 = 0; var7 < 20; var7++) {
          var1[var2] = 0;
-         var1[var2 + 1] = this.cg[var7];
-         var1[var2 + 2] = ch[var7];
+         var1[var2 + 1] = this.ck[var7];
+         var1[var2 + 2] = cl[var7];
          var2 += 3;
       }
 
       for (int var8 = 0; var8 < 10; var8++) {
          var1[var2] = 0;
-         var1[var2 + 1] = bP[var8];
-         var1[var2 + 2] = this.bQ[var8];
+         var1[var2 + 1] = bT[var8];
+         var1[var2 + 2] = this.bU[var8];
          var2 += 3;
       }
 
       for (int var9 = 0; var9 < 10; var9++) {
          var1[var2] = 0;
-         var1[var2 + 1] = dl[var9];
-         var1[var2 + 2] = dm[var9];
+         var1[var2 + 1] = dp[var9];
+         var1[var2 + 2] = dq[var9];
          var2 += 3;
       }
 
@@ -110,6 +110,10 @@ INTERP = """   // ---- render interpolation (tools/gow_port_patches.py)
       this.playerX = var1[2];
       this.playerY = var1[3];
       this.scene.setScroll(cameraX, cameraY);
+      if (this.bgScene != null) {
+         this.bgScene.setScroll(cameraX >> 1, cameraY >> 1);
+      }
+
       int var2 = 4;
 
       for (int var3 = 0; var3 < 15; var3++) {
@@ -127,26 +131,26 @@ INTERP = """   // ---- render interpolation (tools/gow_port_patches.py)
       }
 
       for (int var6 = 0; var6 < 20; var6++) {
-         bZ[var6] = var1[var2 + 1];
-         ca[var6] = var1[var2 + 2];
+         cd[var6] = var1[var2 + 1];
+         ce[var6] = var1[var2 + 2];
          var2 += 3;
       }
 
       for (int var7 = 0; var7 < 20; var7++) {
-         this.cg[var7] = var1[var2 + 1];
-         ch[var7] = var1[var2 + 2];
+         this.ck[var7] = var1[var2 + 1];
+         cl[var7] = var1[var2 + 2];
          var2 += 3;
       }
 
       for (int var8 = 0; var8 < 10; var8++) {
-         bP[var8] = var1[var2 + 1];
-         this.bQ[var8] = var1[var2 + 2];
+         bT[var8] = var1[var2 + 1];
+         this.bU[var8] = var1[var2 + 2];
          var2 += 3;
       }
 
       for (int var9 = 0; var9 < 10; var9++) {
-         dl[var9] = var1[var2 + 1];
-         dm[var9] = var1[var2 + 2];
+         dp[var9] = var1[var2 + 1];
+         dq[var9] = var1[var2 + 2];
          var2 += 3;
       }
 
@@ -221,8 +225,8 @@ FIELDS = """   // ---- PC port (tools/gow_port_patches.py)
 
    private void updateViewWidth() {
       int var1 = Port.viewWidth();
-      if (this.scene != null && var1 > 240 && this.bu < var1) {
-         var1 = this.bu < 240 ? 240 : this.bu;
+      if (this.scene != null && var1 > 240 && this.bw < var1) {
+         var1 = this.bw < 240 ? 240 : this.bw;
       }
 
       if (var1 != viewW) {
@@ -230,7 +234,7 @@ FIELDS = """   // ---- PC port (tools/gow_port_patches.py)
       }
 
       if (this.scene != null) {
-         this.maxCameraX = this.bu - viewW;
+         this.maxCameraX = this.bw - viewW;
          if (this.maxCameraX >= 0 && cameraX > this.maxCameraX) {
             cameraX = this.maxCameraX;
          }
@@ -250,12 +254,16 @@ RENDER_WRAPPER = """   public final void render(Graphics var1) {
          var1.setColor(0);
          var1.fillRect(0, 0, viewW, 320);
          this.requestClear();
-         this.iC = true;
-         this.iB = true;
+         this.iG = true;
+         this.iF = true;
       }
 
       if (this.scene != null) {
-         this.scene.setBufferWidth(viewW);
+         this.scene.setViewWidth(viewW);
+      }
+
+      if (this.bgScene != null) {
+         this.bgScene.setViewWidth(viewW);
       }
 
       if (var3 != 0) {
@@ -285,22 +293,23 @@ PATCHES = [
      "   public final void update() {\n      this.updateViewWidth();\n      this.frameDelta = super.frameTime >> this.slowMotionShift;\n", 1),
     ("s", "   public final void render(Graphics var1) {\n      switch (state) {", RENDER_WRAPPER, 1),
     # world states clip to the full width (the world escapes the centring translation, see drawWorld)
-    ("s", """            if (state == 100 && this.topBar <= 0 && !this.iB) {
+    ("s", """            if (state == 100 && this.topBar <= 0 && !this.iF) {
                this.setClip(var1, 0, 0, 240, 306);
             } else {
-               this.iB = true;
+               this.iF = true;
                this.resetClip(var1);
             }
-""", """            if (state == 100 && this.topBar <= 0 && !this.iB) {
+""", """            if (state == 100 && this.topBar <= 0 && !this.iF) {
                this.setClip(var1, -uiX(), 0, viewW, 306);
             } else {
-               this.iB = true;
+               this.iF = true;
                this.setClip(var1, -uiX(), 0, viewW, 320);
             }
 """, 1),
     # the world layer: undo the centring translation for the scene and every world-space entity
-    ("s", "      this.scene.draw(var1);\n      var1.translate(-cameraX, -(cameraY + this.bl));\n",
-     "      var1.translate(-uiX(), 0);\n      this.scene.draw(var1);\n      var1.translate(-cameraX, -(cameraY + this.bl));\n", 1),
+    # (the parallax background, drawn first, is part of the world too)
+    ("s", "      this.bgScene.draw(var1);\n      this.scene.draw(var1);\n      var1.translate(-cameraX, -(cameraY + this.bl));\n",
+     "      var1.translate(-uiX(), 0);\n      this.bgScene.draw(var1);\n      this.scene.draw(var1);\n      var1.translate(-cameraX, -(cameraY + this.bl));\n", 1),
     ("s", "      var1.translate(cameraX, cameraY + this.bl);\n   }", "      var1.translate(cameraX, cameraY + this.bl);\n      var1.translate(uiX(), 0);\n   }", 1),
     # the finisher prompt above an enemy is placed in screen coordinates
     ("s", "enemyX[this.grappledEnemy] - cameraX,", "enemyX[this.grappledEnemy] - cameraX - uiX(),", 1),
@@ -319,13 +328,13 @@ PATCHES = [
     # real camera to clamp short of where a 240 px camera would sit, which otherwise leaves it parked
     # inside a lock pair's few-pixel-wide overlap (two stops meant to be crossed in transit, releasing
     # one another, one for each direction) instead of sweeping through it -- the two fight over the
-    # same aI every frame and the camera bounces between their two targets (seen in Catacombs: a lock
+    # same aH every frame and the camera bounces between their two targets (seen in Catacombs: a lock
     # pair around the tall ladder, camera bouncing left/right while climbing at the top).
     ("s", "int var6 = var2 - 120 + var4;",
      "int var6 = var2 - 120 + var4;\n"
-     "      int lockTestX = var6 < 0 ? 0 : var6 > this.bu - 240 ? this.bu - 240 : var6;\n"
+     "      int lockTestX = var6 < 0 ? 0 : var6 > this.bw - 240 ? this.bw - 240 : var6;\n"
      "      var6 = var2 - (viewW >> 1) + var4;", 1),
-    ("s", "this.maxCameraX = this.bu - 240;", "this.maxCameraX = this.bu - viewW;", 1),
+    ("s", "this.maxCameraX = this.bw - 240;", "this.maxCameraX = this.bw - viewW;", 1),
     # camera lock / scroll-stop rectangles (both orientations) and the break-crate camera stop: all three
     # engage exactly when they did on the phone, i.e. the trigger point has to be inside the centred 240 px
     # column, not merely somewhere in the wider view. The original computes both branches from one shared
@@ -338,54 +347,54 @@ PATCHES = [
      "            if (pointInRect(this.lockX[var12], this.lockY[var12], cameraX, cameraY, 240, 320)) {\n"
      "               if (!this.lockVertical[var12]) {\n"
      "                  var10 = true;\n"
-     "                  int var13 = this.aK * this.frameDelta >> 8;\n"
+     "                  int var13 = this.aJ * this.frameDelta >> 8;\n"
      "                  if (this.lockReverse[var12]) {\n"
-     "                     this.aI -= var13;\n"
+     "                     this.aH -= var13;\n"
      "                  } else {\n"
-     "                     this.aI += var13;\n"
+     "                     this.aH += var13;\n"
      "                  }\n"
      "\n"
-     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI, cameraY + this.aJ, 240, 320)) {\n"
-     "                     this.aI = this.lockX[var12] - cameraX - (this.lockReverse[var12] ? 240 : 0);\n"
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aH, cameraY + this.aI, 240, 320)) {\n"
+     "                     this.aH = this.lockX[var12] - cameraX - (this.lockReverse[var12] ? 240 : 0);\n"
      "                  }\n"
      "               } else {\n"
      "                  var11 = true;\n"
-     "                  int var18 = this.aK * this.frameDelta >> 8;\n"
+     "                  int var18 = this.aJ * this.frameDelta >> 8;\n"
      "                  if (this.lockReverse[var12]) {\n"
-     "                     this.aJ -= var18;\n"
+     "                     this.aI -= var18;\n"
      "                  } else {\n"
-     "                     this.aJ += var18;\n"
+     "                     this.aI += var18;\n"
      "                  }\n"
      "\n"
-     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI, cameraY + this.aJ, 240, 320)) {\n"
-     "                     this.aJ = this.lockY[var12] - cameraY - (this.lockReverse[var12] ? 320 : 0);\n"
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aH, cameraY + this.aI, 240, 320)) {\n"
+     "                     this.aI = this.lockY[var12] - cameraY - (this.lockReverse[var12] ? 320 : 0);\n"
      "                  }\n"
      "               }\n"
      "            }",
      "            if (pointInRect(this.lockX[var12], this.lockY[var12], lockTestX, cameraY, 240, 320)) {\n"
      "               if (!this.lockVertical[var12]) {\n"
      "                  var10 = true;\n"
-     "                  int var13 = this.aK * this.frameDelta >> 8;\n"
+     "                  int var13 = this.aJ * this.frameDelta >> 8;\n"
      "                  if (this.lockReverse[var12]) {\n"
-     "                     this.aI -= var13;\n"
+     "                     this.aH -= var13;\n"
      "                  } else {\n"
-     "                     this.aI += var13;\n"
+     "                     this.aH += var13;\n"
      "                  }\n"
      "\n"
-     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI + uiX(), cameraY + this.aJ, 240, 320)) {\n"
-     "                     this.aI = this.lockX[var12] - cameraX - uiX() - (this.lockReverse[var12] ? 240 : 0);\n"
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aH + uiX(), cameraY + this.aI, 240, 320)) {\n"
+     "                     this.aH = this.lockX[var12] - cameraX - uiX() - (this.lockReverse[var12] ? 240 : 0);\n"
      "                  }\n"
      "               } else {\n"
      "                  var11 = true;\n"
-     "                  int var18 = this.aK * this.frameDelta >> 8;\n"
+     "                  int var18 = this.aJ * this.frameDelta >> 8;\n"
      "                  if (this.lockReverse[var12]) {\n"
-     "                     this.aJ -= var18;\n"
+     "                     this.aI -= var18;\n"
      "                  } else {\n"
-     "                     this.aJ += var18;\n"
+     "                     this.aI += var18;\n"
      "                  }\n"
      "\n"
-     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aI + uiX(), cameraY + this.aJ, 240, 320)) {\n"
-     "                     this.aJ = this.lockY[var12] - cameraY - (this.lockReverse[var12] ? 320 : 0);\n"
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aH + uiX(), cameraY + this.aI, 240, 320)) {\n"
+     "                     this.aI = this.lockY[var12] - cameraY - (this.lockReverse[var12] ? 320 : 0);\n"
      "                  }\n"
      "               }\n"
      "            }", 1),
@@ -394,18 +403,19 @@ PATCHES = [
      "               && pointInRect(breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], lockTestX, cameraY, 240, 320)) {", 1),
     ("s",
      "               if (!pointInRect(\n"
-     "                  breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + this.aI, cameraY + this.aJ, 240, 320\n"
+     "                  breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + this.aH, cameraY + this.aI, 240, 320\n"
      "               )) {\n"
-     "                  this.aI = breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0) - cameraX - (breakCameraRight[var17] ? 240 : 0);\n"
+     "                  this.aH = breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0) - cameraX - (breakCameraRight[var17] ? 240 : 0);\n"
      "               }",
      "               if (!pointInRect(\n"
-     "                  breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + this.aI + uiX(), cameraY + this.aJ, 240, 320\n"
+     "                  breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + this.aH + uiX(), cameraY + this.aI, 240, 320\n"
      "               )) {\n"
-     "                  this.aI = breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0) - cameraX - uiX() - (breakCameraRight[var17] ? 240 : 0);\n"
+     "                  this.aH = breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0) - cameraX - uiX() - (breakCameraRight[var17] ? 240 : 0);\n"
      "               }", 1),
     # ---------------------------------------------------------------- widescreen: visibility and activation
     ("r", r"<= 240\b", "<= viewW", 17),
-    ("r", r"(?m)^(\s*)368,$", r"\1viewW + 128,", 3),
+    # enemy activation windows: camera rect grown by 88 px on every side (240 + 176 = 416 wide)
+    ("r", r"(?m)^(\s*)416,$", r"\1viewW + 176,", 3),
     # ---------------------------------------------------------------- widescreen: full-width fills
     ("s", "var1.fillRect(0, var2 + 1, 240, 320 - (var3 << 1) - 1);", "var1.fillRect(-uiX(), var2 + 1, viewW, 320 - (var3 << 1) - 1);", 1),
     ("s", "var1.fillRect(0, 0, 240, var2);", "var1.fillRect(-uiX(), 0, viewW, var2);", 1),
@@ -414,10 +424,10 @@ PATCHES = [
     ("s", "var1.fillRect(0, 320 - var3, 240, var3);", "var1.fillRect(-uiX(), 320 - var3, viewW, var3);", 1),
     ("s", "var1.drawLine(0, 320 - var3, 240, 320 - var3);", "var1.drawLine(-uiX(), 320 - var3, 240 + uiX(), 320 - var3);", 1),
     ("s", "var1.drawLine(0, 320 - var3 + 1, 240, 320 - var3 + 1);", "var1.drawLine(-uiX(), 320 - var3 + 1, 240 + uiX(), 320 - var3 + 1);", 1),
-    ("s", "this.cq[0].draw(var1, 0, var2, 1);", "this.cq[0].draw(var1, -uiX(), var2, 1);", 1),
-    ("s", "this.cq[0].draw(var1, 240, var2, 3);", "this.cq[0].draw(var1, 240 + uiX(), var2, 3);", 1),
-    ("s", "this.cq[0].draw(var1, 0, 320 - (var3 - 1), 0);", "this.cq[0].draw(var1, -uiX(), 320 - (var3 - 1), 0);", 1),
-    ("s", "this.cq[0].draw(var1, 240, 320 - (var3 - 1), 2);", "this.cq[0].draw(var1, 240 + uiX(), 320 - (var3 - 1), 2);", 1),
+    ("s", "this.cu[0].draw(var1, 0, var2, 1);", "this.cu[0].draw(var1, -uiX(), var2, 1);", 1),
+    ("s", "this.cu[0].draw(var1, 240, var2, 3);", "this.cu[0].draw(var1, 240 + uiX(), var2, 3);", 1),
+    ("s", "this.cu[0].draw(var1, 0, 320 - (var3 - 1), 0);", "this.cu[0].draw(var1, -uiX(), 320 - (var3 - 1), 0);", 1),
+    ("s", "this.cu[0].draw(var1, 240, 320 - (var3 - 1), 2);", "this.cu[0].draw(var1, 240 + uiX(), 320 - (var3 - 1), 2);", 1),
     ("s", "var1.fillRect(0, 306, 240, 14);", "var1.fillRect(-uiX(), 306, viewW, 14);", 1),
     ("s", "var1.drawLine(0, 306, 240, 306);", "var1.drawLine(-uiX(), 306, 240 + uiX(), 306);", 1),
     ("s", "var1.drawLine(0, 307, 240, 307);", "var1.drawLine(-uiX(), 307, 240 + uiX(), 307);", 1),
@@ -426,23 +436,26 @@ PATCHES = [
     ("s", "            if (state != 101) {\n               this.drawHud(var1);\n            }\n",
      "            if (state != 101) {\n               var1.translate(-uiX(), 0);\n               this.drawHud(var1);\n               var1.translate(uiX(), 0);\n            }\n", 1),
     # the attack prompt at the bottom-left follows the left edge
-    ("s", "this.drawFrame(var1, this.aU, 131, 12, this.screenHeight - 25, 0);",
-     "this.drawFrame(var1, this.aU, 131, 12 - uiX(), this.screenHeight - 25, 0);", 1),
+    ("s", "this.drawFrame(var1, this.aT, 131, 17, this.screenHeight - 30, 0);",
+     "this.drawFrame(var1, this.aT, 131, 17 - uiX(), this.screenHeight - 30, 0);", 1),
     # soft-key labels: left key in the bottom-left corner, right key in the bottom-right corner
     ("s", "this.drawSoftKeyLabel(var1, 0, var2, 2);", "this.drawSoftKeyLabel(var1, -uiX(), var2, 2);", 1),
     ("s", "this.drawSoftKeyLabel(var1, 240, var3, 0);", "this.drawSoftKeyLabel(var1, 240 + uiX(), var3, 0);", 1),
     # dialogue / story text panels span the whole width (wrapping and the portrait use the widened panel)
     ("s", "   private void a(int[] var1, byte[] var2, int var3, int var4, int var5, int var6, int var7) {\n",
      "   private void a(int[] var1, byte[] var2, int var3, int var4, int var5, int var6, int var7) {\n      var3 -= uiX();\n      var5 += uiX() << 1;\n", 1),
-    ("s", "      this.setClip(var1, 0, hT, 240, hV);", "      this.setClip(var1, -uiX(), hT, viewW, hV);", 1),
-    ("s", "      ic = var3 == hZ;\n      this.resetClip(var1);\n", "      ic = var3 == hZ;\n      this.setClip(var1, -uiX(), 0, viewW, 320);\n", 1),
+    # weapon/magic tutorials: the HUD weapon icon shown inside the dialogue's portrait frame sits at a fixed (19, 19);
+    # the frame moves left with the widened panel, so the icon has to follow it
+    ("s", "aK[var15].draw(var1, 19 - aK[var15].offsetX + var19,", "aK[var15].draw(var1, 19 - uiX() - aK[var15].offsetX + var19,", 1),
+    ("s", "      this.setClip(var1, 0, hX, 240, hZ);", "      this.setClip(var1, -uiX(), hX, viewW, hZ);", 1),
+    ("s", "      ig = var3 == id;\n      this.resetClip(var1);\n", "      ig = var3 == id;\n      this.setClip(var1, -uiX(), 0, viewW, 320);\n", 1),
     ("s", "   private void v(Graphics var1) {\n      this.resetClip(var1);\n", "   private void v(Graphics var1) {\n      this.setClip(var1, -uiX(), 0, viewW, 320);\n", 1),
-    ("s", "      this.iC = false;\n      var1.fillRect(0, 0, 240, 320);", "      this.iC = false;\n      var1.fillRect(-uiX(), 0, viewW, 320);", 1),
+    ("s", "      this.iG = false;\n      var1.fillRect(0, 0, 240, 320);", "      this.iG = false;\n      var1.fillRect(-uiX(), 0, viewW, 320);", 1),
     # main menu: the fire spans the whole width and Kratos sits in the bottom-right corner
-    ("s", "      int var2 = 240 - (this.iu - (this.iu >> 2));\n      if (fireHeat == null) {",
-     "      int var2 = viewW - (this.iu - (this.iu >> 2));\n      if (fireHeat == null || fireHeat.length != var2 * 140) {", 1),
-    ("s", "Engine.drawRgbAlias(var1, firePixels, 0, 240 - (this.iu - (this.iu >> 2)), var3, var4, 240 - (this.iu - (this.iu >> 2) + 1), 140, false);",
-     "Engine.drawRgbAlias(var1, firePixels, 0, viewW - (this.iu - (this.iu >> 2)), var3 - uiX(), var4, viewW - (this.iu - (this.iu >> 2) + 1), 140, false);", 1),
+    ("s", "      int var2 = 240 - (this.iy - (this.iy >> 2));\n      if (fireHeat == null) {",
+     "      int var2 = viewW - (this.iy - (this.iy >> 2));\n      if (fireHeat == null || fireHeat.length != var2 * 140) {", 1),
+    ("s", "Engine.drawRgbAlias(var1, firePixels, 0, 240 - (this.iy - (this.iy >> 2)), var3, var4, 240 - (this.iy - (this.iy >> 2) + 1), 140, false);",
+     "Engine.drawRgbAlias(var1, firePixels, 0, viewW - (this.iy - (this.iy >> 2)), var3 - uiX(), var4, viewW - (this.iy - (this.iy >> 2) + 1), 140, false);", 1),
     ("s", "this.screenWidth + 0, var13 < 2 ? 0 : this.screenHeight, 0);", "this.screenWidth + uiX(), var13 < 2 ? 0 : this.screenHeight, 0);", 1),
     ("s", "this.setClip(var1, 0, 166, 240, 140);", "this.setClip(var1, -uiX(), 166, viewW, 140);", 1),
     # every remaining "reset the clip" means the whole (widened) canvas
@@ -453,36 +466,36 @@ PATCHES = [
     ("s", "            var1 = 23;", "            var1 = 26;", 1),
     ("s", "                  String var20 = this.getString(var14);\n",
      "                  String var20 = this.getString(var14);\n"
-     "                  if (this.arrowBase < 0) {\n                     this.arrowBase = this.iJ;\n                  }\n\n"
+     "                  if (this.arrowBase < 0) {\n                     this.arrowBase = this.iO;\n                  }\n\n"
      "                  if (var5 >= 13 && var5 <= 15) {\n"
      "                     var20 = Port.label(var5 - 13);\n"
-     "                     this.iJ = Math.max(this.arrowBase, (this.stringWidth(var20) >> 1) + 14);\n"
+     "                     this.iO = Math.max(this.arrowBase, (this.stringWidth(var20) >> 1) + 14);\n"
      "                  } else {\n"
-     "                     this.iJ = this.arrowBase;\n"
+     "                     this.iO = this.arrowBase;\n"
      "                  }\n", 1),
     ("s", "                     case 12:\n                        if (var4 == menuCursor) {",
      "                     case 12:\n                     case 13:\n                     case 14:\n                     case 15:\n                        if (var4 == menuCursor) {", 1),
     ("s", "         case 12:\n            if (this.pressedKey == 8 || this.pressedKey == 27) {\n               languageIndex++;",
-     "         case 13:\n         case 14:\n         case 15:\n            if (this.pressedKey == 8 || this.pressedKey == 27) {\n               Port.change(var3 - 13, 1);\n               this.iB = true;\n            }\n            break;\n"
+     "         case 13:\n         case 14:\n         case 15:\n            if (this.pressedKey == 8 || this.pressedKey == 27) {\n               Port.change(var3 - 13, 1);\n               this.iF = true;\n            }\n            break;\n"
      "         case 12:\n            if (this.pressedKey == 8 || this.pressedKey == 27) {\n               languageIndex++;", 1),
     # ---------------------------------------------------------------- PC settings: the pause menu
     ("s", "                        if (pauseMenuIndex > 4) {\n                           pauseMenuIndex = 4;",
      "                        if (pauseMenuIndex > 7) {\n                           pauseMenuIndex = 7;", 1),
     ("s", "               } else if (pauseMenuIndex == 4) {\n                  this.soundPlayer.setSoundOn(!this.soundPlayer.isSoundOn());",
-     "               } else if (pauseMenuIndex >= 5) {\n                  Port.change(pauseMenuIndex - 5, 1);\n                  this.iB = true;\n               } else if (pauseMenuIndex == 4) {\n                  this.soundPlayer.setSoundOn(!this.soundPlayer.isSoundOn());", 1),
-    ("s", "                  bo[3].draw(var1, this.screenWidth - 5 - 7, halfHeight + (lineHeight >> 1) + 4, 0);\n               } else if (pauseMenuIndex == 2 && !this.pauseConfirming) {",
-     "                  bo[3].draw(var1, this.screenWidth - 5 - 7, halfHeight + (lineHeight >> 1) + 4, 0);\n"
-     "                  bo[2].draw(var1, 12 - bo[2].width, halfHeight + (lineHeight >> 1) + 4, 0);\n"
+     "               } else if (pauseMenuIndex >= 5) {\n                  Port.change(pauseMenuIndex - 5, 1);\n                  this.iF = true;\n               } else if (pauseMenuIndex == 4) {\n                  this.soundPlayer.setSoundOn(!this.soundPlayer.isSoundOn());", 1),
+    ("s", "                  bq[3].draw(var1, this.screenWidth - 7 - 10, halfHeight + (lineHeight >> 1) + 1, 0);\n               } else if (pauseMenuIndex == 2 && !this.pauseConfirming) {",
+     "                  bq[3].draw(var1, this.screenWidth - 7 - 10, halfHeight + (lineHeight >> 1) + 1, 0);\n"
+     "                  bq[2].draw(var1, 17 - bq[2].width, halfHeight + (lineHeight >> 1) + 1, 0);\n"
      "               } else if (pauseMenuIndex >= 5) {\n"
      "                  this.drawString(var1, Port.label(pauseMenuIndex - 5), halfWidth, halfHeight + lineHeight + halfLineHeight, 33);\n"
-     "                  bo[3].draw(var1, this.screenWidth - 5 - 7, halfHeight + (lineHeight >> 1) + 4, 0);\n"
+     "                  bq[3].draw(var1, this.screenWidth - 7 - 10, halfHeight + (lineHeight >> 1) + 1, 0);\n"
      "                  if (pauseMenuIndex < 7) {\n"
-     "                     bo[2].draw(var1, 12 - bo[2].width, halfHeight + (lineHeight >> 1) + 4, 0);\n"
+     "                     bq[2].draw(var1, 17 - bq[2].width, halfHeight + (lineHeight >> 1) + 1, 0);\n"
      "                  }\n"
      "               } else if (pauseMenuIndex == 2 && !this.pauseConfirming) {", 1),
     # pause / game-over option arrows sit at the screen edges
-    ("s", "this.screenWidth - 5 - 7,", "this.screenWidth - 5 - 7 + uiX(),", 4),
-    ("s", "12 - bo[2].width,", "12 - bo[2].width - uiX(),", 5),
+    ("s", "this.screenWidth - 7 - 10,", "this.screenWidth - 7 - 10 + uiX(),", 4),
+    ("s", "17 - bq[2].width,", "17 - bq[2].width - uiX(),", 5),
 ]
 
 

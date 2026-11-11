@@ -11,6 +11,7 @@ SoundPlayer::SoundPlayer(Engine* var1, int var2) {
   this->slotCount = var2;
   this->loopCounts = newArr<int>(var2);
   this->priorities = newArr<int>(var2);
+  this->nokiaSounds = newArr<Sound*>(var2);
   this->players = newArr<Player*>(var2);
   var1->soundPlayer = this;
 }
@@ -24,15 +25,11 @@ void SoundPlayer::shutdown() {
 
 bool SoundPlayer::isSoundOn() {
   this->engine->syncSettings(false);
-  return ((!this->shutDown) && (this->engine->mutedByPause ? this->engine->soundBeforePause : this->engine->soundEnabled));
+  return ((!this->shutDown) && this->engine->soundEnabled);
 }
 
 void SoundPlayer::setSoundOn(bool var1) {
   if ((this->isSoundOn() != var1)) {
-    if (this->engine->mutedByPause) {
-      this->engine->soundBeforePause = var1;
-      return;
-    }
     this->stop();
     this->engine->soundEnabled = var1;
     this->engine->syncSettings(true);
@@ -40,269 +37,76 @@ void SoundPlayer::setSoundOn(bool var1) {
 }
 
 String SoundPlayer::mimeType(int8_t var0) {
-  return ((var0 == 14) ? String(u"video/3gp") : String(u"audio/midi"));
-}
-
-Arr<int8_t> SoundPlayer::padMidi(Arr<int8_t> var1, int8_t var2, bool var3) {
-  if (((var2 == 0) && (!var3))) {
-    int16_t var4 = readShort(var1, 10);
-    int var5 = 0;
-    bool var6 = false;
-    int var7 = 0;
-    if ((var6 = ((var5 = readShort(var1, 12)) >= 0))) {
-      var7 = 500000;
-      var5 *= 1000;
-    } else {
-      var7 = 1000000;
-      int var8 = 0;
-      if (((var8 = ((-(var5 & 0xFF00)) >> 8)) == 29)) {
-        var8 = 299700;
-      } else {
-        var8 *= 1000;
-      }
-      var5 = (var8 * (var5 & 0xFF));
-    }
-    Arr<int> var29 = newArr<int>(var4);
-    Arr<int> var9 = newArr<int>(var4);
-    Arr<int8_t> var10 = newArr<int8_t>(var4);
-    int64_t var11 = 0LL;
-    int64_t var13 = 0LL;
-    int64_t var15 = 0LL;
-    var29[0] = 14;
-    for (int var17 = 0; (var17 < var29.length()); (var17++)) {
-      int var18 = readInt(var1, (var29[var17] + 4));
-      var29[var17] += 8;
-      if (((var17 + 1) < var4)) {
-        var29[(var17 + 1)] = (var29[var17] + var18);
-      }
-      var9[var17] = readVarLen(var1, var29[var17]);
-    }
-    int var31 = 0;
-    int var32 = var4;
-    while (((var32 > 0) && (var11 >= 0LL))) {
-      var11 = (-1LL);
-      for (int var19 = 0; (var19 < var4); (var19++)) {
-        if (((var9[var19] >= 0) && ((var11 < 0LL) || (var9[var19] < var11)))) {
-          var11 = var9[var19];
-        }
-      }
-      for (int var33 = 0; (var33 < var4); (var33++)) {
-        int var20 = var9[var33];
-        bool var21 = false;
-        while ((var20 == var11)) {
-          while (((var1[var29[var33]] & 128) != 0)) {
-            var29[var33]++;
-          }
-          var29[var33]++;
-          int var22 = 2;
-          int8_t var23 = 0;
-          if ((((var23 = var1[var29[var33]]) & 128) == 0)) {
-            var23 = var10[var33];
-          } else {
-            var10[var33] = var23;
-            var29[var33]++;
-          }
-          int8_t var24 = 0;
-          if ((((var24 = ((int8_t)((var23 & 240)))) != (-64)) && (var24 != (-48)))) {
-            if ((var24 == (-16))) {
-              if ((var23 == (-1))) {
-                int var25 = (var29[var33] + 1);
-                for ((var22 = (readVarLen(var1, var25) + 2)); ((var1[var25] & 128) != 0); (var22++)) {
-                  var25++;
-                }
-              } else if ((var23 == (-16))) {
-                do {
-                  var29[var33]++;
-                } while ((var1[var29[var33]] != (-9)));
-              } else if (((var23 != (-15)) && (var23 != (-13)))) {
-                var22 = 0;
-              } else {
-                var22 = 1;
-              }
-            }
-          } else {
-            var22 = 1;
-          }
-          if ((var23 == (-1))) {
-            int8_t var42 = 0;
-            if (((var42 = var1[var29[var33]]) == 47)) {
-              var21 = true;
-            } else if ((var42 == 81)) {
-              var15 += (((var11 - var13) * var7) / var5);
-              if (var6) {
-                var7 = ((((var1[(var29[var33] + 2)] & 255) << 16) | ((var1[(var29[var33] + 3)] & 255) << 8)) | (var1[(var29[var33] + 4)] & 255));
-              }
-              var13 = var11;
-            }
-          }
-          if (var21) {
-            var29[var33] = (-1);
-            var20 = (-1);
-            var9[var33] = (-1);
-            if (((--var32) == 1)) {
-              for (int var43 = 0; (var43 < var4); (var43++)) {
-                if ((var29[var43] >= 0)) {
-                  var31 = var43;
-                }
-              }
-            }
-          } else {
-            var29[var33] += var22;
-            var20 = (readVarLen(var1, var29[var33]) + var9[var33]);
-            var9[var33] = var20;
-          }
-        }
-      }
-    }
-    var15 += (((var11 - var13) * var7) / var5);
-    int var34 = 0;
-    if ((((var34 = (((int)((((600000LL - var15) * var5) / 1000000LL))) + 1)) > 0) && (var15 < 600000LL))) {
-      if ((var7 == 1000000)) {
-        var6 = false;
-      }
-      int var35 = varLenSize(var34);
-      int var36 = (((var6 ? 7 : 0) + 10) + var35);
-      Arr<int8_t> var37 = newArr<int8_t>((var1.length() + var36));
-      int var38 = 14;
-      for (int var40 = 0; (var40 < var31); (var40++)) {
-        int var44 = readInt(var1, (var38 + 4));
-        var38 += (8 + var44);
-      }
-      int var41 = (readInt(var1, (var38 + 4)) + var36);
-      writeInt(var1, (var38 + 4), var41);
-      var38 += (((8 + var41) - var36) - 3);
-      int var45 = 0;
-      for ((var45 = 0); (var45 < var38); (var45++)) {
-        var37[var45] = var1[var45];
-      }
-      if (var6) {
-        var37[(var45++)] = (-1);
-        var37[(var45++)] = 81;
-        var37[(var45++)] = 3;
-        var37[(var45++)] = 15;
-        var37[(var45++)] = 66;
-        var37[(var45++)] = 64;
-        var37[(var45++)] = 0;
-      }
-      var37[(var45++)] = (-80);
-      var37[(var45++)] = 7;
-      var37[(var45++)] = 1;
-      var37[(var45++)] = 0;
-      var37[(var45++)] = (-112);
-      var37[(var45++)] = 0;
-      var37[(var45++)] = 1;
-      writeVarLen(var37, var45, var34);
-      var45 += var35;
-      var37[(var45++)] = 0;
-      var37[(var45++)] = 0;
-      var37[(var45++)] = 0;
-      int var26 = var1.length();
-      do {
-        var37[(var45++)] = var1[(var38++)];
-      } while ((var38 < var26));
-      var1 = var37;
-      if ((!this->d)) {
-        this->d = true;
-        this->d = false;
-      }
-    }
+  if ((var0 == 1)) {
+    return String(u"audio/x-wav");
+  } else if ((var0 == 2)) {
+    return String(u"audio/mpeg");
+  } else if ((var0 == 3)) {
+    return String(u"audio/amr");
+  } else if ((var0 == 4)) {
+    return String(u"audio/aac");
+  } else if ((var0 == 7)) {
+    return String(u"application/vnd.nokia.ringing-tone");
+  } else {
+    return ((var0 == 8) ? String(u"audio/x-tone-seq") : String(u"audio/midi"));
   }
-  return var1;
-}
-
-int16_t SoundPlayer::readShort(Arr<int8_t> var0, int var1) {
-  int var2 = (var0[var1] & 255);
-  int var3 = (var0[(var1 + 1)] & 255);
-  return ((int16_t)(((var2 << 8) + (var3 << 0))));
-}
-
-int SoundPlayer::readInt(Arr<int8_t> var0, int var1) {
-  int var2 = (var0[var1] & 255);
-  int var3 = (var0[(var1 + 1)] & 255);
-  int var4 = (var0[(var1 + 2)] & 255);
-  int var5 = (var0[(var1 + 3)] & 255);
-  return ((((var2 << 24) + (var3 << 16)) + (var4 << 8)) + (var5 << 0));
-}
-
-void SoundPlayer::writeInt(Arr<int8_t> var0, int var1, int var2) {
-  var0[var1] = ((int8_t)(((int)((uint32_t)(var2) >> (24)))));
-  var0[(var1 + 1)] = ((int8_t)(((int)((uint32_t)(var2) >> (16)))));
-  var0[(var1 + 2)] = ((int8_t)(((int)((uint32_t)(var2) >> (8)))));
-  var0[(var1 + 3)] = ((int8_t)(((int)((uint32_t)(var2) >> (0)))));
-}
-
-int SoundPlayer::readVarLen(Arr<int8_t> var0, int var1) {
-  int var2 = 0;
-  int var3 = (-1);
-  do {
-    var2 = ((var2 << 7) | (var0[(var1 + (++var3))] & 127));
-  } while (((var3 < 3) && ((var0[(var1 + var3)] & 128) != 0)));
-  return var2;
-}
-
-void SoundPlayer::writeVarLen(Arr<int8_t> var0, int var1, int var2) {
-  int var3 = ((varLenSize(var2) - 1) * 7);
-  int var4 = 0;
-  do {
-    var0[(var1 + var4)] = ((int8_t)(((((int)((uint32_t)(var2) >> (var3))) & 127) | ((var3 > 0) ? 128 : 0))));
-    var3 -= 7;
-    var4++;
-  } while ((var3 >= 0));
-}
-
-int SoundPlayer::varLenSize(int var0) {
-  int8_t var1 = 21;
-  int var2 = 0;
-  for ((var2 = 4); ((var1 > 0) && ((((int)((uint32_t)(var0) >> (var1))) & 127) == 0)); (var2--)) {
-    var1 -= 7;
-  }
-  return var2;
 }
 
 void SoundPlayer::run() {
-  if ((this->isSoundOn() && this->engine->soundEnabled)) {
+  if (this->isSoundOn()) {
     int var1 = this->pendingSlot;
     if ((this->pendingSlot >= 0)) {
       if ((this->playingSlot >= 0)) {
         this->stop();
       }
       this->pendingSlot = (-1);
-      Player* var2 = this->players[var1];
-      try {
-        var2->prefetch();
-      } catch (...) {
-        return;
-      }
-      try {
-        var2->setMediaTime(0LL);
-      } catch (...) {
-      }
-      try {
-        var2->setLoopCount(this->loopCounts[var1]);
-      } catch (...) {
-      }
-      try {
-        var2->start();
-      } catch (...) {
-        return;
+      Player* var2 = nullptr;
+      if (((var2 = this->players[var1]) != nullptr)) {
+        try {
+          var2->prefetch();
+        } catch (...) {
+          return;
+        }
+        try {
+          var2->setMediaTime(0LL);
+        } catch (...) {
+        }
+        try {
+          var2->setLoopCount(this->loopCounts[var1]);
+        } catch (...) {
+        }
+        try {
+          var2->start();
+        } catch (...) {
+          return;
+        }
+        this->currentPlayer = var2;
+      } else {
+        Sound* var3 = nullptr;
+        if (((var3 = this->nokiaSounds[var1]) != nullptr)) {
+          int var4 = this->loopCounts[var1];
+          var3->play(((var4 == (-1)) ? 0 : var4));
+        }
+        this->currentNokiaSound = var3;
       }
       this->playingSlot = var1;
-      this->currentPlayer = var2;
     }
   }
 }
 
 void SoundPlayer::load(int var1, int var2, int var3, int var4) {
   if ((!this->shutDown)) {
-    if ((this->players[var1] != nullptr)) {
+    if (((this->nokiaSounds[var1] != nullptr) || (this->players[var1] != nullptr))) {
       this->unload(var1);
     }
     this->loopCounts[var1] = var3;
     this->priorities[var1] = var4;
     try {
       Arr<int8_t> var5 = this->engine->getResourceBytesAlias(var2);
-      int8_t var6 = this->engine->resourceTypes[(var2 & 1023)];
-      var5 = this->padMidi(var5, var6, (var3 != 1));
+      if ((this->engine->resourceTypes[(var2 & 1023)] == 7)) {
+        this->nokiaSounds[var1] = new Sound(var5, 1);
+        return;
+      }
       this->players[var1] = Manager::createPlayer(new ByteArrayInputStream(var5), mimeType(this->engine->resourceTypes[(var2 & 1023)]));
       this->players[var1]->realize();
       this->players[var1]->prefetch();
@@ -325,15 +129,25 @@ void SoundPlayer::unload(int var1) {
       this->players[var1]->close();
       this->players[var1] = nullptr;
     }
+    if ((this->nokiaSounds[var1] != nullptr)) {
+      this->nokiaSounds[var1]->release();
+      this->nokiaSounds[var1] = nullptr;
+    }
   }
 }
 
 void SoundPlayer::play(int var1) {
-  if ((((this->isSoundOn() && this->engine->soundEnabled) && (this->players[var1] != nullptr)) && ((this->pendingSlot < 0) || (this->priorities[this->pendingSlot] <= this->priorities[var1])))) {
+  if (((this->isSoundOn() && ((this->nokiaSounds[var1] != nullptr) || (this->players[var1] != nullptr))) && ((this->pendingSlot < 0) || (this->priorities[this->pendingSlot] <= this->priorities[var1])))) {
     int var2 = this->playingSlot;
-    Player* var3 = this->currentPlayer;
-    if ((((this->currentPlayer != nullptr) && (var3->getState() == 400)) && (this->priorities[var2] > this->priorities[var1]))) {
-      return;
+    if ((this->playingSlot >= 0)) {
+      Player* var3 = this->currentPlayer;
+      if ((((this->currentPlayer != nullptr) && (var3->getState() == 400)) && (this->priorities[var2] > this->priorities[var1]))) {
+        return;
+      }
+      Sound* var4 = this->currentNokiaSound;
+      if ((((this->currentNokiaSound != nullptr) && (var4->getState() == 0)) && (this->priorities[var2] > this->priorities[var1]))) {
+        return;
+      }
     }
     this->pendingSlot = var1;
   }
@@ -348,6 +162,15 @@ void SoundPlayer::stop() {
     } catch (...) {
     }
     this->currentPlayer = nullptr;
+  }
+  if ((this->currentNokiaSound != nullptr)) {
+    try {
+      if ((this->currentNokiaSound->getState() == 0)) {
+        this->currentNokiaSound->stop();
+      }
+    } catch (...) {
+    }
+    this->currentNokiaSound = nullptr;
   }
   this->pendingSlot = (-1);
   this->playingSlot = (-1);
