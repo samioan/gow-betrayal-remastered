@@ -14,115 +14,107 @@ public abstract class Engine extends GameCanvas implements Runnable {
    public int animDeltaX;
    // $VF: renamed from: b int
    public int animDeltaY;
-   // $VF: renamed from: o long
+   // $VF: renamed from: m long
    private long lastFrameStart;
    // $VF: renamed from: c javax.microedition.midlet.MIDlet
    public MIDlet midlet;
    // $VF: renamed from: d d
    public SoundPlayer soundPlayer;
-   // $VF: renamed from: p boolean
+   // $VF: renamed from: n boolean
    private boolean settingsLoaded;
    // $VF: renamed from: e boolean
    public boolean soundEnabled;
-   private boolean q;
-   // $VF: renamed from: r int
+   private boolean o;
+   // $VF: renamed from: p int
    private int loadedBank = -1;
-   // $VF: renamed from: s int[]
+   // $VF: renamed from: q int[]
    private int[] resourceLengths;
-   // $VF: renamed from: t byte[]
+   // $VF: renamed from: r byte[]
    private byte[] bankData;
    // $VF: renamed from: f byte[]
    public byte[] resourceTypes;
-   // $VF: renamed from: u int
+   // $VF: renamed from: s int
    private int plteOffset;
-   // $VF: renamed from: v byte[]
+   // $VF: renamed from: t byte[]
    private byte[] stringBytes;
-   // $VF: renamed from: w short[]
+   // $VF: renamed from: u short[]
    private short[] stringOffsets;
-   // $VF: renamed from: x c[]
+   // $VF: renamed from: v c[]
    private Sprite[] font;
-   // $VF: renamed from: y char[]
+   // $VF: renamed from: w char[]
    private char[] charBuffer;
-   // $VF: renamed from: z javax.microedition.lcdui.Font
+   // $VF: renamed from: x javax.microedition.lcdui.Font
    private Font systemFont = Font.getFont(0, 0, 0);
-   // $VF: renamed from: A short[]
+   // $VF: renamed from: y short[]
    private short[] animSetIds;
-   // $VF: renamed from: B int[][]
+   // $VF: renamed from: z int[][]
    private int[][] animHeaders;
-   // $VF: renamed from: C byte[][]
+   // $VF: renamed from: A byte[][]
    private byte[][] animFrameTiming;
-   // $VF: renamed from: D int[][]
+   // $VF: renamed from: B int[][]
    private int[][] animFrames;
-   // $VF: renamed from: E char[][]
+   // $VF: renamed from: C char[][]
    private char[][] boxStart;
-   // $VF: renamed from: F int[][]
+   // $VF: renamed from: D int[][]
    private int[][] frameHeaders;
-   // $VF: renamed from: G int[][]
+   // $VF: renamed from: E int[][]
    private int[][] frameParts;
-   // $VF: renamed from: H int[][]
+   // $VF: renamed from: F int[][]
    private int[][] boxPos;
-   // $VF: renamed from: I char[][]
+   // $VF: renamed from: G char[][]
    private char[][] boxSize;
-   // $VF: renamed from: J char[][]
+   // $VF: renamed from: H char[][]
    private char[][] frameDurations;
-   // $VF: renamed from: K java.io.DataInputStream
+   // $VF: renamed from: I java.io.DataInputStream
    private DataInputStream loaderStream;
-   // $VF: renamed from: L short[]
+   // $VF: renamed from: J short[]
    private short[] animSlots;
-   // $VF: renamed from: M int
+   // $VF: renamed from: K int
    private int currentSet;
-   // $VF: renamed from: N byte[]
+   // $VF: renamed from: L byte[]
    private static final byte[] keyCodeTable = new byte[32];
    // $VF: renamed from: g int
    public volatile int keysHeld;
    // $VF: renamed from: h int
    public volatile int keysPressed;
-   // $VF: renamed from: O int
+   // $VF: renamed from: M int
    private volatile int pendingPressed;
-   // $VF: renamed from: P int
+   // $VF: renamed from: N int
    private volatile int downKeys;
-   // $VF: renamed from: Q int
+   // $VF: renamed from: O int
    private volatile int pendingReleased;
-   // $VF: renamed from: i boolean
-   public boolean soundBeforePause;
-   // $VF: renamed from: j boolean
-   public boolean mutedByPause;
-   // $VF: renamed from: R boolean
-   private boolean resumed;
-   // $VF: renamed from: k int
+   // $VF: renamed from: i int
    public int frameTime = 10;
-   // $VF: renamed from: l int
+   // $VF: renamed from: j int
    public int minFrameTime = 10;
-   // $VF: renamed from: m int
+   // $VF: renamed from: k int
    public int maxFrameTime = 100;
-   // $VF: renamed from: S boolean
+   // $VF: renamed from: P boolean
    private boolean resetFrameTiming;
-   // $VF: renamed from: T int
+   // $VF: renamed from: Q int
    private int viewWidth;
-   // $VF: renamed from: U int
+   // $VF: renamed from: R int
    private int viewHeight;
-   // $VF: renamed from: V int
+   // $VF: renamed from: S int
    private int viewOffsetX;
-   // $VF: renamed from: W int
+   // $VF: renamed from: T int
    private int viewOffsetY;
-   // $VF: renamed from: n boolean
+   // $VF: renamed from: l boolean
    public volatile boolean bordersCleared;
-   // $VF: renamed from: X boolean
+   // $VF: renamed from: U boolean
    private volatile boolean clearBorders;
-   // $VF: renamed from: Y java.lang.Thread
+   // $VF: renamed from: V java.lang.Thread
    private Thread gameThread;
-   // $VF: renamed from: Z boolean
+   // $VF: renamed from: W boolean
    private volatile boolean threadRunning;
-   // $VF: renamed from: aa boolean
+   // $VF: renamed from: X boolean
    private volatile boolean shuttingDown;
-   // $VF: renamed from: ab long
+   // $VF: renamed from: Y long
    private volatile long lifecycleTime;
-   // $VF: renamed from: ac int
+   // $VF: renamed from: Z int
    private volatile int pendingLifecycle = -1;
-   // $VF: renamed from: ad int
+   // $VF: renamed from: aa int
    private int lifecycleState = 2;
-   // $VF: renamed from: ae boolean
-   private volatile boolean pendingResume;
 
    static {
       keyCodeTable[1] = -1;
@@ -133,6 +125,7 @@ public abstract class Engine extends GameCanvas implements Runnable {
       keyCodeTable[6] = -2;
       keyCodeTable[8] = -5;
       keyCodeTable[10] = 42;
+      keyCodeTable[15] = -11;
 
       for (int var0 = 0; var0 < 10; var0++) {
          keyCodeTable[16 + var0] = (byte)(48 + var0);
@@ -235,13 +228,13 @@ public abstract class Engine extends GameCanvas implements Runnable {
 
          if (var1 != null) {
             var3 = RecordStore.openRecordStore(var2, true);
-            int var12 = (var1.length + 589824 - 1) / 589824;
+            int var12 = (var1.length + 786432 - 1) / 786432;
             int var7 = 0;
 
             for (int var8 = 1; var8 <= var12; var8++) {
                int var9;
-               if ((var9 = var1.length - var7) > 589824) {
-                  var9 = 589824;
+               if ((var9 = var1.length - var7) > 786432) {
+                  var9 = 786432;
                }
 
                var3.addRecord(var1, var7, var9);
@@ -268,7 +261,7 @@ public abstract class Engine extends GameCanvas implements Runnable {
          if (var1) {
             byte[] var3;
             (var3 = new byte[3])[0] = (byte)(this.soundEnabled ? 1 : 0);
-            var3[1] = (byte)(this.q ? 1 : 0);
+            var3[1] = (byte)(this.o ? 1 : 0);
             writeRecord(-9, var3);
             return;
          }
@@ -281,7 +274,7 @@ public abstract class Engine extends GameCanvas implements Runnable {
          }
 
          this.soundEnabled = var2[0] != 0;
-         this.q = var2[1] != 0;
+         this.o = var2[1] != 0;
       }
    }
 
@@ -491,12 +484,58 @@ public abstract class Engine extends GameCanvas implements Runnable {
       }
    }
 
+   private static String a(byte[] var0, int var1, int var2) {
+      char[] var3 = new char[var2];
+      int var7 = 0;
+      int var8 = 0;
+
+      int var4;
+      while (var7 < var2 && (var4 = var0[var1 + var7] & 255) <= 127) {
+         var7++;
+         var3[var8++] = (char)var4;
+      }
+
+      while (var7 < var2) {
+         switch ((var4 = var0[var1 + var7] & 255) >> 4) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+               var7++;
+               var3[var8++] = (char)var4;
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+            default:
+               break;
+            case 12:
+            case 13:
+               var7 += 2;
+               byte var10 = var0[var1 + var7 - 1];
+               var3[var8++] = (char)((var4 & 31) << 6 | var10 & 63);
+               break;
+            case 14:
+               var7 += 3;
+               byte var5 = var0[var1 + var7 - 2];
+               byte var6 = var0[var1 + var7 - 1];
+               var3[var8++] = (char)((var4 & 15) << 12 | (var5 & 63) << 6 | (var6 & 63) << 0);
+         }
+      }
+
+      return new String(var3, 0, var8);
+   }
+
    // $VF: renamed from: e (int) java.lang.String
    public final String getString(int var1) {
       short var2 = this.stringOffsets[var1];
 
       try {
-         return new String(this.stringBytes, var2, this.stringOffsets[var1 + 1] - var2, "UTF-8");
+         return a(this.stringBytes, var2, this.stringOffsets[var1 + 1] - var2);
       } catch (Exception var3) {
          return null;
       }
@@ -686,11 +725,6 @@ public abstract class Engine extends GameCanvas implements Runnable {
             var1.drawChars(var2, var3, var4, var5, var6, 20);
          }
       }
-   }
-
-   // $VF: renamed from: a (javax.microedition.lcdui.Image, int, int, int, int, javax.microedition.lcdui.Graphics, int, int) void
-   public static void drawImageRegion(Image var0, int var1, int var2, int var3, int var4, Graphics var5, int var6, int var7) {
-      var5.drawRegion(var0, var1, var2, var3, var4, 0, var6, var7, 20);
    }
 
    // $VF: renamed from: a (int[], int, int) int
@@ -1256,8 +1290,6 @@ public abstract class Engine extends GameCanvas implements Runnable {
       this.downKeys = this.downKeys & ~this.pendingReleased;
       this.keysHeld = this.keysPressed | this.downKeys;
       this.pendingReleased = 0;
-      this.pendingReleased = this.pendingReleased | this.downKeys & 939524096;
-      this.pendingReleased = this.pendingReleased | this.downKeys & 16;
    }
 
    // $VF: renamed from: b (int, boolean) void
@@ -1281,12 +1313,6 @@ public abstract class Engine extends GameCanvas implements Runnable {
    }
 
    public void keyPressed(int var1) {
-      if (this.mutedByPause && this.resumed) {
-         this.mutedByPause = false;
-         this.soundEnabled = this.soundBeforePause;
-         this.pendingResume = true;
-      }
-
       this.handleKey(var1, true);
       super.keyPressed(var1);
    }
@@ -1413,11 +1439,6 @@ public abstract class Engine extends GameCanvas implements Runnable {
 
          this.shuttingDown = true;
          this.midlet.notifyDestroyed();
-      } else if (var1 == 2) {
-         try {
-            Thread.sleep(100L);
-         } catch (Exception var2) {
-         }
       }
 
       if (var1 == 0 || var1 == 1 || var1 == 2) {
@@ -1445,12 +1466,11 @@ public abstract class Engine extends GameCanvas implements Runnable {
          this.onLifecycle(var1);
       } else if (this.threadRunning && (var1 == 1 || var1 == 2)) {
          if (var1 == 1) {
-            this.resumed = false;
-            if (!this.mutedByPause) {
-               this.mutedByPause = true;
-               this.soundBeforePause = this.soundEnabled;
-               this.soundEnabled = false;
+            if (this.soundPlayer != null) {
+               this.soundPlayer.stop();
             }
+         } else if (this.soundPlayer != null) {
+            this.soundPlayer.stop();
          }
 
          synchronized (this.gameThread) {
@@ -1464,10 +1484,6 @@ public abstract class Engine extends GameCanvas implements Runnable {
    private void processLifecycle() {
       while (this.pendingLifecycle != -1) {
          if (this.lifecycleState != 1) {
-            if (this.soundPlayer != null) {
-               this.soundPlayer.stop();
-            }
-
             this.onLifecycle(1);
             this.lifecycleState = 1;
          }
@@ -1494,20 +1510,28 @@ public abstract class Engine extends GameCanvas implements Runnable {
                   this.pendingLifecycle = -1;
                }
 
-               if (this.soundPlayer != null) {
-                  this.soundPlayer.stop();
-               }
-
                this.onLifecycle(2);
                this.lifecycleState = 2;
-               this.resumed = true;
+               this.onLifecycle(5);
             }
          }
       }
+   }
 
-      if (this.pendingResume) {
-         this.pendingResume = false;
-         this.onLifecycle(5);
+   // $VF: renamed from: b (java.lang.String) boolean
+   public final boolean openUrl(String var1) {
+      if (this.soundPlayer != null) {
+         this.soundPlayer.stop();
+      }
+
+      try {
+         if (this.midlet.platformRequest(var1)) {
+            this.postLifecycle(3);
+         }
+
+         return true;
+      } catch (Throwable var2) {
+         return false;
       }
    }
 
@@ -1549,11 +1573,7 @@ public abstract class Engine extends GameCanvas implements Runnable {
                this.frameTime = this.minFrameTime;
             } else {
                int var3;
-               if ((var3 = (int)(var1 - this.lastFrameStart)) > 4000) {
-                  this.postLifecycle(2);
-               }
-
-               if (var3 > this.maxFrameTime || var3 < 0) {
+               if ((var3 = (int)(var1 - this.lastFrameStart)) > this.maxFrameTime || var3 < 0) {
                   var3 = this.maxFrameTime;
                }
 

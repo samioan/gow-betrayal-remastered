@@ -17,7 +17,7 @@ tracked elsewhere, so only the scripts are tracked.
 
 ## Scripts
 
-- **`extract_jar.py`** -- unpacks `roms/God-of-War-Betrayal_J2ME_EN_v148.jar`
+- **`extract_jar.py`** -- unpacks `roms/God-of-War-Betrayal_K800i_v1420.jar`
   (a plain zip) into `betrayal/extracted/`, unmodified.
 - **`decompile.py`** -- runs Vineflower over `betrayal/extracted/` and writes
   Java source to `betrayal/decompiled/`. Needs Java 17+: `find_java()` tries
@@ -32,8 +32,8 @@ tracked elsewhere, so only the scripts are tracked.
   exact consumption and reporting atlas rectangles that fall outside their PNG;
   `atlas <id>` / `anim <id>` dump one. stdout only.
 - **`parse_levels.py`** -- replicates `Game`'s bit-packed level loader (header, tile map, tile flags,
-  object groups and every per-object-type field) over the 11 type-245 level blobs, asserting exact
-  consumption; `<id> [map]` dumps one level (with an ASCII tile-type map). stdout only.
+  object groups and every per-object-type field) over the 22 type-245 blobs (11 levels and their 11 parallax
+  backgrounds), asserting exact consumption; `<id> [map]` dumps one level (with an ASCII tile-type map). stdout only.
 - **`outline.py`** -- lists the methods of a renamed source file with line ranges and sizes, and
   callers/callees (`--calls <name|line>`); the map for the `Game` read-through.
 - **`rename_gow.py`** (+ **`ch_rename/ChRenamer.java`**) -- phase 1. Runs

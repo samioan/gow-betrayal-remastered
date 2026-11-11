@@ -1,9 +1,16 @@
 # God of War: Betrayal -- asset formats
 
 Paths are relative to `betrayal/extracted/` (regenerate with
-`python tools/extract_jar.py`). The jar has 6 class files, `i.png` (icon)
+`python tools/extract_jar.py`). The target is the Sony Ericsson K800i build
+(MIDlet 1.4.20, `roms/God-of-War-Betrayal_K800i_v1420.jar`). The jar has 6 class files, `i.png` (icon)
 and 31 resource banks `RP1..RP33` (no RP11, no RP31). Everything below is
 verified by `python tools/parse_banks.py` unless marked *(unverified)*.
+
+Differences from the generic v1.4.8 build this project started from (no longer supported): 22x22 px
+tiles instead of 16x16 on the same grids, a parallax background blob per level (11 extra type-245
+resources), redrawn higher-resolution art (most PNGs, atlases and animation sets changed; the 75
+type-251 arrays did not), all 11 MIDI files used as music *and* sound effects (the MIDI bytes are
+identical), and a handful of reworded strings (same counts and indices).
 
 ## The `RP*` container (confirmed from `a.java`, `a.a(DataInputStream)`)
 
@@ -20,7 +27,7 @@ u8    payload[]    resources back to back, in order (no offset table)
 
 A resource id is `(bank << 10) | index`. `a.m(id)` lazily loads `/RP<bank>`
 (`bank == 0` means "the bank already loaded"; only one bank is resident at a
-time). All 31 banks parse with exact consumption (197 resources).
+time). All 31 banks parse with exact consumption (208 resources).
 
 This is byte-for-byte the format used by the Clone Home jar
 (`../rac-j2me-decomp/clonehome/docs/ASSET_FORMATS.md`).
@@ -37,12 +44,14 @@ identical type bytes; the loaders in `Engine` should be read to confirm each.
 | 247 | 25 | image banks | animation set -- **parsed, exact** (below) |
 | 251 | 75 | image banks | palette-swap / byte arrays for image loading |
 | 250 | 6 | RP10, 12, 29, 30, 32, 33 | UTF-8 string table. RP10[0] starts `01 25 \| 00 06 "Select" 00 04 "Exit" ...`, i.e. u16 count (0x125) then u16-length strings -- checked by eye, not yet by a parser |
-| 0 | 11 | RP1 | audio, `audio/midi` (`MThd` header) |
+| 0 | 11 | RP1[30..40] (ids 1054-1064) | audio, `audio/midi` (`MThd` header); all 11 are loaded into `SoundPlayer` slots 0-10 (slot = id - 1054) |
 | 255 | 1 | RP1[4] (id 1028) | the **menu table**: 128 bytes = 32 big-endian ints (below) |
-| **245** | 11 | RP9 (2), RP19..RP27 | **Level file** -- bit-packed, **parsed, exact** (below) |
+| **245** | 22 | RP9 (4), RP19..RP27 (2 each) | **Level file** and its **parallax background** -- bit-packed, **parsed, exact** (below) |
 
-`SoundPlayer` treats type `14` as `video/3gp` and everything else as
-`audio/midi` (`SoundPlayer.a(byte)`).
+`SoundPlayer.mimeType(type)` maps 1 `audio/x-wav`, 2 `audio/mpeg`, 3 `audio/amr`, 4 `audio/aac`,
+7 `application/vnd.nokia.ringing-tone` (played through `com.nokia.mid.sound.Sound` instead of MMAPI),
+8 `audio/x-tone-seq`, anything else `audio/midi`. Only type 0 occurs, and the bytes go to the player
+unmodified (the v1.4.8 build rewrote each MIDI on load).
 
 By resource-type mix alone (inference, not verified): RP1-RP8 are common art
 and UI, RP13-RP18 and RP28 are art bundles, RP9/RP19-27 hold the type-245
@@ -69,10 +78,10 @@ offsetX/offsetY/e/f and unsigned for the rest. In a *font* atlas, `e` is the
 delta-encoded character code (`Engine.setFont` rewrites them; `font[0].metric`
 = line height, `[1]` = baseline, `[2]` = default advance).
 
-All 34 atlases (2,814 sprites) consume their data exactly. One quirk: atlas 2054
-(RP2[6]) defines 128 tiles of 22x22, four per row, but its PNG (128x256) only
-contains the first 44 -- 84 rectangles lie outside it (harmless, `Sprite.draw`
-clips). Check which tiles `Game` actually uses.
+All 34 atlases (2,836 sprites) consume their data exactly. Atlas 2054 (RP2[6])
+defines 128 tiles of 22x22, four per row; its PNG (176x352) holds the first 64 and
+the other 64 rectangles lie outside it (harmless, `Sprite.draw` clips). The
+v1.4.8 build shipped this same 22 px atlas over 16 px art, a leftover of this build.
 
 ## Animation set (type 247) -- verified by `tools/parse_atlases.py`
 
@@ -111,13 +120,14 @@ through a `Sprite[]` (an atlas). All 25 sets consume exactly (e.g. RP28[0]:
 
 ## Level files (type 245) -- verified by `tools/parse_levels.py`
 
-Eleven levels: `Game.levelIds` (`bB`) = `9217, 19456, 20480 ... 27648` (RP9[1],
-RP19[0]..RP27[0]) for the ten story levels, plus **RP9[0] (id 9216)**, a special
-level the main menu starts directly (`levelResourceId = 9216`, entered with
-`iN = true`; probably a tutorial/bonus stage -- confirm). Loaded by
-`Game.loadLevelStep` (a state machine over `levelLoadStep` 0..10, one step per
-frame so the loading bar can animate); all ten story levels plus RP9[0] parse with
-exact consumption (0-7 spare padding bits).
+Eleven levels: `Game.levelIds` = `9217, 19456, 20480 ... 27648` (RP9[1],
+RP19[0]..RP27[0]) for the ten story levels, plus **RP9[0] (id 9216)**, the challenge
+level the main menu starts directly (`levelResourceId = 9216`). Each has a
+**parallax background**: `Game.bgLevelIds` = `9219, 19457 ... 27649` (RP9[3],
+RP19[1]..RP27[1]) and 9218 (RP9[2]) for the challenge level. Loaded by
+`Game.loadLevelStep(data, background)` (a state machine over `levelLoadStep` 0..10, one step per
+frame so the loading bar can animate; the background is loaded after step 10 with `background = true`);
+all 22 blobs parse with exact consumption (0-7 spare padding bits).
 
 **Bit order** (`Game.readBits(n)`): LSB-first. Bits come from the low end of each
 byte, and a value is assembled little-endian across bytes. `bitsFor(n)` =
@@ -132,7 +142,7 @@ byte, and a value is assembled little-endian across bytes. `bitsFor(n)` =
 16  hs
 1   skip
 16  nTileTypes      4  tileBits      nTileTypes x tileBits: tile-sheet index for each tile type
-16  width  16 height (in 16 px tiles)
+16  width  16 height (in 22 px tiles)
 width*height x bitsFor(nTileTypes): the map, one tile-type index per cell, row-major
 8   skip
 nTileTypes x 1: solid flag per tile type  ->  cellFlags[type] |= 1 ... (bit 0 = solid)
@@ -146,13 +156,29 @@ nGroups x {
 ```
 
 The tile sheet is image 2058 (RP2[10]) recoloured by a palette-swap array chosen
-per level: `levelPaletteVariants` (`bG`) = `{-1,-1,-1,2,0,1,1,0,2,2}` selects RP2[20+n]
+per level: `levelPaletteVariants` (obf. `bK`) = `{-1,-1,-1,2,0,1,1,0,2,2}` selects RP2[20+n]
 (type 251) or none (-1). The same variant number picks the per-level swap array
 for every enemy/prop atlas the level loads in steps 2-9 (`getResourceBytes(base +
 variant)`).
 
-Levels: 232x39, 204x46, 112x59, 113x67, 139x43, 178x38, 116x74, 113x72, 41x138 (a
-tall vertical level), 54x57 tiles; 479-1277 objects each.
+Levels: 232x45, 204x46, 112x59, 113x67, 139x43, 178x38, 116x74, 113x72, 41x138 (a
+tall vertical level), 54x57 tiles; 479-1284 objects each. Challenge level: 86x38.
+
+### Parallax backgrounds
+
+Same format, read by the same loader with `background = true`, which changes:
+
+- `readLevelHeaderFlags` reads nothing (the `q`/flip/dA/dB/`hs` fields are absent).
+- The cells go to `Game.bgScene` (a second `Scene` over the same tile sheet), and none of the
+  level-only work happens: no world size, camera bounds or cell-flag array, and the main level's
+  "invisible" tile types (1, 12, 24, 25, 51, 82, 90, 104, 105, 108, 109, 111, 119, 124 -- drawn as
+  empty in the main layer) are not filtered. The background's tile value is computed as
+  `1 + tileOfType[cell] & 0xFF` (Java precedence: the mask applies to the sum).
+- `mapWidth`/`mapHeight` are restored to the main level's afterwards.
+- Object groups are read as usual; all backgrounds have none except RP22[1] (one type-23 decoration).
+
+Sizes are smaller than their levels (e.g. 173x28 behind 232x45). In the level state, `bgScene` is
+scrolled to `(cameraX >> 1, cameraY >> 1)` and drawn before `scene`.
 
 ### Object group types (`Game.spawnObjects(type, count)`)
 
@@ -187,7 +213,7 @@ The per-object extra bit widths are exactly those in `PER_OBJECT` in
 | 35 | 3+10+1+1 | **gates / moving platforms** (anim set 2049, atlas 2052): id matched by switches/arenas, style, starts-open, and "pan the camera to it when it toggles" |
 | 1, 2, 15, 16, 19, 20, 24 | 0 | not used by `spawnObjects` (position only / ignored) |
 
-### Cell flags (`Game.cellFlags`, old `iW`; `setCellFlags`/`clearCellFlags`/`getCellFlags`)
+### Cell flags (`Game.cellFlags`, obf. `jc`; `setCellFlags`/`clearCellFlags`/`getCellFlags`)
 
 One `short` per map cell; out-of-range reads return 65. Bit values, with the readers
 that fix their meaning:
@@ -214,7 +240,7 @@ that fix their meaning:
 - `1053` (RP1[29], type 251, 768 bytes = 256 x 3): read at boot into
   `R[i] = b0<<18 | b1<<10 | b2<<2` (a 256-entry three-component table, probably
   colour/tint ramps). Consumer not yet found.
-- `1028` (RP1[4], the single type-255 resource): big-endian `int[]` = the **menu table** (`Game.menuTable`, old `iw`):
+- `1028` (RP1[4], the single type-255 resource): big-endian `int[]` = the **menu table** (`Game.menuTable`, obf. `iA`):
   bit 22 (0x400000) marks the first entry of a page, bit 23 (0x800000) the last,
   and 0x3000000 marks a level-select entry as unlocked
   (`unlockLevelMenuEntries`: entries 9..18 unlocked up to `furthestLevel`).

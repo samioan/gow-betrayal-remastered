@@ -9,16 +9,21 @@ port -- and closest to `rac-j2me-decomp`'s *Clone Home*: same engine family
 
 ## The target
 
-`roms/God-of-War-Betrayal_J2ME_EN_v148.jar` (kept out of git, see
+`roms/God-of-War-Betrayal_K800i_v1420.jar`, the Sony Ericsson K800i build (kept out of git, see
 `.gitignore`):
 
 | | |
 |---|---|
-| MIDlet | God Of War, v1.4.8, vendor Glu Mobile LTD, `Created-By: Metaflow` |
-| Profile | MIDP-2.0 / CLDC-1.0, entry point `GOWMIDlet` |
+| MIDlet | God Of War, v1.4.20, Glu Mobile LTD, `Created-By: Metaflow` (the copy's manifest also names its distributor) |
+| Profile | MIDP-2.0 / CLDC-1.1, entry point `GOWMIDlet` |
 | Code | 6 classes: `a` (engine, extends `GameCanvas`), `b`, `c`, `d`, `e` (the game, ~280 KB decompiled) |
-| Data | 31 `RP<n>` resource banks (197 resources) + `i.png` |
+| Data | 31 `RP<n>` resource banks (208 resources) + `i.png` |
 | Screen | 240x320 |
+
+This is the only supported build. Compared with the generic v1.4.8 jar the project started from it
+has 22x22 px tiles (16x16 before), a parallax background layer in every level, higher-resolution art,
+and all 11 MIDI tracks in use as music and sound effects (v1.4.8 played 3). The decompilation and
+`names.map` were migrated to it; see `betrayal/docs/CLASS_MAP.md`, "Migration from v1.4.8".
 
 Plain JVM bytecode, not native code: a Java decompiler (Vineflower)
 reconstructs close-to-original Java directly. Obfuscation is single-letter

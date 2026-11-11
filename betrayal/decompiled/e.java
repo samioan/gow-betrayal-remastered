@@ -4,61 +4,64 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 public final class e extends a {
-   private static boolean iL = false;
-   private final d iM;
+   private static boolean iQ = false;
+   private final d iR;
+   public c[] m;
+   public c[] n;
    public c[] o;
    public c[] p;
-   public c[] q;
-   public c[] r;
-   public int s;
-   public int t;
-   public int u = 0;
-   public boolean v = false;
-   public static int w = 0;
-   public static final int[] x = new int[]{10240, 12288, 33792, 29696, 30720, 32768};
-   public static final int[] y = new int[]{23, 24, 21, 20, 22, 19};
+   public int q;
+   public int r;
+   public String s;
+   public int t = 0;
+   public boolean u = false;
+   public static int v = 0;
+   public static final int[] w = new int[]{10240, 12288, 33792, 29696, 30720, 32768};
+   public static final int[] x = new int[]{23, 24, 21, 20, 22, 19};
+   public static int y;
    public static int z;
-   public static int A;
-   public boolean B;
+   public boolean A;
+   public boolean B = false;
    public boolean C = false;
-   public boolean D = false;
-   public int E = 240;
-   public int F = 320;
+   public int D = 240;
+   public int E = 320;
+   public static int F;
    public static int G;
    public static int H;
-   public static int I;
-   public int J;
-   public int K = 0;
+   public int I;
+   public int J = 0;
+   public int K;
    public int L;
    public int M;
-   public int N;
-   public static Random O;
-   private static boolean iN = false;
-   private b iO;
-   private Image iP;
-   private static int iQ;
-   private static int iR;
-   public int[] P = new int[4];
-   private c[] iS;
-   public int Q = 0;
-   private static boolean iT = false;
-   private static boolean iU = false;
-   public static int[] R;
-   public static byte[] S;
+   public static Random N;
+   private static boolean iS = false;
+   private b iT;
+   private Image iU;
+   private b iV;
+   private static int iW;
+   private static int iX;
+   public int[] O = new int[4];
+   private c[] iY;
+   public int P = 0;
+   private static boolean iZ = false;
+   private static boolean ja = false;
+   public static int[] Q;
+   public static byte[] R;
+   public int S;
    public int T;
    public int U;
-   public int V;
+   public boolean V;
    public boolean W;
    public boolean X;
    public boolean Y;
-   public boolean Z;
+   public int Z;
    public int aa;
    public int ab;
    public int ac;
-   public int ad;
-   public boolean ae;
+   public boolean ad;
+   public int ae;
    public int af;
-   public int ag;
+   public boolean ag;
    public boolean ah;
    public boolean ai;
    public boolean aj;
@@ -68,454 +71,459 @@ public final class e extends a {
    public boolean an;
    public boolean ao;
    public boolean ap;
-   public boolean aq;
-   public static byte ar = 4;
-   public boolean as;
-   public int at;
-   public boolean au;
+   public static byte aq = 4;
+   public boolean ar;
+   public int as;
+   public boolean at;
+   public int au = 0;
    public int av = 0;
-   public int aw = 0;
-   public int ax = 200;
+   public int aw = 200;
+   public int ax = -1;
    public int ay = -1;
-   public int az = -1;
+   public int az;
    public int aA;
    public int aB;
-   public int aC;
-   public int aD = -1;
+   public int aC = -1;
+   public int[] aD;
    public int[] aE;
-   public int[] aF;
+   public boolean[] aF;
    public boolean[] aG;
-   public boolean[] aH;
+   public int aH = 0;
    public int aI = 0;
-   public int aJ = 0;
-   public int aK = 45;
-   public static c[] aL;
+   public int aJ = 60;
+   public static c[] aK;
+   public int aL;
    public int aM;
    public int aN;
    public int aO;
-   public int aP;
-   public int[] aQ = new int[2];
-   public boolean aR = false;
-   public boolean aS;
-   public int aT = -1;
-   public c[] aU;
-   public static final byte[] aV = new byte[]{11, 2, 2, 2, 2};
-   public boolean aW = false;
-   public int aX;
+   public int[] aP = new int[2];
+   public boolean aQ = false;
+   public boolean aR;
+   public int aS = -1;
+   public c[] aT;
+   public static final byte[] aU = new byte[]{11, 2, 2, 2, 2};
+   public boolean aV = false;
+   public int aW;
+   public int[] aX = new int[40];
    public int[] aY = new int[40];
-   public int[] aZ = new int[40];
+   public int aZ;
    public int ba;
-   public int bb;
-   public boolean bc;
-   public int bd;
+   public boolean bb;
+   public int bc;
+   public boolean bd = false;
    public boolean be = false;
-   public boolean bf = false;
-   public int bg = 0;
-   public static byte bh = 3;
-   public boolean bi;
-   public static byte bj = 0;
+   public int bf = 0;
+   public static byte bg = 3;
+   public boolean bh;
+   public static byte bi = 0;
+   public boolean bj = false;
    public int bk = 0;
    public int bl = 0;
-   public static String bm;
-   public int bn;
-   public static c[] bo;
-   public int bp = 0;
-   public int bq;
-   private byte[] iV;
-   private short[] iW;
-   private static int iX;
-   private static int iY;
-   private static int iZ;
-   private static int ja;
-   private static int jb;
-   public int br;
-   public int[] bs;
-   public int[] bt;
-   public int bu;
-   public int bv;
+   public int bm;
+   public static String bn;
+   public int bo;
+   public int bp;
+   public static c[] bq;
+   public int br = 0;
+   public int bs;
+   private byte[] jb;
+   private short[] jc;
+   private static int jd;
+   private static int je;
+   private static int jf;
+   private static int jg;
+   private static int jh;
+   public int bt;
+   public int[] bu;
+   public int[] bv;
    public int bw;
    public int bx;
    public int by;
    public int bz;
-   public int bA = -1;
-   public static final int[] bB = new int[]{9217, 19456, 20480, 21504, 22528, 23552, 24576, 25600, 26624, 27648};
-   public int bC;
-   public int bD;
-   public int bE;
-   public String bF;
-   public static final int[] bG = new int[]{-1, -1, -1, 2, 0, 1, 1, 0, 2, 2};
-   private byte[] jc;
-   private int jd;
-   private int je;
-   private int jf;
-   public c[] bH;
-   public static int[] bI = new int[10];
-   public int[] bJ = new int[10];
-   public int[] bK = new int[10];
-   public int[] bL = new int[10];
-   public int bM = -1;
-   public c[] bN;
+   public int bA;
+   public int bB;
+   public int bC = -1;
+   public static final int[] bD = new int[]{9217, 19456, 20480, 21504, 22528, 23552, 24576, 25600, 26624, 27648};
+   public static final int[] bE = new int[]{9219, 19457, 20481, 21505, 22529, 23553, 24577, 25601, 26625, 27649};
+   public int bF;
+   public int bG;
+   public int bH;
+   public String bI;
+   public int bJ = -1;
+   public static final int[] bK = new int[]{-1, -1, -1, 2, 0, 1, 1, 0, 2, 2};
+   private byte[] ji;
+   private int jj;
+   private int jk;
+   private int jl;
+   public c[] bL;
+   public static int[] bM = new int[10];
+   public int[] bN = new int[10];
    public int[] bO = new int[10];
-   public static int[] bP = new int[10];
-   public int[] bQ = new int[10];
-   public static int[] bR = new int[10];
+   public int[] bP = new int[10];
+   public int bQ = -1;
+   public c[] bR;
    public int[] bS = new int[10];
-   public int[] bT = new int[10];
+   public static int[] bT = new int[10];
    public int[] bU = new int[10];
-   public boolean[] bV = new boolean[10];
-   public static int bW = -1;
-   public c[] bX;
-   public int[] bY = new int[20];
-   public static int[] bZ = new int[20];
-   public static int[] ca = new int[20];
-   public int[] cb = new int[20];
+   public static int[] bV = new int[10];
+   public int[] bW = new int[10];
+   public int[] bX = new int[10];
+   public int[] bY = new int[10];
+   public boolean[] bZ = new boolean[10];
+   public static int ca = -1;
+   public c[] cb;
    public int[] cc = new int[20];
-   public static int cd = -1;
-   public c[] ce;
+   public static int[] cd = new int[20];
+   public static int[] ce = new int[20];
    public int[] cf = new int[20];
    public int[] cg = new int[20];
-   public static int[] ch = new int[20];
-   public int[] ci = new int[20];
+   public static int ch = -1;
+   public c[] ci;
    public int[] cj = new int[20];
-   public static int ck = -1;
-   public int[] cl;
-   public static int[] cm;
-   public int[] cn;
-   public int[] co;
-   public c[] cp;
-   public c[] cq;
-   public int cr = -1;
-   public int cs;
-   public int ct;
-   public int cu;
-   public static int cv;
-   public static c[] cw;
-   public int cx = -1;
-   public int[] cy;
-   public static int[] cz;
-   public boolean[] cA;
-   public int[] cB;
+   public int[] ck = new int[20];
+   public static int[] cl = new int[20];
+   public int[] cm = new int[20];
+   public int[] cn = new int[20];
+   public static int co = -1;
+   public int[] cp;
+   public static int[] cq;
+   public int[] cr;
+   public int[] cs;
+   public c[] ct;
+   public c[] cu;
+   public int cv = -1;
+   public int cw;
+   public int cx;
+   public int cy;
+   public static int cz;
+   public static c[] cA;
+   public int cB = -1;
    public int[] cC;
-   public boolean[] cD;
-   public static int[] cE;
+   public static int[] cD;
+   public boolean[] cE;
    public int[] cF;
-   public static int[] cG;
-   public int[] cH;
-   public static int cI = -1;
-   public c[] cJ;
+   public int[] cG;
+   public boolean[] cH;
+   public static int[] cI;
+   public int[] cJ;
    public static int[] cK;
-   public static int[] cL;
-   public static int[] cM;
-   public int[] cN;
+   public int[] cL;
+   public static int cM = -1;
+   public c[] cN;
    public static int[] cO;
    public static int[] cP;
-   public int[] cQ;
+   public static int[] cQ;
    public int[] cR;
-   public int[] cS;
+   public static int[] cS;
    public static int[] cT;
    public int[] cU;
-   public static boolean[] cV;
-   public boolean[] cW;
-   public byte[] cX;
+   public int[] cV;
+   public int[] cW;
+   public static int[] cX;
    public int[] cY;
-   public static int[] cZ;
-   public int[] da;
-   public int[] db;
+   public static boolean[] cZ;
+   public boolean[] da;
+   public byte[] db;
    public int[] dc;
    public static int[] dd;
    public int[] de;
-   public static int[] df;
+   public int[] df;
    public int[] dg;
-   public c[] dh;
-   public int[] di = new int[10];
-   public int[] dj = new int[10];
-   public int[] dk = new int[10];
-   public static int[] dl = new int[10];
-   public static int[] dm = new int[10];
+   public static int[] dh;
+   public int[] di;
+   public static int[] dj;
+   public int[] dk;
+   public c[] dl;
+   public int[] dm = new int[10];
    public int[] dn = new int[10];
    public int[] do = new int[10];
-   public int dp = -1;
-   public c[] dq;
-   public int[] dr = new int[15];
-   public int[] ds = new int[15];
-   public static int[] dt = new int[15];
-   public int[] du = new int[15];
+   public static int[] dp = new int[10];
+   public static int[] dq = new int[10];
+   public int[] dr = new int[10];
+   public int[] ds = new int[10];
+   public int dt = -1;
+   public c[] du;
    public int[] dv = new int[15];
    public int[] dw = new int[15];
    public static int[] dx = new int[15];
    public int[] dy = new int[15];
-   public int dz = -1;
-   public boolean dA;
-   public boolean dB;
-   public c[] dC;
-   public static c[] dD;
-   public c[] dE;
-   public c[] dF;
-   public int dG;
-   public int dH = 0;
-   public int dI;
-   public static int[] dJ = new int[15];
-   public int[] dK = new int[15];
-   public int dL;
-   public static int dM;
-   public int dN;
-   public byte dO;
-   public int[] dP = new int[15];
-   public byte[] dQ = new byte[15];
-   public int[] dR = new int[15];
-   public byte[] dS = new byte[15];
-   public static int[] dT = new int[15];
-   public int[] dU = new int[15];
-   public static int[] dV = new int[15];
-   public static int[] dW = new int[15];
-   public int[] dX = new int[15];
-   public byte[] dY = new byte[15];
-   public int[] dZ = new int[15];
-   public int[] ea = new int[15];
-   public static byte[] eb = new byte[15];
-   public static byte[] ec = new byte[15];
-   public static byte[] ed = new byte[15];
-   public short[] ee = new short[15];
-   public short[] ef = new short[15];
-   public byte[] eg = new byte[15];
-   public boolean[] eh = new boolean[15];
-   public boolean[] ei = new boolean[15];
-   public boolean[] ej = new boolean[15];
-   public static int[] ek = new int[15];
-   public byte[] el = new byte[15];
-   public int[] em = new int[15];
-   public static int[] en = new int[15];
-   public int[] eo = new int[15];
-   public int[] ep = new int[15];
-   public boolean[] eq = new boolean[15];
+   public int[] dz = new int[15];
+   public int[] dA = new int[15];
+   public static int[] dB = new int[15];
+   public int[] dC = new int[15];
+   public int dD = -1;
+   public boolean dE;
+   public boolean dF;
+   public c[] dG;
+   public static c[] dH;
+   public c[] dI;
+   public c[] dJ;
+   public int dK;
+   public int dL = 0;
+   public int dM;
+   public static int[] dN = new int[15];
+   public int[] dO = new int[15];
+   public int dP;
+   public static int dQ;
+   public int dR;
+   public byte dS;
+   public int[] dT = new int[15];
+   public byte[] dU = new byte[15];
+   public int[] dV = new int[15];
+   public byte[] dW = new byte[15];
+   public static int[] dX = new int[15];
+   public int[] dY = new int[15];
+   public static int[] dZ = new int[15];
+   public static int[] ea = new int[15];
+   public int[] eb = new int[15];
+   public byte[] ec = new byte[15];
+   public int[] ed = new int[15];
+   public int[] ee = new int[15];
+   public static byte[] ef = new byte[15];
+   public static byte[] eg = new byte[15];
+   public static byte[] eh = new byte[15];
+   public short[] ei = new short[15];
+   public short[] ej = new short[15];
+   public byte[] ek = new byte[15];
+   public boolean[] el = new boolean[15];
+   public boolean[] em = new boolean[15];
+   public boolean[] en = new boolean[15];
+   public static int[] eo = new int[15];
+   public byte[] ep = new byte[15];
+   public int[] eq = new int[15];
    public static int[] er = new int[15];
-   public static boolean[] es = new boolean[15];
+   public int[] es = new int[15];
    public int[] et = new int[15];
-   public static int[] eu = new int[15];
-   public static boolean[] ev = new boolean[15];
-   public static short[] ew = new short[30];
-   public static boolean ex = true;
-   public boolean ey;
-   public boolean ez = true;
-   public static boolean eA = true;
-   public int eB;
-   public int[] eC;
-   public int[] eD;
-   public int[] eE;
-   public int[] eF;
-   public boolean[] eG;
-   public c[] eH;
+   public boolean[] eu = new boolean[15];
+   public static int[] ev = new int[15];
+   public static boolean[] ew = new boolean[15];
+   public int[] ex = new int[15];
+   public static int[] ey = new int[15];
+   public static boolean[] ez = new boolean[15];
+   public static short[] eA = new short[30];
+   public static boolean eB = true;
+   public boolean eC;
+   public boolean eD = true;
+   public static boolean eE = true;
+   public int eF;
+   public int[] eG;
+   public int[] eH;
    public int[] eI;
    public int[] eJ;
-   public int[] eK;
-   public static byte[] eL;
-   public c[] eM;
+   public boolean[] eK;
+   public c[] eL;
+   public int[] eM;
    public int[] eN;
    public int[] eO;
-   public int[] eP;
-   public static int[] eQ;
+   public static byte[] eP;
+   public c[] eQ;
    public int[] eR;
    public int[] eS;
    public int[] eT;
-   public byte[] eU;
-   public byte[] eV;
-   public static boolean[] eW;
-   public static int eX = -1;
-   public c[] eY;
-   public int eZ = -1;
-   public int[] fa;
-   public int[] fb;
-   public static int[] fc;
-   public static int[] fd;
+   public static int[] eU;
+   public int[] eV;
+   public int[] eW;
+   public int[] eX;
+   public byte[] eY;
+   public byte[] eZ;
+   public static boolean[] fa;
+   public static int fb = -1;
+   public c[] fc;
+   public int fd = -1;
    public int[] fe;
-   public static int[] ff;
-   public int[] fg;
-   public byte[] fh;
-   public byte[] fi;
-   public static boolean[] fj;
-   public static boolean[] fk;
-   public c[] fl;
-   public int fm = -1;
-   public int fn;
-   public int fo;
-   public static boolean[] fp;
-   public int[] fq;
-   public int[] fr;
-   public static int[] fs;
-   public int[] ft = new int[10];
-   public c[] fu;
-   public int fv = -1;
-   public int fw = 0;
-   public c[] fx;
-   public static final int[] fy = new int[80];
-   public static final int[] fz = new int[80];
-   public static final int[] fA = new int[20];
-   public static final int[] fB = new int[20];
-   public static final int[] fC = new int[20];
-   public static final int[] fD = new int[20];
+   public int[] ff;
+   public static int[] fg;
+   public static int[] fh;
+   public int[] fi;
+   public static int[] fj;
+   public int[] fk;
+   public byte[] fl;
+   public byte[] fm;
+   public static boolean[] fn;
+   public static boolean[] fo;
+   public c[] fp;
+   public int fq = -1;
+   public int fr;
+   public int fs;
+   public static boolean[] ft;
+   public int[] fu;
+   public int[] fv;
+   public static int[] fw;
+   public int[] fx = new int[10];
+   public c[] fy;
+   public int fz = -1;
+   public int fA = 0;
+   public c[] fB;
+   public static final int[] fC = new int[80];
+   public static final int[] fD = new int[80];
    public static final int[] fE = new int[20];
    public static final int[] fF = new int[20];
-   public int fG = -1;
-   public c[] fH;
-   public static final byte[] fI = new byte[]{2, 2, 2, 4, 4, 4, 8};
-   public static final byte[] fJ = new byte[]{4, 4, 10, 10, 18, 18};
-   public static final byte[] fK = new byte[]{2, 3, 4, 5, 6};
-   public static final int[] fL = new int[]{128, 256, 512, 1024, 1536};
-   public int fM = 0;
-   public boolean fN;
-   public int fO;
-   public int fP;
-   public int fQ;
-   public static boolean fR;
+   public static final int[] fG = new int[20];
+   public static final int[] fH = new int[20];
+   public static final int[] fI = new int[20];
+   public static final int[] fJ = new int[20];
+   public int fK = -1;
+   public c[] fL;
+   public static final byte[] fM = new byte[]{2, 2, 2, 4, 4, 4, 8};
+   public static final byte[] fN = new byte[]{4, 4, 10, 10, 18, 18};
+   public static final byte[] fO = new byte[]{2, 3, 4, 5, 6};
+   public static final int[] fP = new int[]{128, 256, 512, 1024, 1536};
+   public int fQ = 0;
+   public boolean fR;
    public int fS;
    public int fT;
-   public static final int[] fU = new int[]{2, 4, 5, 6, 8};
-   public boolean fV;
+   public int fU;
+   public static boolean fV;
    public int fW;
    public int fX;
-   public int fY;
-   public int fZ;
+   public static final int[] fY = new int[]{2, 4, 5, 6, 8};
+   public boolean fZ;
    public int ga;
    public int gb;
-   public static int gc;
-   public static int gd;
-   public int ge = -1;
-   public boolean gf;
-   public static boolean gg;
-   public static boolean gh;
-   public boolean gi;
+   public int gc;
+   public int gd;
+   public int ge;
+   public int gf;
+   public static int gg;
+   public static int gh;
+   public int gi = -1;
    public boolean gj;
-   public boolean gk;
-   public byte gl;
+   public static boolean gk;
+   public static boolean gl;
    public boolean gm;
    public boolean gn;
    public boolean go;
-   public boolean gp;
-   public static boolean gq;
-   public static boolean gr;
+   public byte gp;
+   public boolean gq;
+   public boolean gr;
    public boolean gs;
    public boolean gt;
-   public boolean gu;
-   public boolean gv;
-   public int gw;
-   public static int gx;
+   public static boolean gu;
+   public static boolean gv;
+   public boolean gw;
+   public boolean gx;
    public boolean gy;
    public boolean gz;
-   public boolean gA;
-   public static boolean gB;
-   public static int gC;
-   public int gD;
+   public int gA;
+   public static int gB;
+   public boolean gC;
+   public boolean gD;
    public boolean gE;
-   public static int gF;
-   public int gG;
-   public static int gH = 0;
-   public int gI = 0;
-   public int gJ = -1;
+   public static boolean gF;
+   public static int gG;
+   public int gH;
+   public boolean gI;
+   public static int gJ;
    public int gK;
-   public int gL;
-   public static boolean gM;
-   public static byte gN;
-   public byte gO;
-   public static byte gP;
-   public static byte gQ;
-   public static final int[] gR = new int[]{1000, 2000, 3000, 4000};
-   public static final int[] gS = new int[]{1000, 2000, 3000, 4000};
-   public static final int[] gT = new int[]{1000, 2000, 3000, 4000};
-   public static final int[] gU = new int[]{1000, 2000, 3000, 4000};
-   public static byte gV = 0;
-   public static byte gW = 0;
-   public int gX;
-   public int gY;
-   public int gZ;
-   public int ha;
-   public static boolean hb = false;
-   public static boolean hc = false;
-   public boolean hd = false;
-   public static int he;
-   public static byte hf;
-   public int hg;
-   public static int hh;
-   public int hi;
-   public int hj;
+   public static int gL = 0;
+   public int gM = 0;
+   public int gN = -1;
+   public int gO;
+   public int gP;
+   public static boolean gQ;
+   public static byte gR;
+   public byte gS;
+   public static byte gT;
+   public static byte gU;
+   public static final int[] gV = new int[]{1000, 2000, 3000, 4000};
+   public static final int[] gW = new int[]{1000, 2000, 3000, 4000};
+   public static final int[] gX = new int[]{1000, 2000, 3000, 4000};
+   public static final int[] gY = new int[]{1000, 2000, 3000, 4000};
+   public static byte gZ = 0;
+   public static byte ha = 0;
+   public int hb;
+   public int hc;
+   public int hd;
+   public int he;
+   public static boolean hf = false;
+   public static boolean hg = false;
+   public boolean hh = false;
+   public static int hi;
+   public static byte hj;
    public int hk;
    public static int hl;
    public int hm;
    public int hn;
    public int ho;
-   public int hp;
+   public static int hp;
    public int hq;
-   public static int hr;
+   public int hr;
    public int hs;
-   public short[] ht = new short[20];
-   public static boolean hu;
-   public boolean hv;
-   public boolean hw;
-   public int hx;
-   public int hy;
-   public int hz;
-   public int hA = -1;
-   public static int hB = -1;
-   public boolean hC = true;
-   public static boolean hD = true;
-   public boolean hE = false;
-   public boolean hF = false;
-   public boolean hG = false;
-   public int hH = 0;
-   public int hI;
-   public int hJ;
-   public int hK = 0;
+   public int ht;
+   public int hu;
+   public static int hv;
+   public int hw;
+   public short[] hx = new short[20];
+   public static boolean hy;
+   public boolean hz;
+   public boolean hA;
+   public int hB;
+   public int hC;
+   public int hD;
+   public int hE = -1;
+   public static int hF = -1;
+   public boolean hG = true;
+   public static boolean hH = true;
+   public boolean hI = false;
+   public boolean hJ = false;
+   public boolean hK = false;
    public int hL = 0;
-   public short[] hM = new short[256];
-   public int hN = 0;
-   public int hO;
-   public int hP = -1;
-   public int hQ;
-   public boolean hR;
-   public static int hS;
-   public static int hT;
-   public static int hU;
-   public static int hV;
-   public static String[] hW;
-   public static String[] hX;
-   public static byte[] hY;
+   public int hM;
+   public int hN;
+   public int hO = 0;
+   public int hP = 0;
+   public short[] hQ = new short[256];
+   public int hR = 0;
+   public int hS;
+   public int hT = -1;
+   public int hU;
+   public boolean hV;
+   public static int hW;
+   public static int hX;
+   public static int hY;
    public static int hZ;
-   public static int ia;
-   public static int ib;
-   public static boolean ic;
-   public static final int[] id = new int[]{40, -1, -3, -3, -3};
-   public static final int[] ie = new int[]{42, -1, -3, -3, -3};
-   public static final int[] if = new int[]{44, -1, -3, -3, -3};
-   public static final byte[] ig = new byte[]{13, 4, 2, 2, 2};
-   public static final byte[] ih = new byte[]{13, 4, 4, 4, 4};
-   public int ii;
-   public int ij;
-   public int ik;
-   public int il;
+   public static String[] ia;
+   public static String[] ib;
+   public static byte[] ic;
+   public static int id;
+   public static int ie;
+   public static int if;
+   public static boolean ig;
+   public static final int[] ih = new int[]{40, -1, -3, -3, -3};
+   public static final int[] ii = new int[]{42, -1, -3, -3, -3};
+   public static final int[] ij = new int[]{44, -1, -3, -3, -3};
+   public static final byte[] ik = new byte[]{13, 4, 2, 2, 2};
+   public static final byte[] il = new byte[]{13, 4, 4, 4, 4};
    public int im;
    public int in;
    public int io;
-   public boolean ip;
-   public static byte[] iq;
-   public static byte[] ir;
-   public static int[] is;
-   public static boolean it = true;
-   public int iu;
-   public int iv = -1;
+   public int ip;
+   public int iq;
+   public int ir;
+   public int is;
+   public boolean it;
+   public static byte[] iu;
+   public static byte[] iv;
    public static int[] iw;
-   public static int ix;
+   public static boolean ix = true;
    public int iy;
-   public int iz;
-   public int iA;
-   public boolean iB;
-   public boolean iC = false;
+   public int iz = -1;
+   public static int[] iA;
+   public static int iB;
+   public int iC;
    public int iD;
    public int iE;
-   public int iF;
-   public int iG;
-   public int iH;
-   public boolean iI = false;
+   public boolean iF;
+   public boolean iG = false;
+   public boolean iH = false;
+   public int iI;
    public int iJ;
-   public static boolean iK;
+   public int iK;
+   public int iL;
+   public int iM;
+   public boolean iN = false;
+   public int iO;
+   public static boolean iP;
 
    static {
       int[] var10000 = new int[]{320, 420, 690, 400, 500, 590, 1030};
@@ -528,41 +536,41 @@ public final class e extends a {
       int var1 = super.h;
       if (super.h != 0) {
          if ((var1 & 2097408) != 0) {
-            this.s = 8;
+            this.q = 8;
          } else if ((var1 & 4194336) != 0) {
-            this.s = 5;
+            this.q = 5;
          } else if ((var1 & 1048580) != 0) {
-            this.s = 2;
+            this.q = 2;
          } else if ((var1 & 262146) != 0) {
-            this.s = 1;
+            this.q = 1;
          } else if ((var1 & 16777280) != 0) {
-            this.s = 6;
+            this.q = 6;
          } else if ((var1 & 131072) != 0) {
-            this.s = 49;
+            this.q = 49;
          } else if ((var1 & 524288) != 0) {
-            this.s = 51;
+            this.q = 51;
          } else if ((var1 & 8388608) != 0) {
-            this.s = 55;
+            this.q = 55;
          } else if ((var1 & 33554432) != 0) {
-            this.s = 57;
+            this.q = 57;
          } else if ((var1 & 65536) != 0) {
-            this.s = 48;
+            this.q = 48;
          } else if ((var1 & 1024) != 0) {
-            this.s = 42;
+            this.q = 42;
          } else if ((var1 & 8) != 0) {
-            this.s = 35;
+            this.q = 35;
          } else if ((var1 & 134217728) != 0) {
-            this.s = 27;
+            this.q = 27;
          } else {
-            this.s = 0;
+            this.q = 0;
          }
 
          if ((var1 & 603979776) != 0) {
-            this.s = 29;
+            this.q = 29;
             return;
          }
       } else {
-         this.s = 0;
+         this.q = 0;
       }
    }
 
@@ -570,118 +578,124 @@ public final class e extends a {
       int var1 = super.g;
       if (super.g != 0) {
          if ((var1 & 2097408) != 0) {
-            this.t = 8;
+            this.r = 8;
          } else if ((var1 & 4194336) != 0) {
-            this.t = 5;
+            this.r = 5;
          } else if ((var1 & 1048580) != 0) {
-            this.t = 2;
+            this.r = 2;
          } else if ((var1 & 262146) != 0) {
-            this.t = 1;
+            this.r = 1;
          } else if ((var1 & 16777280) != 0) {
-            this.t = 6;
+            this.r = 6;
          } else if ((var1 & 131072) != 0) {
-            this.t = 49;
+            this.r = 49;
          } else if ((var1 & 524288) != 0) {
-            this.t = 51;
+            this.r = 51;
          } else if ((var1 & 8388608) != 0) {
-            this.t = 55;
+            this.r = 55;
          } else if ((var1 & 33554432) != 0) {
-            this.t = 57;
+            this.r = 57;
          } else if ((var1 & 65536) != 0) {
-            this.t = 48;
+            this.r = 48;
          } else if ((var1 & 1024) != 0) {
-            this.t = 42;
+            this.r = 42;
          } else if ((var1 & 8) != 0) {
-            this.t = 35;
+            this.r = 35;
          } else if ((var1 & 134217728) != 0) {
-            this.t = 27;
+            this.r = 27;
          } else if ((var1 & 604012544) != 0) {
-            this.t = 29;
+            this.r = 29;
          } else {
-            this.t = 0;
+            this.r = 0;
          }
       } else {
-         this.t = 0;
+         this.r = 0;
       }
    }
 
    public e(GOWMIDlet var1) {
       super(var1);
-      super.m = 100;
-      super.l = 40;
+      super.k = 100;
+      super.j = 40;
       this.c(240, 320);
-      this.iM = new d(this, 12);
-      this.iM.a(false);
-      I = 0;
+      this.iR = new d(this, 12);
+      this.iR.a(false);
+      H = 0;
 
       try {
-         this.B = a.a(var1.getAppProperty("ENABLECHEATS"), 0) == 1;
-      } catch (Exception var3) {
-         this.B = false;
+         this.A = a.a(var1.getAppProperty("ENABLECHEATS"), 0) == 1;
+      } catch (Exception var4) {
+         this.A = false;
       }
 
       try {
-         this.bE = a.a(var1.getAppProperty("DEMO"), 0);
-         this.bF = var1.getAppProperty("DemoBuyURL");
+         this.bH = a.a(var1.getAppProperty("DEMO"), 0);
+         this.bI = var1.getAppProperty("DemoBuyURL");
+      } catch (Exception var3) {
+         this.bH = 0;
+         this.bI = "";
+      }
+
+      try {
+         this.s = var1.getAppProperty("carrierurl");
       } catch (Exception var2) {
-         this.bE = 0;
-         this.bF = "";
+         this.s = null;
       }
    }
 
    public final void i(int var1) {
       if (var1 != 0) {
          if (var1 == 1) {
-            if (I != 102 && I != 107) {
+            if (H != 102 && H != 107) {
+               this.ae = this.Z >> 8;
                this.af = this.aa >> 8;
-               this.ag = this.ab >> 8;
             }
 
-            if (I != 107 && I != 102) {
-               this.J = I;
+            if (H != 107 && H != 102) {
+               this.I = H;
             }
 
-            if (I != 100
-               && I != 78
-               && I != 105
-               && I != 108
-               && I != 101
-               && I != 102
-               && I != 104
-               && I != 106
-               && I != 109
-               && I != 103
-               && I != 79
-               && I != -3
-               && I != 16
-               && I != 107
-               && I != 0
-               && I != 1) {
-               I = 80;
-               this.hR = false;
-            } else if (I != 79 && I != 106 && I != 108 && I != 109 && I != -3 && I != 1 && I != 16 && I != 107 && I != 0 && I != 78) {
-               this.a(H - (z << 1), H - (z << 1), 35, 35);
-               this.hR = false;
-               this.T = H - (z << 1) << 8;
-               this.U = H - (z << 1) << 8;
-               this.W = false;
-               I = 102;
-               this.iB = true;
+            if (H != 100
+               && H != 78
+               && H != 105
+               && H != 108
+               && H != 101
+               && H != 102
+               && H != 104
+               && H != 106
+               && H != 109
+               && H != 103
+               && H != 79
+               && H != -3
+               && H != 16
+               && H != 107
+               && H != 0
+               && H != 1) {
+               H = 80;
+               this.hV = false;
+            } else if (H != 79 && H != 106 && H != 108 && H != 109 && H != -3 && H != 1 && H != 16 && H != 107 && H != 0 && H != 78) {
+               this.a(G - (y << 1), G - (y << 1), 35, 35);
+               this.hV = false;
+               this.S = G - (y << 1) << 8;
+               this.T = G - (y << 1) << 8;
+               this.V = false;
+               H = 102;
+               this.iF = true;
             }
 
-            this.iI = false;
-            this.iC = true;
+            this.iN = false;
+            this.iG = true;
          } else if (var1 == 5) {
-            if (this.hR && I == 80) {
-               this.hR = false;
-               this.y(0);
+            if (this.hV && H == 80) {
+               this.hV = false;
+               this.y(9);
             }
          } else if (var1 == 2) {
-            if (I == 80) {
-               this.y(0);
+            if (H == 80) {
+               this.y(9);
             }
          } else if (var1 == 3) {
-            this.iM.c();
+            this.iR.c();
          }
       }
 
@@ -689,140 +703,141 @@ public final class e extends a {
    }
 
    public final void a() {
-      this.L = super.k >> this.hH;
+      this.K = super.i >> this.hL;
       this.f();
       this.k();
       this.l();
-      switch (I) {
+      switch (H) {
          case 0:
-            if (this.K <= 13) {
+            if (this.J <= 13) {
                this.n();
                return;
             }
 
-            this.iS = null;
+            this.iY = null;
             this.a((DataInputStream)null);
-            this.iC = true;
+            this.iG = true;
             this.A(1);
-            this.iS = null;
-            hX = new String[3];
-            hX[0] = this.e(36);
-            hX[1] = "";
-            hX[2] = "";
-            this.a(if, ih);
-            I = 78;
+            this.iY = null;
+            ib = new String[3];
+            ib[0] = this.e(36);
+            ib[1] = "";
+            ib[2] = "";
+            this.a(ij, il);
+            H = 78;
             this.d();
-            this.K = 0;
+            this.J = 0;
             return;
          case 1:
             this.m();
-            if (this.v) {
-               G();
-               if (this.u == 0) {
-                  this.D();
+            if (this.u) {
+               F();
+               if (this.t == 0) {
+                  this.C();
                   this.b(false);
-                  S = this.c(this.bA);
-                  this.ge = -1;
-                  dM = -1;
-                  this.dN = -1;
+                  R = this.c(this.bC);
+                  this.gi = -1;
+                  dQ = -1;
+                  this.dR = -1;
                }
 
-               if (this.u <= 10) {
-                  this.a(S, false);
+               if (this.t <= 10) {
+                  this.a(R, false);
                   return;
                }
 
                this.e();
-               S = null;
-               if (this.eB >= 1) {
-                  this.eB--;
+               R = null;
+               if (this.eF >= 1) {
+                  this.eF--;
                }
 
-               this.t();
-               int var2 = this.u;
-               this.u = 0;
-               this.u = var2;
-               this.v = false;
-               this.b(false);
+               this.s();
+               int var5 = this.t;
+               this.t = 0;
+               this.a(this.c(this.bJ), true);
+               this.t = var5;
+               this.u = false;
                this.o();
-               this.iO.b(iQ, iR);
-               this.a(H, H, 35, 35);
-               this.bf = true;
-               if (this.Q <= 0) {
-                  this.al = true;
+               this.iV.b(iW >> 1, iX >> 1);
+               this.iT.b(iW, iX);
+               this.a(G, G, 35, 35);
+               this.be = true;
+               if (this.P <= 0) {
+                  this.ak = true;
                   return;
                }
             }
 
             return;
          case 78:
-            if (this.s == 27 || this.s == 8) {
-               this.f(x[w]);
-               this.iC = true;
+            if (this.q == 27 || this.q == 8) {
+               this.f(w[v]);
+               this.iG = true;
                this.h();
-               hX = new String[3];
-               hX[0] = this.e(36);
-               hX[1] = "";
-               hX[2] = "";
-               this.a(if, ih);
-               I = 79;
+               ib = new String[3];
+               ib[0] = this.e(36);
+               ib[1] = "";
+               ib[2] = "";
+               this.a(ij, il);
+               H = 79;
                return;
             }
 
-            if (this.s == 1) {
-               if (w > 0) {
-                  w--;
+            if (this.q == 1) {
+               if (v > 0) {
+                  v--;
                   return;
                }
 
                return;
             } else {
-               if (this.s == 6) {
-                  if (w < 5) {
-                     w++;
+               if (this.q == 6) {
+                  if (v < 5) {
+                     v++;
                      return;
                   }
-               } else if (this.s == 29) {
-                  this.M();
+               } else if (this.q == 29) {
+                  this.L();
                   return;
                }
 
                return;
             }
          case 79:
-            this.I();
+            this.H();
             this.m();
-            if ((this.s == 27 || this.s == 29) && this.T == 0) {
-               if (this.s == 27) {
-                  this.iM.a(true);
+            if ((this.q == 27 || this.q == 29) && this.S == 0) {
+               if (this.q == 27) {
+                  this.iR.a(true);
                } else {
-                  this.iM.a(false);
+                  this.iR.a(false);
                }
 
-               iL = this.iM.b();
-               this.y(0);
-               if (this.aa == H << 8) {
+               iQ = this.iR.b();
+               this.y(9);
+               if (this.Z == G << 8) {
                   this.a(0, 0, 35, 35);
                } else {
-                  this.a(H, H, 35, 35);
+                  this.a(G, G, 35, 35);
                }
 
-               this.iC = true;
+               this.iG = true;
                return;
             }
 
             return;
          case 80:
-            this.N = O.nextInt();
-            if (this.T == 0) {
-               this.L();
+            this.M = N.nextInt();
+            if (this.S == 0) {
                this.K();
+               this.J();
             }
 
             this.m();
-            if (this.s == 48 && this.B) {
-               for (int var1 = 0; var1 < 10; var1++) {
-                  iw[9 + var1] = iw[9 + var1] = iw[9 + var1] | 50331648;
+            if (this.q == 48 && this.A) {
+               for (int var4 = 0; var4 < 10; var4++) {
+                  iA[9 + var4] = iA[9 + var4] = iA[9 + var4] | 50331648;
                }
 
                return;
@@ -835,101 +850,132 @@ public final class e extends a {
          case 108:
             break;
          case 104:
-            this.hH = 0;
-            if (this.fv == 10) {
-               this.hm += 3;
-               this.hj = this.hj + this.hm / 64;
-               if (this.hj > this.hm) {
-                  this.hj = this.hm;
+            this.hL = 0;
+            if (this.fz == 10) {
+               this.hq += 3;
+               this.hn = this.hn + this.hq / 64;
+               if (this.hn > this.hq) {
+                  this.hn = this.hq;
                }
             } else {
-               this.hn += 3;
-               hl = hl + this.hn / 64;
-               if (hl > this.hn) {
-                  hl = this.hn;
+               this.hr += 3;
+               hp = hp + this.hr / 64;
+               if (hp > this.hr) {
+                  hp = this.hr;
                }
             }
 
-            if (this.fw <= 0) {
-               I = 100;
-               this.iB = true;
-               if (this.hj > this.hm && this.fv == 10) {
-                  this.hj = this.hm;
-               } else if (this.fv == 9) {
-                  hl = this.hn;
+            if (this.fA <= 0) {
+               H = 100;
+               this.iF = true;
+               if (this.hn > this.hq && this.fz == 10) {
+                  this.hn = this.hq;
+               } else if (this.fz == 9) {
+                  hp = this.hr;
                }
             }
 
-            this.fw -= 3;
+            this.fA -= 3;
          case 100:
-            this.bp = this.bp + this.L;
-            if (this.bp >= 250) {
-               this.bp = 0;
-               if (this.bq == 0) {
-                  this.bq = 16777215;
+            this.br = this.br + this.K;
+            if (this.br >= 250) {
+               this.br = 0;
+               if (this.bs == 0) {
+                  this.bs = 16777215;
                } else {
-                  this.bq = 0;
+                  this.bs = 0;
                }
             }
 
-            this.bc = false;
+            this.bb = false;
             break;
          case 106:
             this.m();
-            this.bi = false;
-            this.q();
-            return;
-         case 107:
-            if (!this.aW) {
-               this.E();
-            }
-
-            if (this.aW) {
-               if (this.t == 1) {
-                  this.aX = 24;
-               } else {
-                  this.aX = 4;
-               }
-
-               if (this.t == 6) {
-                  this.aX = -24;
-               }
-
-               this.in = this.in + this.L * this.aX;
-               if (this.in < 0) {
-                  this.in = 0;
-               }
-
-               if ((this.in >> 8 > 50 + this.F - z || this.t == 29 && this.T == this.aa) && I == 107 && this.aa < H << 8) {
-                  this.a(H, H, 35, 35);
-                  if (this.Q > 0) {
-                     this.al = true;
+            this.t(134);
+            if (!this.t(133)) {
+               if (this.bh) {
+                  c var1 = aK[this.bj ? 37 : 34];
+                  c var2 = aK[this.bj ? 41 : 38];
+                  if (!this.bj) {
+                     for (int var6 = 0; var6 <= bg; var6++) {
+                        aK[34 + var6] = var6 + 1 > bg ? var1 : aK[34 + var6 + 1];
+                        aK[38 + var6] = var6 + 1 > bg ? var2 : aK[38 + var6 + 1];
+                     }
                   } else {
-                     this.am = true;
-                     this.Q = -1;
+                     for (int var3 = 0; var3 <= bg; var3++) {
+                        aK[37 - var3] = var3 + 1 > bg ? var1 : aK[37 - var3 - 1];
+                        aK[41 - var3] = var3 + 1 > bg ? var2 : aK[41 - var3 - 1];
+                     }
                   }
                }
-            } else if (this.s == 29 && this.T == this.aa) {
-               this.ah = true;
-               this.a(H, H, 35, 35);
-               this.iC = true;
+
+               this.bh = false;
+               this.a(133, 1025, 2);
+            }
+
+            this.q();
+            this.H();
+            return;
+         case 107:
+            if (!this.aV) {
+               this.D();
+            }
+
+            if (this.aV) {
+               if (this.r == 1) {
+                  this.aW = 24;
+               } else {
+                  this.aW = 4;
+               }
+
+               if (this.r == 6) {
+                  this.aW = -24;
+               }
+
+               this.ir = this.ir + this.K * this.aW;
+               if (this.ir < 0) {
+                  this.ir = 0;
+               }
+
+               if ((this.ir >> 8 > 70 + this.E - y || this.r == 29 && this.S == this.Z) && H == 107 && this.Z < G << 8) {
+                  this.a(G, G, 35, 35);
+                  if (this.P > 0) {
+                     this.ak = true;
+                  } else {
+                     this.al = true;
+                     this.P = -1;
+                  }
+               }
+            } else if (this.q == 29 && this.S == this.Z) {
+               this.ag = true;
+               this.a(G, G, 35, 35);
+               this.iG = true;
             }
 
             this.m();
             return;
          case 109:
             this.m();
-            if (this.T == this.aa && this.U == this.ab && !this.W) {
-               if (this.s == 27 && (this.bE <= 0 || this.bC < this.bE)) {
-                  this.au = true;
-                  this.z(1);
-                  this.a(H, H, 35, 35);
+            if (this.S == this.Z && this.T == this.aa && !this.V) {
+               if (this.q == 27) {
+                  this.a(133, 1025, 2);
+                  this.a(134, 1025, 3);
+                  if (this.bH > 0 && this.bF >= this.bH) {
+                     iP = true;
+                     this.b(this.bI);
+                     this.L();
+                  } else {
+                     this.bm = (256 - (this.hu & 0xFF)) * 320 >> 8;
+                     this.at = true;
+                     this.z(1);
+                     this.a(G, G, 35, 35);
+                  }
                }
 
-               if (this.s == 29) {
-                  this.a(H, H, 35, 35);
-                  this.ao = true;
-                  this.cr = -1;
+               if (this.q == 29) {
+                  this.a(G, G, 35, 35);
+                  this.an = true;
+                  this.cv = -1;
                   return;
                }
             }
@@ -939,418 +985,422 @@ public final class e extends a {
             return;
       }
 
-      this.N = O.nextInt();
-      if ((I == 100 || I == 105 || I == 108) && !this.bc) {
-         this.z();
+      this.M = N.nextInt();
+      if ((H == 100 || H == 105 || H == 108) && !this.bb) {
+         this.y();
       }
 
-      if (I == 105) {
-         this.t = 0;
-         this.s = 0;
+      if (H == 105) {
+         this.r = 0;
+         this.q = 0;
       }
 
-      if (I == 101) {
-         if (this.T >= this.aa && this.T < this.F << 8) {
-            this.bd = this.bd + (this.L >> 4 - (this.t == 8 ? 3 : 0));
+      if (H == 101) {
+         if (this.S >= this.Z && this.S < this.E << 8) {
+            this.bc = this.bc + (this.K >> 4 - (this.r == 8 ? 3 : 0));
          }
 
          this.r();
       } else {
-         this.bd = 0;
+         this.bc = 0;
       }
 
       this.o();
-      this.iO.b(iQ, iR);
+      this.iT.b(iW, iX);
+      this.iV.b(iW >> 1, iX >> 1);
       this.m();
    }
 
    private void a(int var1, int var2, int var3, int var4) {
-      this.Y = this.T <= var1 << 8;
-      this.Z = this.U <= var2 << 8;
-      this.W = this.Z || this.Y;
-      if (this.W) {
-         this.V = 375;
+      this.X = this.S <= var1 << 8;
+      this.Y = this.T <= var2 << 8;
+      this.V = this.Y || this.X;
+      if (this.V) {
+         this.U = 375;
       }
 
-      this.aa = var1 << 8;
-      this.ab = var2 << 8;
-      this.ac = var3;
-      this.ad = var4;
-      this.v = false;
-      this.ap = false;
+      this.Z = var1 << 8;
+      this.aa = var2 << 8;
+      this.ab = var3;
+      this.ac = var4;
+      this.u = false;
       this.ao = false;
-      this.X = false;
+      this.an = false;
+      this.W = false;
    }
 
    private void m() {
-      if (this.T >= this.aa && this.U >= this.ab && (I == 105 || I == 100)) {
-         this.bc = false;
+      if (this.S >= this.Z && this.T >= this.aa && (H == 105 || H == 100)) {
+         this.bb = false;
       }
 
-      if (this.T == this.aa && this.U == this.ab && this.V > 0) {
-         if (this.V == 375 && I != 101 && I != 105) {
-            this.y(1);
+      if (this.S == this.Z && this.T == this.aa && this.U > 0) {
+         if (this.U == 375 && H != 101 && H != 105) {
+            this.y(10);
          }
 
-         this.V = this.V - this.L;
-         if (this.V < 0) {
-            this.V = 0;
+         this.U = this.U - this.K;
+         if (this.U < 0) {
+            this.U = 0;
             return;
          }
       } else {
-         if (I == 1) {
-            if (this.T == this.aa && this.U == this.ab && this.W && this.Q <= 0) {
-               if (!this.al) {
-                  if (!iN) {
-                     this.a(H - (z << 1), H - (z << 1), 35, 35);
+         if (H == 1) {
+            if (this.S == this.Z && this.T == this.aa && this.V && this.P <= 0) {
+               if (!this.ak) {
+                  if (!iS) {
+                     this.a(G - (y << 1), G - (y << 1), 35, 35);
                   } else {
-                     this.a(H - (z << 1) - z, H - (z << 1) - z, 35, 35);
+                     this.a(G - (y << 1) - y, G - (y << 1) - y, 35, 35);
                   }
 
-                  this.W = false;
+                  this.V = false;
                } else {
                   this.a(0, 0, 35, 35);
-                  I = 100;
-                  this.iB = true;
-                  this.u = 0;
-                  this.Q = 0;
-                  this.bf = false;
-                  this.al = false;
+                  H = 100;
+                  this.iF = true;
+                  this.t = 0;
+                  this.P = 0;
+                  this.be = false;
+                  this.ak = false;
                }
-            } else if (this.Q > 0 && this.u >= 10 && this.T >= this.aa && this.U >= this.ab && this.W) {
-               this.bf = true;
+            } else if (this.P > 0 && this.t >= 10 && this.S >= this.Z && this.T >= this.aa && this.V) {
+               this.be = true;
                int[] var2;
                (var2 = new int[3])[0] = -1;
-               var2[1] = this.Q;
+               var2[1] = this.P;
                var2[2] = -1;
-               this.cr = -1;
-               this.a(var2, aV, 8, 25, 211, 270, 30);
-               this.aW = true;
-               this.a(25, 25, 35, 35);
-               this.in = 0;
-               I = 107;
-            } else if (this.Q > 0 && this.u > 10 && !this.W && this.T == this.aa && this.U == this.ab) {
-               this.aW = true;
-               this.bf = true;
-               this.a(H, H, 35, 35);
-               this.v = true;
-            } else if (this.T == this.aa && this.U == this.ab && !this.W && !this.v) {
-               this.W = false;
-               this.v = true;
+               this.cv = -1;
+               this.a(var2, aU, 12, 35, 200, 250, 30);
+               this.aV = true;
+               this.a(35, 35, 35, 35);
+               this.ir = 0;
+               H = 107;
+            } else if (this.P > 0 && this.t > 10 && !this.V && this.S == this.Z && this.T == this.aa) {
+               this.aV = true;
+               this.be = true;
+               this.a(G, G, 35, 35);
+               this.u = true;
+            } else if (this.S == this.Z && this.T == this.aa && !this.V && !this.u) {
+               this.V = false;
+               this.u = true;
             }
-         } else if (I == 101) {
-            if (this.T == this.aa && this.U == this.ab && this.W && this.aW) {
-               this.a(this.aQ, aV, 8, 25, 211, 270, 30);
-               if (hX != null) {
-                  hX[0] = "";
-                  hX[2] = "";
+         } else if (H == 101) {
+            if (this.S == this.Z && this.T == this.aa && this.V && this.aV) {
+               this.a(this.aP, aU, 12, 35, 200, 250, 30);
+               if (ib != null) {
+                  ib[0] = "";
+                  ib[2] = "";
                }
 
-               this.a(25, 25, 35, 35);
-               I = 107;
-               this.in = 0;
+               this.a(35, 35, 35, 35);
+               H = 107;
+               this.ir = 0;
             }
-         } else if (I == 102) {
-            if (this.T == this.aa && this.U == this.ab && this.W) {
-               if (this.ap) {
-                  this.a(this.af, this.ag, 35, 35);
-                  I = this.J;
-                  this.ap = false;
-                  this.W = false;
-                  this.a(this.aQ, aV, 8, 0, 211, z * 5 + A, 30);
-               } else if (this.ao) {
+         } else if (H == 102) {
+            if (this.S == this.Z && this.T == this.aa && this.V) {
+               if (this.ao) {
+                  this.a(this.ae, this.af, 35, 35);
+                  H = this.I;
                   this.ao = false;
-                  this.D();
-                  this.y(0);
+                  this.V = false;
+                  this.a(this.aP, aU, 12, 0, 200, y * 5 + z, 30);
+               } else if (this.an) {
+                  this.an = false;
+                  this.C();
+                  this.y(9);
                   this.b(true);
                   this.a((DataInputStream)null);
-                  ix = 0;
-                  this.iy = 0;
-                  I = 80;
+                  iB = 0;
+                  this.iC = 0;
+                  H = 80;
                   this.a(0, 0, 35, 35);
                   this.z(1);
-               } else if (this.an) {
-                  this.M();
-               } else if (this.aq) {
+               } else if (this.am) {
+                  this.L();
+               } else if (this.ap) {
                   this.h();
-                  hX = new String[3];
-                  hX[0] = "";
-                  hX[2] = "";
-                  this.a(this.q);
-                  hX[1] = this.e(114) + "\n" + this.e(292) + "\n\n\n\n";
-                  this.a(id, ig);
-                  this.a(25, 25, 35, 35);
-                  I = 107;
-                  this.in = 0;
+                  ib = new String[3];
+                  ib[0] = "";
+                  ib[2] = "";
+                  this.a(this.o);
+                  ib[1] = this.e(114) + "\n" + this.e(292) + "\n\n\n\n";
+                  this.a(ih, ik);
+                  this.a(35, 35, 35, 35);
+                  H = 107;
+                  this.ir = 0;
                } else {
-                  this.a(H - (z << 1), H - (z << 1), 35, 35);
-                  this.X = true;
+                  this.a(G - (y << 1), G - (y << 1), 35, 35);
+                  this.W = true;
                }
 
-               this.W = false;
+               this.V = false;
             }
-         } else if (I == 80) {
-            if (this.T == this.aa && this.U == this.ab && this.W && this.aj) {
-               this.aj = false;
+         } else if (H == 80) {
+            if (this.S == this.Z && this.T == this.aa && this.V && this.ai) {
+               this.ai = false;
                this.h();
-               hX = new String[3];
-               hX[0] = "";
-               hX[2] = "";
-               this.a(this.q);
-               if (this.ai) {
-                  hX[1] = this.e(115);
+               ib = new String[3];
+               ib[0] = "";
+               ib[2] = "";
+               this.a(this.o);
+               if (this.ah) {
+                  ib[1] = this.e(115);
                   int var1;
-                  if ((var1 = hX[1].indexOf(37)) != -1) {
-                     hX[1] = hX[1].substring(0, var1) + "1.4.8" + hX[1].substring(var1 + 1, hX[1].length());
+                  if ((var1 = ib[1].indexOf(37)) != -1) {
+                     ib[1] = ib[1].substring(0, var1) + "1.4.20" + ib[1].substring(var1 + 1, ib[1].length());
                   }
 
-                  this.a(ie, ig);
+                  this.a(ii, ik);
                } else {
-                  hX[1] = this.e(114) + "\n" + this.e(292) + "\n\n\n\n";
-                  this.a(id, ig);
+                  ib[1] = this.e(114) + "\n" + this.e(292) + "\n\n\n\n";
+                  this.a(ih, ik);
                }
 
-               this.a(25, 25, 35, 35);
-               I = 107;
+               this.a(35, 35, 35, 35);
+               H = 107;
             }
-         } else if (I == 79) {
-            if (this.T == this.aa && this.U == this.ab && this.W) {
+         } else if (H == 79) {
+            if (this.S == this.Z && this.T == this.aa && this.V) {
                this.a(0, 0, 35, 35);
-               this.iI = false;
-               this.iC = true;
+               this.iN = false;
+               this.iG = true;
                this.z(1);
-               I = 80;
+               H = 80;
             }
-         } else if (I != 107) {
-            if (I == 109) {
-               if (this.T == this.aa && this.U == this.ab && this.W) {
-                  if (!this.ao && !this.au) {
-                     this.a(H - (z << 1), H - (z << 1), 35, 35);
-                  } else if (this.au) {
-                     I = 106;
+         } else if (H != 107) {
+            if (H == 109) {
+               if (this.S == this.Z && this.T == this.aa && this.V) {
+                  if (!this.an && !this.at) {
+                     this.a(G - (y << 1), G - (y << 1), 35, 35);
+                  } else if (this.at) {
+                     this.a(133, 1025, 2);
+                     this.a(134, 1025, 3);
+                     H = 106;
                      this.a(0, 0, 35, 35);
                   } else {
-                     I = 80;
-                     this.y(0);
-                     this.ao = false;
+                     H = 80;
+                     this.y(9);
+                     this.an = false;
                      this.z(1);
-                     if (this.bD >= 10) {
-                        ix = 9;
+                     if (this.bG >= 10) {
+                        iB = 9;
                      } else {
-                        ix = this.bD + 9;
+                        iB = this.bG + 9;
                      }
 
-                     this.D();
+                     this.C();
                      this.b(true);
                      this.a((DataInputStream)null);
-                     this.bf = false;
-                     this.iy = 0;
+                     this.be = false;
+                     this.iC = 0;
                      this.a(0, 0, 35, 35);
                   }
                }
-            } else if (I == 108 && this.T == this.aa && this.U == this.ab && this.W) {
-               if (!this.ao && !this.ap) {
-                  if (iN) {
-                     this.a(H - (z << 1) - z - (z >> 2), H - (z << 1) - z - (z >> 2), 35, 35);
+            } else if (H == 108 && this.S == this.Z && this.T == this.aa && this.V) {
+               if (!this.an && !this.ao) {
+                  if (iS) {
+                     this.a(G - (y << 1) - y - (y >> 2), G - (y << 1) - y - (y >> 2), 35, 35);
                   } else {
-                     this.a(H - A - (z >> 2), H - A - (z >> 2), 35, 35);
+                     this.a(G - z - (y >> 2), G - z - (y >> 2), 35, 35);
                   }
 
-                  this.X = true;
-               } else if (!this.ap && this.ao) {
-                  this.ao = false;
-                  this.D();
-                  this.y(0);
+                  this.W = true;
+               } else if (!this.ao && this.an) {
+                  this.an = false;
+                  this.C();
+                  this.y(9);
                   this.b(true);
                   this.a((DataInputStream)null);
-                  this.iy = 0;
-                  ix = 0;
-                  I = 80;
+                  this.iC = 0;
+                  iB = 0;
+                  H = 80;
                   this.a(0, 0, 35, 35);
                   this.z(1);
                } else {
-                  I = 100;
-                  this.iB = true;
+                  H = 100;
+                  this.iF = true;
                   this.a(0, 0, 35, 35);
-                  this.X = true;
+                  this.W = true;
                }
             }
          } else {
-            if (this.T != this.aa || this.U == this.ab) {
+            if (this.S != this.Z || this.T == this.aa) {
                this.h();
             }
 
-            if (this.T == this.aa && this.U == this.ab && this.ah) {
-               if (!this.aq) {
-                  I = 80;
-                  this.ah = false;
-                  ix = 0;
-                  this.iy = 0;
+            if (this.S == this.Z && this.T == this.aa && this.ag) {
+               if (!this.ap) {
+                  H = 80;
+                  this.ag = false;
+                  iB = 0;
+                  this.iC = 0;
                   this.a(0, 0, 35, 35);
-               } else if (this.T == H << 8) {
-                  this.cr = this.at;
-                  this.aq = false;
-                  this.ah = false;
-                  this.a(H - (z << 1), H - (z << 1), 35, 35);
-                  I = 102;
+               } else if (this.S == G << 8) {
+                  this.cv = this.as;
+                  this.ap = false;
+                  this.ag = false;
+                  this.a(G - (y << 1), G - (y << 1), 35, 35);
+                  H = 102;
                }
-            } else if (this.T == this.aa && this.U == this.ab && this.am && this.Q < 0) {
-               this.a(H - (z << 1), H - (z << 1), 35, 35);
-               this.bf = true;
-               this.am = false;
-               this.iI = false;
-               ix++;
-               this.bC++;
-               if (this.bC > this.bD && (this.bE <= 0 || this.bC < this.bE)) {
-                  this.bD = this.bC;
-               }
-
-               if (this.bC < 10) {
-                  this.bA = bB[this.bC];
+            } else if (this.S == this.Z && this.T == this.aa && this.al && this.P < 0) {
+               this.a(G - (y << 1), G - (y << 1), 35, 35);
+               this.be = true;
+               this.al = false;
+               this.iN = false;
+               iB++;
+               this.bF++;
+               if (this.bF > this.bG && (this.bH <= 0 || this.bF < this.bH)) {
+                  this.bG = this.bF;
                }
 
-               this.ae = true;
-               this.v = false;
-               this.D();
-               if (this.bC < 10) {
-                  I = 109;
+               if (this.bF < 10) {
+                  this.bC = bD[this.bF];
+                  this.bJ = bE[this.bF];
+               }
+
+               this.ad = true;
+               this.u = false;
+               this.C();
+               if (this.bF < 10) {
+                  H = 109;
                } else {
-                  this.D();
-                  this.y(0);
+                  this.C();
+                  this.y(9);
                   this.b(true);
                   this.a((DataInputStream)null);
                   this.a(0, 0, 35, 35);
-                  this.iy = 0;
-                  ix = 0;
-                  this.bf = false;
-                  I = 80;
+                  this.iC = 0;
+                  iB = 0;
+                  this.be = false;
+                  H = 80;
                   this.z(1);
                }
-            } else if (this.T >= this.aa && this.U >= this.ab && this.Q > 0 && this.al) {
-               I = 100;
-               this.iB = true;
-               this.bf = false;
-               this.al = false;
-               this.u = 0;
-               this.Q = 0;
+            } else if (this.S >= this.Z && this.T >= this.aa && this.P > 0 && this.ak) {
+               H = 100;
+               this.iF = true;
+               this.be = false;
+               this.ak = false;
+               this.t = 0;
+               this.P = 0;
                this.a(0, 0, 35, 35);
             }
          }
 
-         if (I == 102 && this.X && this.V < 0) {
-            this.X = false;
-            I = this.J;
-            this.bc = true;
-            this.iB = true;
+         if (H == 102 && this.W && this.U < 0) {
+            this.W = false;
+            H = this.I;
+            this.bb = true;
+            this.iF = true;
          }
 
-         if (this.T > 115) {
-            if (I == 108 && this.T == this.aa && !this.W) {
-               if (this.s != 8 && this.s != 27) {
-                  if (this.s == 29) {
-                     this.a(H, H, 35, 35);
-                     this.ao = true;
+         if (this.S > 115) {
+            if (H == 108 && this.S == this.Z && !this.V) {
+               if (this.q != 8 && this.q != 27) {
+                  if (this.q == 29) {
+                     this.a(G, G, 35, 35);
+                     this.an = true;
                   }
-               } else if (!iN) {
-                  this.ga = this.fY;
-                  this.gb = this.fZ;
-                  hu = this.hv;
-                  iQ = this.ga - 120 - ((hu ? 1 : -1) * 240 >> 2);
-                  iR = this.gb - 266;
-                  this.aO = iQ << 8;
-                  this.aP = iR << 8;
-                  this.hw = false;
+               } else if (!iS) {
+                  this.ge = this.gc;
+                  this.gf = this.gd;
+                  hy = this.hz;
+                  iW = this.ge - 120 - ((hy ? 1 : -1) * 240 >> 2);
+                  iX = this.gf - 266;
+                  this.aN = iW << 8;
+                  this.aO = iX << 8;
+                  this.hA = false;
                   this.s(0);
-                  this.hj = this.hm;
-                  this.hk = this.hm;
-                  hl = this.hn;
-                  this.a(H, H, 35, 35);
-                  this.X = true;
-                  this.iB = true;
-                  this.gJ = -1;
-                  this.ap = true;
+                  this.hn = this.hq;
+                  this.ho = this.hq;
+                  hp = this.hr;
+                  this.a(G, G, 35, 35);
+                  this.W = true;
+                  this.iF = true;
+                  this.gN = -1;
+                  this.ao = true;
                }
-            } else if (I == 102 && this.T == this.aa && !this.W) {
-               if (this.s != 8 && this.s != 27) {
-                  if (this.s == 29) {
-                     if (this.as) {
-                        this.as = false;
+            } else if (H == 102 && this.S == this.Z && !this.V) {
+               if (this.q != 8 && this.q != 27) {
+                  if (this.q == 29) {
+                     if (this.ar) {
+                        this.ar = false;
                      } else {
-                        this.a(H, H, 35, 35);
-                        this.ap = true;
+                        this.a(G, G, 35, 35);
+                        this.ao = true;
                      }
-                  } else if (this.s == 2) {
-                     if (!this.as) {
-                        ar++;
-                        if (ar > 4) {
-                           ar = 4;
+                  } else if (this.q == 2) {
+                     if (!this.ar) {
+                        aq++;
+                        if (aq > 4) {
+                           aq = 4;
                         }
                      }
-                  } else if (this.s == 5 && !this.as) {
-                     ar--;
-                     if (ar < 1) {
-                        ar = 1;
+                  } else if (this.q == 5 && !this.ar) {
+                     aq--;
+                     if (aq < 1) {
+                        aq = 1;
                      }
                   }
-               } else if (ar == 4) {
-                  this.iM.a(!this.iM.b());
-                  iL = this.iM.b();
-               } else if (ar == 2 && this.as) {
-                  this.a(H, H, 35, 35);
-                  this.cr = -1;
-                  this.ao = true;
-               } else if (ar == 1 && this.as) {
-                  this.a(H, H, 35, 35);
+               } else if (aq == 4) {
+                  this.iR.a(!this.iR.b());
+                  iQ = this.iR.b();
+               } else if (aq == 2 && this.ar) {
+                  this.a(G, G, 35, 35);
+                  this.cv = -1;
                   this.an = true;
-               } else if ((ar == 2 || ar == 1) && !this.as) {
-                  this.as = true;
-               } else if (ar == 3) {
-                  this.aW = false;
-                  this.a(H, H, 35, 35);
-                  this.aq = true;
-                  this.at = this.cr;
-                  this.cr = -1;
+               } else if (aq == 1 && this.ar) {
+                  this.a(G, G, 35, 35);
+                  this.am = true;
+               } else if ((aq == 2 || aq == 1) && !this.ar) {
+                  this.ar = true;
+               } else if (aq == 3) {
+                  this.aV = false;
+                  this.a(G, G, 35, 35);
+                  this.ap = true;
+                  this.as = this.cv;
+                  this.cv = -1;
                } else {
-                  this.as = false;
-                  this.aq = false;
+                  this.ar = false;
+                  this.ap = false;
                }
             }
          }
 
-         if (this.T < this.aa && this.Y && (this.ae && this.U <= this.U || !this.ae)) {
-            this.iB = true;
-            this.T = this.T + this.L * this.ac;
-            if (this.T >= this.aa) {
+         if (this.S < this.Z && this.X && (this.ad && this.T <= this.T || !this.ad)) {
+            this.iF = true;
+            this.S = this.S + this.K * this.ab;
+            if (this.S >= this.Z) {
+               this.S = this.Z;
+               if (H == 105) {
+                  this.bb = false;
+               }
+            }
+         }
+
+         if (this.T < this.aa && this.Y) {
+            this.T = this.T + this.K * this.ab;
+            this.iF = true;
+            if (this.T > this.aa) {
                this.T = this.aa;
-               if (I == 105) {
-                  this.bc = false;
-               }
             }
          }
 
-         if (this.U < this.ab && this.Z) {
-            this.U = this.U + this.L * this.ac;
-            this.iB = true;
-            if (this.U > this.ab) {
-               this.U = this.ab;
+         if (this.S > this.Z && !this.X) {
+            this.iF = true;
+            this.S = this.S - this.K * this.ab;
+            if (this.S <= this.Z) {
+               this.S = this.Z;
             }
+
+            this.aj = true;
          }
 
          if (this.T > this.aa && !this.Y) {
-            this.iB = true;
-            this.T = this.T - this.L * this.ac;
-            if (this.T <= this.aa) {
+            this.iF = true;
+            this.T = this.T - this.K * this.ac;
+            if (this.T < this.aa) {
                this.T = this.aa;
-            }
-
-            this.ak = true;
-         }
-
-         if (this.U > this.ab && !this.Z) {
-            this.iB = true;
-            this.U = this.U - this.L * this.ad;
-            if (this.U < this.ab) {
-               this.U = this.ab;
             }
          }
       }
@@ -1370,44 +1420,44 @@ public final class e extends a {
    }
 
    private void n() {
-      switch (this.K) {
+      switch (this.J) {
          case 0:
             this.h(138);
-            this.E = 240;
-            this.F = 320;
+            this.D = 240;
+            this.E = 320;
+            F = this.D >> 1;
             G = this.E >> 1;
-            H = this.F >> 1;
             this.f(10240);
             byte[] var1;
-            R = new int[(var1 = this.c(1053)).length / 3];
+            Q = new int[(var1 = this.c(1053)).length / 3];
             int var2 = 0;
 
-            for (byte var5 = 0; var5 < var1.length; var5 += 3) {
-               R[var2] = var1[var5] << 18 | var1[var5 + 1] << 10 | var1[var5 + 2] << 2;
+            for (byte var7 = 0; var7 < var1.length; var7 += 3) {
+               Q[var2] = var1[var7] << 18 | var1[var7 + 1] << 10 | var1[var7 + 2] << 2;
                var2++;
             }
 
-            O = new Random();
+            N = new Random();
             this.b(true);
-            this.iS = this.b(1037);
-            this.cp = this.b(1035);
+            this.iY = this.b(1037);
+            this.ct = this.b(1035);
             this.g(1024);
             this.a(1024, true);
-            this.cq = this.b(1030);
-            this.fu = this.b(1038);
+            this.cu = this.b(1030);
+            this.fy = this.b(1038);
             this.g(1026);
             this.a(1026, true);
             break;
          case 1:
-            this.q = this.b(1031);
-            this.a(this.q);
-            z = this.c();
-            A = z >> 1;
-            this.iJ = this.a("W") * 4;
-            this.fx = this.b(1034);
+            this.o = this.b(1031);
+            this.a(this.o);
+            y = this.c();
+            z = y >> 1;
+            this.iO = this.a("W") * 4;
+            this.fB = this.b(1034);
 
-            for (int var3 = 0; var3 < 5; var3++) {
-               this.I();
+            for (int var6 = 0; var6 < 5; var6++) {
+               this.H();
             }
          case 2:
          case 6:
@@ -1419,17 +1469,42 @@ public final class e extends a {
          case 3:
             this.g(1025);
             this.a(1025, true);
-            aL = this.b(1036);
+            aK = this.b(1036);
             this.g(1027);
             this.a(1027, true);
-            this.aU = this.b(1040);
-            bo = this.b(1029);
-            this.J();
+            this.aT = this.b(1040);
+            bq = this.b(1029);
+            this.I();
             break;
          case 4:
-            this.iM.a(0, 1063, -1, 0);
-            this.iM.a(1, 1064, 1, 0);
-            this.iM.a(2, 1062, 1, 0);
+            for (int var3 = 0; var3 < 11; var3++) {
+               d var10000;
+               int var10001;
+               int var10002;
+               byte var10003;
+               byte var10004;
+               label62: {
+                  if (1054 + var3 == 1063) {
+                     var10000 = this.iR;
+                     var10001 = var3;
+                     var10002 = 1054 + var3;
+                     var10003 = -1;
+                  } else {
+                     var10000 = this.iR;
+                     var10001 = var3;
+                     var10002 = 1054 + var3;
+                     var10003 = 1;
+                     if (1054 + var3 == 1062) {
+                        var10004 = 1;
+                        break label62;
+                     }
+                  }
+
+                  var10004 = 0;
+               }
+
+               var10000.a(var10001, var10002, var10003, var10004);
+            }
             break;
          case 5:
             this.g(2048);
@@ -1464,80 +1539,82 @@ public final class e extends a {
             this.a(7168, true);
             break;
          case 12:
-            iw[5] = (iw[5] & -256) + 68;
-            iw[5] = iw[5] & -50331649;
-            iw[6] = iw[6] & -50331649;
+            iA[5] = (iA[5] & -256) + 68;
+            iA[5] = iA[5] & -50331649;
+            if (this.s == null) {
+               iA[6] = iA[6] & -50331649;
+            }
             break;
          case 13:
             this.h();
-            if (!iU) {
-               iT = true;
-               this.iS = this.b(8193);
+            if (!ja) {
+               iZ = true;
+               this.iY = this.b(8193);
                this.g(8192);
                this.a(0, 8192, 0);
-               iU = true;
+               ja = true;
             } else {
-               iU = this.b(0, super.k);
-               if (!iU) {
-                  this.M = 0;
+               ja = this.b(0, super.i);
+               if (!ja) {
+                  this.L = 0;
                }
             }
 
             this.h();
       }
 
-      if (!iU && this.K <= 13) {
-         this.K++;
+      if (!ja && this.J <= 13) {
+         this.J++;
       }
 
-      for (int var4 = 0; var4 < 6 && !iU; var4++) {
-         this.I();
+      for (int var5 = 0; var5 < 6 && !ja; var5++) {
+         this.H();
       }
    }
 
    private void b(boolean var1) {
       if (var1) {
-         this.r = this.b(1039);
-         this.o = this.b(1032);
-         this.p = this.b(1033);
-         this.iI = false;
-         this.iC = true;
-         this.iu = this.r[3].c;
+         this.p = this.b(1039);
+         this.m = this.b(1032);
+         this.n = this.b(1033);
+         this.iN = false;
+         this.iG = true;
+         this.iy = this.p[3].c;
          this.d();
-         this.bC = this.bD;
+         this.bF = this.bG;
          this.a((DataInputStream)null);
       } else {
          this.a(132, 1027, 10);
-         this.r = null;
-         this.o = null;
          this.p = null;
+         this.m = null;
+         this.n = null;
       }
    }
 
    private void o() {
-      int var1 = this.L << 8;
+      int var1 = this.K << 8;
       int var2;
       int var3;
-      if (this.ay > 0) {
-         var2 = this.ay;
-         var3 = this.az;
+      if (this.ax > 0) {
+         var2 = this.ax;
+         var3 = this.ay;
       } else {
-         var2 = this.ga;
-         var3 = this.gb;
+         var2 = this.ge;
+         var3 = this.gf;
       }
 
-      int var10000 = (hu && this.ay < 0 ? 1 : -1) * (hB != 109 && hB != 110 ? 240 : -240) >> 2;
+      int var10000 = (hy && this.ax < 0 ? 1 : -1) * (hF != 109 && hF != 110 ? 240 : -240) >> 2;
       int var4 = 0;
-      var4 = var10000 - (this.gn ? (hu ? this.E >> 2 : -(this.E >> 2)) : 0);
-      if (hB == 116) {
+      var4 = var10000 - (this.gr ? (hy ? this.D >> 2 : -(this.D >> 2)) : 0);
+      if (hF == 116) {
          var4 = 0;
       }
 
-      int var5 = this.gn ? 80 : 0;
+      int var5 = this.gr ? 80 : 0;
       int var6 = var2 - 120 + var4;
       int var7 = var3 - 266 + var5;
-      int var8 = (var6 - iQ + this.aI) * this.L;
-      int var9 = (var7 - iR + this.aJ) * this.L;
+      int var8 = (var6 - iW + this.aH) * this.K;
+      int var9 = (var7 - iX + this.aI) * this.K;
       if (Math.abs(var8) > var1) {
          if (var8 > 0) {
             var8 = var1;
@@ -1554,344 +1631,350 @@ public final class e extends a {
          }
       }
 
-      this.aO += var8;
-      this.aP += var9;
-      var6 = this.aO >> 8;
-      var7 = this.aP >> 8;
-      this.aM = iQ - var6;
-      this.aN = iR - var7;
-      iQ = var6;
-      iR = var7;
+      this.aN += var8;
+      this.aO += var9;
+      var6 = this.aN >> 8;
+      var7 = this.aO >> 8;
+      this.aL = iW - var6;
+      this.aM = iX - var7;
+      iW = var6;
+      iX = var7;
       boolean var10 = false;
       boolean var11 = false;
-      if (this.ay < 0) {
-         for (int var12 = this.aD - 1; var12 >= 0; var12--) {
-            if (a(this.aE[var12], this.aF[var12], iQ, iR, 240, 320)) {
-               if (!this.aH[var12]) {
+      if (this.ax < 0) {
+         for (int var12 = this.aC - 1; var12 >= 0; var12--) {
+            if (a(this.aD[var12], this.aE[var12], iW, iX, 240, 320)) {
+               if (!this.aG[var12]) {
                   var10 = true;
-                  int var13 = this.aK * this.L >> 8;
-                  if (this.aG[var12]) {
-                     this.aI -= var13;
+                  int var13 = this.aJ * this.K >> 8;
+                  if (this.aF[var12]) {
+                     this.aH -= var13;
                   } else {
-                     this.aI += var13;
+                     this.aH += var13;
                   }
 
-                  if (!a(this.aE[var12], this.aF[var12], iQ + this.aI, iR + this.aJ, 240, 320)) {
-                     this.aI = this.aE[var12] - iQ - (this.aG[var12] ? 240 : 0);
+                  if (!a(this.aD[var12], this.aE[var12], iW + this.aH, iX + this.aI, 240, 320)) {
+                     this.aH = this.aD[var12] - iW - (this.aF[var12] ? 240 : 0);
                   }
                } else {
                   var11 = true;
-                  int var18 = this.aK * this.L >> 8;
-                  if (this.aG[var12]) {
-                     this.aJ -= var18;
+                  int var18 = this.aJ * this.K >> 8;
+                  if (this.aF[var12]) {
+                     this.aI -= var18;
                   } else {
-                     this.aJ += var18;
+                     this.aI += var18;
                   }
 
-                  if (!a(this.aE[var12], this.aF[var12], iQ + this.aI, iR + this.aJ, 240, 320)) {
-                     this.aJ = this.aF[var12] - iR - (this.aG[var12] ? 320 : 0);
+                  if (!a(this.aD[var12], this.aE[var12], iW + this.aH, iX + this.aI, 240, 320)) {
+                     this.aI = this.aE[var12] - iX - (this.aF[var12] ? 320 : 0);
                   }
                }
             }
          }
 
-         for (int var17 = this.eZ; var17 >= 0; var17--) {
-            if (fj[var17] && a(fd[var17] + (fk[var17] ? ff[var17] : 0), this.fe[var17], iQ, iR, 240, 320)) {
+         for (int var17 = this.fd; var17 >= 0; var17--) {
+            if (fn[var17] && a(fh[var17] + (fo[var17] ? fj[var17] : 0), this.fi[var17], iW, iX, 240, 320)) {
                var10 = true;
-               int var19 = this.aK * this.L >> 8;
-               if (fk[var17]) {
-                  this.aI -= var19;
+               int var19 = this.aJ * this.K >> 8;
+               if (fo[var17]) {
+                  this.aH -= var19;
                } else {
-                  this.aI += var19;
+                  this.aH += var19;
                }
 
-               if (!a(fd[var17] + (fk[var17] ? ff[var17] : 0), this.fe[var17], iQ + this.aI, iR + this.aJ, 240, 320)) {
-                  this.aI = fd[var17] + (fk[var17] ? ff[var17] : 0) - iQ - (fk[var17] ? 240 : 0);
+               if (!a(fh[var17] + (fo[var17] ? fj[var17] : 0), this.fi[var17], iW + this.aH, iX + this.aI, 240, 320)) {
+                  this.aH = fh[var17] + (fo[var17] ? fj[var17] : 0) - iW - (fo[var17] ? 240 : 0);
                }
             }
          }
 
-         iQ = iQ + this.aI;
-         iR = iR + this.aJ;
-         if (!var10 && this.aI != 0) {
+         iW = iW + this.aH;
+         iX = iX + this.aI;
+         if (!var10 && this.aH != 0) {
+            if (this.aH > 0) {
+               this.aH = this.aH - (this.aJ * this.K >> 8);
+               if (this.aH < 0) {
+                  this.aH = 0;
+               }
+            } else {
+               this.aH = this.aH + (this.aJ * this.K >> 8);
+               if (this.aH > 0) {
+                  this.aH = 0;
+               }
+            }
+         }
+
+         if (!var11 && this.aI != 0) {
             if (this.aI > 0) {
-               this.aI = this.aI - (this.aK * this.L >> 8);
+               this.aI = this.aI - (this.aJ * this.K >> 8);
                if (this.aI < 0) {
                   this.aI = 0;
                }
             } else {
-               this.aI = this.aI + (this.aK * this.L >> 8);
+               this.aI = this.aI + (this.aJ * this.K >> 8);
                if (this.aI > 0) {
                   this.aI = 0;
                }
             }
          }
 
-         if (!var11 && this.aJ != 0) {
-            if (this.aJ > 0) {
-               this.aJ = this.aJ - (this.aK * this.L >> 8);
-               if (this.aJ < 0) {
-                  this.aJ = 0;
-               }
-            } else {
-               this.aJ = this.aJ + (this.aK * this.L >> 8);
-               if (this.aJ > 0) {
-                  this.aJ = 0;
-               }
-            }
-         }
-
+         this.aL = this.aL - this.aH;
          this.aM = this.aM - this.aI;
-         this.aN = this.aN - this.aJ;
-         if (this.av != 0) {
-            if (this.aw + this.aw * this.hH >= this.ax) {
-               iR = iR + this.av;
-               iQ = iQ + this.av * ((this.N & 1) == 1 ? -1 : 1);
-               this.av = this.av + (this.av < 0 ? 1 : -1);
-               this.av = -this.av;
-               this.aw = 0;
+         if (this.au != 0) {
+            if (this.av + this.av * this.hL >= this.aw) {
+               iX = iX + this.au;
+               iW = iW + this.au * ((this.M & 1) == 1 ? -1 : 1);
+               this.au = this.au + (this.au < 0 ? 1 : -1);
+               this.au = -this.au;
+               this.av = 0;
             } else {
-               this.aw = this.aw + this.L;
+               this.av = this.av + this.K;
             }
          } else {
-            this.ax = 0;
+            this.aw = 0;
          }
-      } else if (var8 != 0 && this.aA <= 3500) {
-         this.aA = this.aA + this.L;
+      } else if (var8 != 0 && this.az <= 3500) {
+         this.az = this.az + this.K;
       } else {
+         this.ax = -1;
          this.ay = -1;
-         this.az = -1;
-         this.iB = true;
-         this.aA = 0;
+         this.iF = true;
+         this.az = 0;
       }
 
-      if (iQ < 0) {
-         iQ = 0;
+      if (iW < 0) {
+         iW = 0;
+         this.aN = 0;
+         this.aL = 0;
+      }
+
+      if (iW >= this.aA) {
+         iW = this.aA;
+         this.aN = this.aA << 8;
+         this.aL = 0;
+      }
+
+      if (iX < 0) {
+         iX = 0;
          this.aO = 0;
          this.aM = 0;
       }
 
-      if (iQ >= this.aB) {
-         iQ = this.aB;
+      if (iX >= this.aB) {
+         iX = this.aB;
          this.aO = this.aB << 8;
          this.aM = 0;
-      }
-
-      if (iR < 0) {
-         iR = 0;
-         this.aP = 0;
-         this.aN = 0;
-      }
-
-      if (iR >= this.aC) {
-         iR = this.aC;
-         this.aP = this.aC << 8;
-         this.aN = 0;
       }
    }
 
    private void p() {
-      this.ip = false;
-      this.aQ[0] = -1;
-      this.aQ[1] = this.cs;
-      hX = new String[3];
-      hX[0] = "";
-      hX[1] = this.e(this.aQ[1]);
-      this.a(this.q);
-      if (hX[1].charAt(0) == '!') {
-         I = 105;
-         this.bc = true;
-         this.s(this.aY[this.ba]);
-         if (this.dL != -1) {
-            this.i(this.aZ[this.bb], this.dL);
+      this.it = false;
+      this.aP[0] = -1;
+      this.aP[1] = this.cw;
+      ib = new String[3];
+      ib[0] = "";
+      ib[1] = this.e(this.aP[1]);
+      this.a(this.o);
+      if (ib[1].charAt(0) == '!') {
+         H = 105;
+         this.bb = true;
+         this.s(this.aX[this.aZ]);
+         if (this.dP != -1) {
+            this.i(this.aY[this.ba], this.dP);
             return;
          }
       } else {
-         if (hX[1].charAt(0) == '^') {
-            this.cr = a.a(hX[1].substring(1, 2), 0);
-            if (this.cr > 3) {
-               int var1 = this.cr - 3 - 1;
-               this.fM = var1;
-               hb = this.fM == 1;
-               hc = this.fM == 2;
-               this.hd = this.fM == 3;
+         if (ib[1].charAt(0) == '^') {
+            this.cv = a.a(ib[1].substring(1, 2), 0);
+            if (this.cv > 3) {
+               int var1 = this.cv - 3 - 1;
+               this.fQ = var1;
+               hf = this.fQ == 1;
+               hg = this.fQ == 2;
+               this.hh = this.fQ == 3;
             }
          } else {
-            this.cr = -1;
+            this.cv = -1;
          }
 
-         hX[1].charAt(0);
-         if (hX[1].charAt(0) == '*') {
-            if (hX[1].length() != 1) {
-               this.aW = true;
-               this.a(H, H, 35, 35);
+         ib[1].charAt(0);
+         if (ib[1].charAt(0) == '*') {
+            if (ib[1].length() != 1) {
+               this.aV = true;
+               this.a(G, G, 35, 35);
             } else {
-               this.be = true;
+               this.bd = true;
             }
 
-            this.iC = true;
+            this.iG = true;
             return;
          }
 
-         this.aW = false;
-         this.a(this.aQ, aV, 8, 0, 211, z * 5 + A, 30);
+         this.aV = false;
+         this.a(this.aP, aU, 12, 0, 200, y * 5 + z, 30);
       }
    }
 
    private void q() {
-      if (this.bk <= 0 && !this.bi) {
-         switch (this.s) {
+      if (this.bk <= 0 && !this.bh) {
+         switch (this.q) {
             case 1:
             case 2:
-               bj++;
-               if (bj > bh) {
-                  bj = 0;
+               this.a(133, 1025, 1);
+               this.bh = true;
+               bi++;
+               if (bi > bg) {
+                  bi = 0;
                }
+
+               this.bj = false;
                break;
             case 5:
             case 6:
-               bj--;
-               if (bj < 0) {
-                  bj = bh;
+               this.a(133, 1025, 0);
+               this.bh = true;
+               bi--;
+               if (bi < 0) {
+                  bi = bg;
                }
+
+               this.bj = true;
                break;
             case 29:
             case 35:
-               if (!this.au) {
-                  I = 100;
+               this.a(133, 1025, 4);
+               if (!this.at) {
+                  H = 100;
                } else {
-                  this.au = false;
-                  I = 1;
-                  this.a(H, H, 35, 35);
+                  this.at = false;
+                  H = 1;
+                  this.a(G, G, 35, 35);
                }
 
-               this.iB = true;
+               this.iF = true;
          }
 
-         switch (this.t) {
+         switch (this.r) {
             case 8:
-               if (this.hq > 0 && this.hq >= this.bg) {
-                  if (this.bg < 16) {
-                     this.bg++;
-                  }
-               } else if (this.hq < this.bg) {
-                  this.bg = this.hq;
-               } else if (this.hq <= 0) {
-                  this.bg = 0;
-               }
             case 27:
-               if (this.hq > 100) {
-                  this.bg = 100;
-               } else {
-                  this.bg = this.hq;
+               if (this.hu > 0 && this.hu >= this.bf) {
+                  if (this.bf < 16) {
+                     this.bf++;
+                  }
+               } else if (this.hu < this.bf) {
+                  this.bf = this.hu;
+               } else if (this.hu <= 0) {
+                  this.bf = 0;
                }
 
-               switch (bj) {
+               switch (bi) {
                   case 0:
-                     if (gP <= 3) {
-                        this.gX = this.gX + this.bg;
-                        if (this.gX >= gR[gP]) {
-                           this.bg = gR[gP] - (this.gX - this.bg);
-                           if (gP == 0 || gP == 1 || gP == 2) {
-                              gN++;
+                     if (gT <= 3) {
+                        this.hb = this.hb + this.bf;
+                        if (this.hb >= gV[gT]) {
+                           this.bf = gV[gT] - (this.hb - this.bf);
+                           if (gT == 0 || gT == 1 || gT == 2) {
+                              gR++;
                            }
 
-                           this.gX = 0;
-                           gP++;
+                           this.hb = 0;
+                           gT++;
                            this.bk = 2500;
                         }
                      } else {
-                        this.bg = 0;
+                        this.bf = 0;
                      }
                      break;
                   case 1:
-                     if (gQ <= 3) {
-                        this.gY = this.gY + this.bg;
-                        if (this.gY < gS[gQ]) {
+                     if (gU <= 3) {
+                        this.hc = this.hc + this.bf;
+                        if (this.hc < gW[gU]) {
                            break;
                         }
 
-                        this.bg = gS[gQ] - (this.gY - this.bg);
-                        if (gQ == 0 || gQ == 1 || gQ == 3) {
-                           this.gO++;
+                        this.bf = gW[gU] - (this.hc - this.bf);
+                        if (gU == 0 || gU == 1 || gU == 3) {
+                           this.gS++;
                         }
 
-                        this.gY = 0;
-                        gQ++;
+                        this.hc = 0;
+                        gU++;
                         this.bk = 2500;
                         break;
                      }
 
-                     this.bg = 0;
+                     this.bf = 0;
                      break;
                   case 2:
-                     if (gV < 4) {
-                        this.gZ = this.gZ + this.bg;
-                        if (this.gZ >= gT[gV]) {
-                           this.bg = gT[gV] - (this.gZ - this.bg);
-                           this.gZ = 0;
-                           gV++;
+                     if (gZ < 4) {
+                        this.hd = this.hd + this.bf;
+                        if (this.hd >= gX[gZ]) {
+                           this.bf = gX[gZ] - (this.hd - this.bf);
+                           this.hd = 0;
+                           gZ++;
                            this.bk = 2500;
                         }
                      } else {
-                        this.bg = 0;
+                        this.bf = 0;
                      }
                      break;
                   case 3:
-                     if (gW < 4) {
-                        this.ha = this.ha + this.bg;
-                        if (this.ha >= gU[gW]) {
-                           this.bg = gU[gW] - (this.ha - this.bg);
-                           this.ha = 0;
-                           gW++;
+                     if (ha < 4) {
+                        this.he = this.he + this.bf;
+                        if (this.he >= gY[ha]) {
+                           this.bf = gY[ha] - (this.he - this.bf);
+                           this.he = 0;
+                           ha++;
                            this.bk = 2500;
                         }
                      } else {
-                        this.bg = 0;
+                        this.bf = 0;
                      }
                }
 
-               this.hq = this.hq - this.bg;
-               if (this.hq < 0) {
-                  this.hq = 0;
+               this.hu = this.hu - this.bf;
+               if (this.hu < 0) {
+                  this.hu = 0;
                }
+
+               this.bm = (256 - (this.hu & 0xFF)) * 320 >> 8;
                break;
             default:
-               this.bg = 0;
+               this.bf = 0;
          }
       } else {
-         this.bk = this.bk - this.L;
+         this.bk = this.bk - this.K;
       }
 
-      if (this.B) {
-         if (this.t == 57) {
-            this.hq += 20;
+      if (this.A) {
+         if (this.r == 57) {
+            this.hu += 20;
             return;
          }
 
-         if (this.t == 55) {
-            this.hq -= 20;
-            if (this.hq < 0) {
-               this.hq = 0;
+         if (this.r == 55) {
+            this.hu -= 20;
+            if (this.hu < 0) {
+               this.hu = 0;
             }
          }
       }
    }
 
    private void r() {
-      if (this.T >= this.aa && this.ip) {
-         switch (this.s) {
+      if (this.S >= this.Z && this.it) {
+         switch (this.q) {
             case 1:
             case 2:
-               if (this.il >= 5) {
-                  this.bd = 0;
-                  this.il -= 5;
+               if (this.ip >= 5) {
+                  this.bc = 0;
+                  this.ip -= 5;
                   return;
                }
 
-               if (this.cs > this.ct) {
-                  this.cs--;
-                  this.bd = 0;
+               if (this.cw > this.cx) {
+                  this.cw--;
+                  this.bc = 0;
                   this.p();
                   return;
                }
@@ -1900,108 +1983,103 @@ public final class e extends a {
             case 6:
             case 8:
             case 27:
-               if (this.im > 0) {
-                  this.bd = 0;
-                  this.il = this.im;
+               if (this.iq > 0) {
+                  this.bc = 0;
+                  this.ip = this.iq;
                   return;
                }
 
-               if ((this.cr <= 3 || this.s != 27) && this.cr > 3) {
+               if ((this.cv <= 3 || this.q != 27) && this.cv > 3) {
                   break;
                }
 
-               this.bd = 0;
-               this.il = -1;
-               this.im = -1;
-               this.cs++;
-               if (this.cs >= this.cu) {
-                  if (!this.be) {
-                     I = 100;
+               this.bc = 0;
+               this.ip = -1;
+               this.iq = -1;
+               this.cw++;
+               if (this.cw >= this.cy) {
+                  if (!this.bd) {
+                     H = 100;
                      this.a(0, 0, 35, 35);
-                     this.iB = true;
-                     this.aW = false;
-                     this.cu = -1;
-                     this.cs = -1;
-                     this.ct = -1;
+                     this.iF = true;
+                     this.aV = false;
+                     this.cy = -1;
+                     this.cw = -1;
+                     this.cx = -1;
                      return;
                   }
 
                   this.h();
-                  this.bC++;
-                  if (this.bC > this.bD && (this.bE <= 0 || this.bC < this.bE)) {
-                     this.bD = this.bC;
+                  this.bF++;
+                  if (this.bF > this.bG && (this.bH <= 0 || this.bF < this.bH)) {
+                     this.bG = this.bF;
                   }
 
-                  this.bA = bB[this.bC];
-                  this.D();
-                  this.iC = true;
-                  this.iS = null;
-                  this.bf = true;
-                  I = 1;
-                  this.v = false;
-                  this.a(H, H, 35, 35);
+                  this.bC = bD[this.bF];
+                  this.C();
+                  this.iG = true;
+                  this.iY = null;
+                  this.be = true;
+                  H = 1;
+                  this.u = false;
+                  this.a(G, G, 35, 35);
                   return;
                }
 
                this.p();
                return;
             case 29:
-               if (this.T == this.aa) {
+               if (this.S == this.Z) {
+                  this.ae = this.Z >> 8;
                   this.af = this.aa >> 8;
-                  this.ag = this.ab >> 8;
-                  this.J = I;
-                  I = 102;
-                  ar = 4;
-                  this.a(H, H, 35, 35);
+                  this.I = H;
+                  H = 102;
+                  aq = 4;
+                  this.a(G, G, 35, 35);
                }
          }
       }
    }
 
    public final void a(Graphics var1) {
-      switch (I) {
+      switch (H) {
          case 0:
             this.u(var1);
-            if (!iU && this.K <= 13) {
-               a(var1, this.K, 13, true);
+            if (!ja && this.J <= 13) {
+               a(var1, this.J, 13, true);
                return;
             }
             break;
          case 1:
          case 80:
          case 109:
-            if (!this.bf && I != 1) {
+            if (!this.be && H != 1) {
                this.w(var1);
             }
 
             this.c(var1);
-            if (I == 109 && this.T == this.aa && this.U == this.ab && !this.W) {
-               if (this.bC >= this.bE && this.bE != 0) {
-                  this.a(var1, -1, 197);
-                  return;
-               }
-
+            if (H == 109 && this.S == this.Z && this.T == this.aa && !this.V) {
                this.a(var1, 28, 29);
                return;
             }
             break;
          case 78:
             this.v(var1);
-            this.r[0].a(var1, G, 0, 0);
-            this.r[1].a(var1, G, 0, 0);
-            int var2 = (z << 2) + z;
+            this.p[0].a(var1, F, 0, 0);
+            this.p[1].a(var1, F, 0, 0);
+            int var2 = (y << 2) + y;
 
             for (int var3 = 0; var3 <= 5; var3++) {
-               this.a(var1, this.e(y[var3]), G, var2, 1);
-               if (var3 == w) {
-                  bo[2].a(var1, (G >> 1) - bo[2].c, var2 + (z >> 2), 0);
-                  bo[3].a(var1, this.E - (G >> 1), var2 + (z >> 2), 0);
+               this.a(var1, this.e(x[var3]), F, var2, 1);
+               if (var3 == v) {
+                  bq[2].a(var1, (F >> 1) - bq[2].c, var2 + (y >> 2), 0);
+                  bq[3].a(var1, this.D - (F >> 1), var2 + (y >> 2), 0);
                }
 
-               var2 = var2 + z + (z >> 2);
+               var2 = var2 + y + (y >> 2);
             }
 
-            if (this.aa != H << 8) {
+            if (this.Z != G << 8) {
                this.a(var1, 0, 1);
                return;
             }
@@ -2010,11 +2088,11 @@ public final class e extends a {
             return;
          case 79:
             this.v(var1);
-            this.r[0].a(var1, G, 0, 0);
-            this.r[1].a(var1, G, 0, 0);
+            this.p[0].a(var1, F, 0, 0);
+            this.p[1].a(var1, F, 0, 0);
             this.a(var1, false);
             this.c(var1);
-            if (this.aa != H << 8) {
+            if (this.Z != G << 8) {
                this.a(var1, 28, 29);
                return;
             }
@@ -2027,72 +2105,72 @@ public final class e extends a {
          case 104:
          case 105:
          case 108:
-            if (I == 100 && this.T <= 0 && !this.iB) {
+            if (H == 100 && this.S <= 0 && !this.iF) {
                this.a(var1, 0, 0, 240, 306);
             } else {
-               this.iB = true;
+               this.iF = true;
                this.b(var1);
             }
 
             this.d(var1);
-            if (I != 101) {
+            if (H != 101) {
                this.f(var1);
             }
 
-            if (I == 100) {
-               if (this.aR && this.aS == hu && !fR && a(this.ga, this.gb, iQ, iR, this.E, this.F)) {
-                  this.a(var1, this.aU, 131, 12, this.F - 25, 0);
+            if (H == 100) {
+               if (this.aQ && this.aR == hy && !fV && a(this.ge, this.gf, iW, iX, this.D, this.E)) {
+                  this.a(var1, this.aT, 131, 17, this.E - 30, 0);
                }
 
-               if (fR && this.fS >= 0 && this.fS < this.fQ && this.ge >= 0) {
-                  this.a(var1, this.aU, 131, dT[this.ge] - iQ, this.dU[this.ge] - this.ef[this.ge] - (this.ef[this.ge] >> 2) - iR, 0);
+               if (fV && this.fW >= 0 && this.fW < this.fU && this.gi >= 0) {
+                  this.a(var1, this.aT, 131, dX[this.gi] - iW, this.dY[this.gi] - this.ej[this.gi] - (this.ej[this.gi] >> 2) - iX, 0);
                }
             }
 
-            if (I == 104) {
+            if (H == 104) {
                var1.setColor(855564);
-               var1.fillRect(G >> 3, H - (H >> 1), this.E - (G >> 2), H + z);
+               var1.fillRect(F >> 3, G - (G >> 1), this.D - (F >> 2), G + y);
                var1.setColor(4269080);
-               var1.drawRect((G >> 3) - 1, H - (H >> 1) - 1, this.E - (G >> 2) + 1, H + z + 1);
+               var1.drawRect((F >> 3) - 1, G - (G >> 1) - 1, this.D - (F >> 2) + 1, G + y + 1);
                var1.setColor(5911589);
-               var1.drawRect((G >> 3) - 2, H - (H >> 1) - 2, this.E - (G >> 2) + 3, H + z + 3);
-               this.cq[0].a(var1, (G >> 3) - 3, H - (H >> 1) - 2, 0);
-               this.cq[0].a(var1, this.E - (G >> 3) + 3, H - (H >> 1) - 2, 2);
-               this.cq[0].a(var1, (G >> 3) - 3, H + (H >> 1) + 2 + z, 1);
-               this.cq[0].a(var1, this.E - (G >> 3) + 3, H + (H >> 1) + 2 + z, 3);
-               this.a(var1, this.fu, 136, G, H - (z << 1), 0);
-               if (this.fv == 9) {
-                  this.a(var1, this.e(148), G, H + z, 1);
-                  if (this.fw < 96) {
-                     this.a(var1, this.e(189), G, H + (z << 1) + z, 1);
+               var1.drawRect((F >> 3) - 2, G - (G >> 1) - 2, this.D - (F >> 2) + 3, G + y + 3);
+               this.cu[0].a(var1, (F >> 3) - 3, G - (G >> 1) - 2, 0);
+               this.cu[0].a(var1, this.D - (F >> 3) + 3, G - (G >> 1) - 2, 2);
+               this.cu[0].a(var1, (F >> 3) - 3, G + (G >> 1) + 2 + y, 1);
+               this.cu[0].a(var1, this.D - (F >> 3) + 3, G + (G >> 1) + 2 + y, 3);
+               this.a(var1, this.fy, 136, F, G - (y << 1), 0);
+               if (this.fz == 9) {
+                  this.a(var1, this.e(148), F, G + y, 1);
+                  if (this.fA < 96) {
+                     this.a(var1, this.e(189), F, G + (y << 1) + y, 1);
                   } else {
-                     this.a(var1, this.e(151), G, H + (z << 1) + z, 1);
+                     this.a(var1, this.e(151), F, G + (y << 1) + y, 1);
                   }
                } else {
-                  this.a(var1, this.e(147), G, H + z, 1);
-                  if (this.fw < 96) {
-                     this.a(var1, this.e(158), G, H + (z << 1) + z, 1);
+                  this.a(var1, this.e(147), F, G + y, 1);
+                  if (this.fA < 96) {
+                     this.a(var1, this.e(158), F, G + (y << 1) + y, 1);
                   } else {
-                     this.a(var1, this.e(151), G, H + (z << 1) + z, 1);
+                     this.a(var1, this.e(151), F, G + (y << 1) + y, 1);
                   }
                }
             }
 
             this.c(var1);
-            if (I == 101 && this.T >= this.aa && !this.aW) {
+            if (H == 101 && this.S >= this.Z && !this.aV) {
                this.a(var1, false);
             }
 
-            switch (I) {
+            switch (H) {
                case 100:
-                  if (this.iB) {
+                  if (this.iF) {
                      this.a(var1, 160, 197);
                      return;
                   }
 
                   return;
                case 101:
-                  if (this.ip) {
+                  if (this.it) {
                      this.a(var1, 174, 197);
                      return;
                   }
@@ -2100,13 +2178,13 @@ public final class e extends a {
                   this.a(var1, -1, -1);
                   return;
                case 102:
-                  if (this.T == this.aa && !this.W) {
-                     if ((ar == 1 || ar == 2) && this.as) {
+                  if (this.S == this.Z && !this.V) {
+                     if ((aq == 1 || aq == 2) && this.ar) {
                         this.a(var1, 28, 29);
                         return;
                      }
 
-                     if (ar == 4 && ar != 3) {
+                     if (aq == 4 && aq != 3) {
                         this.a(var1, 200, 199);
                         return;
                      }
@@ -2129,26 +2207,26 @@ public final class e extends a {
             this.e(var1);
             this.c(var1);
             if (this.bk <= 0) {
-               if (this.hq > 0) {
-                  this.a(var1, !this.bi ? (this.bn <= 3 ? 149 : -1) : -1, !this.bi ? (this.au ? 174 : 2) : -1);
+               if (this.hu > 0) {
+                  this.a(var1, !this.bh ? (this.bo <= 3 ? 149 : -1) : -1, !this.bh ? (this.at ? 174 : 2) : -1);
                   return;
                }
 
-               this.a(var1, -1, !this.bi ? (this.au ? 174 : 2) : -1);
+               this.a(var1, -1, !this.bh ? (this.at ? 174 : 2) : -1);
                return;
             }
 
             this.a(var1, -1, -1);
             return;
          case 107:
-            if (super.n) {
+            if (super.l) {
                this.v(var1);
                this.a(var1, true);
             }
 
             this.c(var1);
-            if (I == 107 && this.T <= 6400) {
-               if (!this.aW) {
+            if (H == 107 && this.S <= 8960) {
+               if (!this.aV) {
                   this.a(var1, -1, 2);
                   return;
                }
@@ -2160,72 +2238,66 @@ public final class e extends a {
    }
 
    private void c(Graphics var1) {
-      int var2 = this.T >> 8;
-      int var3 = this.U >> 8;
+      int var2 = this.S >> 8;
+      int var3 = this.T >> 8;
       if (var2 > 0) {
-         if ((!this.W || this.X || this.ao || this.aq || this.ap || this.an) && (I == 108 || I == 102 || I == 1 || I == 109)) {
+         if ((!this.V || this.W || this.an || this.ap || this.ao || this.am) && (H == 108 || H == 102 || H == 1 || H == 109)) {
             var1.setColor(0);
             var1.fillRect(0, var2 + 1, 240, 320 - (var3 << 1) - 1);
-            if (I == 108) {
-               if (!iN) {
-                  this.a(var1, this.e(173), G, H + A + (z >> 3), 33);
+            if (H == 108) {
+               if (!iS) {
+                  this.a(var1, this.e(173), F, G + z + (y >> 3), 33);
                } else {
-                  this.a(var1, this.e(173), G, H - (z << 1) + (z >> 1), 33);
-                  this.a(var1, this.e(206), G, H - (z >> 2) + (z >> 1), 33);
-                  this.a(var1, String.valueOf(this.dI), G, H + z + (z >> 2), 33);
-                  if (this.dI > this.hz) {
-                     this.a(var1, this.e(207), G, H + (z << 1) + (z >> 1), 33);
+                  this.a(var1, this.e(173), F, G - (y << 1) + (y >> 1), 33);
+                  this.a(var1, this.e(206), F, G - (y >> 2) + (y >> 1), 33);
+                  this.a(var1, String.valueOf(this.dM), F, G + y + (y >> 2), 33);
+                  if (this.dM > this.hD) {
+                     this.a(var1, this.e(207), F, G + (y << 1) + (y >> 1), 33);
                   } else {
-                     this.a(var1, this.e(208) + String.valueOf(this.hz), G, H + (z << 1) + (z >> 1), 33);
+                     this.a(var1, this.e(208) + String.valueOf(this.hD), F, G + (y << 1) + (y >> 1), 33);
                   }
                }
-            } else if (I == 102) {
-               this.a(var1, !iN ? this.e(54 + this.bC) : this.e(66), G, H - (z >> 1), 33);
-               if (ar == 4) {
-                  this.a(var1, this.e(47) + " " + (this.iM.b() ? this.e(234) : this.e(235)), G, H + z + A, 33);
-                  bo[3].a(var1, this.E - 5 - 7, H + (z >> 1) + 4, 0);
-               } else if (ar == 2 && !this.as) {
-                  this.a(var1, this.e(50), G, H + z + A, 33);
-                  bo[2].a(var1, 12 - bo[2].c, H + (z >> 1) + 4, 0);
-                  bo[3].a(var1, this.E - 5 - 7, H + (z >> 1) + 4, 0);
-               } else if (ar == 2 && this.as) {
-                  this.a(var1, this.e(186), G, H + z + A, 33);
-               } else if (ar == 1 && !this.as) {
-                  this.a(var1, this.e(1), G, H + z + A, 33);
-                  bo[2].a(var1, 12 - bo[2].c, H + (z >> 1) + 4, 0);
-               } else if (ar == 1 && this.as) {
-                  this.a(var1, this.e(185), G, H + z + A, 33);
-               } else if (ar == 3) {
-                  this.a(var1, this.e(46), G, H + z + A, 33);
-                  bo[3].a(var1, this.E - 5 - 7, H + (z >> 1) + 4, 0);
-                  bo[2].a(var1, 12 - bo[2].c, H + (z >> 1) + 4, 0);
+            } else if (H == 102) {
+               this.a(var1, !iS ? this.e(54 + this.bF) : this.e(66), F, G - (y >> 1), 33);
+               if (aq == 4) {
+                  this.a(var1, this.e(47) + " " + (this.iR.b() ? this.e(234) : this.e(235)), F, G + y + z, 33);
+                  bq[3].a(var1, this.D - 7 - 10, G + (y >> 1) + 1, 0);
+               } else if (aq == 2 && !this.ar) {
+                  this.a(var1, this.e(50), F, G + y + z, 33);
+                  bq[2].a(var1, 17 - bq[2].c, G + (y >> 1) + 1, 0);
+                  bq[3].a(var1, this.D - 7 - 10, G + (y >> 1) + 1, 0);
+               } else if (aq == 2 && this.ar) {
+                  this.a(var1, this.e(186), F, G + y + z, 33);
+               } else if (aq == 1 && !this.ar) {
+                  this.a(var1, this.e(1), F, G + y + z, 33);
+                  bq[2].a(var1, 17 - bq[2].c, G + (y >> 1) + 1, 0);
+               } else if (aq == 1 && this.ar) {
+                  this.a(var1, this.e(185), F, G + y + z, 33);
+               } else if (aq == 3) {
+                  this.a(var1, this.e(46), F, G + y + z, 33);
+                  bq[3].a(var1, this.D - 7 - 10, G + (y >> 1) + 1, 0);
+                  bq[2].a(var1, 17 - bq[2].c, G + (y >> 1) + 1, 0);
                }
-            } else if (I == 1) {
-               this.a(this.q);
-               if (iN) {
-                  this.a(var1, this.e(66), G, H - z - (z >> 1), 33);
-                  this.a(var1, this.e(190), G, H - (z >> 1), 33);
-                  this.a(var1, this.e(238), G, H + (z >> 1), 33);
-                  this.a(var1, this.e(39), G, H + z + (z >> 1) + (z >> 2), 33);
-                  a(var1, this.u, 11, true);
+            } else if (H == 1) {
+               this.a(this.o);
+               if (iS) {
+                  this.a(var1, this.e(66), F, G - y - (y >> 1), 33);
+                  this.a(var1, this.e(190), F, G - (y >> 1), 33);
+                  this.a(var1, this.e(238), F, G + (y >> 1), 33);
+                  this.a(var1, this.e(39), F, G + y + (y >> 1) + (y >> 2), 33);
+                  a(var1, this.t, 11, true);
                } else {
-                  this.a(var1, this.e(54 + this.bC), G, H - A, 33);
-                  this.a(var1, this.e(39), G, H + A, 33);
-                  a(var1, this.u, 11, true);
+                  this.a(var1, this.e(54 + this.bF), F, G - z, 33);
+                  this.a(var1, this.e(39), F, G + z, 33);
+                  a(var1, this.t, 11, true);
                }
-            } else if (I == 109) {
-               if (this.bC >= this.bE && this.bE != 0) {
-                  this.a(var1, this.e(279), G, H, 33);
-                  this.a(var1, this.e(280), G, H + z, 33);
-                  byte var4 = 0;
-
-                  for (int var5 = H + z + (z << 1) + 4; var4 < this.bF.length(); var5 += z) {
-                     this.a(var1, this.bF.substring(var4, var4 + 18 < this.bF.length() ? var4 + 18 : this.bF.length()), G, var5, 33);
-                     var4 += 18;
-                  }
+            } else if (H == 109) {
+               if (this.bF >= this.bH && this.bH != 0) {
+                  this.a(var1, this.e(279), F, G, 33);
+                  this.a(var1, this.e(280), F, G + y, 33);
                } else {
-                  this.a(var1, this.e(54 + this.bC - 1) + this.e(169), G, H, 33);
-                  this.a(var1, this.e(168) + this.e(54 + this.bC) + this.e(159), G, H + z, 33);
+                  this.a(var1, this.e(54 + this.bF - 1) + this.e(169), F, G, 33);
+                  this.a(var1, this.e(168) + this.e(54 + this.bF) + this.e(159), F, G + y, 33);
                }
             }
          }
@@ -2244,31 +2316,23 @@ public final class e extends a {
          var1.drawLine(0, 320 - var3, 240, 320 - var3);
          var1.setColor(4269080);
          var1.drawLine(0, 320 - var3 + 1, 240, 320 - var3 + 1);
-         if (!this.W && I == 108) {
-            this.a(var1, iN ? -1 : 198, 45);
+         if (!this.V && H == 108) {
+            this.a(var1, iS ? -1 : 198, 45);
          }
 
-         this.cq[0].a(var1, 0, var2, 1);
-         this.cq[0].a(var1, 240, var2, 3);
-         this.cq[0].a(var1, 0, 320 - (var3 - 1), 0);
-         this.cq[0].a(var1, 240, 320 - (var3 - 1), 2);
-         if (this.bC >= this.bE && this.bE != 0 && I == 109 && this.T == this.aa && !this.W) {
-            byte var6 = 0;
-
-            for (int var7 = H + z + (z << 1) + 4; var6 < this.bF.length(); var7 += z) {
-               this.a(var1, this.bF.substring(var6, var6 + 18 < this.bF.length() ? var6 + 18 : this.bF.length()), G, var7, 33);
-               var6 += 18;
-            }
-         }
+         this.cu[0].a(var1, 0, var2, 1);
+         this.cu[0].a(var1, 240, var2, 3);
+         this.cu[0].a(var1, 0, 320 - (var3 - 1), 0);
+         this.cu[0].a(var1, 240, 320 - (var3 - 1), 2);
       }
 
-      if (I == 80 && this.T == 0) {
-         switch (this.iG) {
+      if (H == 80 && this.S == 0) {
+         switch (this.iL) {
             case 0:
                this.a(var1, 0, 1);
                return;
             case 9:
-               if (this.bD >= ix - this.iG + 1) {
+               if (this.bG >= iB - this.iL + 1) {
                   this.a(var1, 196, 2);
                   return;
                }
@@ -2288,8 +2352,9 @@ public final class e extends a {
    }
 
    private void d(Graphics var1) {
-      this.iO.a(var1);
-      var1.translate(-iQ, -(iR + this.bl));
+      this.iV.a(var1);
+      this.iT.a(var1);
+      var1.translate(-iW, -(iX + this.bl));
       this.i(var1);
       this.l(var1);
       this.m(var1);
@@ -2299,7 +2364,7 @@ public final class e extends a {
       this.n(var1);
       this.o(var1);
       this.g(var1);
-      if (this.ge >= 0 && !fR && hB != 109 && hB != 113 && this.dQ[this.ge] != 2) {
+      if (this.gi >= 0 && !fV && hF != 109 && hF != 113 && this.dU[this.gi] != 2) {
          this.s(var1);
          this.r(var1);
       } else {
@@ -2310,285 +2375,294 @@ public final class e extends a {
       this.h(var1);
       this.t(var1);
       this.k(var1);
-      var1.translate(iQ, iR + this.bl);
+      var1.translate(iW, iX + this.bl);
    }
 
    private void e(Graphics var1) {
-      this.v(var1);
-      this.a(this.q);
-      this.a(var1, this.e(149), 120, z, 1);
-      bm = String.valueOf(this.hq) + " ~";
-      this.a(var1, bm, 132, 44, 8);
-      bm = this.e(116 + bj);
-      bo[0].a(var1, 120, 78 - bo[0].d, 0);
-      if (bm.indexOf(10) != -1) {
-         this.a(var1, bm.substring(0, bm.indexOf(10)), 120, 80, 1);
-         this.a(var1, bm.substring(bm.indexOf(10) + 1, bm.length()), 120, 80 + z, 1);
+      this.bp = 0;
+      var1.setColor(0);
+      var1.fillRect(F - 5 - 25, 0, F + 5 + 25, 320);
+      var1.fillRect(5, 0, 70, this.bm + this.bp);
+      this.a(this.o);
+      this.b(var1, false);
+      this.a(var1, aK, 134, 5, this.bm + this.bp, 0);
+      this.a(var1, aK, 133, 0, this.bp, 0);
+      bn = "~ " + String.valueOf(this.hu);
+      this.a(var1, bn, 13, 4, 4);
+      bn = this.e(116 + bi);
+      bq[0].a(var1, 175, 38 - bq[0].d, 0);
+      if (bn.indexOf(10) != -1) {
+         this.a(var1, bn.substring(0, bn.indexOf(10)), 175, 40, 1);
+         this.a(var1, bn.substring(bn.indexOf(10) + 1, bn.length()), 175, 40 + y, 1);
       } else {
-         this.a(var1, this.e(116 + bj), 120, 80, 1);
+         this.a(var1, this.e(116 + bi), 175, 40, 1);
       }
 
       int var2 = 0;
-      if (bj == 0) {
-         this.bn = gP;
-         if (gP <= 3) {
-            var2 = gR[this.bn] - this.gX;
+      if (bi == 0) {
+         this.bo = gT;
+         if (gT <= 3) {
+            var2 = gV[this.bo] - this.hb;
          }
-      } else if (bj == 1) {
-         this.bn = gQ;
-         if (gQ <= 3) {
-            var2 = gS[this.bn] - this.gY;
+      } else if (bi == 1) {
+         this.bo = gU;
+         if (gU <= 3) {
+            var2 = gW[this.bo] - this.hc;
          }
-      } else if (bj == 3) {
-         this.bn = gW;
-         if (gW <= 3) {
-            var2 = gU[this.bn] - this.ha;
+      } else if (bi == 3) {
+         this.bo = ha;
+         if (ha <= 3) {
+            var2 = gY[this.bo] - this.he;
          }
       } else {
-         this.bn = gV;
-         if (gV <= 3) {
-            var2 = gT[this.bn] - this.gZ;
+         this.bo = gZ;
+         if (gZ <= 3) {
+            var2 = gX[this.bo] - this.hd;
          }
       }
 
-      if (this.bn <= 3) {
-         this.a(var1, this.e(223) + String.valueOf(this.bn + 1), 120, 80 + (z << 1), 1);
-         this.a(var1, String.valueOf(var2) + "~", 132, 120 + (z << 1), 8);
-         this.a(var1, this.e(224), 120, 120 + (z << 1) + z, 1);
-         this.a(var1, this.e(225), 120, 120 + (z << 2), 1);
+      if (this.bo <= 3) {
+         this.a(var1, this.e(223) + String.valueOf(this.bo + 1), 175, 40 + (y << 1), 1);
+         this.a(var1, String.valueOf(var2) + "~", 200, 80 + (y << 1), 8);
+         this.a(var1, this.e(224), 175, 80 + (y << 1) + y, 1);
+         this.a(var1, this.e(225), 175, 80 + (y << 2), 1);
       } else {
-         this.a(var1, this.e(241), 120, 80 + (z << 1), 1);
+         this.a(var1, this.e(241), 175, 40 + (y << 1), 1);
       }
 
-      bo[1].a(var1, 120, 80 + (z << 1) + z, 0);
+      bq[1].a(var1, 175, 40 + (y << 1) + y, 0);
       if (this.bk > 0) {
          var1.setColor(855564);
-         var1.fillRect(G - (G >> 1), H - (H >> 2), G, (H >> 1) + z);
+         var1.fillRect(F - (F >> 1), G - (G >> 2), F, (G >> 1) + y);
          var1.setColor(4269080);
-         var1.drawRect(G - (G >> 1) - 1, H - (H >> 2) - 1, G + 1, (H >> 1) + 1 + z);
+         var1.drawRect(F - (F >> 1) - 1, G - (G >> 2) - 1, F + 1, (G >> 1) + 1 + y);
          var1.setColor(5911589);
-         var1.drawRect(G - (G >> 1) - 2, H - (H >> 2) - 2, G + 3, (H >> 1) + 3 + z);
-         if (bm.indexOf(10) != -1) {
-            this.a(var1, bm.substring(0, bm.indexOf(10)), G, H - z - (z >> 1), 1);
-            this.a(var1, bm.substring(bm.indexOf(10) + 1, bm.length()), G, H - (z >> 1), 1);
+         var1.drawRect(F - (F >> 1) - 2, G - (G >> 2) - 2, F + 3, (G >> 1) + 3 + y);
+         if (bn.indexOf(10) != -1) {
+            this.a(var1, bn.substring(0, bn.indexOf(10)), F, G - y - (y >> 1), 1);
+            this.a(var1, bn.substring(bn.indexOf(10) + 1, bn.length()), F, G - (y >> 1), 1);
          } else {
-            this.a(var1, this.e(116 + bj), G, H - (H >> 2), 1);
+            this.a(var1, this.e(116 + bi), F, G - (G >> 2), 1);
          }
 
-         this.a(var1, this.e(222), G, H + z, 1);
+         this.a(var1, this.e(222), F, G + y, 1);
       }
    }
 
    private void f(Graphics var1) {
-      this.a(var1, aL, 133, 0, 0, 0);
-      int var2 = 5 + this.fM;
-      aL[var2].a(var1, 6, 17, 0);
-      var1.setColor(4342338);
-      var1.drawRect(42, 13, this.hm * 6 >> 8, 3);
-      var1.drawRect(42, 17, this.hn * 6 >> 8, 2);
-      var1.setColor(0);
-      var1.fillRect(42, 14, this.hm * 6 >> 8, 2);
-      var1.fillRect(42, 17, this.hn * 6 >> 8, 2);
-      var1.setColor(4783872);
-      var1.fillRect(42, 14, this.hj * 6 >> 8, 2);
-      if (hl <= 0 && (hb || this.hd || hc)) {
-         var1.setColor(this.bq);
-         var1.fillRect(42, 17, this.hn * 6 >> 8, 2);
-      } else {
-         var1.setColor(104191);
-         var1.fillRect(42, 17, hl * 6 >> 8, 2);
+      this.a(var1, aK, 133, 0, 0, 0);
+      int var2;
+      if ((var2 = 38 + this.fQ + (bi > 0 ? 4 - bi : 0)) > 41) {
+         var2 = 38 + (var2 - 41) - 1;
       }
 
-      this.a(var1, String.valueOf(this.hq), 58, 24, 1);
+      aK[var2].a(var1, 12, 27, 0);
+      var1.setColor(4342338);
+      var1.drawRect(56, 17, this.hq * 9 >> 8, 4);
+      var1.drawRect(56, 23, this.hr * 9 >> 8, 3);
+      var1.setColor(0);
+      var1.fillRect(56, 18, this.hq * 9 >> 8, 3);
+      var1.fillRect(56, 23, this.hr * 9 >> 8, 3);
+      var1.setColor(4783872);
+      var1.fillRect(56, 18, this.hn * 9 >> 8, 3);
+      if (hp <= 0 && (hf || this.hh || hg)) {
+         var1.setColor(this.bs);
+         var1.fillRect(56, 23, this.hr * 9 >> 8, 3);
+      } else {
+         var1.setColor(104191);
+         var1.fillRect(56, 23, hp * 9 >> 8, 3);
+      }
+
+      this.a(var1, String.valueOf(this.hu), 79, 33, 1);
    }
 
    private void g(Graphics var1) {
-      for (int var2 = this.fm; var2 >= 0; var2--) {
-         int var3 = this.fq[var2];
-         int var4 = this.fr[var2];
-         int var5 = var3 - iQ;
-         int var6 = var4 - iR;
-         if (var5 + (this.fn << 1) >= 0 && var6 + this.fo >= 0 && var5 - this.fn <= 240 && var6 - this.fo <= 320) {
-            this.a(var1, this.fl, var2 + 121, var3, var4, 0);
+      for (int var2 = this.fq; var2 >= 0; var2--) {
+         int var3 = this.fu[var2];
+         int var4 = this.fv[var2];
+         int var5 = var3 - iW;
+         int var6 = var4 - iX;
+         if (var5 + (this.fr << 1) >= 0 && var6 + this.fs >= 0 && var5 - this.fr <= 240 && var6 - this.fs <= 320) {
+            this.a(var1, this.fp, var2 + 121, var3, var4, 0);
          }
       }
    }
 
    private void h(Graphics var1) {
-      for (int var2 = this.fG; var2 >= 0; var2--) {
+      for (int var2 = this.fK; var2 >= 0; var2--) {
          for (int var3 = 0; var3 < 4; var3++) {
             int var4 = (var2 << 2) + var3;
-            int var5 = fy[var4];
-            int var6 = fz[var4];
-            int var7 = var5 - iQ;
-            int var8 = var6 - iR;
-            if (var7 + this.fx[fE[var2]].c >= 0 && var8 + this.fx[fE[var2]].d >= 0 && var7 - this.fx[fE[var2]].c <= 240 && var8 - this.fx[fE[var2]].d <= 320) {
-               this.fx[(fE[var2] << 2) + var3].a(var1, var5, var6, 0);
+            int var5 = fC[var4];
+            int var6 = fD[var4];
+            int var7 = var5 - iW;
+            int var8 = var6 - iX;
+            if (var7 + this.fB[fI[var2]].c >= 0 && var8 + this.fB[fI[var2]].d >= 0 && var7 - this.fB[fI[var2]].c <= 240 && var8 - this.fB[fI[var2]].d <= 320) {
+               this.fB[(fI[var2] << 2) + var3].a(var1, var5, var6, 0);
             }
          }
       }
    }
 
    private void i(Graphics var1) {
-      for (int var2 = cd; var2 >= 0; var2--) {
-         if (this.bY[var2] >= 0) {
-            int var3 = bZ[var2];
-            int var4 = ca[var2];
-            int var5 = var3 - iQ;
-            int var6 = var4 - iR;
-            if (var5 + this.cc[var2] >= 0 && var6 + this.cb[var2] >= 0 && var5 - this.cc[var2] <= 240 && var6 - this.cb[var2] <= 320) {
-               this.a(var1, this.bX, var2 + 10, var3, var4, 0);
+      for (int var2 = ch; var2 >= 0; var2--) {
+         if (this.cc[var2] >= 0) {
+            int var3 = cd[var2];
+            int var4 = ce[var2];
+            int var5 = var3 - iW;
+            int var6 = var4 - iX;
+            if (var5 + this.cg[var2] >= 0 && var6 + this.cf[var2] >= 0 && var5 - this.cg[var2] <= 240 && var6 - this.cf[var2] <= 320) {
+               this.a(var1, this.cb, var2 + 10, var3, var4, 0);
             }
          }
       }
    }
 
    private void j(Graphics var1) {
-      for (int var2 = bW; var2 >= 0; var2--) {
-         if (this.bO[var2] >= 0) {
-            int var3 = bP[var2];
-            int var4 = this.bQ[var2];
-            int var5 = var3 - iQ;
-            int var6 = var4 - iR;
-            if (var5 + this.bU[var2] >= 0 && var6 + this.bT[var2] >= 0 && var5 - this.bU[var2] <= 240 && var6 - this.bT[var2] <= 320) {
-               this.a(var1, this.bN, var2 + 30, var3, var4, 0);
+      for (int var2 = ca; var2 >= 0; var2--) {
+         if (this.bS[var2] >= 0) {
+            int var3 = bT[var2];
+            int var4 = this.bU[var2];
+            int var5 = var3 - iW;
+            int var6 = var4 - iX;
+            if (var5 + this.bY[var2] >= 0 && var6 + this.bX[var2] >= 0 && var5 - this.bY[var2] <= 240 && var6 - this.bX[var2] <= 320) {
+               this.a(var1, this.bR, var2 + 30, var3, var4, 0);
             }
          }
       }
    }
 
    private void k(Graphics var1) {
-      for (int var2 = ck; var2 >= 0; var2--) {
-         if (this.cf[var2] >= 0) {
-            int var3 = this.cg[var2];
-            int var4 = ch[var2];
-            int var5 = var3 - iQ;
-            int var6 = var4 - iR;
-            if (var5 + this.cj[var2] >= 0 && var6 + this.ci[var2] >= 0 && var5 - this.cj[var2] <= 240 && var6 - this.ci[var2] <= 320) {
-               this.a(var1, this.ce, var2 + 40, var3, var4, 0);
+      for (int var2 = co; var2 >= 0; var2--) {
+         if (this.cj[var2] >= 0) {
+            int var3 = this.ck[var2];
+            int var4 = cl[var2];
+            int var5 = var3 - iW;
+            int var6 = var4 - iX;
+            if (var5 + this.cn[var2] >= 0 && var6 + this.cm[var2] >= 0 && var5 - this.cn[var2] <= 240 && var6 - this.cm[var2] <= 320) {
+               this.a(var1, this.ci, var2 + 40, var3, var4, 0);
             }
          }
       }
    }
 
    private void l(Graphics var1) {
-      for (int var2 = this.dz; var2 >= 0; var2--) {
-         if (this.dr[var2] >= 0) {
-            int var3 = dt[var2];
-            int var4 = this.du[var2];
-            int var5 = var3 - iQ;
-            int var6 = var4 - iR;
-            if (var5 + this.dy[var2] >= 0 && var6 + dx[var2] >= 0 && var5 - this.dy[var2] <= 240 && var6 - dx[var2] <= 320) {
-               this.a(var1, this.dq, var2 + 70, var3, var4, 0);
+      for (int var2 = this.dD; var2 >= 0; var2--) {
+         if (this.dv[var2] >= 0) {
+            int var3 = dx[var2];
+            int var4 = this.dy[var2];
+            int var5 = var3 - iW;
+            int var6 = var4 - iX;
+            if (var5 + this.dC[var2] >= 0 && var6 + dB[var2] >= 0 && var5 - this.dC[var2] <= 240 && var6 - dB[var2] <= 320) {
+               this.a(var1, this.du, var2 + 70, var3, var4, 0);
             }
          }
       }
    }
 
    private void m(Graphics var1) {
-      for (int var2 = this.dp; var2 >= 0; var2--) {
-         if (this.di[var2] >= 0) {
-            int var3 = dl[var2];
-            int var4 = dm[var2];
-            int var5 = var3 - iQ;
-            int var6 = var4 - iR;
-            if (var5 + this.do[var2] >= 0 && var6 + this.dn[var2] >= 0 && var5 - this.do[var2] <= 240 && var6 - this.dn[var2] <= 320) {
-               this.a(var1, this.dh, var2 + 60, var3, var4, this.dk[var2]);
+      for (int var2 = this.dt; var2 >= 0; var2--) {
+         if (this.dm[var2] >= 0) {
+            int var3 = dp[var2];
+            int var4 = dq[var2];
+            int var5 = var3 - iW;
+            int var6 = var4 - iX;
+            if (var5 + this.ds[var2] >= 0 && var6 + this.dr[var2] >= 0 && var5 - this.ds[var2] <= 240 && var6 - this.dr[var2] <= 320) {
+               this.a(var1, this.dl, var2 + 60, var3, var4, this.do[var2]);
             }
          }
       }
    }
 
    private void n(Graphics var1) {
-      for (int var2 = eX; var2 >= 0; var2--) {
-         if (this.eN[var2] >= 0) {
-            int var3 = this.eO[var2];
-            int var4 = this.eP[var2];
-            int var5 = var3 - iQ;
-            int var6 = var4 - iR;
-            if (var5 + this.eS[var2] >= 0 && var6 + this.eT[var2] >= 0 && var5 <= 240 && var6 - this.eT[var2] <= 320) {
-               this.a(var1, this.eM, var2 + 111, var3, var4, 0);
+      for (int var2 = fb; var2 >= 0; var2--) {
+         if (this.eR[var2] >= 0) {
+            int var3 = this.eS[var2];
+            int var4 = this.eT[var2];
+            int var5 = var3 - iW;
+            int var6 = var4 - iX;
+            if (var5 + this.eW[var2] >= 0 && var6 + this.eX[var2] >= 0 && var5 <= 240 && var6 - this.eX[var2] <= 320) {
+               this.a(var1, this.eQ, var2 + 111, var3, var4, 0);
             }
          }
       }
    }
 
    private void o(Graphics var1) {
-      for (int var2 = this.eZ; var2 >= 0; var2--) {
-         if (this.fa[var2] >= 0) {
-            int var3 = fd[var2];
-            int var4 = this.fe[var2];
-            int var5 = var3 - iQ;
-            int var6 = var4 - iR;
-            if (var5 + (ff[var2] << 1) >= 0 && var6 + this.fg[var2] >= 0 && var5 - ff[var2] <= 240 && var6 - this.fg[var2] <= 320) {
-               this.a(var1, this.eY, var2 + 116, var3, var4, 0);
+      for (int var2 = this.fd; var2 >= 0; var2--) {
+         if (this.fe[var2] >= 0) {
+            int var3 = fh[var2];
+            int var4 = this.fi[var2];
+            int var5 = var3 - iW;
+            int var6 = var4 - iX;
+            if (var5 + (fj[var2] << 1) >= 0 && var6 + this.fk[var2] >= 0 && var5 - fj[var2] <= 240 && var6 - this.fk[var2] <= 320) {
+               this.a(var1, this.fc, var2 + 116, var3, var4, 0);
             }
          }
       }
    }
 
    private void p(Graphics var1) {
-      for (int var2 = this.cx; var2 >= 0; var2--) {
-         int var3 = this.cy[var2];
-         int var4 = cz[var2];
-         int var5 = var3 - iQ;
-         int var6 = var4 - iR;
-         if (var5 + this.cB[var2] >= 0 && var6 + this.cC[var2] >= 0 && var5 - this.cB[var2] <= 240 && var6 - this.cC[var2] <= 320) {
-            this.a(var1, cw, var2 + 106, var3, var4, 0);
+      for (int var2 = this.cB; var2 >= 0; var2--) {
+         int var3 = this.cC[var2];
+         int var4 = cD[var2];
+         int var5 = var3 - iW;
+         int var6 = var4 - iX;
+         if (var5 + this.cF[var2] >= 0 && var6 + this.cG[var2] >= 0 && var5 - this.cF[var2] <= 240 && var6 - this.cG[var2] <= 320) {
+            this.a(var1, cA, var2 + 106, var3, var4, 0);
          }
       }
    }
 
    private void q(Graphics var1) {
-      for (int var2 = cI; var2 >= 0; var2--) {
-         if (cT[var2] >= 0) {
-            int var3 = cM[var2];
-            int var4 = this.cN[var2];
-            int var5 = var3 - iQ;
-            int var6 = var4 - iR;
-            if (var5 + cP[var2] >= 0 && var6 + this.cR[var2] >= 0 && var5 - cP[var2] <= 240 && var6 - this.cR[var2] <= 320) {
-               this.a(var1, this.cJ, var2 + 100, var3, var4, 0);
+      for (int var2 = cM; var2 >= 0; var2--) {
+         if (cX[var2] >= 0) {
+            int var3 = cQ[var2];
+            int var4 = this.cR[var2];
+            int var5 = var3 - iW;
+            int var6 = var4 - iX;
+            if (var5 + cT[var2] >= 0 && var6 + this.cV[var2] >= 0 && var5 - cT[var2] <= 240 && var6 - this.cV[var2] <= 320) {
+               this.a(var1, this.cN, var2 + 100, var3, var4, 0);
             }
          }
       }
    }
 
    private void r(Graphics var1) {
-      for (int var2 = this.eB; var2 >= 0; var2--) {
-         if (this.dP[var2] >= 0) {
-            int var3 = dT[var2];
-            int var4 = this.dU[var2];
-            int var5 = var3 - iQ;
-            int var6 = var4 - iR;
-            if (var5 + this.ee[var2] >= 0 && var6 + this.ef[var2] >= 0 && var5 - this.ee[var2] <= 240 && var6 - this.ef[var2] <= 320) {
-               boolean var7 = this.ej[var2];
-               switch (this.dQ[var2]) {
+      for (int var2 = this.eF; var2 >= 0; var2--) {
+         if (this.dT[var2] >= 0) {
+            int var3 = dX[var2];
+            int var4 = this.dY[var2];
+            int var5 = var3 - iW;
+            int var6 = var4 - iX;
+            if (var5 + this.ei[var2] >= 0 && var6 + this.ej[var2] >= 0 && var5 - this.ei[var2] <= 240 && var6 - this.ej[var2] <= 320) {
+               boolean var7 = this.en[var2];
+               switch (this.dU[var2]) {
                   case 1:
-                     this.a(var1, this.dC, var2 + 85, dT[var2], this.dU[var2], var7 ? 0 : 2);
+                     this.a(var1, this.dG, var2 + 85, dX[var2], this.dY[var2], var7 ? 0 : 2);
                      break;
                   case 2:
-                     this.a(var1, dD, var2 + 85, dT[var2], this.dU[var2], var7 ? 0 : 2);
+                     this.a(var1, dH, var2 + 85, dX[var2], this.dY[var2], var7 ? 0 : 2);
                      break;
                   case 3:
-                     if (dM == var2) {
-                        this.a(var1, this.dF, var2 + 85, dT[var2], this.dU[var2], var7 ? 0 : 2);
+                     if (dQ == var2) {
+                        this.a(var1, this.dJ, var2 + 85, dX[var2], this.dY[var2], var7 ? 0 : 2);
                      } else {
-                        this.a(var1, this.dE, var2 + 85, dT[var2], this.dU[var2], var7 ? 0 : 2);
+                        this.a(var1, this.dI, var2 + 85, dX[var2], this.dY[var2], var7 ? 0 : 2);
                      }
                }
 
-               if (this.dX[var2] > 0) {
-                  this.a(var1, this.bH, 137, dT[var2], this.dU[var2], 0);
-                  this.b(137, this.L);
+               if (this.eb[var2] > 0) {
+                  this.a(var1, this.bL, 137, dX[var2], this.dY[var2], 0);
+                  this.b(137, this.K);
                }
 
-               if (I == 100
+               if (H == 100
                   && (
-                     this.ge < 0 && this.dX[var2] <= 0 && ek[var2] < en[var2] >> 1 && !this.eh[var2] && ek[var2] >= 0
-                        || this.dQ[var2] == 3 && this.dR[var2] == 12 && dM != var2 && this.dN != var2
-                        || this.dQ[var2] == 2 && this.dR[var2] == 12 && dM != var2
+                     this.gi < 0 && this.eb[var2] <= 0 && eo[var2] < er[var2] >> 1 && !this.el[var2] && eo[var2] >= 0
+                        || this.dU[var2] == 3 && this.dV[var2] == 12 && dQ != var2 && this.dR != var2
+                        || this.dU[var2] == 2 && this.dV[var2] == 12 && dQ != var2
                   )) {
-                  this.a(var1, this.aU, 132, dT[var2], this.dU[var2] - this.ef[var2] - (this.dN == var2 ? -(this.ef[var2] >> 3) : this.ef[var2] >> 2), 0);
+                  this.a(var1, this.aT, 132, dX[var2], this.dY[var2] - this.ej[var2] - (this.dR == var2 ? -(this.ej[var2] >> 3) : this.ej[var2] >> 2), 0);
                }
             }
          }
@@ -2596,13 +2670,13 @@ public final class e extends a {
    }
 
    private void s(Graphics var1) {
-      this.a(var1, this.fH, 135, this.ga, this.gb, hu ? 0 : 2);
+      this.a(var1, this.fL, 135, this.ge, this.gf, hy ? 0 : 2);
    }
 
    private void t(Graphics var1) {
-      for (int var2 = this.bM; var2 >= 0; var2--) {
-         if (bI[var2] >= 0) {
-            this.a(var1, this.bH, bI[var2], this.bJ[var2], this.bK[var2], this.bL[var2]);
+      for (int var2 = this.bQ; var2 >= 0; var2--) {
+         if (bM[var2] >= 0) {
+            this.a(var1, this.bL, bM[var2], this.bN[var2], this.bO[var2], this.bP[var2]);
          }
       }
    }
@@ -2612,8 +2686,8 @@ public final class e extends a {
          case 0:
             for (int var47 = 0; var47 < var2; var47++) {
                int var62 = this.m(10);
-               int var76 = this.bs[var47] / 16;
-               int var87 = this.bt[var47] / 16;
+               int var76 = this.bu[var47] / 22;
+               int var87 = this.bv[var47] / 22;
 
                for (int var94 = 0; var94 <= var62; var94++) {
                   this.b(var76 + var94, var87, 8192);
@@ -2622,58 +2696,58 @@ public final class e extends a {
 
             return;
          case 3:
-            this.aD = var2;
-            this.aH = new boolean[var2];
+            this.aC = var2;
             this.aG = new boolean[var2];
+            this.aF = new boolean[var2];
+            this.aD = new int[var2];
             this.aE = new int[var2];
-            this.aF = new int[var2];
 
             for (int var23 = 0; var23 < var2; var23++) {
-               this.aE[var23] = this.bs[var23];
-               this.aF[var23] = this.bt[var23];
-               this.aH[var23] = this.m(1) == 1;
+               this.aD[var23] = this.bu[var23];
+               this.aE[var23] = this.bv[var23];
                this.aG[var23] = this.m(1) == 1;
+               this.aF[var23] = this.m(1) == 1;
             }
 
             return;
          case 4:
-            this.fm = var2 - 1;
-            this.ft = new int[var2];
-            this.fq = new int[var2];
-            this.fr = new int[var2];
-            fp = new boolean[var2];
-            fs = new int[var2];
-            int var46 = 1 << this.bC;
+            this.fq = var2 - 1;
+            this.fx = new int[var2];
+            this.fu = new int[var2];
+            this.fv = new int[var2];
+            ft = new boolean[var2];
+            fw = new int[var2];
+            int var46 = 1 << this.bF;
 
             for (int var61 = 0; var61 < var2; var61++) {
-               this.ft[var61] = this.m(3);
-               fs[var61] = this.m(10);
-               if (this.ft[var61] == 3) {
-                  if (fs[var61] > 0) {
-                     fs[var61] = -1;
+               this.fx[var61] = this.m(3);
+               fw[var61] = this.m(10);
+               if (this.fx[var61] == 3) {
+                  if (fw[var61] > 0) {
+                     fw[var61] = -1;
                   } else {
-                     fs[var61] = -2;
+                     fw[var61] = -2;
                   }
                }
 
-               this.fq[var61] = this.bs[var61];
-               this.fr[var61] = this.bt[var61];
-               if ((fs[var61] != -1 || (he & var46) != var46) && (fs[var61] != -2 || (he & var46 << 10) != var46 << 10)) {
-                  fp[var61] = false;
+               this.fu[var61] = this.bu[var61];
+               this.fv[var61] = this.bv[var61];
+               if ((fw[var61] != -1 || (hi & var46) != var46) && (fw[var61] != -2 || (hi & var46 << 10) != var46 << 10)) {
+                  ft[var61] = false;
                } else {
-                  fp[var61] = true;
-                  fs[var61] = 0;
-                  this.ft[var61] = this.ft[var61] + 4;
+                  ft[var61] = true;
+                  fw[var61] = 0;
+                  this.fx[var61] = this.fx[var61] + 4;
                }
 
-               this.a(121 + var61, 5120, this.ft[var61]);
-               if (fp[var61]) {
+               this.a(121 + var61, 5120, this.fx[var61]);
+               if (ft[var61]) {
                   this.b(121 + var61, 2000);
                }
 
-               this.a(this.fl, 121 + var61, 0, 0, 0, this.P);
-               this.fn = this.P[2];
-               this.fo = this.P[3];
+               this.a(this.fp, 121 + var61, 0, 0, 0, this.O);
+               this.fr = this.O[2];
+               this.fs = this.O[3];
             }
          case 1:
          case 2:
@@ -2687,8 +2761,8 @@ public final class e extends a {
          case 5:
             for (int var45 = 0; var45 < var2; var45++) {
                int var60 = this.m(10);
-               int var75 = this.bs[var45] / 16;
-               int var86 = this.bt[var45] / 16;
+               int var75 = this.bu[var45] / 22;
+               int var86 = this.bv[var45] / 22;
 
                for (int var93 = 0; var93 <= var60; var93++) {
                   this.b(var75, var86 + var93, 8);
@@ -2698,50 +2772,50 @@ public final class e extends a {
             return;
          case 6:
             for (int var13 = 0; var13 < 40; var13++) {
-               this.aY[var13] = this.m(10);
+               this.aX[var13] = this.m(10);
             }
 
             for (int var14 = 0; var14 < 40; var14++) {
-               this.aZ[var14] = this.m(10);
+               this.aY[var14] = this.m(10);
             }
 
             return;
          case 7:
-            this.fa = new int[var2];
-            this.fb = new int[var2];
-            fc = new int[var2];
-            fd = new int[var2];
             this.fe = new int[var2];
-            ff = new int[var2];
-            this.fg = new int[var2];
-            this.fh = new byte[var2];
-            this.fi = new byte[var2];
-            fj = new boolean[var2];
-            fk = new boolean[var2];
+            this.ff = new int[var2];
+            fg = new int[var2];
+            fh = new int[var2];
+            this.fi = new int[var2];
+            fj = new int[var2];
+            this.fk = new int[var2];
+            this.fl = new byte[var2];
+            this.fm = new byte[var2];
+            fn = new boolean[var2];
+            fo = new boolean[var2];
 
             for (int var44 = 0; var44 < var2; var44++) {
-               this.eZ = var44;
-               this.fa[var44] = this.m(6) << 1;
-               fj[var44] = this.m(1) == 1;
-               fk[var44] = this.m(1) == 1;
-               this.a(116 + var44, 2048, this.fa[var44]);
-               this.a(this.eY, 116 + var44, 0, 0, 0, this.P);
-               fd[var44] = this.bs[var44];
-               this.fe[var44] = this.bt[var44];
-               this.fb[var44] = this.bs[var44] / 16;
-               fc[var44] = this.bt[var44] / 16;
-               ff[var44] = this.P[2];
-               this.fg[var44] = this.P[3];
-               this.fh[var44] = (byte)(ff[var44] / 16);
-               this.fi[var44] = (byte)(this.fg[var44] / 16);
-               int var59 = this.fb[var44];
-               int var74 = fc[var44];
+               this.fd = var44;
+               this.fe[var44] = this.m(6) << 1;
+               fn[var44] = this.m(1) == 1;
+               fo[var44] = this.m(1) == 1;
+               this.a(116 + var44, 2048, this.fe[var44]);
+               this.a(this.fc, 116 + var44, 0, 0, 0, this.O);
+               fh[var44] = this.bu[var44];
+               this.fi[var44] = this.bv[var44];
+               this.ff[var44] = this.bu[var44] / 22;
+               fg[var44] = this.bv[var44] / 22;
+               fj[var44] = this.O[2];
+               this.fk[var44] = this.O[3];
+               this.fl[var44] = (byte)(fj[var44] / 22);
+               this.fm[var44] = (byte)(this.fk[var44] / 22);
+               int var59 = this.ff[var44];
+               int var74 = fg[var44];
                if (!this.b(116 + var44, 1)) {
                   this.j(var44, 2);
                   this.q(var44);
                } else {
-                  for (int var85 = 0; var85 < this.fh[var44]; var85++) {
-                     for (int var92 = 1; var92 <= this.fi[var44]; var92++) {
+                  for (int var85 = 0; var85 < this.fl[var44]; var85++) {
+                     for (int var92 = 1; var92 <= this.fm[var44]; var92++) {
                         this.b(var59 + var85, var74 - var92, 1);
                      }
                   }
@@ -2750,33 +2824,33 @@ public final class e extends a {
 
             return;
          case 8:
-            this.cl = new int[var2];
-            cm = new int[var2];
-            this.cn = new int[var2];
-            this.co = new int[var2];
-            cv = var2 - 1;
+            this.cp = new int[var2];
+            cq = new int[var2];
+            this.cr = new int[var2];
+            this.cs = new int[var2];
+            cz = var2 - 1;
 
             for (int var43 = 0; var43 < var2; var43++) {
-               this.cl[var43] = this.bs[var43] / 16;
-               cm[var43] = this.bt[var43] / 16;
-               this.b(this.cl[var43], cm[var43], 128);
-               this.cn[var43] = this.m(10);
-               this.co[var43] = this.m(3);
+               this.cp[var43] = this.bu[var43] / 22;
+               cq[var43] = this.bv[var43] / 22;
+               this.b(this.cp[var43], cq[var43], 128);
+               this.cr[var43] = this.m(10);
+               this.cs[var43] = this.m(3);
             }
 
             return;
          case 9:
-            this.cX = new byte[var2];
-            this.cY = new int[var2];
-            cZ = new int[var2];
+            this.db = new byte[var2];
+            this.dc = new int[var2];
+            dd = new int[var2];
 
             for (int var42 = 0; var42 < var2; var42++) {
                int var58 = this.m(10);
-               this.cX[var42] = (byte)this.m(3);
-               int var73 = this.bs[var42] / 16;
-               int var84 = this.bt[var42] / 16;
-               this.cY[var42] = var73;
-               cZ[var42] = var84;
+               this.db[var42] = (byte)this.m(3);
+               int var73 = this.bu[var42] / 22;
+               int var84 = this.bv[var42] / 22;
+               this.dc[var42] = var73;
+               dd[var42] = var84;
 
                for (int var91 = 0; var91 <= var58; var91++) {
                   this.b(var73, var84 + var91, 256);
@@ -2787,8 +2861,8 @@ public final class e extends a {
          case 10:
             for (int var41 = 0; var41 < var2; var41++) {
                int var57 = this.m(10);
-               int var72 = this.bs[var41] / 16;
-               int var83 = this.bt[var41] / 16;
+               int var72 = this.bu[var41] / 22;
+               int var83 = this.bv[var41] / 22;
 
                for (int var90 = 0; var90 <= var57; var90++) {
                   this.b(var72 + var90, var83, 64);
@@ -2803,109 +2877,109 @@ public final class e extends a {
             byte var26 = -1;
             byte var28 = -1;
             if (var1 == 11) {
-               var22 = this.dC;
+               var22 = this.dG;
                var26 = 1;
                var28 = 0;
-               if (this.dA) {
+               if (this.dE) {
                }
             } else if (var1 == 12) {
-               var22 = dD;
+               var22 = dH;
                var26 = 2;
                var28 = 0;
-               if (this.dB) {
+               if (this.dF) {
                }
             } else if (var1 == 13) {
-               var22 = this.dE;
+               var22 = this.dI;
                var26 = 3;
                var28 = 0;
             }
 
-            for (int var40 = this.eB; var40 < this.eB + var2; var40++) {
-               this.dP[var40] = var40;
-               dT[var40] = this.bs[var40 - this.eB];
-               this.dU[var40] = this.bt[var40 - this.eB];
-               this.dZ[var40] = dT[var40] / 16;
-               this.ea[var40] = (this.dU[var40] - 1) / 16;
-               this.b(this.dZ[var40], this.ea[var40] - 1, 2);
-               this.dR[var40] = var28;
-               this.dP[var40] = var40;
-               this.dQ[var40] = var26;
-               eu[var40] = 0;
-               dV[var40] = dT[var40];
-               dW[var40] = this.dU[var40];
-               this.ep[var40] = this.dU[var40] - this.ea[var40] * 16 << 8;
-               this.dX[var40] = 0;
-               ec[var40] = (byte)this.m(3);
-               ed[var40] = ec[var40];
-               this.et[var40] = this.m(10) * 1000;
-               this.dL = this.m(1) == 1 ? var40 : 0;
-               er[var40] = this.et[var40];
-               en[var40] = this.m(16);
-               ek[var40] = en[var40];
-               this.em[var40] = this.m(16);
-               this.el[var40] = (byte)this.m(10);
-               this.dY[var40] = (byte)this.m(10);
-               this.ej[var40] = this.m(1) != 1;
-               es[var40] = this.ej[var40];
-               ev[var40] = this.m(1) == 1;
+            for (int var40 = this.eF; var40 < this.eF + var2; var40++) {
+               this.dT[var40] = var40;
+               dX[var40] = this.bu[var40 - this.eF];
+               this.dY[var40] = this.bv[var40 - this.eF];
+               this.ed[var40] = dX[var40] / 22;
+               this.ee[var40] = (this.dY[var40] - 1) / 22;
+               this.b(this.ed[var40], this.ee[var40] - 1, 2);
+               this.dV[var40] = var28;
+               this.dT[var40] = var40;
+               this.dU[var40] = var26;
+               ey[var40] = 0;
+               dZ[var40] = dX[var40];
+               ea[var40] = this.dY[var40];
+               this.et[var40] = this.dY[var40] - this.ee[var40] * 22 << 8;
+               this.eb[var40] = 0;
+               eg[var40] = (byte)this.m(3);
+               eh[var40] = eg[var40];
+               this.ex[var40] = this.m(10) * 1000;
+               this.dP = this.m(1) == 1 ? var40 : 0;
+               ev[var40] = this.ex[var40];
+               er[var40] = this.m(16);
+               eo[var40] = er[var40];
+               this.eq[var40] = this.m(16);
+               this.ep[var40] = (byte)this.m(10);
+               this.ec[var40] = (byte)this.m(10);
+               this.en[var40] = this.m(1) != 1;
+               ew[var40] = this.en[var40];
+               ez[var40] = this.m(1) == 1;
                if (var1 == 13) {
                   boolean var56 = this.m(1) == 1;
                   boolean var71 = this.m(1) == 1;
-                  if (ev[var40]) {
+                  if (ez[var40]) {
                      var28 = 1;
                   }
 
                   if (var56 && !var71) {
-                     this.dF = this.b(13313, bG[this.bC] >= 0 ? this.c(13315 + bG[this.bC]) : null);
+                     this.dJ = this.b(13313, bK[this.bF] >= 0 ? this.c(13315 + bK[this.bF]) : null);
                      this.g(13312);
-                     dM = var40;
-                     ek[var40] = ek[var40] << 2;
-                     en[var40] = ek[var40];
+                     dQ = var40;
+                     eo[var40] = eo[var40] << 2;
+                     er[var40] = eo[var40];
                   } else if (var71) {
-                     this.dF = this.b(14337);
+                     this.dJ = this.b(14337);
                      this.g(14336);
-                     this.dN = var40;
-                     dM = var40;
-                     ek[var40] = ek[var40] << 2;
-                     en[var40] = ek[var40];
+                     this.dR = var40;
+                     dQ = var40;
+                     eo[var40] = eo[var40] << 2;
+                     er[var40] = eo[var40];
                   } else {
                      this.g(15360);
                   }
-               } else if (ev[var40]) {
+               } else if (ez[var40]) {
                   var28 = 1;
                }
 
                this.i(var28, var40);
-               this.a(var22, 85 + var40, 0, 0, 0, this.P);
-               this.ee[var40] = (short)this.P[2];
-               eb[var40] = (byte)(this.ee[var40] / 16 >> 1);
-               if (eb[var40] == 0) {
-                  eb[var40] = 1;
+               this.a(var22, 85 + var40, 0, 0, 0, this.O);
+               this.ei[var40] = (short)this.O[2];
+               ef[var40] = (byte)(this.ei[var40] / 22 >> 1);
+               if (ef[var40] == 0) {
+                  ef[var40] = 1;
                }
 
-               this.ef[var40] = (short)this.P[3];
-               this.eg[var40] = (byte)(this.ef[var40] / 16);
+               this.ej[var40] = (short)this.O[3];
+               this.ek[var40] = (byte)(this.ej[var40] / 22);
             }
 
-            this.eB += var2;
+            this.eF += var2;
             return;
          case 14:
-            this.eC = new int[var2];
-            this.eD = new int[var2];
-            this.eE = new int[var2 * 15];
-            this.eF = new int[var2 * 15];
-            this.eG = new boolean[var2 * 15];
+            this.eG = new int[var2];
+            this.eH = new int[var2];
+            this.eI = new int[var2 * 15];
+            this.eJ = new int[var2 * 15];
+            this.eK = new boolean[var2 * 15];
 
             for (int var39 = 0; var39 < var2; var39++) {
                int var55 = this.m(10);
-               this.eC[var39] = this.bs[var39] / 16;
-               this.eD[var39] = this.bt[var39] / 16;
+               this.eG[var39] = this.bu[var39] / 22;
+               this.eH[var39] = this.bv[var39] / 22;
 
                for (int var69 = 0; var69 < 15; var69++) {
                   if (var69 < 15) {
-                     this.eE[var69 + var39 * 15] = this.m(10);
-                     this.eF[var69 + var39 * 15] = this.m(10);
-                     this.eG[var69 + var39 * 15] = this.m(1) != 1;
+                     this.eI[var69 + var39 * 15] = this.m(10);
+                     this.eJ[var69 + var39 * 15] = this.m(10);
+                     this.eK[var69 + var39 * 15] = this.m(1) != 1;
                   } else {
                      this.m(10);
                      this.m(10);
@@ -2914,30 +2988,30 @@ public final class e extends a {
                }
 
                for (int var70 = 0; var70 < var55; var70++) {
-                  this.b(this.eC[var39], this.eD[var39] + var70, 4);
+                  this.b(this.eG[var39], this.eH[var39] + var70, 4);
                }
             }
 
             return;
          case 17:
-            ck = var2 - 1;
+            co = var2 - 1;
 
             for (int var21 = 0; var21 < var2; var21++) {
-               this.cf[var21] = this.m(6);
-               this.cg[var21] = this.bs[var21];
-               ch[var21] = this.bt[var21];
-               this.a(40 + var21, 3072, this.cf[var21]);
-               this.a(this.ce, 40 + var21, 0, 0, 0, this.P);
-               this.cj[var21] = this.P[2];
-               this.ci[var21] = this.P[3];
+               this.cj[var21] = this.m(6);
+               this.ck[var21] = this.bu[var21];
+               cl[var21] = this.bv[var21];
+               this.a(40 + var21, 3072, this.cj[var21]);
+               this.a(this.ci, 40 + var21, 0, 0, 0, this.O);
+               this.cn[var21] = this.O[2];
+               this.cm[var21] = this.O[3];
             }
 
             return;
          case 18:
             for (int var38 = 0; var38 < var2; var38++) {
                int var54 = this.m(10);
-               int var68 = this.bs[var38] / 16;
-               int var82 = this.bt[var38] / 16;
+               int var68 = this.bu[var38] / 22;
+               int var82 = this.bv[var38] / 22;
 
                for (int var89 = 0; var89 <= var54; var89++) {
                   this.b(var68 + var89, var82, 16);
@@ -2946,17 +3020,17 @@ public final class e extends a {
 
             return;
          case 21:
-            this.dp = var2 - 1;
+            this.dt = var2 - 1;
 
             for (int var37 = 0; var37 < var2; var37++) {
-               this.di[var37] = this.m(6) << 1;
-               dl[var37] = this.bs[var37];
-               dm[var37] = this.bt[var37];
-               this.dk[var37] = 0;
-               this.a(60 + var37, 5121, this.di[var37]);
-               this.a(this.dh, 60 + var37, 0, 0, 0, this.P);
-               this.do[var37] = this.P[2];
-               this.dn[var37] = this.P[3];
+               this.dm[var37] = this.m(6) << 1;
+               dp[var37] = this.bu[var37];
+               dq[var37] = this.bv[var37];
+               this.do[var37] = 0;
+               this.a(60 + var37, 5121, this.dm[var37]);
+               this.a(this.dl, 60 + var37, 0, 0, 0, this.O);
+               this.ds[var37] = this.O[2];
+               this.dr[var37] = this.O[3];
             }
 
             return;
@@ -2970,8 +3044,8 @@ public final class e extends a {
                   }
                }
 
-               int var20 = this.bs[var15] / 16;
-               int var25 = this.bt[var15] / 16;
+               int var20 = this.bu[var15] / 22;
+               int var25 = this.bv[var15] / 22;
                int var27 = this.m(10);
                int var36 = this.m(10);
                int var53 = this.m(10);
@@ -2996,74 +3070,74 @@ public final class e extends a {
 
             return;
          case 23:
-            this.eI = new int[var2];
-            this.eJ = new int[var2];
-            this.eK = new int[var2];
-            eL = new byte[var2];
-            this.br = var2;
+            this.eM = new int[var2];
+            this.eN = new int[var2];
+            this.eO = new int[var2];
+            eP = new byte[var2];
+            this.bt = var2;
 
             for (int var18 = var2 - 1; var18 >= 0; var18--) {
-               this.eI[var18] = this.m(8);
-               this.eJ[var18] = this.bs[var2 - var18 - 1];
-               this.eK[var18] = this.bt[var2 - var18 - 1];
-               eL[var18] = (byte)this.m(3);
+               this.eM[var18] = this.m(8);
+               this.eN[var18] = this.bu[var2 - var18 - 1];
+               this.eO[var18] = this.bv[var2 - var18 - 1];
+               eP[var18] = (byte)this.m(3);
             }
 
             return;
          case 25:
             for (int var35 = 0; var35 < var2; var35++) {
-               this.b(this.bs[var35] / 16, this.bt[var35] / 16, 1024);
+               this.b(this.bu[var35] / 22, this.bv[var35] / 22, 1024);
             }
 
             return;
          case 26:
-            this.fW = this.bs[0];
-            this.fX = this.bt[0];
-            this.fY = this.fW;
-            this.fZ = this.fX;
-            this.gu = false;
-            this.gn = false;
-            this.hj = this.hm;
-            hl = this.hn;
-            this.hw = false;
-            gg = false;
-            this.ga = this.fW;
-            this.gb = this.fX;
+            this.ga = this.bu[0];
+            this.gb = this.bv[0];
+            this.gc = this.ga;
+            this.gd = this.gb;
+            this.gy = false;
+            this.gr = false;
+            this.hn = this.hq;
+            hp = this.hr;
+            this.hA = false;
+            gk = false;
+            this.ge = this.ga;
+            this.gf = this.gb;
             return;
          case 27:
-            eX = var2 - 1;
-            this.eN = new int[var2];
-            this.eO = new int[var2];
-            this.eP = new int[var2];
-            eQ = new int[var2];
+            fb = var2 - 1;
             this.eR = new int[var2];
             this.eS = new int[var2];
             this.eT = new int[var2];
-            this.eU = new byte[var2];
-            this.eV = new byte[var2];
-            eW = new boolean[var2];
+            eU = new int[var2];
+            this.eV = new int[var2];
+            this.eW = new int[var2];
+            this.eX = new int[var2];
+            this.eY = new byte[var2];
+            this.eZ = new byte[var2];
+            fa = new boolean[var2];
 
             for (int var34 = 0; var34 < var2; var34++) {
-               this.eN[var34] = this.m(3);
-               eW[var34] = this.m(1) == 1;
-               this.a(111 + var34, 6144, this.eN[var34]);
-               this.a(this.eM, 111 + var34, 0, 0, 0, this.P);
-               this.eO[var34] = this.bs[var34];
-               this.eP[var34] = this.bt[var34];
-               eQ[var34] = this.bs[var34] / 16;
-               this.eR[var34] = this.bt[var34] / 16;
-               this.eS[var34] = this.P[2];
-               this.eT[var34] = this.P[3];
-               this.eU[var34] = (byte)(this.eS[var34] / 16);
-               this.eV[var34] = (byte)(this.eT[var34] / 16);
-               int var52 = eQ[var34];
-               int var66 = this.eR[var34];
+               this.eR[var34] = this.m(3);
+               fa[var34] = this.m(1) == 1;
+               this.a(111 + var34, 6144, this.eR[var34]);
+               this.a(this.eQ, 111 + var34, 0, 0, 0, this.O);
+               this.eS[var34] = this.bu[var34];
+               this.eT[var34] = this.bv[var34];
+               eU[var34] = this.bu[var34] / 22;
+               this.eV[var34] = this.bv[var34] / 22;
+               this.eW[var34] = this.O[2];
+               this.eX[var34] = this.O[3];
+               this.eY[var34] = (byte)(this.eW[var34] / 22);
+               this.eZ[var34] = (byte)(this.eX[var34] / 22);
+               int var52 = eU[var34];
+               int var66 = this.eV[var34];
 
-               for (int var77 = 0; var77 < this.eU[var34]; var77++) {
-                  for (int var88 = 1; var88 <= this.eV[var34]; var88++) {
+               for (int var77 = 0; var77 < this.eY[var34]; var77++) {
+                  for (int var88 = 1; var88 <= this.eZ[var34]; var88++) {
                      this.b(var52 + var77, var66 - var88, 1);
                      this.b(var52 + var77, var66 - var88, 512);
-                     if (eW[var34]) {
+                     if (fa[var34]) {
                         this.b(var52 + var77, var66 - var88, 8);
                      }
                   }
@@ -3074,26 +3148,26 @@ public final class e extends a {
 
             return;
          case 28:
-            this.db = new int[var2];
-            this.da = new int[var2];
-            this.dc = new int[var2];
-            dd = new int[var2];
+            this.df = new int[var2];
             this.de = new int[var2];
-            df = new int[var2];
             this.dg = new int[var2];
+            dh = new int[var2];
+            this.di = new int[var2];
+            dj = new int[var2];
+            this.dk = new int[var2];
 
             for (int var33 = 0; var33 < var2; var33++) {
-               this.da[var33] = this.bs[var33] / 16;
-               this.db[var33] = this.bt[var33] / 16;
-               this.dc[var33] = this.m(10);
-               dd[var33] = this.m(10);
-               this.de[var33] = this.m(3);
+               this.de[var33] = this.bu[var33] / 22;
+               this.df[var33] = this.bv[var33] / 22;
                this.dg[var33] = this.m(10);
-               df[var33] = 0;
+               dh[var33] = this.m(10);
+               this.di[var33] = this.m(3);
+               this.dk[var33] = this.m(10);
+               dj[var33] = 0;
 
-               for (int var51 = 0; var51 <= this.dc[var33]; var51++) {
-                  for (int var65 = 0; var65 <= dd[var33]; var65++) {
-                     this.b(this.da[var33] + var51, this.db[var33] + var65, 32);
+               for (int var51 = 0; var51 <= this.dg[var33]; var51++) {
+                  for (int var65 = 0; var65 <= dh[var33]; var65++) {
+                     this.b(this.de[var33] + var51, this.df[var33] + var65, 32);
                   }
                }
             }
@@ -3102,8 +3176,8 @@ public final class e extends a {
          case 29:
             for (int var32 = 0; var32 < var2; var32++) {
                int var50 = this.m(10);
-               int var64 = this.bs[var32] / 16;
-               int var11 = this.bt[var32] / 16;
+               int var64 = this.bu[var32] / 22;
+               int var11 = this.bv[var32] / 22;
 
                for (int var12 = 0; var12 <= var50; var12++) {
                   this.b(var64 + var12, var11, 16384);
@@ -3114,9 +3188,9 @@ public final class e extends a {
          case 30:
             for (int var31 = 0; var31 < var2; var31++) {
                if (this.m(1) != 0) {
-                  this.b(this.bs[var31] / 16, this.bt[var31] / 16, 2048);
+                  this.b(this.bu[var31] / 22, this.bv[var31] / 22, 2048);
                } else {
-                  this.b(this.bs[var31] / 16, this.bt[var31] / 16, 4096);
+                  this.b(this.bu[var31] / 22, this.bv[var31] / 22, 4096);
                }
             }
 
@@ -3131,123 +3205,123 @@ public final class e extends a {
                   }
                }
 
-               int var24 = this.bs[var17] / 16;
-               int var7 = this.bt[var17] / 16;
+               int var24 = this.bu[var17] / 22;
+               int var7 = this.bv[var17] / 22;
                this.b(var24, var7, var4);
             }
 
             return;
          case 32:
-            bW = var2 - 1;
+            ca = var2 - 1;
 
             for (int var16 = 0; var16 < var2; var16++) {
-               this.bO[var16] = this.m(6) << 1;
-               bP[var16] = this.bs[var16];
-               this.bQ[var16] = this.bt[var16];
-               this.bV[var16] = this.m(1) == 1;
-               this.a(30 + var16, 5122, this.bO[var16]);
-               this.b(this.ht, 30 + var16, 0);
-               bR[var16] = this.ht[0] + bP[var16];
-               this.bS[var16] = this.ht[1] + this.bQ[var16];
-               this.bU[var16] = this.ht[2];
-               this.bT[var16] = this.ht[3];
+               this.bS[var16] = this.m(6) << 1;
+               bT[var16] = this.bu[var16];
+               this.bU[var16] = this.bv[var16];
+               this.bZ[var16] = this.m(1) == 1;
+               this.a(30 + var16, 5122, this.bS[var16]);
+               this.b(this.hx, 30 + var16, 0);
+               bV[var16] = this.hx[0] + bT[var16];
+               this.bW[var16] = this.hx[1] + this.bU[var16];
+               this.bY[var16] = this.hx[2];
+               this.bX[var16] = this.hx[3];
             }
 
             return;
          case 33:
-            this.dz = var2 - 1;
+            this.dD = var2 - 1;
 
             for (int var30 = 0; var30 < var2; var30++) {
-               this.dr[var30] = this.m(6);
-               this.ds[var30] = this.m(10);
+               this.dv[var30] = this.m(6);
+               this.dw[var30] = this.m(10);
                int var49 = this.m(3) * 100;
-               dt[var30] = this.bs[var30];
-               this.du[var30] = this.bt[var30];
-               this.dv[var30] = this.bs[var30];
-               this.dw[var30] = this.bt[var30];
-               this.a(70 + var30, 6145, this.dr[var30]);
-               this.a(this.dq, 70 + var30, 0, 0, 0, this.P);
+               dx[var30] = this.bu[var30];
+               this.dy[var30] = this.bv[var30];
+               this.dz[var30] = this.bu[var30];
+               this.dA[var30] = this.bv[var30];
+               this.a(70 + var30, 6145, this.dv[var30]);
+               this.a(this.du, 70 + var30, 0, 0, 0, this.O);
                this.b(70 + var30, var49);
-               this.dy[var30] = this.P[2];
-               dx[var30] = this.P[3];
+               this.dC[var30] = this.O[2];
+               dB[var30] = this.O[3];
             }
 
             return;
          case 34:
-            this.cx = var2 - 1;
-            this.cy = new int[var2];
-            cz = new int[var2];
-            this.cD = new boolean[var2];
-            cG = new int[var2];
-            this.cF = new int[var2];
-            this.cH = new int[var2 + 1 << 2];
-            cE = new int[var2];
-            this.cB = new int[var2];
-            this.cA = new boolean[var2];
+            this.cB = var2 - 1;
             this.cC = new int[var2];
+            cD = new int[var2];
+            this.cH = new boolean[var2];
+            cK = new int[var2];
+            this.cJ = new int[var2];
+            this.cL = new int[var2 + 1 << 2];
+            cI = new int[var2];
+            this.cF = new int[var2];
+            this.cE = new boolean[var2];
+            this.cG = new int[var2];
 
             for (int var29 = 0; var29 < var2; var29++) {
-               int var48 = this.bs[var29] / 16;
-               int var63 = this.bt[var29] / 16;
-               this.cy[var29] = var48 * 16;
-               cz[var29] = var63 * 16;
-               this.cF[var29] = var48;
-               cG[var29] = var63;
-               this.cD[var29] = false;
-               this.cA[var29] = this.m(1) == 1;
-               cE[var29] = 0 + (this.cA[var29] ? 4 : 0);
-               this.cH[var29 << 2] = this.m(3);
-               this.cH[(var29 << 2) + 1] = this.m(3);
-               this.cH[(var29 << 2) + 2] = this.m(3);
-               this.cH[(var29 << 2) + 3] = this.m(3);
-               this.a(106 + var29, 2050, cE[var29]);
-               this.a(cw, 106 + var29, 0, 0, 0, this.P);
-               this.cB[var29] = this.P[2];
-               this.cC[var29] = this.P[3];
+               int var48 = this.bu[var29] / 22;
+               int var63 = this.bv[var29] / 22;
+               this.cC[var29] = var48 * 22;
+               cD[var29] = var63 * 22;
+               this.cJ[var29] = var48;
+               cK[var29] = var63;
+               this.cH[var29] = false;
+               this.cE[var29] = this.m(1) == 1;
+               cI[var29] = 0 + (this.cE[var29] ? 4 : 0);
+               this.cL[var29 << 2] = this.m(3);
+               this.cL[(var29 << 2) + 1] = this.m(3);
+               this.cL[(var29 << 2) + 2] = this.m(3);
+               this.cL[(var29 << 2) + 3] = this.m(3);
+               this.a(106 + var29, 2050, cI[var29]);
+               this.a(cA, 106 + var29, 0, 0, 0, this.O);
+               this.cF[var29] = this.O[2];
+               this.cG[var29] = this.O[3];
             }
 
             return;
          case 35:
-            cI = var2 - 1;
-            cM = new int[var2];
-            this.cN = new int[var2];
-            cK = new int[var2];
-            cL = new int[var2];
-            cV = new boolean[var2];
-            this.cS = new int[var2];
-            cT = new int[var2];
-            this.cU = new int[var2];
-            cO = new int[var2];
-            this.cQ = new int[var2];
-            cP = new int[var2];
+            cM = var2 - 1;
+            cQ = new int[var2];
             this.cR = new int[var2];
-            this.cW = new boolean[var2];
+            cO = new int[var2];
+            cP = new int[var2];
+            cZ = new boolean[var2];
+            this.cW = new int[var2];
+            cX = new int[var2];
+            this.cY = new int[var2];
+            cS = new int[var2];
+            this.cU = new int[var2];
+            cT = new int[var2];
+            this.cV = new int[var2];
+            this.da = new boolean[var2];
 
             for (int var8 = 0; var8 < var2; var8++) {
-               cM[var8] = this.bs[var8];
-               this.cN[var8] = this.bt[var8];
-               cK[var8] = this.bs[var8] / 16;
-               cL[var8] = this.bt[var8] / 16;
-               this.cS[var8] = this.m(3);
-               this.cU[var8] = this.m(10);
-               cV[var8] = this.m(1) == 1;
-               this.cW[var8] = this.m(1) == 1;
-               cT[var8] = (this.cU[var8] << 2) + 0;
-               this.a(100 + var8, 2049, cT[var8]);
-               this.a(this.cJ, 100 + var8, 0, 0, 0, this.P);
-               cO[var8] = this.P[2] / 16;
-               this.cQ[var8] = this.P[3] / 16;
-               cP[var8] = this.P[2];
-               this.cR[var8] = this.P[3];
-               cT[var8] = (this.cU[var8] << 2) + 2 - (cV[var8] ? 2 : 0);
-               this.a(100 + var8, 2049, cT[var8]);
+               cQ[var8] = this.bu[var8];
+               this.cR[var8] = this.bv[var8];
+               cO[var8] = this.bu[var8] / 22;
+               cP[var8] = this.bv[var8] / 22;
+               this.cW[var8] = this.m(3);
+               this.cY[var8] = this.m(10);
+               cZ[var8] = this.m(1) == 1;
+               this.da[var8] = this.m(1) == 1;
+               cX[var8] = (this.cY[var8] << 2) + 0;
+               this.a(100 + var8, 2049, cX[var8]);
+               this.a(this.cN, 100 + var8, 0, 0, 0, this.O);
+               cS[var8] = this.O[2] / 22;
+               this.cU[var8] = this.O[3] / 22;
+               cT[var8] = this.O[2];
+               this.cV[var8] = this.O[3];
+               cX[var8] = (this.cY[var8] << 2) + 2 - (cZ[var8] ? 2 : 0);
+               this.a(100 + var8, 2049, cX[var8]);
 
-               for (int var9 = 0; var9 < this.cQ[var8]; var9++) {
-                  for (int var10 = 0; var10 < cO[var8]; var10++) {
-                     if (cV[var8]) {
-                        this.c(cK[var8] + var10, cL[var8] - var9, 1);
+               for (int var9 = 0; var9 < this.cU[var8]; var9++) {
+                  for (int var10 = 0; var10 < cS[var8]; var10++) {
+                     if (cZ[var8]) {
+                        this.c(cO[var8] + var10, cP[var8] - var9, 1);
                      } else {
-                        this.b(cK[var8] + var10, cL[var8] - var9, 1);
+                        this.b(cO[var8] + var10, cP[var8] - var9, 1);
                      }
                   }
                }
@@ -3255,252 +3329,288 @@ public final class e extends a {
 
             return;
          case 36:
-            cd = var2 - 1;
+            ch = var2 - 1;
 
             for (int var5 = 0; var5 < var2; var5++) {
-               this.bY[var5] = this.m(6);
-               bZ[var5] = this.bs[var5];
-               ca[var5] = this.bt[var5];
-               this.a(10 + var5, 3074, this.bY[var5]);
-               this.a(this.bX, 10 + var5, 0, 0, 0, this.P);
-               this.cc[var5] = this.P[2];
-               this.cb[var5] = this.P[3];
+               this.cc[var5] = this.m(6);
+               cd[var5] = this.bu[var5];
+               ce[var5] = this.bv[var5];
+               this.a(10 + var5, 3074, this.cc[var5]);
+               this.a(this.cb, 10 + var5, 0, 0, 0, this.O);
+               this.cg[var5] = this.O[2];
+               this.cf[var5] = this.O[3];
             }
       }
    }
 
    private void a(byte[] var1, boolean var2) {
-      switch (this.u) {
+      switch (this.t) {
          case 0:
             if (!var2) {
-               this.iO = null;
-               this.iW = null;
-               this.iV = null;
+               this.iT = null;
+               this.jc = null;
+               this.jb = null;
             }
 
             for (int var3 = 0; var3 < 10; var3++) {
-               bI[var3] = -1;
+               bM[var3] = -1;
             }
 
             this.a(var1);
             this.m(1);
             this.m(10);
-            this.c(var2);
+            this.d(var2);
             this.m(1);
-            this.bw = this.m(16);
-            this.bx = this.m(4);
-            int[] var10 = new int[this.bw];
+            this.by = this.m(16);
+            this.bz = this.m(4);
+            int[] var10 = new int[this.by];
 
-            for (int var4 = 0; var4 < this.bw; var4++) {
-               var10[var4] = this.m(this.bx);
+            for (int var4 = 0; var4 < this.by; var4++) {
+               var10[var4] = this.m(this.bz);
             }
 
-            this.by = l(this.bw);
+            this.bA = l(this.by);
             int var13 = 0;
             int var5 = 0;
-            if (var2 && iY != 0) {
-               var13 = iY;
-               var5 = iX;
+            if (var2 && je != 0) {
+               var13 = je;
+               var5 = jd;
             }
 
-            iX = this.m(16);
-            iY = this.m(16);
+            jd = this.m(16);
+            je = this.m(16);
             if (!var2) {
-               this.bu = 16 * iX;
-               this.bv = 16 * iY;
-               this.aB = this.bu - 240;
-               this.aC = this.bv - 320;
+               this.bw = 22 * jd;
+               this.bx = 22 * je;
+               this.aA = this.bw - 240;
+               this.aB = this.bx - 320;
             }
 
-            iZ = iX * iY;
+            jf = jd * je;
             if (!var2) {
-               this.iW = new short[iZ];
+               this.jc = new short[jf];
             }
 
-            this.iV = new byte[iZ];
+            this.jb = new byte[jf];
 
-            for (int var6 = 0; var6 < this.iV.length; var6++) {
-               this.iV[var6] = (byte)this.m(this.by);
+            for (int var6 = 0; var6 < this.jb.length; var6++) {
+               this.jb[var6] = (byte)this.m(this.bA);
             }
 
             this.m(8);
-            this.b(this.bw, var2);
-            this.iO = b.a(240, 320);
-            this.iO.a(iX, iY, this.iP, 16, 16);
+            this.b(this.by, var2);
+            if (!var2) {
+               this.iT = b.a(240, 320);
+               this.iT.a(jd, je, this.iU, 22, 22);
+            } else {
+               this.iV = b.a(240, 320);
+               this.iV.a(jd, je, this.iU, 22, 22);
+            }
+
             int var7 = 0;
 
-            for (int var8 = 0; var8 < iY; var8++) {
-               for (int var9 = 0; var9 < iX; var9++) {
-                  this.iO.a(var9, var8, 1 + var10[this.iV[var7] & 0xFF]);
+            for (int var8 = 0; var8 < je; var8++) {
+               for (int var9 = 0; var9 < jd; var9++) {
+                  if (!var2) {
+                     if (var10[this.jb[var7] & 0xFF] != 1
+                        && var10[this.jb[var7] & 0xFF] != 12
+                        && var10[this.jb[var7] & 0xFF] != 24
+                        && var10[this.jb[var7] & 0xFF] != 25
+                        && var10[this.jb[var7] & 0xFF] != 51
+                        && var10[this.jb[var7] & 0xFF] != 90
+                        && var10[this.jb[var7] & 0xFF] != 104
+                        && var10[this.jb[var7] & 0xFF] != 105
+                        && var10[this.jb[var7] & 0xFF] != 108
+                        && var10[this.jb[var7] & 0xFF] != 109
+                        && var10[this.jb[var7] & 0xFF] != 111
+                        && var10[this.jb[var7] & 0xFF] != 119
+                        && var10[this.jb[var7] & 0xFF] != 124
+                        && var10[this.jb[var7] & 0xFF] != 82) {
+                        this.iT.a(var9, var8, 1 + var10[this.jb[var7] & 0xFF]);
+                     } else {
+                        this.iT.a(var9, var8, 0);
+                     }
+                  } else {
+                     this.iV.a(var9, var8, 1 + var10[this.jb[var7]] & 0xFF);
+                  }
+
                   var7++;
                }
             }
 
-            this.iV = null;
-            this.bw = this.m(10);
+            this.jb = null;
+            this.by = this.m(10);
             if (!var2) {
-               ja = iX * 16;
-               jb = iY * 16;
+               jg = jd * 22;
+               jh = je * 22;
             }
 
-            this.bz = l(ja * jb + 1);
-            ja = iX * 16;
-            jb = iY * 16;
+            this.bB = l(jg * jh + 1);
+            jg = jd * 22;
+            jh = je * 22;
             if (var2 && var13 != 0) {
-               iY = var13;
-               iX = var5;
+               je = var13;
+               jd = var5;
             }
          case 1:
          default:
             break;
          case 2:
             if (!var2) {
-               this.eY = this.b(2051, bG[this.bC] >= 0 ? this.c(2059 + bG[this.bC]) : null);
+               this.fc = this.b(2051, bK[this.bF] >= 0 ? this.c(2059 + bK[this.bF]) : null);
             }
             break;
          case 3:
             if (!var2) {
-               this.fH = this.b(28673, bG[this.bC] >= 0 ? this.c(28675 + bG[this.bC]) : null);
+               this.fL = this.b(28673, bK[this.bF] >= 0 ? this.c(28675 + bK[this.bF]) : null);
             }
             break;
          case 4:
             if (!var2) {
-               this.eH = this.b(3076, bG[this.bC] >= 0 ? this.c(3084 + bG[this.bC]) : null);
+               this.eL = this.b(3076, bK[this.bF] >= 0 ? this.c(3084 + bK[this.bF]) : null);
             }
             break;
          case 5:
             if (!var2) {
-               if (this.dA) {
-                  this.dC = this.b(18433, bG[this.bC] >= 0 ? this.c(18435 + bG[this.bC]) : null);
+               if (this.dE) {
+                  this.dG = this.b(18433, bK[this.bF] >= 0 ? this.c(18435 + bK[this.bF]) : null);
                   this.g(18432);
                } else {
-                  this.dC = this.b(4097, bG[this.bC] >= 0 ? this.c(4099 + bG[this.bC]) : null);
+                  this.dG = this.b(4097, bK[this.bF] >= 0 ? this.c(4099 + bK[this.bF]) : null);
                   this.g(4096);
                }
 
-               if (this.dB) {
-                  dD = this.b(16385, bG[this.bC] >= 0 ? this.c(16387 + bG[this.bC]) : null);
+               if (this.dF) {
+                  dH = this.b(16385, bK[this.bF] >= 0 ? this.c(16387 + bK[this.bF]) : null);
                   this.g(16384);
                } else {
-                  dD = this.b(17409, bG[this.bC] >= 0 ? this.c(17411 + bG[this.bC]) : null);
+                  dH = this.b(17409, bK[this.bF] >= 0 ? this.c(17411 + bK[this.bF]) : null);
                   this.g(17408);
                }
 
-               this.dE = this.b(15361, bG[this.bC] >= 0 ? this.c(15363 + bG[this.bC]) : null);
+               this.dI = this.b(15361, bK[this.bF] >= 0 ? this.c(15363 + bK[this.bF]) : null);
                this.g(15360);
             }
             break;
          case 6:
             if (!var2) {
-               this.bN = this.b(5125, bG[this.bC] >= 0 ? this.c(5142 + bG[this.bC]) : null);
-               this.dh = this.b(5124, bG[this.bC] >= 0 ? this.c(5132 + bG[this.bC]) : null);
-               this.eM = this.b(6146, bG[this.bC] >= 0 ? this.c(6150 + bG[this.bC]) : null);
+               this.bR = this.b(5125, bK[this.bF] >= 0 ? this.c(5142 + bK[this.bF]) : null);
+               this.dl = this.b(5124, bK[this.bF] >= 0 ? this.c(5132 + bK[this.bF]) : null);
+               this.eQ = this.b(6146, bK[this.bF] >= 0 ? this.c(6150 + bK[this.bF]) : null);
             }
             break;
          case 7:
             if (!var2) {
-               this.dq = this.b(6147, bG[this.bC] >= 0 ? this.c(6153 + bG[this.bC]) : null);
-               this.fl = this.b(5123, bG[this.bC] >= 0 ? this.c(5129 + bG[this.bC]) : null);
+               this.du = this.b(6147, bK[this.bF] >= 0 ? this.c(6153 + bK[this.bF]) : null);
+               this.fp = this.b(5123, bK[this.bF] >= 0 ? this.c(5129 + bK[this.bF]) : null);
             }
             break;
          case 8:
             if (!var2) {
-               this.cJ = this.b(2052, bG[this.bC] >= 0 ? this.c(2062 + bG[this.bC]) : null);
-               cw = this.b(2053, bG[this.bC] >= 0 ? this.c(2065 + bG[this.bC]) : null);
+               this.cN = this.b(2052, bK[this.bF] >= 0 ? this.c(2062 + bK[this.bF]) : null);
+               cA = this.b(2053, bK[this.bF] >= 0 ? this.c(2065 + bK[this.bF]) : null);
             }
             break;
          case 9:
             if (!var2) {
-               this.bX = this.b(3077, bG[this.bC] >= 0 ? this.c(3087 + bG[this.bC]) : null);
-               this.ce = this.b(3075, bG[this.bC] >= 0 ? this.c(3081 + bG[this.bC]) : null);
-               this.bH = this.b(7169, null);
+               this.cb = this.b(3077, bK[this.bF] >= 0 ? this.c(3087 + bK[this.bF]) : null);
+               this.ci = this.b(3075, bK[this.bF] >= 0 ? this.c(3081 + bK[this.bF]) : null);
+               this.bL = this.b(7169, null);
                this.a(137, 7168, 31);
             }
       }
 
-      if (this.u == 10 && !var2 || var2) {
-         this.br = 0;
+      if (this.t == 10 && !var2 || var2) {
+         this.bt = 0;
          if (!var2) {
-            this.iO.a(1000);
+            this.iT.a(1000);
          }
 
-         this.hN = 0;
+         this.hR = 0;
 
-         while (this.bw-- > 0) {
+         while (this.by-- > 0) {
             int var11 = this.m(10);
             int var14 = this.m(16);
             int var15 = 0;
-            this.bs = new int[var14];
-            this.bt = new int[var14];
+            this.bu = new int[var14];
+            this.bv = new int[var14];
             int var16 = 0;
 
             for (int var17 = 0; var17 < var14; var17++) {
-               for (var15 += this.m(this.bz); var15 >= ja; var16++) {
-                  var15 -= ja;
+               for (var15 += this.m(this.bB); var15 >= jg; var16++) {
+                  var15 -= jg;
                }
 
-               this.bs[var17] = var15;
-               this.bt[var17] = var16;
+               this.bu[var17] = var15;
+               this.bv[var17] = var16;
             }
 
             this.d(var11, var14);
          }
 
-         for (int var12 = this.fm; var12 >= 0; var12--) {
-            if (fp[var12]) {
-               this.e(this.fq[var12] / 16, this.fr[var12] / 16);
+         for (int var12 = this.fq; var12 >= 0; var12--) {
+            if (ft[var12]) {
+               this.e(this.fu[var12] / 22, this.fv[var12] / 22);
             }
          }
 
-         this.jc = null;
-         this.s();
-         this.F();
+         this.ji = null;
+         this.c(var2);
+         this.E();
          this.a((DataInputStream)null);
       }
 
-      this.u++;
+      this.t++;
    }
 
-   private void s() {
-      short[] var1 = new short[256];
-      int var2 = 0;
+   private void c(boolean var1) {
+      short[] var2 = new short[256];
+      int var3 = 0;
 
-      for (int var3 = 0; var3 < this.br; var3++) {
-         this.a(136, 3073, this.eI[var3]);
-         var2 += this.a(var1, 136, 0);
+      for (int var4 = 0; var4 < this.bt; var4++) {
+         this.a(136, 3073, this.eM[var4]);
+         var3 += this.a(var2, 136, 0);
       }
 
-      this.iO.a(this.br + var2, iX <= iY);
+      if (!var1) {
+         this.iT.a(this.bt + var3, jd <= je);
+      } else {
+         this.iV.a(this.bt + var3, jd <= je);
+      }
 
-      for (int var7 = 0; var7 <= 7; var7++) {
-         for (int var4 = this.br - 1; var4 >= 0; var4--) {
-            if (eL[var4] == var7) {
-               this.a(136, 3073, this.eI[var4]);
-               int var5 = this.a(var1, 136, 0);
+      for (int var8 = 0; var8 <= 7; var8++) {
+         for (int var5 = this.bt - 1; var5 >= 0; var5--) {
+            if (eP[var5] == var8) {
+               this.a(136, 3073, this.eM[var5]);
+               int var6 = this.a(var2, 136, 0);
 
-               for (int var6 = 0; var6 < var5; var6++) {
-                  this.iO.a(this.eH[var1[var6 * 4]], this.eJ[var4] + var1[var6 * 4 + 1], this.eK[var4] + var1[var6 * 4 + 2], var1[var6 * 4 + 3]);
+               for (int var7 = 0; var7 < var6; var7++) {
+                  if (!var1) {
+                     this.iT.a(this.eL[var2[var7 * 4]], this.eN[var5] + var2[var7 * 4 + 1], this.eO[var5] + var2[var7 * 4 + 2], var2[var7 * 4 + 3]);
+                  } else {
+                     this.iV.a(this.eL[var2[var7 * 4]], this.eN[var5] + var2[var7 * 4 + 1], this.eO[var5] + var2[var7 * 4 + 2], var2[var7 * 4 + 3]);
+                  }
                }
             }
          }
       }
 
-      this.eJ = null;
-      this.eK = null;
-      this.eI = null;
-      eL = null;
+      this.eN = null;
+      this.eO = null;
+      this.eM = null;
+      eP = null;
    }
 
-   private void c(boolean var1) {
+   private void d(boolean var1) {
       if (!var1) {
-         this.Q = this.m(10);
-         hu = this.m(1) != 1;
-         this.hv = hu;
-         this.dA = this.m(1) == 1;
-         this.dB = this.m(1) == 1;
+         this.P = this.m(10);
+         hy = this.m(1) != 1;
+         this.hz = hy;
+         this.dE = this.m(1) == 1;
+         this.dF = this.m(1) == 1;
          this.m(1);
          int var2 = this.m(16);
-         this.hs = this.hs < var2 ? var2 : this.hs;
+         this.hw = this.hw < var2 ? var2 : this.hw;
       }
    }
 
@@ -3514,10 +3624,10 @@ public final class e extends a {
    }
 
    private void a(byte[] var1) {
-      this.jc = var1;
-      this.jd = 0;
-      this.je = 0;
-      this.jf = 0;
+      this.ji = var1;
+      this.jj = 0;
+      this.jk = 0;
+      this.jl = 0;
    }
 
    private int m(int var1) {
@@ -3525,14 +3635,14 @@ public final class e extends a {
       int var3 = var1;
 
       while (var3 > 0) {
-         if (this.jf == 0) {
-            this.je = this.jc[this.jd++] & 255;
-            this.jf = 8;
+         if (this.jl == 0) {
+            this.jk = this.ji[this.jj++] & 255;
+            this.jl = 8;
          }
 
-         int var4 = Math.min(var3, this.jf);
-         var2 |= (this.je >> 8 - this.jf & ~(-1 << var4)) << var1 - var3;
-         this.jf -= var4;
+         int var4 = Math.min(var3, this.jl);
+         var2 |= (this.jk >> 8 - this.jl & ~(-1 << var4)) << var1 - var3;
+         this.jl -= var4;
          var3 -= var4;
       }
 
@@ -3543,78 +3653,78 @@ public final class e extends a {
       for (int var3 = 0; var3 < var1; var3++) {
          for (int var4 = 0; var4 < 1; var4++) {
             if (this.m(1) == 1 && !var2) {
-               this.iW[var3] = (short)(this.iW[var3] | 1 << var4);
+               this.jc[var3] = (short)(this.jc[var3] | 1 << var4);
             }
          }
       }
 
       if (!var2) {
-         this.iP = this.c(2058, bG[this.bC] >= 0 ? this.c(2068 + bG[this.bC]) : null);
+         this.iU = this.c(2058, bK[this.bF] >= 0 ? this.c(2068 + bK[this.bF]) : null);
       }
    }
 
    private void n(int var1) {
-      this.a(0 + this.bM, 0 + bI[var1]);
-      this.bL[var1] = this.bL[this.bM];
-      this.bJ[var1] = this.bJ[this.bM];
-      this.bK[var1] = this.bK[this.bM];
-      bI[this.bM] = -1;
-      if (this.bM >= 0) {
-         this.bM--;
+      this.a(0 + this.bQ, 0 + bM[var1]);
+      this.bP[var1] = this.bP[this.bQ];
+      this.bN[var1] = this.bN[this.bQ];
+      this.bO[var1] = this.bO[this.bQ];
+      bM[this.bQ] = -1;
+      if (this.bQ >= 0) {
+         this.bQ--;
       }
    }
 
    private void o(int var1) {
-      if (this.bO[bW] >= 0) {
-         this.a(bW + 30, var1 + 30);
+      if (this.bS[ca] >= 0) {
+         this.a(ca + 30, var1 + 30);
       }
 
-      this.bO[var1] = this.bO[bW];
-      bP[var1] = bP[bW];
-      this.bQ[var1] = this.bQ[bW];
-      this.bU[var1] = this.bU[bW];
-      this.bT[var1] = this.bT[bW];
-      bR[var1] = bR[bW];
-      this.bS[var1] = this.bS[bW];
-      this.bO[bW] = -1;
-      if (bW > 0) {
-         bW--;
+      this.bS[var1] = this.bS[ca];
+      bT[var1] = bT[ca];
+      this.bU[var1] = this.bU[ca];
+      this.bY[var1] = this.bY[ca];
+      this.bX[var1] = this.bX[ca];
+      bV[var1] = bV[ca];
+      this.bW[var1] = this.bW[ca];
+      this.bS[ca] = -1;
+      if (ca > 0) {
+         ca--;
       }
    }
 
    private void p(int var1) {
-      if (this.di[this.dp] >= 0) {
-         this.a(this.dp + 60, var1 + 60);
+      if (this.dm[this.dt] >= 0) {
+         this.a(this.dt + 60, var1 + 60);
       }
 
-      this.di[var1] = this.di[this.dp];
-      dl[var1] = dl[this.dp];
-      dm[var1] = dm[this.dp];
-      this.dk[var1] = this.dk[this.dp];
-      this.dj[var1] = this.dj[this.dp];
-      this.dn[var1] = this.dn[var1];
-      this.do[var1] = this.do[var1];
-      this.di[this.dp] = -1;
-      if (this.dp >= 0) {
-         this.dp--;
+      this.dm[var1] = this.dm[this.dt];
+      dp[var1] = dp[this.dt];
+      dq[var1] = dq[this.dt];
+      this.do[var1] = this.do[this.dt];
+      this.dn[var1] = this.dn[this.dt];
+      this.dr[var1] = this.dr[var1];
+      this.ds[var1] = this.ds[var1];
+      this.dm[this.dt] = -1;
+      if (this.dt >= 0) {
+         this.dt--;
       }
    }
 
    private void q(int var1) {
-      if (this.fa[this.eZ] >= 0) {
-         this.a(this.eZ + 116, var1 + 116);
+      if (this.fe[this.fd] >= 0) {
+         this.a(this.fd + 116, var1 + 116);
       }
 
-      this.fa[var1] = this.fa[this.eZ];
-      fd[var1] = fd[this.eZ];
-      this.fe[var1] = this.fe[this.eZ];
-      this.fb[var1] = this.fb[this.eZ];
-      fc[var1] = fc[this.eZ];
-      this.fh[var1] = this.fh[this.eZ];
-      this.fi[var1] = this.fi[this.eZ];
-      this.fa[this.eZ] = -1;
-      if (this.eZ >= 0) {
-         this.eZ--;
+      this.fe[var1] = this.fe[this.fd];
+      fh[var1] = fh[this.fd];
+      this.fi[var1] = this.fi[this.fd];
+      this.ff[var1] = this.ff[this.fd];
+      fg[var1] = fg[this.fd];
+      this.fl[var1] = this.fl[this.fd];
+      this.fm[var1] = this.fm[this.fd];
+      this.fe[this.fd] = -1;
+      if (this.fd >= 0) {
+         this.fd--;
       }
    }
 
@@ -3629,22 +3739,22 @@ public final class e extends a {
 
    private void r(int var1) {
       int var2 = var1 << 2;
-      int var3 = this.fG << 2;
-      System.arraycopy(fy, var3, fy, var2, 4);
-      System.arraycopy(fz, var3, fz, var2, 4);
-      fD[var1] = fD[this.fG];
-      fA[var1] = fA[this.fG];
-      fB[var1] = fB[this.fG];
-      fC[var1] = fC[this.fG];
-      fE[var1] = fE[this.fG];
-      fF[var1] = fF[this.fG];
-      if (this.fG >= 0) {
-         this.fG--;
+      int var3 = this.fK << 2;
+      System.arraycopy(fC, var3, fC, var2, 4);
+      System.arraycopy(fD, var3, fD, var2, 4);
+      fH[var1] = fH[this.fK];
+      fE[var1] = fE[this.fK];
+      fF[var1] = fF[this.fK];
+      fG[var1] = fG[this.fK];
+      fI[var1] = fI[this.fK];
+      fJ[var1] = fJ[this.fK];
+      if (this.fK >= 0) {
+         this.fK--;
       }
    }
 
    private void b(int var1, int var2, int var3, int var4) {
-      if (var4 != 0 && (var3 != 0 || hr < this.hs)) {
+      if (var4 != 0 && (var3 != 0 || hv < this.hw)) {
          if (var3 == 1 || var3 == 2) {
             var4 <<= 3;
          }
@@ -3661,14 +3771,14 @@ public final class e extends a {
 
          int var7 = -1;
          if (var3 == 3) {
-            for (int var8 = this.eB; var8 >= 0; var8--) {
-               if (a(iQ - 64, iR - 64, 368, 448, dT[var8] - this.ee[var8], this.dU[var8] - this.ef[var8], this.ee[var8] << 1, this.ef[var8])) {
-                  if (++var7 >= this.P.length) {
-                     var7 = this.P.length - 1;
+            for (int var8 = this.eF; var8 >= 0; var8--) {
+               if (a(iW - 88, iX - 88, 416, 496, dX[var8] - this.ei[var8], this.dY[var8] - this.ej[var8], this.ei[var8] << 1, this.ej[var8])) {
+                  if (++var7 >= this.O.length) {
+                     var7 = this.O.length - 1;
                      break;
                   }
 
-                  this.P[var7] = var8;
+                  this.O[var7] = var8;
                }
             }
 
@@ -3676,10 +3786,10 @@ public final class e extends a {
                return;
             }
 
-            hl -= 256;
-            if (hl <= 0) {
-               hl = 0;
-               this.A();
+            hp -= 256;
+            if (hp <= 0) {
+               hp = 0;
+               this.z();
             }
          }
 
@@ -3687,50 +3797,50 @@ public final class e extends a {
          boolean var9 = false;
 
          while (!var9) {
-            this.N = O.nextInt();
-            if (this.fG >= 18 && var4 > 0) {
+            this.M = N.nextInt();
+            if (this.fK >= 18 && var4 > 0) {
                var9 = true;
-               fF[this.fG - 1] = fF[this.fG - 1] + var4;
+               fJ[this.fK - 1] = fJ[this.fK - 1] + var4;
                var4 = 0;
             } else {
-               this.fG++;
-               int var10 = this.fG << 2;
-               int var11 = (this.N & 128) > 0 ? 1 : -1;
-               int var12 = var1 + var11 * (this.N & 9);
-               fy[var10++] = var12;
-               fy[var10++] = var12;
-               fy[var10++] = var12;
-               fy[var10++] = var12;
+               this.fK++;
+               int var10 = this.fK << 2;
+               int var11 = (this.M & 128) > 0 ? 1 : -1;
+               int var12 = var1 + var11 * (this.M & 15);
+               fC[var10++] = var12;
+               fC[var10++] = var12;
+               fC[var10++] = var12;
+               fC[var10++] = var12;
                var10 -= 4;
-               fA[this.fG] = var11 * (this.N & 7) << 8;
-               var11 = (this.N & 256) > 0 ? 1 : -1;
-               var12 = var2 + var11 * (this.N & 9) - 7;
-               fz[var10++] = var12;
-               fz[var10++] = var12;
-               fz[var10++] = var12;
-               fz[var10] = var12;
-               fB[this.fG] = (this.N >> 3 & 7) << 8;
-               fE[this.fG] = var3;
-               fD[this.fG] = 0;
+               fE[this.fK] = var11 * (this.M & 7) << 8;
+               var11 = (this.M & 256) > 0 ? 1 : -1;
+               var12 = var2 + var11 * (this.M & 15) - 10;
+               fD[var10++] = var12;
+               fD[var10++] = var12;
+               fD[var10++] = var12;
+               fD[var10] = var12;
+               fF[this.fK] = (this.M >> 3 & 7) << 8;
+               fI[this.fK] = var3;
+               fH[this.fK] = 0;
                if (var3 == 3) {
-                  fC[this.fG] = this.P[var13];
+                  fG[this.fK] = this.O[var13];
                   if (++var13 > var7) {
                      var13 = 0;
                   }
                } else {
-                  fC[this.fG] = -1;
+                  fG[this.fK] = -1;
                }
 
                if (var4 > 24) {
-                  fF[this.fG] = var5;
+                  fJ[this.fK] = var5;
                   var4 -= var5;
                } else {
-                  fF[this.fG] = var6;
+                  fJ[this.fK] = var6;
                   var4 -= var6;
                }
 
                if (var4 < 0) {
-                  fF[this.fG] = fF[this.fG] + var4;
+                  fJ[this.fK] = fJ[this.fK] + var4;
                   var4 = 0;
                   var9 = true;
                }
@@ -3739,86 +3849,86 @@ public final class e extends a {
       }
    }
 
-   private void t() {
-      this.gi = false;
-      this.ge = -1;
-      fR = false;
-      this.aR = false;
-      this.hw = false;
-      this.A();
-      this.gw = this.ga / 16;
-      gx = this.gb / 16;
-      this.hj = this.hm;
-      this.hk = this.hj;
-      iQ = this.ga - 120 - ((hu ? 1 : -1) * 240 >> 2);
-      iR = this.gb - 266;
-      this.aO = iQ << 8;
-      this.aP = iR << 8;
-      this.gJ = -1;
-      this.gK = -1;
+   private void s() {
+      this.gm = false;
+      this.gi = -1;
+      fV = false;
+      this.aQ = false;
+      this.hA = false;
+      this.z();
+      this.gA = this.ge / 22;
+      gB = this.gf / 22;
+      this.hn = this.hq;
+      this.ho = this.hn;
+      iW = this.ge - 120 - ((hy ? 1 : -1) * 240 >> 2);
+      iX = this.gf - 266;
+      this.aN = iW << 8;
+      this.aO = iX << 8;
+      this.gN = -1;
+      this.gO = -1;
       this.s(0);
       this.a(133, 1025, 4);
-      this.a(this.fH, 135, 0, 0, 0, this.P);
-      this.hi = this.gb % 16;
-      hh = this.ga % 16;
-      gC = this.P[2] >> 1;
-      this.gD = this.P[3];
-      this.hg = this.gD / 16;
-      this.hx = gC >> 1;
-      this.hy = -(gC >> 1);
+      this.a(this.fL, 135, 0, 0, 0, this.O);
+      this.hm = this.gf % 22;
+      hl = this.ge % 22;
+      gG = this.O[2] >> 1;
+      this.gH = this.O[3];
+      this.hk = this.gH / 22;
+      this.hB = gG >> 1;
+      this.hC = -(gG >> 1);
    }
 
    private void f(int var1, int var2) {
       if (super.a != 0) {
-         this.ga = this.ga + ((!hu || super.a <= 0) && (hu || super.a >= 0) ? this.hy : this.hx - 1);
+         this.ge = this.ge + ((!hy || super.a <= 0) && (hy || super.a >= 0) ? this.hC : this.hB - 1);
       }
 
       if (super.b < 0) {
-         this.gb = this.gb - this.gD;
+         this.gf = this.gf - this.gH;
       } else {
-         this.gb--;
+         this.gf--;
       }
 
       int var5 = var1;
-      int var6 = this.y();
-      hh = this.ga - var5 * 16 << 8;
-      if (hh <= 0) {
+      int var6 = this.x();
+      hl = this.ge - var5 * 22 << 8;
+      if (hl <= 0) {
          var5--;
-         hh += 4096;
-      } else if (hh >= 4096) {
+         hl += 5632;
+      } else if (hl >= 5632) {
          var5++;
-         hh -= 4096;
+         hl -= 5632;
       }
 
-      this.hi = this.gb - var6 * 16 << 8;
+      this.hm = this.gf - var6 * 22 << 8;
       if (super.a != 0) {
-         this.ga = this.ga - ((!hu || super.a <= 0) && (hu || super.a >= 0) ? this.hy : this.hx - 1);
+         this.ge = this.ge - ((!hy || super.a <= 0) && (hy || super.a >= 0) ? this.hC : this.hB - 1);
       }
 
       if (super.b < 0) {
-         this.gb = this.gb + this.gD;
+         this.gf = this.gf + this.gH;
       } else {
-         this.gb++;
+         this.gf++;
       }
 
       int var7 = (super.a > 0 ? super.a : -super.a) << 8;
       int var8 = (super.b > 0 ? super.b : -super.b) << 8;
       int var9 = var7;
       int var10 = var8;
-      this.hC = true;
-      hD = true;
+      this.hG = true;
+      hH = true;
       if (var7 > var8) {
-         if (var7 > 4096) {
-            var8 = (var8 * 16 << 8) / var7;
-            var7 = 4096;
+         if (var7 > 5632) {
+            var8 = (var8 * 22 << 8) / var7;
+            var7 = 5632;
          }
-      } else if (var8 > 4096) {
-         var7 = (var7 * 16 << 8) / var8;
-         var8 = 4096;
+      } else if (var8 > 5632) {
+         var7 = (var7 * 22 << 8) / var8;
+         var8 = 5632;
       }
 
       int var3;
-      if ((!hu || super.a <= 0) && (hu || super.a >= 0)) {
+      if ((!hy || super.a <= 0) && (hy || super.a >= 0)) {
          var3 = -var7;
       } else {
          var3 = var7;
@@ -3827,117 +3937,117 @@ public final class e extends a {
       int var4 = super.b > 0 ? var8 : -var8;
       int var11 = 0;
       int var12 = 0;
-      this.hI = 0;
-      this.hJ = 0;
+      this.hM = 0;
+      this.hN = 0;
 
       while (var11 < var9 || var12 < var10) {
-         hh += var3;
-         this.hi += var4;
-         if (hh >= 4096) {
-            hh -= 4096;
+         hl += var3;
+         this.hm += var4;
+         if (hl >= 5632) {
+            hl -= 5632;
             var5++;
-         } else if (hh < 0) {
-            hh += 4096;
+         } else if (hl < 0) {
+            hl += 5632;
             var5--;
          }
 
-         if (this.hi >= 4096) {
-            this.hi -= 4096;
+         if (this.hm >= 5632) {
+            this.hm -= 5632;
             var6++;
-         } else if (this.hi < 0) {
-            this.hi += 4096;
+         } else if (this.hm < 0) {
+            this.hm += 5632;
             var6--;
          }
 
          this.g(var5, var6);
          if ((this.h(var5, var6) & 32) == 0) {
-            this.gK = -1;
-            this.gJ = -1;
+            this.gO = -1;
+            this.gN = -1;
          } else {
-            this.iB = true;
-            if (this.gJ == -1) {
-               for (int var13 = 0; var13 < this.da.length; var13++) {
-                  if (a(var1, var2, this.da[var13], this.db[var13], this.dc[var13], dd[var13])) {
-                     if (df[var13] < this.dg[var13] && this.dg[var13] > 0 && this.gK <= 0) {
-                        this.gJ = var13;
-                        this.gK = 2000;
-                        if (df[0] < this.dg[var13]) {
-                           gM = true;
+            this.iF = true;
+            if (this.gN == -1) {
+               for (int var13 = 0; var13 < this.de.length; var13++) {
+                  if (a(var1, var2, this.de[var13], this.df[var13], this.dg[var13], dh[var13])) {
+                     if (dj[var13] < this.dk[var13] && this.dk[var13] > 0 && this.gO <= 0) {
+                        this.gN = var13;
+                        this.gO = 2000;
+                        if (dj[0] < this.dk[var13]) {
+                           gQ = true;
                         }
                      } else {
-                        this.gK = -1;
-                        this.gJ = -1;
-                        this.iB = true;
+                        this.gO = -1;
+                        this.gN = -1;
+                        this.iF = true;
                      }
                   }
                }
             }
          }
 
-         if (this.hC) {
-            this.hI += var3;
+         if (this.hG) {
+            this.hM += var3;
             var11 += var7;
          } else {
-            hh -= var3;
+            hl -= var3;
             var9 = var11;
-            if ((this.h(var1, var2) & 1) != 0 && !this.hF) {
-               this.hI = 0;
-               if ((!hu || super.a <= 0) && (hu || super.a >= 0)) {
-                  this.ga = var1 * 16 + (gC >> 1);
+            if ((this.h(var1, var2) & 1) != 0 && !this.hJ) {
+               this.hM = 0;
+               if ((!hy || super.a <= 0) && (hy || super.a >= 0)) {
+                  this.ge = var1 * 22 + (gG >> 1);
                } else {
-                  this.ga = (var1 + 1) * 16 - (gC >> 1);
+                  this.ge = (var1 + 1) * 22 - (gG >> 1);
                }
             }
          }
 
-         if (hD) {
-            this.hJ += var4;
+         if (hH) {
+            this.hN += var4;
             var12 += var8;
          } else {
-            this.hi -= var4;
+            this.hm -= var4;
             var10 = var12;
-            if (super.b < 0 && this.gn) {
-               var6 += this.hg + 1;
+            if (super.b < 0 && this.gr) {
+               var6 += this.hk + 1;
             }
          }
       }
 
-      this.ga = this.ga + (this.hI >> 8);
-      this.gb = this.gb + (this.hJ >> 8);
+      this.ge = this.ge + (this.hM >> 8);
+      this.gf = this.gf + (this.hN >> 8);
       if (var11 > var9) {
          int var14 = var11 - var9 >> 8;
-         this.ga -= var3 > 0 ? var14 : -var14;
+         this.ge -= var3 > 0 ? var14 : -var14;
       }
 
       if (var12 > var10) {
          int var15 = var12 - var10 >> 8;
-         this.gb -= var4 > 0 ? var15 : -var15;
+         this.gf -= var4 > 0 ? var15 : -var15;
       }
 
-      if (!this.hC) {
-         if (hh < 0) {
+      if (!this.hG) {
+         if (hl < 0) {
             var5--;
-         } else if (hh > 16) {
+         } else if (hl > 22) {
             var5++;
          }
       }
 
-      this.gw = var5;
-      gx = var6;
+      this.gA = var5;
+      gB = var6;
    }
 
-   private boolean u() {
-      int var1 = (!hu || this.hA != 22) && (hu || this.hA != 23) ? -1 : 1;
+   private boolean t() {
+      int var1 = (!hy || this.hE != 22) && (hy || this.hE != 23) ? -1 : 1;
       byte var2 = 0;
-      if (this.gl == 1) {
+      if (this.gp == 1) {
          var2 = 1;
       }
 
-      int var3 = eQ[gd] + (var1 < 0 ? this.eU[gd] - 1 : 0);
-      int var4 = gx;
-      int var5 = this.eV[gd];
-      if (this.hA == 23 && var5 <= this.hg) {
-         var5 = this.hg + 1;
+      int var3 = eU[gh] + (var1 < 0 ? this.eY[gh] - 1 : 0);
+      int var4 = gB;
+      int var5 = this.eZ[gh];
+      if (this.hE == 23 && var5 <= this.hk) {
+         var5 = this.hk + 1;
       }
 
       for (int var6 = 0; var6 < var5; var6++) {
@@ -3945,52 +4055,52 @@ public final class e extends a {
             return false;
          }
 
-         if (this.hA == 23 && ((this.h(var3 + var1 + var1 + var1, var4 - var6) & 1) != 0 || (this.h(var3 + var1 + var1 + var1 + var1, var4 - var6) & 1) != 0)) {
+         if (this.hE == 23 && ((this.h(var3 + var1 + var1 + var1, var4 - var6) & 1) != 0 || (this.h(var3 + var1 + var1 + var1 + var1, var4 - var6) & 1) != 0)) {
             return false;
          }
 
-         if ((this.h(var3 + var1 * (this.eU[gd] + var2), var4 - var6) & 1) != 0) {
+         if ((this.h(var3 + var1 * (this.eY[gh] + var2), var4 - var6) & 1) != 0) {
             var2 = 0;
          }
       }
 
-      if (this.hA == 23 && (this.h(this.gw + var1, var4) & 1) != 0) {
+      if (this.hE == 23 && (this.h(this.gA + var1, var4) & 1) != 0) {
          return false;
       }
 
-      for (int var8 = 0; var8 < this.eU[gd]; var8++) {
-         for (int var7 = 0; var7 < this.eV[gd]; var7++) {
-            this.c(eQ[gd] + var8, var4 - var7, 1);
-            this.c(eQ[gd] + var8, var4 - var7, 512);
-            if (eW[gd]) {
-               this.c(eQ[gd] + var8, var4 - var7, 8);
+      for (int var8 = 0; var8 < this.eY[gh]; var8++) {
+         for (int var7 = 0; var7 < this.eZ[gh]; var7++) {
+            this.c(eU[gh] + var8, var4 - var7, 1);
+            this.c(eU[gh] + var8, var4 - var7, 512);
+            if (fa[gh]) {
+               this.c(eU[gh] + var8, var4 - var7, 8);
             }
          }
       }
 
-      eQ[gd] = eQ[gd] + (var1 > 0 ? 1 + var2 : -(1 + var2));
+      eU[gh] = eU[gh] + (var1 > 0 ? 1 + var2 : -(1 + var2));
 
-      for (int var9 = 0; var9 < this.eU[gd]; var9++) {
-         for (int var10 = 0; var10 < this.eV[gd]; var10++) {
-            this.b(eQ[gd] + var9, var4 - var10, 1);
-            this.b(eQ[gd] + var9, var4 - var10, 512);
-            if (eW[gd]) {
-               this.b(var3 + var9 + var2 + this.eU[gd] * var1, var4 - var10, 8);
+      for (int var9 = 0; var9 < this.eY[gh]; var9++) {
+         for (int var10 = 0; var10 < this.eZ[gh]; var10++) {
+            this.b(eU[gh] + var9, var4 - var10, 1);
+            this.b(eU[gh] + var9, var4 - var10, 512);
+            if (fa[gh]) {
+               this.b(var3 + var9 + var2 + this.eY[gh] * var1, var4 - var10, 8);
             }
          }
       }
 
-      this.hG = true;
-      this.a(111 + gd, 6144, this.eN[gd] + (3 << var2));
+      this.hK = true;
+      this.a(111 + gh, 6144, this.eR[gh] + (3 << var2));
       return true;
    }
 
    private void g(int var1, int var2) {
-      boolean var3 = hu && super.a > 0 || !hu && super.a < 0;
+      boolean var3 = hy && super.a > 0 || !hy && super.a < 0;
       if ((this.h(var1, var2) & 1024) != 0) {
-         this.fY = var1 * 16;
-         this.fZ = var2 * 16;
-         this.hv = hu;
+         this.gc = var1 * 22;
+         this.gd = var2 * 22;
+         this.hz = hy;
       }
 
       if ((this.h(var1, var2) & 256) != 0) {
@@ -4002,11 +4112,11 @@ public final class e extends a {
 
          var4++;
 
-         for (int var5 = 0; var5 < this.cX.length; var5++) {
-            if (this.cY[var5] == var1 && cZ[var5] == var4) {
-               for (int var6 = 0; var6 < cV.length; var6++) {
-                  if (this.cS[var6] == this.cX[var5]) {
-                     cV[var6] = !cV[var6];
+         for (int var5 = 0; var5 < this.db.length; var5++) {
+            if (this.dc[var5] == var1 && dd[var5] == var4) {
+               for (int var6 = 0; var6 < cZ.length; var6++) {
+                  if (this.cW[var6] == this.db[var5]) {
+                     cZ[var6] = !cZ[var6];
                   }
                }
                break;
@@ -4037,28 +4147,28 @@ public final class e extends a {
 
          int var26 = -1;
 
-         for (int var7 = 0; var7 < this.eC.length; var7++) {
-            if (this.eC[var7] == var1 && this.eD[var7] == var15) {
+         for (int var7 = 0; var7 < this.eG.length; var7++) {
+            if (this.eG[var7] == var1 && this.eH[var7] == var15) {
                var26 = var7;
                break;
             }
          }
 
-         for (int var29 = 0; var29 <= this.eB; var29++) {
-            ec[var29] = ed[var29];
-            if (this.eE[this.dY[var29] + var26 * 15] != 0) {
-               dV[var29] = this.eE[this.dY[var29] + var26 * 15] * 16;
-               dW[var29] = this.eF[this.dY[var29] + var26 * 15] * 16;
-               es[var29] = this.eG[this.dY[var29] + var26 * 15];
-               if (!a(iQ - 64, iR - 64, 368, 448, dT[var29] - this.ee[var29], this.dU[var29] - this.ef[var29], this.ee[var29] << 1, this.ef[var29])) {
-                  ek[var29] = en[var29];
-                  dT[var29] = dV[var29];
-                  this.dU[var29] = dW[var29];
-                  this.c(this.dZ[var29], this.ea[var29] - 1, 2);
-                  this.dZ[var29] = dT[var29] / 16;
-                  this.ea[var29] = this.dU[var29] / 16;
-                  this.b(this.dZ[var29], this.ea[var29] - 1, 2);
-                  switch (this.dQ[var29]) {
+         for (int var29 = 0; var29 <= this.eF; var29++) {
+            eg[var29] = eh[var29];
+            if (this.eI[this.ec[var29] + var26 * 15] != 0) {
+               dZ[var29] = this.eI[this.ec[var29] + var26 * 15] * 22;
+               ea[var29] = this.eJ[this.ec[var29] + var26 * 15] * 22;
+               ew[var29] = this.eK[this.ec[var29] + var26 * 15];
+               if (!a(iW - 88, iX - 88, 416, 496, dX[var29] - this.ei[var29], this.dY[var29] - this.ej[var29], this.ei[var29] << 1, this.ej[var29])) {
+                  eo[var29] = er[var29];
+                  dX[var29] = dZ[var29];
+                  this.dY[var29] = ea[var29];
+                  this.c(this.ed[var29], this.ee[var29] - 1, 2);
+                  this.ed[var29] = dX[var29] / 22;
+                  this.ee[var29] = this.dY[var29] / 22;
+                  this.b(this.ed[var29], this.ee[var29] - 1, 2);
+                  switch (this.dU[var29]) {
                      case 1:
                         this.i(0, var29);
                         break;
@@ -4074,39 +4184,39 @@ public final class e extends a {
       }
 
       int var17 = 0;
-      this.hE = false;
+      this.hI = false;
 
-      for (int var24 = this.gD; var24 > 0; var24 -= 16) {
-         if (var2 < iY) {
-            if (var2 - var17 < 0 || var2 - var17 >= iY) {
-               this.hC = false;
+      for (int var24 = this.gH; var24 > 0; var24 -= 22) {
+         if (var2 < je) {
+            if (var2 - var17 < 0 || var2 - var17 >= je) {
+               this.hG = false;
                break;
             }
 
             if (var24 > 0) {
-               if (this.hC && var1 >= 0) {
-                  this.hC = (this.h(var1, var2 - var17) & 1) == 0;
+               if (this.hG && var1 >= 0) {
+                  this.hG = (this.h(var1, var2 - var17) & 1) == 0;
                } else {
-                  this.hC = false;
+                  this.hG = false;
                }
 
-               if (!this.hC) {
-                  if (this.hA != 22 && this.gt && (this.h(var1, var2 - var17) & 512) != 0) {
-                     int var27 = hu ? 1 : -1;
+               if (!this.hG) {
+                  if (this.hE != 22 && this.gx && (this.h(var1, var2 - var17) & 512) != 0) {
+                     int var27 = hy ? 1 : -1;
                      int var30 = 0;
 
-                     while ((this.h(var1 + var30, var2) & 512) != 0 && !hu) {
+                     while ((this.h(var1 + var30, var2) & 512) != 0 && !hy) {
                         var30 += var27;
                      }
 
-                     var30 += hu ? 0 : 1;
+                     var30 += hy ? 0 : 1;
 
-                     for (int var8 = eX; var8 >= 0; var8--) {
-                        if (eQ[var8] == var1 + var30 && this.eR[var8] == var2 + 1) {
-                           this.hF = true;
-                           this.ga = var1 * 16 + (!hu ? this.hx : this.hy);
+                     for (int var8 = fb; var8 >= 0; var8--) {
+                        if (eU[var8] == var1 + var30 && this.eV[var8] == var2 + 1) {
+                           this.hJ = true;
+                           this.ge = var1 * 22 + (!hy ? this.hB : this.hC);
                            this.s(21);
-                           gd = var8;
+                           gh = var8;
                         }
                      }
                   }
@@ -4114,8 +4224,8 @@ public final class e extends a {
                }
             }
 
-            if (var1 < 0 || var1 >= iX) {
-               this.hC = false;
+            if (var1 < 0 || var1 >= jd) {
+               this.hG = false;
             }
 
             if (super.b >= 0) {
@@ -4124,22 +4234,22 @@ public final class e extends a {
                var17--;
             }
 
-            if (gq && var24 - 16 <= 0 && super.b == 0 && (this.h(var1, var2 - var17) & 16) == 0) {
-               this.hC = false;
+            if (gu && var24 - 22 <= 0 && super.b == 0 && (this.h(var1, var2 - var17) & 16) == 0) {
+               this.hG = false;
                this.s(26);
-               this.gb++;
+               this.gf++;
             }
          }
       }
 
       int var25 = var1;
       if (super.a == 0 && super.b != 0) {
-         var25 += hu ? 1 : -1;
+         var25 += hy ? 1 : -1;
       }
 
       if (super.b >= 0) {
-         var17 = this.hg;
-         if (this.hi < 2048) {
+         var17 = this.hk;
+         if (this.hm < 2816) {
             var17++;
          }
       } else {
@@ -4147,43 +4257,43 @@ public final class e extends a {
       }
 
       int var28 = var2 - var17;
-      int var32 = hu ? -1 : 1;
-      if (this.hj > 0
-         && !this.gv
+      int var32 = hy ? -1 : 1;
+      if (this.hn > 0
+         && !this.gz
          && (this.h(var25, var28 - 1) & 1) == 0
-         && ((this.h(var25, var28) & 1) != 0 || this.gu)
+         && ((this.h(var25, var28) & 1) != 0 || this.gy)
          && (this.h(var25 + var32, var28) & 1) == 0
          && (this.h(var25 + var32, var28 - 1) & 1) == 0
-         && (this.h(var25 + var32, var28 + this.hg) & 1) == 0
+         && (this.h(var25 + var32, var28 + this.hk) & 1) == 0
          && super.b != 0
-         && (!this.gn || this.gu)
-         && !gr
-         && !this.gy
-         && I != 105) {
-         if (this.gu && super.b < 0) {
+         && (!this.gr || this.gy)
+         && !gv
+         && !this.gC
+         && H != 105) {
+         if (this.gy && super.b < 0) {
             this.s(38);
             int var34 = 0;
             if ((this.h(var25, var2) & 1) == 0) {
                var34++;
             }
 
-            this.gb = (var2 + var34) * 16 + this.gD;
-         } else if (this.hA != 40 && !this.gn) {
+            this.gf = (var2 + var34) * 22 + this.gH;
+         } else if (this.hE != 40 && !this.gr) {
             this.s(37);
-            this.gb = (var2 - var17) * 16 + this.gD;
+            this.gf = (var2 - var17) * 22 + this.gH;
          }
 
-         this.hJ = 0;
-         if (!hu) {
+         this.hN = 0;
+         if (!hy) {
             var25++;
          }
 
-         this.ga = var25 * 16 + (hu ? -(gC >> 1) : gC >> 1);
-         this.hI = 0;
-         hD = false;
-         this.hC = false;
+         this.ge = var25 * 22 + (hy ? -(gG >> 1) : gG >> 1);
+         this.hM = 0;
+         hH = false;
+         this.hG = false;
       } else {
-         if (!this.hC && super.a != 0) {
+         if (!this.hG && super.a != 0) {
             var17 = var3 ? -1 : 1;
          } else {
             var17 = 0;
@@ -4191,39 +4301,39 @@ public final class e extends a {
 
          int var33 = var2;
          int var9;
-         if ((var9 = super.b > 0 ? var33 - this.hg : var33 + this.hg) < 0) {
+         if ((var9 = super.b > 0 ? var33 - this.hk : var33 + this.hk) < 0) {
             var9 = 0;
          }
 
          if (super.b != 0) {
             boolean var10 = false;
 
-            for (int var11 = gC; var11 > 0; var11 -= 16) {
-               if (var1 + var17 >= 0 && var1 + var17 < iX) {
-                  if (hD) {
-                     hD = (this.h(var1 + var17, var33) & 1) == 0;
-                     if (((this.h(var1 + var17, var9) & 16) != 0 || (this.h(var1 + var17, var9) & 8192) != 0) && hB != 121 && this.hA != 38 && this.hj > 0) {
-                        if ((this.h(var1 + var17, var9) & 8192) != 0 && hB != 24 && hB != 25 && !this.gp) {
+            for (int var11 = gG; var11 > 0; var11 -= 22) {
+               if (var1 + var17 >= 0 && var1 + var17 < jd) {
+                  if (hH) {
+                     hH = (this.h(var1 + var17, var33) & 1) == 0;
+                     if (((this.h(var1 + var17, var9) & 16) != 0 || (this.h(var1 + var17, var9) & 8192) != 0) && hF != 121 && this.hE != 38 && this.hn > 0) {
+                        if ((this.h(var1 + var17, var9) & 8192) != 0 && hF != 24 && hF != 25 && !this.gt) {
                            this.s(120);
-                           this.gb = (var9 + 1) * 16 + this.gD;
-                           hD = false;
-                           this.hJ = 0;
-                           this.gz = true;
+                           this.gf = (var9 + 1) * 22 + this.gH;
+                           hH = false;
+                           this.hN = 0;
+                           this.gD = true;
                         } else if ((this.h(var1 + var17, var9) & 16) != 0) {
-                           this.gb = (var9 + 1) * 16 + this.gD;
-                           hD = false;
-                           this.hJ = 0;
+                           this.gf = (var9 + 1) * 22 + this.gH;
+                           hH = false;
+                           this.hN = 0;
                            this.s(45);
                         }
                      }
                   }
 
-                  if (!hD && super.b > 0 && !gq && this.hA != 38) {
-                     this.gb = var2 * 16;
-                     this.hJ = 0;
-                     this.hE = true;
+                  if (!hH && super.b > 0 && !gu && this.hE != 38) {
+                     this.gf = var2 * 22;
+                     this.hN = 0;
+                     this.hI = true;
                      int var12 = var1;
-                     if ((!hu || super.a <= 0) && (hu || super.a >= 0)) {
+                     if ((!hy || super.a <= 0) && (hy || super.a >= 0)) {
                         if (super.a != 0) {
                            var12++;
                         }
@@ -4231,44 +4341,44 @@ public final class e extends a {
                         var12--;
                      }
 
-                     if ((this.h(var12, var2) & 16384) != 0 && hB != 48) {
+                     if ((this.h(var12, var2) & 16384) != 0 && hF != 48) {
                         this.s(50);
-                     } else if (this.hA != 77
-                        && this.hA != 95
-                        && this.hA != 108
-                        && this.hA != 114
-                        && this.hA != 115
-                        && this.hA != 116
-                        && this.hA != 60
-                        && hB != 120
-                        && hB != 121
-                        && hB != 48) {
-                        if (fR) {
-                           this.v();
+                     } else if (this.hE != 77
+                        && this.hE != 95
+                        && this.hE != 108
+                        && this.hE != 114
+                        && this.hE != 115
+                        && this.hE != 116
+                        && this.hE != 60
+                        && hF != 120
+                        && hF != 121
+                        && hF != 48) {
+                        if (fV) {
+                           this.u();
                         }
 
                         this.s(27);
-                        if (this.hK >= 4) {
-                           this.av = this.hK;
+                        if (this.hO >= 4) {
+                           this.au = this.hO;
                         }
-                     } else if (this.hA == 77 || this.hA == 60) {
-                        this.gy = true;
-                        this.av += 6;
-                        this.F();
-                        this.y(2);
-                     } else if (this.hA == 95 && !var10) {
+                     } else if (this.hE == 77 || this.hE == 60) {
+                        this.gC = true;
+                        this.au += 6;
+                        this.E();
+                        this.y(8);
+                     } else if (this.hE == 95 && !var10) {
                         var10 = true;
-                        this.b(this.ga, this.gb - this.gD + (this.gD >> 2), 3, fL[gW]);
+                        this.b(this.ge, this.gf - this.gH + (this.gH >> 2), 3, fP[ha]);
                      }
                   }
 
-                  if (!hD && (hB == 24 || hB == 25) && super.b < 0) {
+                  if (!hH && (hF == 24 || hF == 25) && super.b < 0) {
                      this.s(99);
                      break;
                   }
 
-                  if (var33 < 0 || var33 >= iY) {
-                     hD = false;
+                  if (var33 < 0 || var33 >= je) {
+                     hH = false;
                   }
 
                   if (super.a == 0) {
@@ -4280,147 +4390,147 @@ public final class e extends a {
             }
          }
 
-         if (this.gn && this.hA != 38) {
+         if (this.gr && this.hE != 38) {
             int var35 = var1;
-            var1 += hu ? 1 : -1;
+            var1 += hy ? 1 : -1;
             if ((this.h(var1, var33) & 8) == 0) {
-               hD = false;
-               this.gb = (var33 + (super.b < 0 ? 1 : 0)) * 16 + (super.b < 0 ? this.gD : 0);
+               hH = false;
+               this.gf = (var33 + (super.b < 0 ? 1 : 0)) * 22 + (super.b < 0 ? this.gH : 0);
                if (super.b >= 0 || (this.h(var1, var33) & 1) != 0) {
-                  if (hB == 34) {
+                  if (hF == 34) {
                      this.s(26);
                   } else {
                      this.s(33);
                   }
 
-                  hD = false;
+                  hH = false;
                }
 
                if (super.b < 0) {
-                  this.gu = true;
+                  this.gy = true;
                }
             }
 
             var1 = var35;
          }
 
-         if (!this.hC && super.a != 0 && !this.hE && this.hA != 38 && !this.gn && !this.gp) {
-            if ((!hu || super.a <= 0 || hh << 8 <= 16 - (gC >> 1)) && (hu || super.a >= 0 || hh >> 8 >= gC >> 1)) {
-               if (!hu && super.a > 0 && hh << 8 > 16 - (gC >> 1) || hu && super.a < 0 && hh >> 8 < gC >> 1) {
-                  this.ga = (var1 + 1) * 16 - this.hy;
-                  this.hF = true;
+         if (!this.hG && super.a != 0 && !this.hI && this.hE != 38 && !this.gr && !this.gt) {
+            if ((!hy || super.a <= 0 || hl << 8 <= 22 - (gG >> 1)) && (hy || super.a >= 0 || hl >> 8 >= gG >> 1)) {
+               if (!hy && super.a > 0 && hl << 8 > 22 - (gG >> 1) || hy && super.a < 0 && hl >> 8 < gG >> 1) {
+                  this.ge = (var1 + 1) * 22 - this.hC;
+                  this.hJ = true;
                   if ((this.h(var1, var33 + (super.b > 0 ? -1 : 1)) & 8) != 0
-                     && (this.h(var1, var33 + (super.b > 0 ? -this.hg : this.hg)) & 8) != 0
+                     && (this.h(var1, var33 + (super.b > 0 ? -this.hk : this.hk)) & 8) != 0
                      && super.b != 0) {
                      this.s(33);
                   }
                }
             } else {
-               this.ga = var1 * 16 - this.hx;
-               this.hF = true;
+               this.ge = var1 * 22 - this.hB;
+               this.hJ = true;
                if ((this.h(var1, var33 + (super.b > 0 ? -1 : 1)) & 8) != 0
-                  && (this.h(var1, var33 + (super.b > 0 ? -this.hg : this.hg)) & 8) != 0
-                  && this.hA != 38
+                  && (this.h(var1, var33 + (super.b > 0 ? -this.hk : this.hk)) & 8) != 0
+                  && this.hE != 38
                   && super.b != 0) {
                   this.s(33);
                }
             }
 
-            this.hI = 0;
+            this.hM = 0;
          }
 
-         if (!this.hC && super.a != 0) {
-            if (this.hA == 9) {
+         if (!this.hG && super.a != 0) {
+            if (this.hE == 9) {
                this.s(0);
-            } else if (this.hA == 51) {
+            } else if (this.hE == 51) {
                this.s(50);
             }
          }
 
-         if (fR && (!this.hC || !hD)) {
-            this.v();
+         if (fV && (!this.hG || !hH)) {
+            this.u();
          }
       }
    }
 
    private int h(int var1, int var2) {
-      return var1 >= 0 && var1 < iX && var2 >= 0 && var2 < iY ? this.iW[var1 + iX * var2] : 65;
+      return var1 >= 0 && var1 < jd && var2 >= 0 && var2 < je ? this.jc[var1 + jd * var2] : 65;
    }
 
    private void b(int var1, int var2, int var3) {
-      if (var1 >= 0 && var1 < iX && var2 >= 0 && var2 < iY) {
-         this.iW[var1 + iX * var2] = (short)(this.iW[var1 + iX * var2] | var3);
+      if (var1 >= 0 && var1 < jd && var2 >= 0 && var2 < je) {
+         this.jc[var1 + jd * var2] = (short)(this.jc[var1 + jd * var2] | var3);
       }
    }
 
    private void c(int var1, int var2, int var3) {
-      if (var1 >= 0 && var1 < iX && var2 >= 0 && var2 < iY) {
-         this.iW[var1 + iX * var2] = (short)(this.iW[var1 + iX * var2] & ~var3);
+      if (var1 >= 0 && var1 < jd && var2 >= 0 && var2 < je) {
+         this.jc[var1 + jd * var2] = (short)(this.jc[var1 + jd * var2] & ~var3);
       }
    }
 
-   private void v() {
-      if (this.dQ[this.ge] == 1) {
-         this.i(0, this.ge);
-      } else if (this.dQ[this.ge] == 2) {
-         this.i(0, this.ge);
-      } else if (this.dQ[this.ge] == 3) {
-         this.i(0, this.ge);
+   private void u() {
+      if (this.dU[this.gi] == 1) {
+         this.i(0, this.gi);
+      } else if (this.dU[this.gi] == 2) {
+         this.i(0, this.gi);
+      } else if (this.dU[this.gi] == 3) {
+         this.i(0, this.gi);
       }
 
       this.s(26);
-      fR = false;
-      this.hH = 0;
+      fV = false;
+      this.hL = 0;
    }
 
    private void i(int var1, int var2) {
-      this.ei[var2] = this.dQ[var2] == 1 && (var1 == 13 || var1 == 17 || var1 == 23 || var1 == 12 || var1 == 15 || var1 == 16 || var1 == 14 || var1 == 21);
-      this.eh[var2] = this.dQ[var2] == 1 && (var1 == 19 || var1 == 18 || var1 == 26 || var1 == 20);
-      if (this.dQ[var2] == 1) {
+      this.em[var2] = this.dU[var2] == 1 && (var1 == 13 || var1 == 17 || var1 == 23 || var1 == 12 || var1 == 15 || var1 == 16 || var1 == 14 || var1 == 21);
+      this.el[var2] = this.dU[var2] == 1 && (var1 == 19 || var1 == 18 || var1 == 26 || var1 == 20);
+      if (this.dU[var2] == 1) {
          if (var1 == 5 || var1 == 6 || var1 == 16 || var1 == 15) {
-            this.dS[var2] = 0;
+            this.dW[var2] = 0;
          } else if (var1 == 8 || var1 == 9 || var1 == 10 || var1 == 24) {
-            this.dX[var2] = 0;
-            this.dS[var2] = 1;
+            this.eb[var2] = 0;
+            this.dW[var2] = 1;
          } else if (var1 == 2 || var1 == 7) {
-            this.dS[var2] = 2;
+            this.dW[var2] = 2;
          } else if (var1 != 11 && var1 != 21 && var1 != 3) {
             if (var1 == 1) {
-               eu[var2] = O.nextInt() & 511;
+               ey[var2] = N.nextInt() & 511;
             }
 
-            this.dS[var2] = -1;
+            this.dW[var2] = -1;
          } else {
-            this.dS[var2] = 3;
+            this.dW[var2] = 3;
          }
-      } else if (this.dQ[var2] == 2) {
+      } else if (this.dU[var2] == 2) {
          if (var1 != 7 && var1 != 12 && var1 != 13) {
-            this.dS[var2] = -1;
+            this.dW[var2] = -1;
          } else {
-            this.dX[var2] = 0;
-            this.dS[var2] = 1;
+            this.eb[var2] = 0;
+            this.dW[var2] = 1;
          }
 
          if (var1 == 1) {
-            eu[var2] = O.nextInt() & 511;
+            ey[var2] = N.nextInt() & 511;
          }
-      } else if (this.dQ[var2] == 3) {
+      } else if (this.dU[var2] == 3) {
          if (var1 != 7 && var1 != 13 && var1 != 17 && var1 != 16) {
-            this.dS[var2] = -1;
+            this.dW[var2] = -1;
          } else {
-            this.dX[var2] = 0;
-            this.dS[var2] = 1;
+            this.eb[var2] = 0;
+            this.dW[var2] = 1;
          }
 
          if (var1 == 1) {
-            eu[var2] = O.nextInt() & 511;
+            ey[var2] = N.nextInt() & 511;
          }
       }
 
-      if ((this.ge != -1 && var2 != this.ge || this.ay > 0) && !this.eh[var2] && var1 != 7 && var1 != 11) {
-         switch (this.dQ[var2]) {
+      if ((this.gi != -1 && var2 != this.gi || this.ax > 0) && !this.el[var2] && var1 != 7 && var1 != 11) {
+         switch (this.dU[var2]) {
             case 1:
-               if (this.dR[var2] == 0 && var1 != 27) {
+               if (this.dV[var2] == 0 && var1 != 27) {
                   return;
                }
 
@@ -4429,7 +4539,7 @@ public final class e extends a {
                }
                break;
             case 2:
-               if ((this.dR[var2] == 0 || this.dR[var2] == 12 || this.dR[var2] == 10) && var1 != 14) {
+               if ((this.dV[var2] == 0 || this.dV[var2] == 12 || this.dV[var2] == 10) && var1 != 14) {
                   return;
                }
 
@@ -4438,7 +4548,7 @@ public final class e extends a {
                }
                break;
             case 3:
-               if ((this.dR[var2] == 0 || this.dR[var2] == 12 || this.dR[var2] == 11) && var1 != 18) {
+               if ((this.dV[var2] == 0 || this.dV[var2] == 12 || this.dV[var2] == 11) && var1 != 18) {
                   return;
                }
 
@@ -4448,27 +4558,27 @@ public final class e extends a {
          }
       }
 
-      this.dR[var2] = var1;
-      if (this.dQ[var2] == 1) {
-         if (this.dA) {
+      this.dV[var2] = var1;
+      if (this.dU[var2] == 1) {
+         if (this.dE) {
             this.a(85 + var2, 18432, var1);
          } else {
             this.a(85 + var2, 4096, var1);
          }
-      } else if (this.dQ[var2] == 2) {
-         if (this.dB) {
+      } else if (this.dU[var2] == 2) {
+         if (this.dF) {
             this.a(85 + var2, 16384, var1);
          } else {
             this.a(85 + var2, 17408, var1);
          }
       } else {
-         if (this.dQ[var2] == 3) {
-            if (dM == var2 && this.dN != var2) {
+         if (this.dU[var2] == 3) {
+            if (dQ == var2 && this.dR != var2) {
                this.a(85 + var2, 13312, var1);
                return;
             }
 
-            if (this.dN == var2) {
+            if (this.dR == var2) {
                this.a(85 + var2, 14336, var1);
                return;
             }
@@ -4478,38 +4588,38 @@ public final class e extends a {
       }
    }
 
-   private void w() {
+   private void v() {
       this.s(14);
-      this.i(24, this.ge);
-      this.b(dT[this.ge], this.dU[this.ge] - (this.ef[this.ge] >> 1), 1, this.em[this.ge]);
-      ek[this.ge] = -1;
-      this.a(dT[this.ge] - (this.ee[this.ge] >> 1), this.dU[this.ge] - (this.ef[this.ge] >> 1), 22, !hu ? 2 : 0, false);
+      this.i(24, this.gi);
+      this.b(dX[this.gi], this.dY[this.gi] - (this.ej[this.gi] >> 1), 1, this.eq[this.gi]);
+      eo[this.gi] = -1;
+      this.a(dX[this.gi] - (this.ei[this.gi] >> 1), this.dY[this.gi] - (this.ej[this.gi] >> 1), 22, !hy ? 2 : 0, false);
    }
 
    private void s(int var1) {
-      this.fO = 0;
-      this.fP = 0;
-      gc = 0;
-      this.hA = var1;
-      hf = 0;
+      this.fS = 0;
+      this.fT = 0;
+      gg = 0;
+      this.hE = var1;
+      hj = 0;
       boolean var2 = false;
-      if (var1 == 22 && hb) {
+      if (var1 == 22 && hf) {
          var1 = 20;
       }
 
-      if ((var1 == 5 || var1 == 8) && hb) {
+      if ((var1 == 5 || var1 == 8) && hf) {
          var1++;
-      } else if (var1 == 100 && hb) {
+      } else if (var1 == 100 && hf) {
          var1++;
-      } else if (var1 == 38 && hb) {
+      } else if (var1 == 38 && hf) {
          var1 = 39;
-      } else if (var1 == 27 && hb) {
+      } else if (var1 == 27 && hf) {
          var1 = 29;
       } else if (var1 == 3) {
-         if (hb) {
+         if (hf) {
             var1 = 4;
          }
-      } else if (var1 == 97 && hb) {
+      } else if (var1 == 97 && hf) {
          var1 = 98;
       }
 
@@ -4529,292 +4639,296 @@ public final class e extends a {
          && var1 != 12
          && var1 != 13
          && var1 != 117
-         && (this.dN != this.ge || this.ge >= 0 && this.dR[this.ge] != 16)) {
-         fR = false;
-         this.hH = 0;
-         this.ge = -1;
-         this.iB = true;
+         && (this.dR != this.gi || this.gi >= 0 && this.dV[this.gi] != 16)) {
+         fV = false;
+         this.hL = 0;
+         this.gi = -1;
+         this.iF = true;
       }
 
       if (var1 != 31) {
-         this.gm = false;
+         this.gq = false;
       } else {
-         this.gm = true;
+         this.gq = true;
       }
 
       if (var1 == 0) {
-         this.gv = false;
-         if (this.gz) {
+         this.gz = false;
+         if (this.gD) {
             var1 = 10;
-         } else if (hb) {
+         } else if (hf) {
             var1 = 1;
          }
-      } else if (var1 == 31 && hb) {
+      } else if (var1 == 31 && hf) {
          var1 = 32;
       } else if (var1 != 54 && var1 != 36 && var1 != 47) {
-         this.gE = false;
-         this.gv = false;
-         this.fN = false;
+         this.gI = false;
+         this.gz = false;
+         this.fR = false;
       } else {
-         this.gv = true;
+         this.gz = true;
          var2 = true;
-         if (!this.gn && !gq) {
-            if (this.fN) {
-               this.fN = false;
-               this.gG = 0;
+         if (!this.gr && !gu) {
+            if (this.fR) {
+               this.fR = false;
+               this.gK = 0;
             }
 
-            if (hb) {
-               var1 = 72 + this.gG;
-               if (this.gG < this.gO) {
-                  this.gG++;
+            if (hf) {
+               var1 = 72 + this.gK;
+               if (this.gK < this.gS) {
+                  this.gK++;
                } else {
-                  this.gE = false;
+                  this.gI = false;
                   var1 = 77;
-                  this.hA = 77;
-                  this.fN = true;
+                  this.hE = 77;
+                  this.fR = true;
                }
             } else {
-               var1 += this.gG;
-               if (this.gG < gN) {
-                  this.gG++;
+               var1 += this.gK;
+               if (this.gK < gR) {
+                  this.gK++;
                } else {
                   var1 = 60;
-                  this.fN = true;
-                  this.gE = false;
-                  this.hA = 60;
+                  this.fR = true;
+                  this.gI = false;
+                  this.hE = 60;
                }
             }
          }
       }
 
-      gh = var1 == 7 || var1 == 5 || var1 == 8 || var1 == 6 || var1 == 101 || var1 == 119 || var1 == 118 || var1 == 100 || var1 == 5;
+      gl = var1 == 7 || var1 == 5 || var1 == 8 || var1 == 6 || var1 == 101 || var1 == 119 || var1 == 118 || var1 == 100 || var1 == 5;
       if (var1 == 67) {
          var2 = true;
-         this.gp = true;
-         if (hb) {
-            var1 = 83 + this.gG;
-            if (this.gG > 3 - (gP < 3 ? 1 : 0)) {
+         this.gt = true;
+         if (hf) {
+            var1 = 83 + this.gK;
+            if (this.gK > 3 - (gT < 3 ? 1 : 0)) {
                var1 = 83;
-               this.gG = 0;
-            } else if (this.gG == 2 - (gP < 3 ? 1 : 0)) {
+               this.gK = 0;
+            } else if (this.gK == 2 - (gT < 3 ? 1 : 0)) {
                var1 = 85;
             }
          } else {
-            var1 = 67 + this.gG;
-            if (this.gG >= 3 - (gP < 3 ? 1 : 0)) {
+            var1 = 67 + this.gK;
+            if (this.gK >= 3 - (gT < 3 ? 1 : 0)) {
                var1 = 67;
-               this.gG = 0;
-            } else if (this.gG == 2 - (gP < 3 ? 1 : 0)) {
+               this.gK = 0;
+            } else if (this.gK == 2 - (gT < 3 ? 1 : 0)) {
                var1 = 69;
             }
          }
 
-         this.gG++;
-      } else {
-         this.gp = false;
-      }
-
-      if (var1 == 91 || var1 == 92 || var1 == 93) {
-         this.gp = true;
-      }
-
-      if (!this.gp && !this.gv) {
-         this.gG = 0;
-      }
-
-      if (var1 != 35 && var1 != 34 && var1 != 36 && var1 != 33) {
-         this.gn = false;
-         this.gu = false;
-      } else {
-         this.gn = true;
-      }
-
-      gq = var1 == 45 || var1 == 47 || var1 == 46 || var1 == 119 || var1 == 118;
-      if (var1 == 9) {
-         this.gt = true;
-         if (this.gz) {
-            var1 = 11;
-         }
+         this.gK++;
       } else {
          this.gt = false;
       }
 
-      if (var1 != 37 && var1 != 40) {
-         gr = false;
-         this.gu = false;
-      } else {
-         gr = true;
+      if (var1 == 91 || var1 == 92 || var1 == 93) {
+         this.gt = true;
       }
 
-      this.gs = var1 == 30;
-      this.gk = var1 == 21 || var1 == 22 || var1 == 23 || var1 == 20;
-      this.go = var1 == 50 || var1 == 51;
-      if (var1 != 15 && var1 != 17) {
-         this.gj = false;
+      if (!this.gt && !this.gz) {
+         this.gK = 0;
+      }
+
+      if (var1 != 35 && var1 != 34 && var1 != 36 && var1 != 33) {
+         this.gr = false;
+         this.gy = false;
       } else {
-         this.gj = true;
-         if (hb) {
+         this.gr = true;
+      }
+
+      gu = var1 == 45 || var1 == 47 || var1 == 46 || var1 == 119 || var1 == 118;
+      if (var1 == 9) {
+         this.gx = true;
+         if (this.gD) {
+            var1 = 11;
+         }
+      } else {
+         this.gx = false;
+      }
+
+      if (var1 != 37 && var1 != 40) {
+         gv = false;
+         this.gy = false;
+      } else {
+         gv = true;
+      }
+
+      this.gw = var1 == 30;
+      this.go = var1 == 21 || var1 == 22 || var1 == 23 || var1 == 20;
+      this.gs = var1 == 50 || var1 == 51;
+      if (var1 != 15 && var1 != 17) {
+         this.gn = false;
+      } else {
+         this.gn = true;
+         if (hf) {
             var1++;
          }
       }
 
-      if (var2 && !gq && this.hj > 0) {
-         int var3 = this.N & 1;
-         this.y(3 + var3);
+      if (var2 && !gu && this.hn > 0) {
+         int var3 = this.M & 1;
+         if (hf && !this.gr) {
+            this.y(4 + var3);
+         } else {
+            this.y(6 + var3);
+         }
       }
 
-      hB = var1;
+      hF = var1;
       this.a(135, 28672, var1);
    }
 
    private boolean t(int var1) {
-      return this.b(var1, this.L);
+      return this.b(var1, this.K);
+   }
+
+   private int w() {
+      return this.ge / 22;
    }
 
    private int x() {
-      return this.ga / 16;
-   }
-
-   private int y() {
       int var1;
-      return (var1 = this.gb / 16) > iY ? iY : var1;
+      return (var1 = this.gf / 22) > je ? je : var1;
    }
 
-   private void z() {
-      int var1 = this.x();
-      int var2 = (this.hi >> 8) + 1 >= 16 ? gx + 1 : gx;
+   private void y() {
+      int var1 = this.w();
+      int var2 = (this.hm >> 8) + 1 >= 22 ? gB + 1 : gB;
       int var3 = 0;
-      int var4 = this.ga - (gC >> 1);
-      int var5 = this.gb;
-      this.gy = gg;
-      boolean var6 = this.gz;
-      if (!this.gy) {
-         this.gz = (this.h(var1, var2) & 8192) != 0 && hB != 99 && hB != 24 && hB != 25 && hB != 26;
-         this.gy = (this.h(var1, var2) & 1) != 0;
-         this.gA = (this.h(var1, var2 - 1) & 2048) != 0;
-         gB = (this.h(var1, var2 - 1) & 4096) != 0;
+      int var4 = this.ge - (gG >> 1);
+      int var5 = this.gf;
+      this.gC = gk;
+      boolean var6 = this.gD;
+      if (!this.gC) {
+         this.gD = (this.h(var1, var2) & 8192) != 0 && hF != 99 && hF != 24 && hF != 25 && hF != 26;
+         this.gC = (this.h(var1, var2) & 1) != 0;
+         this.gE = (this.h(var1, var2 - 1) & 2048) != 0;
+         gF = (this.h(var1, var2 - 1) & 4096) != 0;
       }
 
-      if (this.gz && !var6) {
-         if (this.gt) {
-            this.gy = true;
+      if (this.gD && !var6) {
+         if (this.gx) {
+            this.gC = true;
             this.s(9);
          }
-      } else if (!this.gz && var6 && this.gt) {
+      } else if (!this.gD && var6 && this.gx) {
          this.s(9);
       }
 
-      boolean var7 = this.b(135, this.L);
-      gc = gc + this.L;
-      if (!fR && (this.h(var1, var2) & 128) > 0) {
-         for (int var8 = cv; var8 >= 0; var8--) {
-            if (this.cl[var8] == var1 && cm[var8] == var2) {
-               this.cs = this.cn[var8];
-               this.ct = this.cn[var8];
-               String var9 = this.e(this.cs);
-               if (!this.aR && var9.charAt(0) == '@') {
-                  this.aR = true;
-                  this.aS = a.a(var9.substring(2, 3), 0) == 1;
-                  this.aT = a.a(var9.substring(1, 2), 0);
-                  this.a(131, 1027, this.aT);
-               } else if (this.aR) {
+      boolean var7 = this.b(135, this.K);
+      gg = gg + this.K;
+      if (!fV && (this.h(var1, var2) & 128) > 0) {
+         for (int var8 = cz; var8 >= 0; var8--) {
+            if (this.cp[var8] == var1 && cq[var8] == var2) {
+               this.cw = this.cr[var8];
+               this.cx = this.cr[var8];
+               String var9 = this.e(this.cw);
+               if (!this.aQ && var9.charAt(0) == '@') {
+                  this.aQ = true;
+                  this.aR = a.a(var9.substring(2, 3), 0) == 1;
+                  this.aS = a.a(var9.substring(1, 2), 0);
+                  this.a(131, 1027, this.aS);
+               } else if (this.aQ) {
                   int var67 = super.a;
                   int var11 = super.b;
                   this.t(131);
                   super.a = var67;
                   super.b = var11;
                } else {
-                  I = 101;
-                  this.a(79, 25, 35, 35);
-                  if (I != 105) {
-                     this.cu = this.ct + this.co[var8];
+                  H = 101;
+                  this.a(95, 35, 35, 35);
+                  if (H != 105) {
+                     this.cy = this.cx + this.cs[var8];
 
-                     for (int var10 = cv; var10 >= 0; var10--) {
-                        if (this.cn[var10] == this.cs) {
-                           this.c(this.cl[var10], cm[var10], 128);
+                     for (int var10 = cz; var10 >= 0; var10--) {
+                        if (this.cr[var10] == this.cw) {
+                           this.c(this.cp[var10], cq[var10], 128);
                         }
                      }
 
-                     hX = new String[2];
+                     ib = new String[2];
                      this.p();
                   }
                }
             }
          }
       } else {
-         this.aR = false;
+         this.aQ = false;
       }
 
-      if (this.hA != 52 && this.hA != 53) {
-         if (this.hA == 26) {
-            super.b = super.b + this.hK;
-            this.hL = this.hL + this.L;
-            if (this.hL > 200) {
-               this.hL -= 200;
-               this.hK = this.hK + (this.hK >= 8 ? 0 : 4);
+      if (this.hE != 52 && this.hE != 53) {
+         if (this.hE == 26) {
+            super.b = super.b + this.hO;
+            this.hP = this.hP + this.K;
+            if (this.hP > 200) {
+               this.hP -= 200;
+               this.hO = this.hO + (this.hO >= 8 ? 0 : 4);
             }
          } else {
-            this.hL = 0;
-            this.hK = 0;
+            this.hP = 0;
+            this.hO = 0;
          }
 
-         if (super.b < 0 && this.hA != 60) {
-            this.gy = false;
+         if (super.b < 0 && this.hE != 60) {
+            this.gC = false;
          }
 
-         if (I != 105 && I != 108 && I != 101) {
-            if (!fR && this.ge < 0 && this.ay < 0) {
-               switch (this.t) {
+         if (H != 105 && H != 108 && H != 101) {
+            if (!fV && this.gi < 0 && this.ax < 0) {
+               switch (this.r) {
                   case 1:
-                     if (this.gn
-                        && this.hA == 33
-                        && ((this.h(this.gw + (hu ? 1 : -1), gx - this.hg - 1) & 8) != 0 || (this.h(this.gw + (hu ? 1 : -1), gx - this.hg - 1) & 1) == 0)) {
+                     if (this.gr
+                        && this.hE == 33
+                        && ((this.h(this.gA + (hy ? 1 : -1), gB - this.hk - 1) & 8) != 0 || (this.h(this.gA + (hy ? 1 : -1), gB - this.hk - 1) & 1) == 0)) {
                         this.s(35);
                      }
                      break;
                   case 2:
-                     if (!this.gn && !gr && !this.gk && this.hA != 44 && this.hA != 22 && this.hA != 38) {
-                        if (gq && !gh && !this.gv) {
-                           if (this.hA != 46) {
+                     if (!this.gr && !gv && !this.go && this.hE != 44 && this.hE != 22 && this.hE != 38) {
+                        if (gu && !gl && !this.gz) {
+                           if (this.hE != 46) {
                               this.s(46);
                            }
 
-                           hu = false;
+                           hy = false;
                         } else {
-                           if (this.hA == 0 || this.hA == 3) {
-                              hu = false;
+                           if (this.hE == 0 || this.hE == 3) {
+                              hy = false;
                               if ((
-                                    (this.h(this.gw - 1, gx) & 1) != 0
-                                       || (this.h(this.gw, gx) & 1) != 0
-                                       || (this.h(this.gw - 1, gx - 1) & 1) != 0
-                                       || (this.h(this.gw - 1, gx - 2) & 1) != 0
+                                    (this.h(this.gA - 1, gB) & 1) != 0
+                                       || (this.h(this.gA, gB) & 1) != 0
+                                       || (this.h(this.gA - 1, gB - 1) & 1) != 0
+                                       || (this.h(this.gA - 1, gB - 2) & 1) != 0
                                  )
-                                 && (this.h(this.gw - 1, gx) & 512) == 0) {
-                                 if ((this.h(this.gw - 1, gx) & 1) != 0
-                                    || (this.h(this.gw, gx) & 1) != 0
-                                    || (this.h(this.gw - 1, gx - 1) & 1) != 0
-                                    || (this.h(this.gw - 1, gx - 2) & 1) != 0) {
-                                    this.ga = (this.gw + ((this.h(this.gw, gx) & 1) != 0 ? 1 : 0)) * 16 + (gC >> 1);
+                                 && (this.h(this.gA - 1, gB) & 512) == 0) {
+                                 if ((this.h(this.gA - 1, gB) & 1) != 0
+                                    || (this.h(this.gA, gB) & 1) != 0
+                                    || (this.h(this.gA - 1, gB - 1) & 1) != 0
+                                    || (this.h(this.gA - 1, gB - 2) & 1) != 0) {
+                                    this.ge = (this.gA + ((this.h(this.gA, gB) & 1) != 0 ? 1 : 0)) * 22 + (gG >> 1);
                                  }
                               } else {
-                                 if ((this.h(this.gw - 1, gx) & 512) != 0) {
-                                    int var32 = (this.h(this.gw, gx) & 512) != 0 ? 1 : 0;
-                                    this.ga = (this.gw + var32) * 16 + (gC >> 1);
+                                 if ((this.h(this.gA - 1, gB) & 512) != 0) {
+                                    int var32 = (this.h(this.gA, gB) & 512) != 0 ? 1 : 0;
+                                    this.ge = (this.gA + var32) * 22 + (gG >> 1);
                                  }
 
                                  this.s(9);
-                                 this.hw = false;
+                                 this.hA = false;
                               }
-                           } else if (this.hA == 50) {
-                              hu = false;
-                              if ((this.h(this.gw - 1, gx) & 1) == 0) {
+                           } else if (this.hE == 50) {
+                              hy = false;
+                              if ((this.h(this.gA - 1, gB) & 1) == 0) {
                                  this.s(51);
                               }
                            }
 
-                           if (this.hA == 9 || this.hA == 51) {
-                              hu = false;
+                           if (this.hE == 9 || this.hE == 51) {
+                              hy = false;
                            }
                         }
                      }
@@ -4825,260 +4939,260 @@ public final class e extends a {
                   default:
                      break;
                   case 5:
-                     if (!this.gn && !gr && !this.gk && this.hA != 44 && this.hA != 22 && this.hA != 38) {
-                        if (gq && !gh && !this.gv) {
-                           if (this.hA != 46) {
+                     if (!this.gr && !gv && !this.go && this.hE != 44 && this.hE != 22 && this.hE != 38) {
+                        if (gu && !gl && !this.gz) {
+                           if (this.hE != 46) {
                               this.s(46);
                            }
 
-                           hu = true;
+                           hy = true;
                         } else {
-                           if (this.hA == 0 || this.hA == 3) {
-                              if (((this.h(this.gw + 1, gx - 1) & 1) != 0 || (this.h(this.gw + 1, gx) & 1) != 0 || (this.h(this.gw + 1, gx - 2) & 1) != 0)
-                                 && (this.h(this.gw + 1, gx) & 512) == 0) {
-                                 if ((this.h(this.gw + 1, gx) & 1) != 0) {
-                                    this.ga = (this.gw + 1) * 16 - (gC >> 1);
+                           if (this.hE == 0 || this.hE == 3) {
+                              if (((this.h(this.gA + 1, gB - 1) & 1) != 0 || (this.h(this.gA + 1, gB) & 1) != 0 || (this.h(this.gA + 1, gB - 2) & 1) != 0)
+                                 && (this.h(this.gA + 1, gB) & 512) == 0) {
+                                 if ((this.h(this.gA + 1, gB) & 1) != 0) {
+                                    this.ge = (this.gA + 1) * 22 - (gG >> 1);
                                  }
                               } else {
-                                 if ((this.h(this.gw + 1, gx) & 512) != 0) {
-                                    int var31 = (this.h(this.gw, gx) & 512) != 0 ? -1 : 0;
-                                    this.ga = (this.gw + 1 + var31) * 16 - (gC >> 1);
+                                 if ((this.h(this.gA + 1, gB) & 512) != 0) {
+                                    int var31 = (this.h(this.gA, gB) & 512) != 0 ? -1 : 0;
+                                    this.ge = (this.gA + 1 + var31) * 22 - (gG >> 1);
                                  }
 
                                  this.s(9);
-                                 this.hw = false;
+                                 this.hA = false;
                               }
 
-                              hu = true;
-                           } else if (this.hA == 50) {
-                              hu = true;
-                              if ((this.h(this.gw + 1, gx) & 1) == 0) {
+                              hy = true;
+                           } else if (this.hE == 50) {
+                              hy = true;
+                              if ((this.h(this.gA + 1, gB) & 1) == 0) {
                                  this.s(51);
                               }
                            }
 
-                           if (this.hA == 9 || this.hA == 51) {
-                              hu = true;
+                           if (this.hE == 9 || this.hE == 51) {
+                              hy = true;
                            }
                         }
                      }
                      break;
                   case 6:
-                     if (this.gn) {
-                        if (this.hA == 33) {
-                           if ((this.h(this.gw + (hu ? 1 : -1), gx + 1) & 8) != 0) {
+                     if (this.gr) {
+                        if (this.hE == 33) {
+                           if ((this.h(this.gA + (hy ? 1 : -1), gB + 1) & 8) != 0) {
                               this.s(34);
                            } else {
                               this.s(26);
                            }
                         }
-                     } else if (gq) {
+                     } else if (gu) {
                         this.s(26);
-                     } else if (hB == 120) {
+                     } else if (hF == 120) {
                         this.s(26);
-                        this.gb += 16;
+                        this.gf += 22;
                      }
                }
             }
 
-            if (!fR && this.ay < 0) {
-               switch (this.s) {
+            if (!fV && this.ax < 0) {
+               switch (this.q) {
                   case 1:
-                     if (this.ge >= 0) {
+                     if (this.gi >= 0) {
                         break;
                      }
 
-                     if (this.hA == 21) {
+                     if (this.hE == 21) {
                         this.s(24);
-                     } else if (hB == 120) {
+                     } else if (hF == 120) {
                         this.s(121);
-                     } else if (!this.gs && hu && this.gA) {
+                     } else if (!this.gw && hy && this.gE) {
                         this.s(30);
-                     } else if (!this.gs && !hu && gB) {
+                     } else if (!this.gw && !hy && gF) {
                         this.s(30);
-                     } else if (!this.gm && !this.gj && !this.gn && !gq && !gr && (this.gy || this.gz) && !this.gk && this.ge < 0 && !this.gv) {
-                        if (this.hw) {
-                           this.hw = false;
+                     } else if (!this.gq && !this.gn && !this.gr && !gu && !gv && (this.gC || this.gD) && !this.go && this.gi < 0 && !this.gz) {
+                        if (this.hA) {
+                           this.hA = false;
                            this.s(0);
-                        } else if (this.hA != 24 && this.hA != 26 && this.hA != 3 && this.hA != 38 && this.hA != 30) {
+                        } else if (this.hE != 24 && this.hE != 26 && this.hE != 3 && this.hE != 38 && this.hE != 30) {
                            this.s(24);
                         }
-                     } else if (gr) {
+                     } else if (gv) {
                         this.s(38);
-                     } else if (this.hA == 24) {
+                     } else if (this.hE == 24) {
                         this.s(25);
                      }
                      break;
                   case 2:
-                     if (this.gk && this.hA == 21) {
-                        if (hu) {
+                     if (this.go && this.hE == 21) {
+                        if (hy) {
                            this.s(23);
-                           this.gl = 0;
+                           this.gp = 0;
                         } else {
                            this.s(22);
-                           this.gl = 1;
+                           this.gp = 1;
                         }
 
-                        if (!this.u()) {
+                        if (!this.t()) {
                            this.s(21);
                         } else {
-                           this.y(3);
+                           this.y(6);
                         }
-                     } else if (this.ge >= 0 && ek[this.ge] > 0 && this.dQ[this.ge] == 1 && this.hA != 14 && !this.gn) {
-                        hu = false;
-                        this.ej[this.ge] = false;
-                        this.w();
-                     } else if (hu && (this.gv || this.gp) && this.ge < 0 && !this.gn) {
+                     } else if (this.gi >= 0 && eo[this.gi] > 0 && this.dU[this.gi] == 1 && this.hE != 14 && !this.gr) {
+                        hy = false;
+                        this.en[this.gi] = false;
+                        this.v();
+                     } else if (hy && (this.gz || this.gt) && this.gi < 0 && !this.gr) {
                         short var40 = 150;
-                        if (hb && this.gG > this.gO || !hb && this.gG > gN) {
+                        if (hf && this.gK > this.gS || !hf && this.gK > gR) {
                            var40 = 600;
                         }
 
-                        if (gF > var40) {
-                           this.gE = true;
-                           this.fV = false;
+                        if (gJ > var40) {
+                           this.gI = true;
+                           this.fZ = false;
                         }
-                     } else if (this.gn && !this.gv) {
-                        if (hu) {
-                           hu = false;
+                     } else if (this.gr && !this.gz) {
+                        if (hy) {
+                           hy = false;
                            this.s(44);
                         }
-                     } else if (gr && !hu) {
+                     } else if (gv && !hy) {
                         this.s(38);
                      }
                      break;
                   case 5:
-                     if (this.gk && this.hA == 21) {
-                        if (hu) {
+                     if (this.go && this.hE == 21) {
+                        if (hy) {
                            this.s(22);
-                           this.gl = 1;
+                           this.gp = 1;
                         } else {
                            this.s(23);
-                           this.gl = 0;
+                           this.gp = 0;
                         }
 
-                        if (!this.u()) {
+                        if (!this.t()) {
                            this.s(21);
                         } else {
-                           this.y(3);
+                           this.y(6);
                         }
-                     } else if (this.ge >= 0 && ek[this.ge] > 0 && this.dQ[this.ge] == 1 && this.hA != 14 && !this.gn) {
-                        hu = true;
-                        this.ej[this.ge] = true;
-                        this.w();
-                     } else if (!hu && (this.gv || this.gp) && this.ge < 0 && !this.gn && !gq) {
+                     } else if (this.gi >= 0 && eo[this.gi] > 0 && this.dU[this.gi] == 1 && this.hE != 14 && !this.gr) {
+                        hy = true;
+                        this.en[this.gi] = true;
+                        this.v();
+                     } else if (!hy && (this.gz || this.gt) && this.gi < 0 && !this.gr && !gu) {
                         short var39 = 150;
-                        if (hb && this.gG > this.gO || !hb && this.gG > gN) {
+                        if (hf && this.gK > this.gS || !hf && this.gK > gR) {
                            var39 = 600;
                         }
 
-                        if (gF > var39) {
-                           this.gE = true;
-                           this.fV = true;
+                        if (gJ > var39) {
+                           this.gI = true;
+                           this.fZ = true;
                         }
-                     } else if (this.gn && !this.gv) {
-                        if (!hu) {
-                           hu = true;
+                     } else if (this.gr && !this.gz) {
+                        if (!hy) {
+                           hy = true;
                            this.s(44);
                         }
-                     } else if (gr && hu) {
+                     } else if (gv && hy) {
                         this.s(38);
                      }
                      break;
                   case 6:
-                     if (!this.gv && (this.hA == 0 || this.hA == 9) && this.gy) {
-                        for (int var36 = this.eB; var36 >= 0; var36--) {
-                           if ((this.gb == this.dU[var36] || this.gb + 1 == this.dU[var36])
+                     if (!this.gz && (this.hE == 0 || this.hE == 9) && this.gC) {
+                        for (int var36 = this.eF; var36 >= 0; var36--) {
+                           if ((this.gf == this.dY[var36] || this.gf + 1 == this.dY[var36])
                               && a(
-                                 dT[var36] - (this.ee[var36] >> 1) - (gC >> 1),
-                                 this.dU[var36],
-                                 this.ee[var36] + gC,
-                                 this.ef[var36],
-                                 this.ga,
-                                 this.gb,
-                                 gC,
-                                 this.gD
+                                 dX[var36] - (this.ei[var36] >> 1) - (gG >> 1),
+                                 this.dY[var36],
+                                 this.ei[var36] + gG,
+                                 this.ej[var36],
+                                 this.ge,
+                                 this.gf,
+                                 gG,
+                                 this.gH
                               )) {
                               boolean var56 = true;
 
-                              for (int var69 = this.gw; var69 < this.dZ[var36]; var69++) {
-                                 var56 &= (this.h(var69, gx) & 1) == 0;
+                              for (int var69 = this.gA; var69 < this.ed[var36]; var69++) {
+                                 var56 &= (this.h(var69, gB) & 1) == 0;
                               }
 
-                              if ((this.dX[var36] <= 0 || this.dQ[var36] == 3 && this.dR[var36] == 12) && var56) {
-                                 this.iB = true;
-                                 if (dM != var36 && this.dQ[var36] == 1 && ek[var36] > 0 && ek[var36] < en[var36] >> 1) {
-                                    this.ge = var36;
-                                    this.ga = dT[var36];
-                                    this.ej[var36] = hu;
+                              if ((this.eb[var36] <= 0 || this.dU[var36] == 3 && this.dV[var36] == 12) && var56) {
+                                 this.iF = true;
+                                 if (dQ != var36 && this.dU[var36] == 1 && eo[var36] > 0 && eo[var36] < er[var36] >> 1) {
+                                    this.gi = var36;
+                                    this.ge = dX[var36];
+                                    this.en[var36] = hy;
                                     super.a = 0;
                                     this.s(12);
                                     this.i(22, var36);
                                     break;
                                  }
 
-                                 if (this.dQ[var36] != 2 || (ek[var36] <= 0 || ek[var36] >= en[var36] >> 1) && this.dR[var36] != 12) {
-                                    if (this.dQ[var36] != 3 || (ek[var36] <= 0 || ek[var36] >= en[var36] >> 1) && (this.dR[var36] != 12 || dM == var36)) {
+                                 if (this.dU[var36] != 2 || (eo[var36] <= 0 || eo[var36] >= er[var36] >> 1) && this.dV[var36] != 12) {
+                                    if (this.dU[var36] != 3 || (eo[var36] <= 0 || eo[var36] >= er[var36] >> 1) && (this.dV[var36] != 12 || dQ == var36)) {
                                        continue;
                                     }
 
-                                    this.ge = var36;
-                                    if (this.dR[var36] == 12 && dM != var36) {
+                                    this.gi = var36;
+                                    if (this.dV[var36] == 12 && dQ != var36) {
                                        this.s(113);
-                                       this.b(dT[this.ge], this.dU[this.ge] - (this.ef[this.ge] >> 1), 0, this.em[this.ge] >> 1);
-                                       this.ga = dT[var36];
-                                       hu = this.ej[var36];
-                                       this.dX[var36] = 0;
-                                       ek[var36] = -1;
+                                       this.b(dX[this.gi], this.dY[this.gi] - (this.ej[this.gi] >> 1), 0, this.eq[this.gi] >> 1);
+                                       this.ge = dX[var36];
+                                       hy = this.en[var36];
+                                       this.eb[var36] = 0;
+                                       eo[var36] = -1;
                                        this.i(16, var36);
                                        break;
                                     }
 
-                                    this.ga = dT[var36];
-                                    this.ej[var36] = hu;
+                                    this.ge = dX[var36];
+                                    this.en[var36] = hy;
                                     super.a = 0;
-                                    this.hH = 1;
-                                    fR = true;
-                                    this.fS = 0;
-                                    this.fQ = 3;
-                                    this.fT = this.B();
-                                    this.a(131, 1027, fU[this.fT]);
-                                    if (dM != var36 && this.dN != var36) {
+                                    this.hL = 1;
+                                    fV = true;
+                                    this.fW = 0;
+                                    this.fU = 3;
+                                    this.fX = this.A();
+                                    this.a(131, 1027, fY[this.fX]);
+                                    if (dQ != var36 && this.dR != var36) {
                                        this.s(91);
                                        this.i(14, var36);
-                                    } else if (this.dN == var36) {
+                                    } else if (this.dR == var36) {
                                        this.s(114);
                                        this.i(13, var36);
-                                    } else if (dM == var36) {
+                                    } else if (dQ == var36) {
                                        this.s(108);
                                        this.i(13, var36);
                                     }
 
-                                    this.ej[var36] = !hu;
+                                    this.en[var36] = !hy;
                                     break;
                                  }
 
-                                 this.ge = var36;
-                                 if (this.dR[var36] != 12 && this.dR[var36] != 10) {
-                                    this.ga = dT[var36];
-                                    this.ej[var36] = hu;
+                                 this.gi = var36;
+                                 if (this.dV[var36] != 12 && this.dV[var36] != 10) {
+                                    this.ge = dX[var36];
+                                    this.en[var36] = hy;
                                     super.a = 0;
                                     this.s(88);
-                                    this.hH = 1;
-                                    fR = true;
-                                    this.fQ = 2;
-                                    this.fS = 0;
-                                    this.fT = this.B();
-                                    this.a(131, 1027, fU[this.fT]);
+                                    this.hL = 1;
+                                    fV = true;
+                                    this.fU = 2;
+                                    this.fW = 0;
+                                    this.fX = this.A();
+                                    this.a(131, 1027, fY[this.fX]);
                                     this.i(11, var36);
-                                    this.ej[var36] = !hu;
+                                    this.en[var36] = !hy;
                                     break;
                                  }
 
                                  this.s(117);
-                                 this.ga = dT[var36];
-                                 ek[var36] = -1;
-                                 this.b(dT[this.ge], this.dU[this.ge] - (this.ef[this.ge] >> 1), 2, this.em[this.ge] >> 1);
+                                 this.ge = dX[var36];
+                                 eo[var36] = -1;
+                                 this.b(dX[this.gi], this.dY[this.gi] - (this.ej[this.gi] >> 1), 2, this.eq[this.gi] >> 1);
                                  this.i(13, var36);
                                  break;
                               }
@@ -5086,184 +5200,187 @@ public final class e extends a {
                         }
                      }
 
-                     if (gr) {
+                     if (gv) {
                         this.s(40);
-                        this.gb++;
-                     } else if (this.hA == 0) {
-                        if (hu) {
-                           for (int var37 = this.fm; var37 >= 0; var37--) {
-                              if (!fp[var37]
-                                 && a(this.fq[var37], this.fr[var37], this.fn, this.fo, this.ga - this.hx, this.gb, gC, this.gD)
-                                 && Math.abs(this.gb - this.fr[var37]) < 8) {
+                        this.gf++;
+                     } else if (this.hE == 0) {
+                        if (hy) {
+                           for (int var37 = this.fq; var37 >= 0; var37--) {
+                              if (!ft[var37]
+                                 && a(this.fu[var37], this.fv[var37], this.fr, this.fs, this.ge - this.hB, this.gf, gG, this.gH)
+                                 && Math.abs(this.gf - this.fv[var37]) < 11) {
                                  this.s(31);
-                                 this.ga = this.fq[var37] + (this.fn >> 1);
+                                 this.ge = this.fu[var37] + (this.fr >> 1);
                               }
                            }
                         }
 
-                        for (int var38 = this.cx; var38 >= 0; var38--) {
-                           if (hu && this.cA[var38] && a(this.ga - (gC >> 1), this.gb - this.gD, gC, this.gD, this.cy[var38] - 16, cz[var38], 32, 16)) {
-                              this.hO = var38;
-                              this.hP = var38;
-                              if (!this.cD[var38]) {
+                        for (int var38 = this.cB; var38 >= 0; var38--) {
+                           if (hy && this.cE[var38] && a(this.ge - (gG >> 1), this.gf - this.gH, gG, this.gH, this.cC[var38] - 22, cD[var38], 44, 22)) {
+                              this.hS = var38;
+                              this.hT = var38;
+                              if (!this.cH[var38]) {
                                  this.s(15);
                               } else {
                                  this.s(17);
                               }
 
-                              this.ga = this.cy[var38];
-                              this.cD[var38] = !this.cD[var38];
+                              this.ge = this.cC[var38];
+                              this.cH[var38] = !this.cH[var38];
                            }
                         }
                      }
 
-                     if (this.gy && !this.go && !this.gk && !this.gj && !this.gm && this.ge < 0 && hB != 24 && hB != 48 && hB != 30) {
-                        this.hw = true;
+                     if (this.gC && !this.gs && !this.go && !this.gn && !this.gq && this.gi < 0 && hF != 24 && hF != 48 && hF != 30) {
+                        this.hA = true;
                         this.s(3);
                      }
 
-                     if (this.gz) {
+                     if (this.gD) {
                         this.s(26);
                      }
                      break;
                   case 8:
-                     if (!this.gm && !this.gk && !this.gj && this.gy && this.ge < 0 && !this.gz) {
-                        if (this.hA != 0 && this.hA != 3) {
-                           if (!this.gy || hc || this.hd || hb && hl < 0) {
+                     if (!this.gq && !this.go && !this.gn && this.gC && this.gi < 0 && !this.gD) {
+                        if (this.hE != 0 && this.hE != 3) {
+                           if (!this.gC || hg || this.hh || hf && hp < 0) {
                               break;
                            }
 
                            short var35 = 150;
-                           if (hb && this.gG > this.gO || !hb && this.gG > gN) {
+                           if (hf && this.gK > this.gS || !hf && this.gK > gR) {
                               var35 = 600;
                            }
 
-                           if (gF > var35) {
-                              this.gE = true;
+                           if (gJ > var35) {
+                              this.gI = true;
                            }
                         } else {
-                           this.hw = false;
+                           this.hA = false;
                            var7 = true;
-                           if (hc && hl > gV + 1 << 2) {
+                           if (hg && hp > gZ + 1 << 2) {
                               this.s(94);
-                           } else if (this.hd && hl > 256 && this.fG < 10) {
+                           } else if (this.hh && hp > 256 && this.fK < 10) {
                               this.s(95);
-                              this.A();
+                              this.z();
                            } else {
-                              hc = false;
-                              this.hd = false;
-                              if (!hb || hl <= 0) {
-                                 this.A();
+                              hg = false;
+                              this.hh = false;
+                              if (!hf || hp <= 0) {
+                                 this.z();
                               }
 
-                              this.fV = hu;
-                              if (!hb || hl > 0) {
+                              this.fZ = hy;
+                              if (!hf || hp > 0) {
                                  this.s(54);
                               }
                            }
                         }
-                     } else if (this.ge >= 0 && ek[this.ge] > 0) {
-                        if (this.dQ[this.ge] == 1) {
+                     } else if (this.gi >= 0 && eo[this.gi] > 0) {
+                        if (this.dU[this.gi] == 1) {
                            this.s(13);
-                           this.i(10, this.ge);
-                           this.b(dT[this.ge], this.dU[this.ge] - (this.ef[this.ge] >> 1), 0, this.em[this.ge]);
-                           ek[this.ge] = -1;
-                        } else if (this.dQ[this.ge] != 2) {
+                           this.i(10, this.gi);
+                           this.b(dX[this.gi], this.dY[this.gi] - (this.ej[this.gi] >> 1), 0, this.eq[this.gi]);
+                           eo[this.gi] = -1;
+                        } else if (this.dU[this.gi] != 2) {
                         }
-                     } else if (!this.gy && !this.gz && !this.gn && !gq && hB != 120 && hB != 121 && !this.gv && this.hA != 37) {
-                        if (hb && hl <= 0 || hc || this.hd) {
-                           this.A();
+                     } else if (!this.gC && !this.gD && !this.gr && !gu && hF != 120 && hF != 121 && !this.gz && this.hE != 37) {
+                        if (hf && hp <= 0 || hg || this.hh) {
+                           this.z();
                         }
 
-                        if (!this.gp) {
-                           this.fV = hu;
+                        if (!this.gt) {
+                           this.fZ = hy;
                            this.s(67);
                         } else {
                            short var34 = 150;
-                           if (hb && this.gG > this.gO || !hb && this.gG > gN) {
+                           if (hf && this.gK > this.gS || !hf && this.gK > gR) {
                               var34 = 600;
                            }
 
-                           if (gF > var34) {
-                              this.gE = true;
+                           if (gJ > var34) {
+                              this.gI = true;
                            }
                         }
-                     } else if (gq && !this.gv) {
-                        if (this.hA != 47) {
-                           this.A();
+                     } else if (gu && !this.gz) {
+                        if (this.hE != 47) {
+                           this.z();
                            this.s(47);
                         }
-                     } else if (this.gn && !this.gv) {
-                        this.A();
+                     } else if (this.gr && !this.gz) {
+                        this.z();
                         this.s(36);
-                     } else if (hB == 21) {
+                     } else if (hF == 21) {
                         this.s(0);
                      }
                      break;
                   case 27:
                   case 42:
-                     if (!this.hw && !this.gv) {
-                        this.fM++;
-                        if (this.fM > 3) {
-                           this.fM = 0;
+                     if (!this.hA && !this.gz) {
+                        this.fQ++;
+                        if (this.fQ > 3) {
+                           this.fQ = 0;
                         }
 
-                        hb = this.fM == 1;
-                        hc = this.fM == 2;
-                        this.hd = this.fM == 3;
-                        if (this.hA == 0) {
+                        hf = this.fQ == 1;
+                        hg = this.fQ == 2;
+                        this.hh = this.fQ == 3;
+                        if (this.hE == 0) {
                            this.s(0);
                         }
                      }
                      break;
                   case 29:
-                     if (this.aa == this.T) {
+                     if (this.Z == this.S) {
+                        this.ae = this.Z >> 8;
                         this.af = this.aa >> 8;
-                        this.ag = this.ab >> 8;
-                        this.J = I;
-                        this.a(H, H, 35, 35);
-                        I = 102;
-                        ar = 4;
+                        this.I = H;
+                        this.a(G, G, 35, 35);
+                        H = 102;
+                        aq = 4;
                      }
                      break;
                   case 35:
-                     this.bi = false;
-                     I = 106;
+                     this.bh = false;
+                     this.a(133, 1025, 2);
+                     this.a(134, 1025, 3);
+                     this.bm = (256 - (this.hu & 0xFF)) * 320 >> 8;
+                     H = 106;
                }
 
-               if (this.B) {
-                  if (this.s == 55) {
-                     this.hj = -1;
+               if (this.A) {
+                  if (this.q == 55) {
+                     this.hn = -1;
                   }
 
-                  if (this.s == 48) {
+                  if (this.q == 48) {
+                     this.B = !this.B;
+                  }
+
+                  if (this.q == 57) {
+                     this.hn = this.hq;
+                  }
+
+                  if (this.q == 51) {
                      this.C = !this.C;
                   }
-
-                  if (this.s == 57) {
-                     this.hj = this.hm;
-                  }
-
-                  if (this.s == 51) {
-                     this.D = !this.D;
-                  }
                }
-            } else if (this.ay < 0) {
+            } else if (this.ax < 0) {
                boolean var33 = false;
                int var55 = super.a;
                int var68 = super.b;
                this.t(131);
                super.a = var55;
                super.b = var68;
-               if (this.fS >= 0 && this.fS < this.fQ) {
-                  switch (this.s) {
+               if (this.fW >= 0 && this.fW < this.fU) {
+                  switch (this.q) {
                      case 1:
-                        if (this.fT == 0) {
+                        if (this.fX == 0) {
                            var33 = true;
                         }
                         break;
                      case 2:
-                        if (this.fT == 1) {
+                        if (this.fX == 1) {
                            var33 = true;
                         }
                      case 3:
@@ -5272,739 +5389,739 @@ public final class e extends a {
                      default:
                         break;
                      case 5:
-                        if (this.fT == 3) {
+                        if (this.fX == 3) {
                            var33 = true;
                         }
                         break;
                      case 6:
-                        if (this.fT == 4) {
+                        if (this.fX == 4) {
                            var33 = true;
                         }
                         break;
                      case 8:
-                        if (this.fT == 2) {
+                        if (this.fX == 2) {
                            var33 = true;
                         }
                   }
 
                   if (var33) {
-                     int var79 = this.B();
-                     this.fT = var79;
-                     this.fS++;
-                     this.a(131, 1027, fU[this.fT]);
-                  } else if (this.s != 0 && this.s != 27 && this.s != 29 && this.s != 4 && this.s != 9) {
-                     this.fS = -1;
+                     int var79 = this.A();
+                     this.fX = var79;
+                     this.fW++;
+                     this.a(131, 1027, fY[this.fX]);
+                  } else if (this.q != 0 && this.q != 27 && this.q != 29 && this.q != 4 && this.q != 9) {
+                     this.fW = -1;
                   }
                }
             }
 
-            if (this.t != 6 && this.hw) {
-               this.hw = false;
+            if (this.r != 6 && this.hA) {
+               this.hA = false;
                this.s(0);
             }
 
-            if (this.t != 2 && this.t != 5) {
-               if (this.hA == 9) {
+            if (this.r != 2 && this.r != 5) {
+               if (this.hE == 9) {
                   this.s(0);
-               } else if (this.hA == 46) {
+               } else if (this.hE == 46) {
                   this.s(45);
-               } else if (this.go && this.hA != 50) {
+               } else if (this.gs && this.hE != 50) {
                   this.s(50);
                }
             }
 
-            if (this.t != 1 && hB == 35 || this.t != 6 && hB == 34) {
+            if (this.r != 1 && hF == 35 || this.r != 6 && hF == 34) {
                this.s(33);
             }
 
-            if ((this.t != 8 || hl <= 0) && this.hA == 94) {
+            if ((this.r != 8 || hp <= 0) && this.hE == 94) {
                this.s(0);
-               if (hl <= 0) {
-                  hl = 0;
+               if (hp <= 0) {
+                  hp = 0;
                }
 
-               this.A();
+               this.z();
             }
 
-            if (this.t == 8 && this.hA == 94) {
-               hl -= 12;
+            if (this.r == 8 && this.hE == 94) {
+               hp -= 12;
             }
 
-            if (!this.gy
-               && !this.gz
-               && !this.gp
-               && !gq
-               && !gg
-               && this.hA != 26
-               && this.hA != 99
-               && this.hA != 48
-               && (this.gG != 5 && this.gG != 6 && this.gG != this.gO || !hb)
-               && !this.gs
+            if (!this.gC
+               && !this.gD
+               && !this.gt
+               && !gu
+               && !gk
+               && this.hE != 26
+               && this.hE != 99
+               && this.hE != 48
+               && (this.gK != 5 && this.gK != 6 && this.gK != this.gS || !hf)
+               && !this.gw
                && var7) {
-               if ((this.hA != 24 && this.hA != 25 && this.hA != 44 && this.hA != 38 || var7)
+               if ((this.hE != 24 && this.hE != 25 && this.hE != 44 && this.hE != 38 || var7)
                   && (
-                     this.hA == 24
-                        || this.hA == 25
-                        || this.hA == 44
-                        || this.hA == 40
-                        || this.hA == 38
-                        || this.hA == 108
-                        || this.hA == 114
-                        || this.hA == 116
-                        || this.hA == 115
-                        || hB == 121
-                        || hB == 120
-                        || gr
-                        || this.gn
-                        || gq
+                     this.hE == 24
+                        || this.hE == 25
+                        || this.hE == 44
+                        || this.hE == 40
+                        || this.hE == 38
+                        || this.hE == 108
+                        || this.hE == 114
+                        || this.hE == 116
+                        || this.hE == 115
+                        || hF == 121
+                        || hF == 120
+                        || gv
+                        || this.gr
+                        || gu
                   )) {
-                  if ((this.hA == 47 || this.hA == 118 || this.hA == 119) && !var7) {
+                  if ((this.hE == 47 || this.hE == 118 || this.hE == 119) && !var7) {
                      this.s(45);
-                  } else if (this.gy && this.hA != 24 && this.hA != 26) {
+                  } else if (this.gC && this.hE != 24 && this.hE != 26) {
                      this.s(0);
                   }
                } else {
                   this.s(26);
                }
             } else if (!var7) {
-               if (this.hA == 31 && !var7) {
-                  for (int var41 = this.fm; var41 >= 0; var41--) {
-                     if (!fp[var41] && a(this.fq[var41], this.fr[var41], this.fn, this.fo, this.ga - this.hx, this.gb, gC, this.gD)) {
-                        this.ft[var41] = this.ft[var41] + 4;
+               if (this.hE == 31 && !var7) {
+                  for (int var41 = this.fq; var41 >= 0; var41--) {
+                     if (!ft[var41] && a(this.fu[var41], this.fv[var41], this.fr, this.fs, this.ge - this.hB, this.gf, gG, this.gH)) {
+                        this.fx[var41] = this.fx[var41] + 4;
                         this.s(31);
-                        this.a(121 + var41, 5120, this.ft[var41]);
-                        fp[var41] = true;
-                        this.e(this.gw, gx);
+                        this.a(121 + var41, 5120, this.fx[var41]);
+                        ft[var41] = true;
+                        this.e(this.gA, gB);
                      }
                   }
                }
 
-               if (this.hA == 27 && !this.hw && !hb) {
+               if (this.hE == 27 && !this.hA && !hf) {
                   this.s(28);
-               } else if (this.hA == 27 && this.hw) {
+               } else if (this.hE == 27 && this.hA) {
                   this.s(3);
-               } else if (this.hw && this.hA == 3) {
+               } else if (this.hA && this.hE == 3) {
                   this.s(3);
-               } else if (this.hA == 38) {
+               } else if (this.hE == 38) {
                   this.s(0);
-               } else if (this.hA == 40) {
+               } else if (this.hE == 40) {
                   this.s(26);
-               } else if (hB == 121) {
-                  if ((this.h(this.gw, gx + 1) & 8192) != 0) {
-                     this.gz = true;
+               } else if (hF == 121) {
+                  if ((this.h(this.gA, gB + 1) & 8192) != 0) {
+                     this.gD = true;
                   }
 
                   this.s(0);
-               } else if (hB == 120) {
-                  this.gb += 16;
+               } else if (hF == 120) {
+                  this.gf += 22;
                   this.s(26);
-               } else if (this.hA == 47 || this.hA == 119 || this.hA == 118) {
+               } else if (this.hE == 47 || this.hE == 119 || this.hE == 118) {
                   this.s(45);
-               } else if (this.hA == 97) {
+               } else if (this.hE == 97) {
                   this.s(3);
-               } else if (this.hA == 88) {
-                  if (this.fS >= this.fQ) {
-                     ek[this.ge] = 1;
+               } else if (this.hE == 88) {
+                  if (this.fW >= this.fU) {
+                     eo[this.gi] = 1;
                      this.s(89);
-                     this.b(dT[this.ge], this.dU[this.ge] - (this.ef[this.ge] >> 1), 2, this.em[this.ge] >> 1);
-                     this.i(10, this.ge);
+                     this.b(dX[this.gi], this.dY[this.gi] - (this.ej[this.gi] >> 1), 2, this.eq[this.gi] >> 1);
+                     this.i(10, this.gi);
                   } else {
                      this.s(90);
-                     this.i(0, this.ge);
+                     this.i(0, this.gi);
                   }
 
-                  fR = false;
-                  this.hH = 0;
-               } else if (this.gv && this.gE) {
-                  hu = this.fV;
+                  fV = false;
+                  this.hL = 0;
+               } else if (this.gz && this.gI) {
+                  hy = this.fZ;
                   this.s(54);
-                  gF = 0;
-                  this.gE = false;
-               } else if ((this.gy || !this.gE) && !fR) {
-                  if (this.hA == 23) {
+                  gJ = 0;
+                  this.gI = false;
+               } else if ((this.gC || !this.gI) && !fV) {
+                  if (this.hE == 23) {
                      this.s(21);
-                  } else if (this.hA == 36) {
+                  } else if (this.hE == 36) {
                      this.s(33);
-                  } else if (this.hw && this.gy || !this.gy && (!this.gz || hB == 26 || hB == 25 || hB == 70 || this.gp || hB == 24)) {
-                     if (this.hA != 26 && this.gp) {
+                  } else if (this.hA && this.gC || !this.gC && (!this.gD || hF == 26 || hF == 25 || hF == 70 || this.gt || hF == 24)) {
+                     if (this.hE != 26 && this.gt) {
                         this.s(70);
-                     } else if ((!this.gz || hB == 70) && !this.gy && !gq) {
+                     } else if ((!this.gD || hF == 70) && !this.gC && !gu) {
                         this.s(26);
                      }
-                  } else if (hB == 48) {
+                  } else if (hF == 48) {
                      this.s(50);
                   } else {
                      this.s(0);
                   }
-               } else if (fR) {
-                  fR = false;
-                  this.hH = 0;
-                  this.gE = false;
-                  if (this.fS >= this.fQ) {
-                     if (dM != this.ge) {
-                        ek[this.ge] = 1;
+               } else if (fV) {
+                  fV = false;
+                  this.hL = 0;
+                  this.gI = false;
+                  if (this.fW >= this.fU) {
+                     if (dQ != this.gi) {
+                        eo[this.gi] = 1;
                         this.s(92);
-                        this.b(dT[this.ge], this.dU[this.ge] - (this.ef[this.ge] >> 1), 1, this.em[this.ge]);
-                        this.i(11, this.ge);
-                     } else if (this.dN != this.ge) {
+                        this.b(dX[this.gi], this.dY[this.gi] - (this.ej[this.gi] >> 1), 1, this.eq[this.gi]);
+                        this.i(11, this.gi);
+                     } else if (this.dR != this.gi) {
                         this.s(109);
-                        this.b(dT[this.ge], this.dU[this.ge] - (this.ef[this.ge] >> 1), 2, this.em[this.ge]);
-                        this.b(dT[this.ge], this.dU[this.ge] - (this.ef[this.ge] >> 1), 1, this.em[this.ge]);
-                        ek[this.ge] = en[this.ge];
-                        if (this.bC >= 4) {
-                           this.i(14, this.ge);
+                        this.b(dX[this.gi], this.dY[this.gi] - (this.ej[this.gi] >> 1), 2, this.eq[this.gi]);
+                        this.b(dX[this.gi], this.dY[this.gi] - (this.ej[this.gi] >> 1), 1, this.eq[this.gi]);
+                        eo[this.gi] = er[this.gi];
+                        if (this.bF >= 4) {
+                           this.i(14, this.gi);
                         } else {
-                           this.i(15, this.ge);
+                           this.i(15, this.gi);
                         }
-                     } else if (this.dN == this.ge) {
+                     } else if (this.dR == this.gi) {
                         this.s(115);
-                        ek[this.ge] = en[this.ge];
-                        this.ej[this.ge] = hu;
-                        this.b(dT[this.ge], this.dU[this.ge] - (this.ef[this.ge] >> 1), 2, this.em[this.ge]);
-                        this.b(dT[this.ge], this.dU[this.ge] - (this.ef[this.ge] >> 1), 1, this.em[this.ge]);
-                        this.i(14, this.ge);
-                        this.dO++;
-                        if (this.dO >= 3) {
-                           this.ey = true;
+                        eo[this.gi] = er[this.gi];
+                        this.en[this.gi] = hy;
+                        this.b(dX[this.gi], this.dY[this.gi] - (this.ej[this.gi] >> 1), 2, this.eq[this.gi]);
+                        this.b(dX[this.gi], this.dY[this.gi] - (this.ej[this.gi] >> 1), 1, this.eq[this.gi]);
+                        this.i(14, this.gi);
+                        this.dS++;
+                        if (this.dS >= 3) {
+                           this.eC = true;
                         }
 
-                        if (this.dO > 3) {
-                           ek[this.ge] = -1;
+                        if (this.dS > 3) {
+                           eo[this.gi] = -1;
                         }
                      }
-                  } else if (dM != this.ge) {
+                  } else if (dQ != this.gi) {
                      this.s(93);
-                     this.i(0, this.ge);
-                  } else if (this.dN != this.ge) {
-                     ek[this.ge] = en[this.ge];
-                     this.i(0, this.ge);
+                     this.i(0, this.gi);
+                  } else if (this.dR != this.gi) {
+                     eo[this.gi] = er[this.gi];
+                     this.i(0, this.gi);
                      this.s(110);
-                  } else if (this.dN == this.ge) {
+                  } else if (this.dR == this.gi) {
                      this.s(116);
-                     ek[this.ge] = en[this.ge];
-                     this.ej[this.ge] = hu;
-                     this.i(12, this.ge);
+                     eo[this.gi] = er[this.gi];
+                     this.en[this.gi] = hy;
+                     this.i(12, this.gi);
                   }
                } else {
                   this.s(67);
-                  hu = this.fV;
-                  this.gE = false;
+                  hy = this.fZ;
+                  this.gI = false;
                }
-            } else if (this.hA == 3 && !this.hw) {
+            } else if (this.hE == 3 && !this.hA) {
                this.s(28);
             }
 
-            if (this.hj <= 0 && this.ge < 0 && (!this.gk || hB == 21)) {
-               if (!this.gy && hB != 26) {
+            if (this.hn <= 0 && this.gi < 0 && (!this.go || hF == 21)) {
+               if (!this.gC && hF != 26) {
                   this.s(26);
-               } else if (this.gy && hB != 52 && hB != 53) {
+               } else if (this.gC && hF != 52 && hF != 53) {
                   this.s(52);
-                  this.hj = 0;
+                  this.hn = 0;
                }
             }
-         } else if (I == 105) {
-            if (!this.gy && !this.gp && this.hA != 24 && !this.gz && !gq && !gg) {
-               if (this.hA == 37) {
+         } else if (H == 105) {
+            if (!this.gC && !this.gt && this.hE != 24 && !this.gD && !gu && !gk) {
+               if (this.hE == 37) {
                   this.s(40);
-                  this.gb++;
+                  this.gf++;
                } else {
                   this.s(26);
                }
             }
 
-            if (!var7 && this.hA != 26) {
-               if (this.aY[this.ba + 1] != 0 || this.aZ[this.bb + 1] != 0 && this.dL >= 0) {
-                  if (this.aY[this.ba + 1] == 0) {
-                     this.s(this.aY[this.ba]);
+            if (!var7 && this.hE != 26) {
+               if (this.aX[this.aZ + 1] != 0 || this.aY[this.ba + 1] != 0 && this.dP >= 0) {
+                  if (this.aX[this.aZ + 1] == 0) {
+                     this.s(this.aX[this.aZ]);
                   } else {
-                     this.ba++;
-                     this.s(this.aY[this.ba]);
+                     this.aZ++;
+                     this.s(this.aX[this.aZ]);
                   }
                } else {
-                  this.C();
+                  this.B();
                }
             }
 
-            if (this.s == 29 && this.aa == this.T && this.ab == this.U) {
+            if (this.q == 29 && this.Z == this.S && this.aa == this.T) {
+               this.ae = this.Z >> 8;
                this.af = this.aa >> 8;
-               this.ag = this.ab >> 8;
-               this.J = I;
-               I = 102;
-               ar = 4;
-               this.a(H, H, 35, 35);
+               this.I = H;
+               H = 102;
+               aq = 4;
+               this.a(G, G, 35, 35);
             }
          }
 
          this.f(var1, var2);
-      } else if (this.hA == 52 && !var7 && I != 108) {
-         this.a(H, H, 35, 35);
-         I = 108;
+      } else if (this.hE == 52 && !var7 && H != 108) {
+         this.a(G, G, 35, 35);
+         H = 108;
+         this.S = 0;
          this.T = 0;
-         this.U = 0;
       }
 
-      if (!this.gv && !this.gp) {
-         gF = 0;
+      if (!this.gz && !this.gt) {
+         gJ = 0;
       } else {
-         gF = gF + this.L;
+         gJ = gJ + this.K;
       }
 
-      if (this.C) {
-         this.hj = this.hm;
+      if (this.B) {
+         this.hn = this.hq;
       }
 
-      if (this.hj >= this.hk && !this.gi
-         || this.ge >= 0
-         || gh
-         || this.gk
-         || this.gv
-         || hB == 60
-         || hB == 77
-         || this.hj <= 0
-         || !this.gy
-         || this.ga == this.fY && this.gb == this.fZ) {
-         if (gq && this.hj < this.hk && !gh && !this.gv) {
-            if (this.gf == hu) {
+      if (this.hn >= this.ho && !this.gm
+         || this.gi >= 0
+         || gl
+         || this.go
+         || this.gz
+         || hF == 60
+         || hF == 77
+         || this.hn <= 0
+         || !this.gC
+         || this.ge == this.gc && this.gf == this.gd) {
+         if (gu && this.hn < this.ho && !gl && !this.gz) {
+            if (this.gj == hy) {
                this.s(118);
             } else {
                this.s(119);
             }
-         } else if (this.ge >= 0) {
-            this.hj = this.hk;
+         } else if (this.gi >= 0) {
+            this.hn = this.ho;
          }
       } else {
-         this.gi = false;
-         if (!this.hw && hB != 27 && hB != 28 && hB != 29) {
-            if (this.hk - this.hj > 50) {
-               hu = this.gf;
+         this.gm = false;
+         if (!this.hA && hF != 27 && hF != 28 && hF != 29) {
+            if (this.ho - this.hn > 50) {
+               hy = this.gj;
                this.s(7);
-            } else if (hu == this.gf) {
+            } else if (hy == this.gj) {
                this.s(5);
             } else {
                this.s(100);
             }
-         } else if (this.hw) {
-            this.gi = false;
-            if (hB != 97) {
-               hu = this.gf;
+         } else if (this.hA) {
+            this.gm = false;
+            if (hF != 97) {
+               hy = this.gj;
                this.s(97);
             }
          }
       }
 
-      this.hk = this.hj;
-      if (hB == 9 && ((this.h(this.gw + (hu ? 1 : -1), gx + 2) & 16384) != 0 || (this.h(this.gw + (hu ? 1 : -1), gx + 3) & 16384) != 0)) {
+      this.ho = this.hn;
+      if (hF == 9 && ((this.h(this.gA + (hy ? 1 : -1), gB + 2) & 16384) != 0 || (this.h(this.gA + (hy ? 1 : -1), gB + 3) & 16384) != 0)) {
          this.s(48);
       }
 
-      this.a(this.ga, this.gb, 135, this.ht, hu);
-      this.gI = this.gI - this.L;
-      if (this.gI < 0 && gH != 0) {
-         this.gI = 0;
-         gH = 0;
-         this.iB = true;
+      this.a(this.ge, this.gf, 135, this.hx, hy);
+      this.gM = this.gM - this.K;
+      if (this.gM < 0 && gL != 0) {
+         this.gM = 0;
+         gL = 0;
+         this.iF = true;
       }
 
-      if (this.gJ != -1 && this.dg[this.gJ] - df[this.gJ] <= 3 && this.gK > 0) {
-         if (this.dg[this.gJ] <= 0) {
-            this.gK = this.gK - this.L;
-            if (this.gK <= 0) {
-               this.iB = true;
+      if (this.gN != -1 && this.dk[this.gN] - dj[this.gN] <= 3 && this.gO > 0) {
+         if (this.dk[this.gN] <= 0) {
+            this.gO = this.gO - this.K;
+            if (this.gO <= 0) {
+               this.iF = true;
             }
          }
 
-         this.gL = this.gL - this.L;
-         if (this.gL < 0) {
-            this.gL = 200 - this.gL;
-            gM = !gM;
-            this.iB = true;
+         this.gP = this.gP - this.K;
+         if (this.gP < 0) {
+            this.gP = 200 - this.gP;
+            gQ = !gQ;
+            this.iF = true;
          }
       }
 
-      for (int var42 = this.bM; var42 >= 0; var42--) {
-         if (bI[var42] >= 0 && !this.t(bI[var42] + 0)) {
+      for (int var42 = this.bQ; var42 >= 0; var42--) {
+         if (bM[var42] >= 0 && !this.t(bM[var42] + 0)) {
             this.n(var42);
          }
       }
 
-      for (int var43 = this.fm; var43 >= 0; var43--) {
-         if (this.ft[var43] >= 0) {
-            int var57 = this.fq[var43] - iQ;
-            int var70 = this.fr[var43] - iR;
-            if (var57 + this.fn >= 0
-               && var70 + this.fo >= 0
-               && var57 - this.fn <= 240
-               && var70 - this.fo <= 320
+      for (int var43 = this.fq; var43 >= 0; var43--) {
+         if (this.fx[var43] >= 0) {
+            int var57 = this.fu[var43] - iW;
+            int var70 = this.fv[var43] - iX;
+            if (var57 + this.fr >= 0
+               && var70 + this.fs >= 0
+               && var57 - this.fr <= 240
+               && var70 - this.fs <= 320
                && !this.t(var43 + 121)
-               && fs[var43] != 0
-               && this.ft[var43] < 8
-               && this.ft[var43] >= 4) {
-               this.ft[var43] = this.ft[var43] + 4;
-               this.a(121 + var43, 5120, this.ft[var43]);
-               if (fs[var43] == -1) {
-                  he = he | 1 << this.bC;
-                  this.fw = 192;
-                  this.ho++;
-                  I = 104;
-                  this.fv = 10;
+               && fw[var43] != 0
+               && this.fx[var43] < 8
+               && this.fx[var43] >= 4) {
+               this.fx[var43] = this.fx[var43] + 4;
+               this.a(121 + var43, 5120, this.fx[var43]);
+               if (fw[var43] == -1) {
+                  hi = hi | 1 << this.bF;
+                  this.fA = 192;
+                  this.hs++;
+                  H = 104;
+                  this.fz = 10;
                   this.a(136, 1026, 0);
-               } else if (fs[var43] == -2) {
-                  he = he | 1 << this.bC << 10;
-                  this.fw = 192;
-                  this.hp++;
-                  I = 104;
-                  this.fv = 9;
+               } else if (fw[var43] == -2) {
+                  hi = hi | 1 << this.bF << 10;
+                  this.fA = 192;
+                  this.ht++;
+                  H = 104;
+                  this.fz = 9;
                   this.a(136, 1026, 1);
-               } else if (fs[var43] != 0) {
-                  this.b(this.fq[var43] + (this.fn >> 1), this.fr[var43] - this.fo - 7, this.ft[var43] - 8, fs[var43]);
+               } else if (fw[var43] != 0) {
+                  this.b(this.fu[var43] + (this.fr >> 1), this.fv[var43] - this.fs - 10, this.fx[var43] - 8, fw[var43]);
                }
             }
          }
       }
 
-      for (int var44 = this.fG; var44 >= 0; var44--) {
+      for (int var44 = this.fK; var44 >= 0; var44--) {
          int var58 = var44 << 2;
-         int var71 = 9 * this.L;
-         int var80 = fC[var44] < 0 ? this.ga : dT[fC[var44]];
-         int var12 = fC[var44] < 0 ? this.gb : this.dU[fC[var44]];
-         if (var80 < fy[var58] && fA[var44] > -3584) {
-            fA[var44] = fA[var44] - var71;
-         } else if (var80 > fy[var58] && fA[var44] < 3584) {
-            fA[var44] = fA[var44] + var71;
+         int var71 = 12 * this.K;
+         int var80 = fG[var44] < 0 ? this.ge : dX[fG[var44]];
+         int var12 = fG[var44] < 0 ? this.gf : this.dY[fG[var44]];
+         if (var80 < fC[var58] && fE[var44] > -4608) {
+            fE[var44] = fE[var44] - var71;
+         } else if (var80 > fC[var58] && fE[var44] < 4608) {
+            fE[var44] = fE[var44] + var71;
          } else {
-            fA[var44] = fA[var44] >> 2;
+            fE[var44] = fE[var44] >> 2;
          }
 
-         if (var12 - (this.gD >> 1) + 8 < fz[var58] && fB[var44] > -3584) {
-            fB[var44] = fB[var44] - var71;
-         } else if (var12 - (this.gD >> 1) - 8 > fz[var58] && fB[var44] < 3584) {
-            fB[var44] = fB[var44] + var71;
+         if (var12 - (this.gH >> 1) + 11 < fD[var58] && fF[var44] > -4608) {
+            fF[var44] = fF[var44] - var71;
+         } else if (var12 - (this.gH >> 1) - 11 > fD[var58] && fF[var44] < 4608) {
+            fF[var44] = fF[var44] + var71;
          } else {
-            fB[var44] = fB[var44] - (fB[var44] >> 3);
+            fF[var44] = fF[var44] - (fF[var44] >> 3);
          }
 
-         if (a(fy[var58], fz[var58], var80 + this.hy, var12 - this.gD, gC, this.gD)) {
-            if (fD[var44] > 75) {
-               if (fE[var44] == 1) {
-                  if (this.hj < this.hm && this.hj > 0 && I != 108) {
-                     this.hj = this.hj + fF[var44];
-                     this.hk = this.hk + fF[var44];
-                     if (this.hj > this.hm) {
-                        this.hj = this.hm;
-                        this.hk = this.hm;
+         if (a(fC[var58], fD[var58], var80 + this.hC, var12 - this.gH, gG, this.gH)) {
+            if (fH[var44] > 75) {
+               if (fI[var44] == 1) {
+                  if (this.hn < this.hq && this.hn > 0 && H != 108) {
+                     this.hn = this.hn + fJ[var44];
+                     this.ho = this.ho + fJ[var44];
+                     if (this.hn > this.hq) {
+                        this.hn = this.hq;
+                        this.ho = this.hq;
                      }
                   }
-               } else if (fE[var44] == 2) {
-                  hl = hl + fF[var44];
-                  if (hl > this.hn) {
-                     hl = this.hn;
+               } else if (fI[var44] == 2) {
+                  hp = hp + fJ[var44];
+                  if (hp > this.hr) {
+                     hp = this.hr;
                   }
-               } else if (fE[var44] == 0) {
-                  this.hq = this.hq + fF[var44];
-                  hr = hr + fF[var44];
-                  if (hr > this.hs) {
-                     this.hq = this.hq + (this.hs - hr);
-                     hr = this.hs;
+               } else if (fI[var44] == 0) {
+                  this.hu = this.hu + fJ[var44];
+                  hv = hv + fJ[var44];
+                  if (hv > this.hw) {
+                     this.hu = this.hu + (this.hw - hv);
+                     hv = this.hw;
                   }
-               } else if (fE[var44] == 3) {
-                  int var13 = fC[var44];
-                  byte var14 = this.dQ[var13];
-                  if (var13 != this.ge && (this.dQ[var13] != 1 || this.dR[var13] != 22)) {
-                     ek[fC[var44]] = ek[fC[var44]] - fF[var44];
+               } else if (fI[var44] == 3) {
+                  int var13 = fG[var44];
+                  byte var14 = this.dU[var13];
+                  if (var13 != this.gi && (this.dU[var13] != 1 || this.dV[var13] != 22)) {
+                     eo[fG[var44]] = eo[fG[var44]] - fJ[var44];
                   }
 
-                  fC[var44] = -1;
-                  if (var13 != this.ge && ek[var13] <= 0 && this.dS[var13] != 1 && (this.dQ[var13] != 1 || this.dR[var13] != 22) && this.dS[var13] != 3) {
-                     if (dM == var13) {
-                        ek[var13] = (en[var13] >> 1) - 1;
+                  fG[var44] = -1;
+                  if (var13 != this.gi && eo[var13] <= 0 && this.dW[var13] != 1 && (this.dU[var13] != 1 || this.dV[var13] != 22) && this.dW[var13] != 3) {
+                     if (dQ == var13) {
+                        eo[var13] = (er[var13] >> 1) - 1;
                      } else {
-                        ek[var13] = -1;
-                        if (this.ei[var13] || this.eh[var13]) {
+                        eo[var13] = -1;
+                        if (this.em[var13] || this.el[var13]) {
                            this.i(11, var13);
                         } else if (var14 == 1) {
                            this.i(8, var13);
-                           this.b(dT[var13], this.dU[var13] - (this.ef[var13] >> 1), 0, this.em[var13]);
+                           this.b(dX[var13], this.dY[var13] - (this.ej[var13] >> 1), 0, this.eq[var13]);
                         } else if (var14 == 2) {
                            this.i(7, var13);
-                           this.b(dT[var13], this.dU[var13] - (this.ef[var13] >> 1), 2, this.em[var13]);
+                           this.b(dX[var13], this.dY[var13] - (this.ej[var13] >> 1), 2, this.eq[var13]);
                         } else if (var14 == 3) {
-                           if (this.dR[var13] != 17) {
+                           if (this.dV[var13] != 17) {
                               this.i(7, var13);
                            }
 
-                           this.b(dT[var13], this.dU[var13] - (this.ef[var13] >> 1), 0, this.em[var13]);
+                           this.b(dX[var13], this.dY[var13] - (this.ej[var13] >> 1), 0, this.eq[var13]);
                         }
                      }
-                  } else if (this.dQ[var13] == 2 && this.dR[var13] == 12) {
-                     ek[var13] = 1;
+                  } else if (this.dU[var13] == 2 && this.dV[var13] == 12) {
+                     eo[var13] = 1;
                   }
                }
 
                this.r(var44);
             } else {
-               fD[var44] = fD[var44] + this.L;
+               fH[var44] = fH[var44] + this.K;
             }
          }
 
-         fy[var58] = fy[var58] + (fA[var44] >> 8);
-         fz[var58] = fz[var58] + (fB[var44] >> 8);
-         System.arraycopy(fy, var58, fy, var58 + 1, 3);
-         System.arraycopy(fz, var58, fz, var58 + 1, 3);
+         fC[var58] = fC[var58] + (fE[var44] >> 8);
+         fD[var58] = fD[var58] + (fF[var44] >> 8);
+         System.arraycopy(fC, var58, fC, var58 + 1, 3);
+         System.arraycopy(fD, var58, fD, var58 + 1, 3);
       }
 
-      for (int var45 = cd + 10; var45 >= 10; var45--) {
+      for (int var45 = ch + 10; var45 >= 10; var45--) {
          var3 = var45 - 10;
-         if (this.bY[var3] >= 0) {
-            int var59 = bZ[var3] - iQ;
-            int var72 = ca[var3] - iR;
-            if (var59 + this.cc[var3] >= 0 && var72 + this.cb[var3] >= 0 && var59 - this.cc[var3] <= 240 && var72 - this.cb[var3] <= 320) {
+         if (this.cc[var3] >= 0) {
+            int var59 = cd[var3] - iW;
+            int var72 = ce[var3] - iX;
+            if (var59 + this.cg[var3] >= 0 && var72 + this.cf[var3] >= 0 && var59 - this.cg[var3] <= 240 && var72 - this.cf[var3] <= 320) {
                if (!this.t(var45)) {
-                  this.bY[var3] = -1;
+                  this.cc[var3] = -1;
                }
 
-               bZ[var3] = bZ[var3] + super.a;
-               ca[var3] = ca[var3] + super.b;
+               cd[var3] = cd[var3] + super.a;
+               ce[var3] = ce[var3] + super.b;
             }
          }
       }
 
-      for (int var46 = ck + 40; var46 >= 40; var46--) {
+      for (int var46 = co + 40; var46 >= 40; var46--) {
          var3 = var46 - 40;
-         if (this.cf[var3] >= 0) {
-            int var60 = this.cg[var3] - iQ;
-            int var73 = ch[var3] - iR;
-            if (var60 + this.cj[var3] >= 0 && var73 + this.ci[var3] >= 0 && var60 - this.cj[var3] <= 240 && var73 - this.ci[var3] <= 320) {
+         if (this.cj[var3] >= 0) {
+            int var60 = this.ck[var3] - iW;
+            int var73 = cl[var3] - iX;
+            if (var60 + this.cn[var3] >= 0 && var73 + this.cm[var3] >= 0 && var60 - this.cn[var3] <= 240 && var73 - this.cm[var3] <= 320) {
                if (!this.t(var46)) {
-                  this.cf[var3] = -1;
+                  this.cj[var3] = -1;
                }
 
-               this.cg[var3] = this.cg[var3] + super.a;
-               ch[var3] = ch[var3] + super.b;
+               this.ck[var3] = this.ck[var3] + super.a;
+               cl[var3] = cl[var3] + super.b;
             }
          }
       }
 
-      for (int var47 = bW + 30; var47 >= 30; var47--) {
+      for (int var47 = ca + 30; var47 >= 30; var47--) {
          var3 = var47 - 30;
-         if (this.bO[var3] >= 0) {
-            if (!this.t(var47) && this.bV[var3]) {
-               this.bO[var3] = -1;
+         if (this.bS[var3] >= 0) {
+            if (!this.t(var47) && this.bZ[var3]) {
+               this.bS[var3] = -1;
                this.o(var3);
-            } else if ((this.bO[var3] & 1) == 0 && a(bR[var3], this.bS[var3], this.bU[var3], this.bT[var3], this.ga - this.hx, this.gb - this.gD, gC, this.gD)) {
-               this.bO[var3]++;
-               this.a(var47, 5122, this.bO[var3]);
+            } else if ((this.bS[var3] & 1) == 0 && a(bV[var3], this.bW[var3], this.bY[var3], this.bX[var3], this.ge - this.hB, this.gf - this.gH, gG, this.gH)) {
+               this.bS[var3]++;
+               this.a(var47, 5122, this.bS[var3]);
             }
 
-            bP[var3] = bP[var3] + super.a;
-            this.bQ[var3] = this.bQ[var3] + super.b;
+            bT[var3] = bT[var3] + super.a;
+            this.bU[var3] = this.bU[var3] + super.b;
          }
       }
 
-      for (int var48 = this.cx; var48 >= 0; var48--) {
+      for (int var48 = this.cB; var48 >= 0; var48--) {
          int var61 = var48 + 106;
-         int var74 = this.cA[var48] ? 4 : 0;
+         int var74 = this.cE[var48] ? 4 : 0;
          boolean var81 = this.t(var61);
-         int var86 = cE[var48];
-         if (!this.cA[var48]
+         int var86 = cI[var48];
+         if (!this.cE[var48]
             && (
-               this.gy && a(this.ga - (gC >> 1), this.gb - this.gD, gC, this.gD, this.cy[var48], cz[var48], 16, 16)
-                  || (this.h(this.cF[var48], cG[var48]) & 1) != 0
+               this.gC && a(this.ge - (gG >> 1), this.gf - this.gH, gG, this.gH, this.cC[var48], cD[var48], 22, 22)
+                  || (this.h(this.cJ[var48], cK[var48]) & 1) != 0
             )) {
-            if (!this.cD[var48]) {
-               this.cD[var48] = true;
+            if (!this.cH[var48]) {
+               this.cH[var48] = true;
                this.x(var48);
-               this.hP = var48;
+               this.hT = var48;
             }
-         } else if (!this.cA[var48] && this.cD[var48]) {
-            this.cD[var48] = false;
+         } else if (!this.cE[var48] && this.cH[var48]) {
+            this.cH[var48] = false;
             this.x(var48);
-            this.hP = var48;
+            this.hT = var48;
          }
 
          if (!var81) {
             boolean var91 = false;
-            if (!this.cD[var48]) {
+            if (!this.cH[var48]) {
                if (var86 == 1 + var74) {
-                  cE[var48] = 2 + var74;
-                  this.a(var61, 2050, cE[var48]);
+                  cI[var48] = 2 + var74;
+                  this.a(var61, 2050, cI[var48]);
                   var91 = true;
                }
             } else if (var86 == 3 + var74) {
-               cE[var48] = 0 + var74;
-               this.a(var61, 2050, cE[var48]);
+               cI[var48] = 0 + var74;
+               this.a(var61, 2050, cI[var48]);
                var91 = true;
             }
 
-            if ((var86 == 3 + var74 || var86 == 1 + var74) && !var91 && this.hO >= 0) {
-               this.x(this.hO);
-               this.hO = -1;
+            if ((var86 == 3 + var74 || var86 == 1 + var74) && !var91 && this.hS >= 0) {
+               this.x(this.hS);
+               this.hS = -1;
             }
          }
 
-         if (this.hP >= 0 && this.hP == var48) {
-            this.hP = -1;
+         if (this.hT >= 0 && this.hT == var48) {
+            this.hT = -1;
             if (var86 == 0 + var74 || var86 == 3 + var74) {
-               cE[var48] = 1 + var74;
-               this.a(var61, 2050, cE[var48]);
+               cI[var48] = 1 + var74;
+               this.a(var61, 2050, cI[var48]);
             } else if (var86 == 2 + var74 || var86 == 1 + var74) {
-               cE[var48] = 3 + var74;
-               this.a(var61, 2050, cE[var48]);
+               cI[var48] = 3 + var74;
+               this.a(var61, 2050, cI[var48]);
             }
          }
       }
 
-      for (int var49 = cI; var49 >= 0; var49--) {
+      for (int var49 = cM; var49 >= 0; var49--) {
          int var62 = var49 + 100;
          boolean var75 = this.t(var62);
-         int var82 = cT[var49] - (this.cU[var49] << 2);
+         int var82 = cX[var49] - (this.cY[var49] << 2);
          if (var75) {
-            if (cV[var49]) {
+            if (cZ[var49]) {
                if (var82 == 2) {
-                  cT[var49] = (this.cU[var49] << 2) + 3;
-                  this.a(var62, 2049, cT[var49]);
+                  cX[var49] = (this.cY[var49] << 2) + 3;
+                  this.a(var62, 2049, cX[var49]);
                }
             } else if (var82 == 0) {
-               cT[var49] = (this.cU[var49] << 2) + 1;
-               this.a(var62, 2049, cT[var49]);
+               cX[var49] = (this.cY[var49] << 2) + 1;
+               this.a(var62, 2049, cX[var49]);
             }
-         } else if (!cV[var49]) {
+         } else if (!cZ[var49]) {
             if (var82 == 3) {
-               cT[var49] = (this.cU[var49] << 2) + 0;
-               this.a(var62, 2049, cT[var49]);
+               cX[var49] = (this.cY[var49] << 2) + 0;
+               this.a(var62, 2049, cX[var49]);
             } else if (var82 == 1) {
-               cT[var49] = (this.cU[var49] << 2) + 2;
-               this.a(var62, 2049, cT[var49]);
+               cX[var49] = (this.cY[var49] << 2) + 2;
+               this.a(var62, 2049, cX[var49]);
 
-               for (int var88 = 0; var88 < this.cQ[var49]; var88++) {
-                  for (int var93 = 0; var93 < cO[var49]; var93++) {
-                     this.b(cK[var49] + var93, cL[var49] - var88, 1);
+               for (int var88 = 0; var88 < this.cU[var49]; var88++) {
+                  for (int var93 = 0; var93 < cS[var49]; var93++) {
+                     this.b(cO[var49] + var93, cP[var49] - var88, 1);
                   }
                }
             }
          } else if (var82 == 1) {
-            cT[var49] = (this.cU[var49] << 2) + 2;
-            this.a(var62, 2049, cT[var49]);
+            cX[var49] = (this.cY[var49] << 2) + 2;
+            this.a(var62, 2049, cX[var49]);
          } else if (var82 == 3) {
-            cT[var49] = (this.cU[var49] << 2) + 0;
-            this.a(var62, 2049, cT[var49]);
+            cX[var49] = (this.cY[var49] << 2) + 0;
+            this.a(var62, 2049, cX[var49]);
 
-            for (int var87 = 0; var87 < this.cQ[var49]; var87++) {
-               for (int var92 = 0; var92 < cO[var49]; var92++) {
-                  this.c(cK[var49] + var92, cL[var49] - var87, 1);
+            for (int var87 = 0; var87 < this.cU[var49]; var87++) {
+               for (int var92 = 0; var92 < cS[var49]; var92++) {
+                  this.c(cO[var49] + var92, cP[var49] - var87, 1);
                }
             }
          }
       }
 
-      for (int var50 = this.dp + 60; var50 >= 60; var50--) {
+      for (int var50 = this.dt + 60; var50 >= 60; var50--) {
          var3 = var50 - 60;
-         if (this.di[var3] >= 0) {
-            int var63 = dl[var3] - iQ;
-            int var76 = dm[var3] - iR;
-            if (var63 + this.do[var3] >= 0 && var76 + this.dn[var3] >= 0 && var63 - this.do[var3] <= 240 && var76 - this.dn[var3] <= 320) {
+         if (this.dm[var3] >= 0) {
+            int var63 = dp[var3] - iW;
+            int var76 = dq[var3] - iX;
+            if (var63 + this.ds[var3] >= 0 && var76 + this.dr[var3] >= 0 && var63 - this.ds[var3] <= 240 && var76 - this.dr[var3] <= 320) {
                boolean var83 = !this.t(var50);
-               if (this.dk[var3] == 2) {
-                  dl[var3] = dl[var3] - super.a;
-                  dm[var3] = dm[var3] - super.b;
+               if (this.do[var3] == 2) {
+                  dp[var3] = dp[var3] - super.a;
+                  dq[var3] = dq[var3] - super.b;
                } else {
-                  dl[var3] = dl[var3] + super.a;
-                  dm[var3] = dm[var3] + super.b;
+                  dp[var3] = dp[var3] + super.a;
+                  dq[var3] = dq[var3] + super.b;
                }
 
-               if (!this.gv && !this.gp && hB != 30
-                  || (this.di[var3] & 1) != 0
-                  || this.ht[2] == 0 && this.ht[7] == 0
-                  || !a(this.ht[0], this.ht[1], this.ht[2], this.ht[3], dl[var3], dm[var3] - this.dn[var3], this.do[var3], this.dn[var3])
-                     && !a(this.ht[5], this.ht[6], this.ht[7], this.ht[8], dl[var3], dm[var3] - this.dn[var3], this.do[var3], this.dn[var3])) {
-                  if (var83 && (this.di[var3] & 1) == 1) {
+               if (!this.gz && !this.gt && hF != 30
+                  || (this.dm[var3] & 1) != 0
+                  || this.hx[2] == 0 && this.hx[7] == 0
+                  || !a(this.hx[0], this.hx[1], this.hx[2], this.hx[3], dp[var3], dq[var3] - this.dr[var3], this.ds[var3], this.dr[var3])
+                     && !a(this.hx[5], this.hx[6], this.hx[7], this.hx[8], dp[var3], dq[var3] - this.dr[var3], this.ds[var3], this.dr[var3])) {
+                  if (var83 && (this.dm[var3] & 1) == 1) {
                      this.j(var3, 1);
                      this.p(var3);
                   }
                } else {
-                  this.di[var3]++;
-                  this.a(var50, 5121, this.di[var3]);
-                  this.b(dl[var3], dm[var3] - (this.dn[var3] >> 1), 1, 25);
+                  this.dm[var3]++;
+                  this.a(var50, 5121, this.dm[var3]);
+                  this.b(dp[var3], dq[var3] - (this.dr[var3] >> 1), 1, 25);
                }
             }
          }
       }
 
-      for (int var51 = eX; var51 >= 0; var51--) {
-         if (this.hG) {
-            this.hG = false;
+      for (int var51 = fb; var51 >= 0; var51--) {
+         if (this.hK) {
+            this.hK = false;
          } else if (this.t(var51 + 111)) {
-            this.eO[var51] = this.eO[var51] + ((!hu || this.hA != 22) && (hu || this.hA != 23) ? -super.a : super.a);
-            this.eP[var51] = this.eP[var51] + super.b;
+            this.eS[var51] = this.eS[var51] + ((!hy || this.hE != 22) && (hy || this.hE != 23) ? -super.a : super.a);
+            this.eT[var51] = this.eT[var51] + super.b;
          } else {
-            this.a(var51 + 111, 6144, this.eN[var51]);
+            this.a(var51 + 111, 6144, this.eR[var51]);
          }
       }
 
-      for (int var52 = this.eZ; var52 >= 0; var52--) {
-         int var64 = fd[var52] - iQ;
-         int var77 = this.fe[var52] - iR;
-         if (var64 + ff[var52] >= 0 && var77 + this.fg[var52] >= 0 && var64 - ff[var52] <= 240 && var77 - this.fg[var52] <= 320) {
-            for (byte var84 = 0; var84 < this.ht.length; var84 += 5) {
-               if ((this.fa[var52] & 1) == 0) {
-                  if (!hc
-                     && this.ht[var84 + 3] != 0
+      for (int var52 = this.fd; var52 >= 0; var52--) {
+         int var64 = fh[var52] - iW;
+         int var77 = this.fi[var52] - iX;
+         if (var64 + fj[var52] >= 0 && var77 + this.fk[var52] >= 0 && var64 - fj[var52] <= 240 && var77 - this.fk[var52] <= 320) {
+            for (byte var84 = 0; var84 < this.hx.length; var84 += 5) {
+               if ((this.fe[var52] & 1) == 0) {
+                  if (!hg
+                     && this.hx[var84 + 3] != 0
                      && a(
-                        this.ht[var84],
-                        this.ht[var84 + 1],
-                        this.ht[var84 + 2],
-                        this.ht[var84 + 3],
-                        fd[var52],
-                        this.fe[var52] - this.fg[var52],
-                        ff[var52],
-                        this.fg[var52]
+                        this.hx[var84],
+                        this.hx[var84 + 1],
+                        this.hx[var84 + 2],
+                        this.hx[var84 + 3],
+                        fh[var52],
+                        this.fi[var52] - this.fk[var52],
+                        fj[var52],
+                        this.fk[var52]
                      )) {
                      if (!this.b(116 + var52, 5)) {
-                        this.b(fd[var52], this.fe[var52] - (this.fg[var52] >> 1), 0, 50);
+                        this.b(fh[var52], this.fi[var52] - (this.fk[var52] >> 1), 0, 50);
                         this.j(var52, 2);
 
-                        for (int var89 = 1; var89 <= this.fi[var52]; var89++) {
-                           for (int var94 = 0; var94 < this.fh[var52]; var94++) {
-                              this.c(this.fb[var52] + var94, fc[var52] - var89, 1);
+                        for (int var89 = 1; var89 <= this.fm[var52]; var89++) {
+                           for (int var94 = 0; var94 < this.fl[var52]; var94++) {
+                              this.c(this.ff[var52] + var94, fg[var52] - var89, 1);
                            }
                         }
 
-                        this.fa[var52]++;
-                        this.a(var52 + 116, 2048, this.fa[var52]);
+                        this.fe[var52]++;
+                        this.a(var52 + 116, 2048, this.fe[var52]);
                         this.q(var52);
                      }
 
-                     this.a(fd[var52] + (hu ? 0 : ff[var52]), this.ht[1] + (this.ht[3] >> 1), 28, !hu ? 2 : 0, false);
+                     this.a(fh[var52] + (hy ? 0 : fj[var52]), this.hx[1] + (this.hx[3] >> 1), 28, !hy ? 2 : 0, false);
                   }
                } else {
-                  this.b(116 + var52, this.L);
+                  this.b(116 + var52, this.K);
                }
             }
          }
       }
 
-      for (int var53 = this.dz + 70; var53 >= 70; var53--) {
+      for (int var53 = this.dD + 70; var53 >= 70; var53--) {
          var3 = var53 - 70;
-         if (this.dr[var3] >= 0) {
+         if (this.dv[var3] >= 0) {
             boolean var65 = !this.t(var53);
-            dt[var3] = dt[var3] + super.a;
-            this.du[var3] = this.du[var3] + super.b;
+            dx[var3] = dx[var3] + super.a;
+            this.dy[var3] = this.dy[var3] + super.b;
             if (var65) {
-               dt[var3] = this.dv[var3];
-               this.du[var3] = this.dw[var3];
-               this.a(var53, 6145, this.dr[var3]);
+               dx[var3] = this.dz[var3];
+               this.dy[var3] = this.dA[var3];
+               this.a(var53, 6145, this.dv[var3]);
             }
 
-            this.a(dt[var3], this.du[var3], var53, ew, true);
-            if (this.ge < 0 && ew[2] > 0 && a(ew[0], ew[1], ew[2], ew[3], var4, var5 - this.gD, gC, this.gD)) {
-               if (!this.ey) {
-                  this.hj = this.hj - (this.ds[var3] * this.L >> 2);
-                  if (this.hj < 0) {
-                     this.hj = 0;
+            this.a(dx[var3], this.dy[var3], var53, eA, true);
+            if (this.gi < 0 && eA[2] > 0 && a(eA[0], eA[1], eA[2], eA[3], var4, var5 - this.gH, gG, this.gH)) {
+               if (!this.eC) {
+                  this.hn = this.hn - (this.dw[var3] * this.K >> 2);
+                  if (this.hn < 0) {
+                     this.hn = 0;
                   }
                }
 
-               this.hk = this.hj;
-               if (!gh && !this.gk && !this.gv && hB != 52 && hB != 53 && hB != 60 && hB != 77 && this.gy) {
+               this.ho = this.hn;
+               if (!gl && !this.go && !this.gz && hF != 52 && hF != 53 && hF != 60 && hF != 77 && this.gC) {
                   this.s(5);
                }
             }
@@ -6013,115 +6130,115 @@ public final class e extends a {
 
       this.t(132);
 
-      for (int var54 = this.eB + 85; var54 >= 85; var54--) {
+      for (int var54 = this.eF + 85; var54 >= 85; var54--) {
          var3 = var54 - 85;
          boolean var66 = false;
-         if (this.dP[var3] >= 0) {
-            int var78 = this.dU[var3];
-            int var85 = dT[var3];
-            byte var90 = this.dQ[var3];
-            int var95 = this.dR[var3];
-            this.c(this.dZ[var3], this.ea[var3] - 1, 2);
-            this.ep[var3] = var78 - this.ea[var3] * 16 << 8;
-            this.dZ[var3] = u(var3);
-            int var96 = this.dZ[var3];
-            int var15 = (this.ep[var3] >> 8) + 1 >= 16 ? this.ea[var3] + 1 : this.ea[var3];
-            int var16 = this.ga - var85;
-            int var17 = this.gb - var78;
+         if (this.dT[var3] >= 0) {
+            int var78 = this.dY[var3];
+            int var85 = dX[var3];
+            byte var90 = this.dU[var3];
+            int var95 = this.dV[var3];
+            this.c(this.ed[var3], this.ee[var3] - 1, 2);
+            this.et[var3] = var78 - this.ee[var3] * 22 << 8;
+            this.ed[var3] = u(var3);
+            int var96 = this.ed[var3];
+            int var15 = (this.et[var3] >> 8) + 1 >= 22 ? this.ee[var3] + 1 : this.ee[var3];
+            int var16 = this.ge - var85;
+            int var17 = this.gf - var78;
             int var18 = Math.abs(var16);
-            this.dG = var18;
+            this.dK = var18;
             int var19 = Math.abs(var17);
-            eA = (this.h(var96, var15) & 1) != 0;
-            if ((this.h(var96, var15) & 64) != 0 && this.dS[var3] != 1 && dT[var3] > 0) {
-               ek[var3] = -1;
+            eE = (this.h(var96, var15) & 1) != 0;
+            if ((this.h(var96, var15) & 64) != 0 && this.dW[var3] != 1 && dX[var3] > 0) {
+               eo[var3] = -1;
                if (var90 == 1) {
                   this.i(8, var3);
-                  this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 0, this.em[var3]);
+                  this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 0, this.eq[var3]);
                } else if (var90 == 2) {
                   this.i(7, var3);
-                  this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 2, this.em[var3]);
+                  this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 2, this.eq[var3]);
                }
             }
 
-            if (dT[var3] > -10
-               && this.dU[var3] > -10
+            if (dX[var3] > -10
+               && this.dY[var3] > -10
                && (
-                  a(iQ - 64, iR - 64, 368, 448, dT[var3] - this.ee[var3], this.dU[var3] - this.ef[var3], this.ee[var3] << 1, this.ef[var3])
-                     || this.dL == var3 && I == 105
-                     || this.dQ[var3] == 1
-                        && (this.dR[var3] == 11 || this.dR[var3] == 27 || this.dR[var3] == 8 || this.dR[var3] == 9 || this.dR[var3] == 10 || this.dR[var3] == 7)
-                     || this.dQ[var3] == 2 && (this.dR[var3] == 8 || this.dR[var3] == 14 || this.dR[var3] == 7 || this.dR[var3] == 10 || this.dR[var3] == 9)
-                     || this.dQ[var3] == 3
+                  a(iW - 88, iX - 88, 416, 496, dX[var3] - this.ei[var3], this.dY[var3] - this.ej[var3], this.ei[var3] << 1, this.ej[var3])
+                     || this.dP == var3 && H == 105
+                     || this.dU[var3] == 1
+                        && (this.dV[var3] == 11 || this.dV[var3] == 27 || this.dV[var3] == 8 || this.dV[var3] == 9 || this.dV[var3] == 10 || this.dV[var3] == 7)
+                     || this.dU[var3] == 2 && (this.dV[var3] == 8 || this.dV[var3] == 14 || this.dV[var3] == 7 || this.dV[var3] == 10 || this.dV[var3] == 9)
+                     || this.dU[var3] == 3
                         && (
-                           this.dR[var3] == 10 || this.dR[var3] == 18 || this.dR[var3] == 7 || this.dR[var3] == 13 || this.dR[var3] == 17 || this.dR[var3] == 8
+                           this.dV[var3] == 10 || this.dV[var3] == 18 || this.dV[var3] == 7 || this.dV[var3] == 13 || this.dV[var3] == 17 || this.dV[var3] == 8
                         )
                )) {
                boolean var20 = false;
-               if (this.dX[var3] <= 500) {
-                  var20 = !this.b(var54, this.L - (this.dX[var3] >> 5));
+               if (this.eb[var3] <= 500) {
+                  var20 = !this.b(var54, this.K - (this.eb[var3] >> 5));
                }
 
-               if (this.dR[var3] == 11 && this.dQ[var3] == 1 || this.dR[var3] == 8 && this.dQ[var3] == 2 || this.dR[var3] == 10 && this.dQ[var3] == 3) {
-                  super.b = super.b + dJ[var3];
-                  this.dK[var3] = this.dK[var3] + this.L;
-                  if (this.dK[var3] > 200) {
-                     this.dK[var3] = this.dK[var3] - 200;
-                     dJ[var3] = dJ[var3] + (dJ[var3] >= 8 ? 0 : 4);
+               if (this.dV[var3] == 11 && this.dU[var3] == 1 || this.dV[var3] == 8 && this.dU[var3] == 2 || this.dV[var3] == 10 && this.dU[var3] == 3) {
+                  super.b = super.b + dN[var3];
+                  this.dO[var3] = this.dO[var3] + this.K;
+                  if (this.dO[var3] > 200) {
+                     this.dO[var3] = this.dO[var3] - 200;
+                     dN[var3] = dN[var3] + (dN[var3] >= 8 ? 0 : 4);
                   }
                } else {
-                  this.dK[var3] = 0;
-                  dJ[var3] = 0;
+                  this.dO[var3] = 0;
+                  dN[var3] = 0;
                }
 
-               if (I != 105 && this.dX[var3] <= 500) {
+               if (H != 105 && this.eb[var3] <= 500) {
                   if (var20) {
-                     if (I != 105) {
+                     if (H != 105) {
                         switch (var90) {
                            case 1:
                               if (var95 != 8 && var95 != 9 && var95 != 10) {
-                                 if (!this.ei[var3] && !this.eh[var3]) {
-                                    if (var18 < 48 && var19 < 16) {
-                                       if (Math.abs(this.N & 3) == 3) {
+                                 if (!this.em[var3] && !this.el[var3]) {
+                                    if (var18 < 66 && var19 < 22) {
+                                       if (Math.abs(this.M & 3) == 3) {
                                           this.i(6, var3);
                                        } else {
                                           this.i(5, var3);
                                        }
 
-                                       this.ej[var3] = var16 >= 0;
+                                       this.en[var3] = var16 >= 0;
                                     } else if (var95 != 0
-                                       && var19 < 32
-                                       && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] : -eb[var3]), this.ea[var3] - 1) & 3) == 0
-                                       && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] + 1 : -(eb[var3] + 1)), this.ea[var3] - 1) & 3) == 0
-                                       && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] : -eb[var3]), this.ea[var3]) & 3) != 0
-                                       && var18 < 144) {
-                                       if (eu[var3] < 0) {
+                                       && var19 < 44
+                                       && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] : -ef[var3]), this.ee[var3] - 1) & 3) == 0
+                                       && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] + 1 : -(ef[var3] + 1)), this.ee[var3] - 1) & 3) == 0
+                                       && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] : -ef[var3]), this.ee[var3]) & 3) != 0
+                                       && var18 < 198) {
+                                       if (ey[var3] < 0) {
                                           this.i(1, var3);
                                        } else {
                                           this.i(0, var3);
-                                          eu[var3] = eu[var3] - this.L;
+                                          ey[var3] = ey[var3] - this.K;
                                        }
-                                    } else if (this.dR[var3] == 25) {
+                                    } else if (this.dV[var3] == 25) {
                                        this.i(1, var3);
                                     } else {
-                                       if (this.dR[var3] == 27) {
-                                          eA = true;
+                                       if (this.dV[var3] == 27) {
+                                          eE = true;
                                        }
 
                                        this.i(0, var3);
                                     }
 
-                                    if (ev[var3] && this.dR[var3] == 1) {
+                                    if (ez[var3] && this.dV[var3] == 1) {
                                        int var102;
-                                       if ((var102 = dT[var3] - dV[var3]) > 64) {
-                                          this.ej[var3] = false;
-                                       } else if (var102 < 64) {
-                                          this.ej[var3] = true;
+                                       if ((var102 = dX[var3] - dZ[var3]) > 88) {
+                                          this.en[var3] = false;
+                                       } else if (var102 < 88) {
+                                          this.en[var3] = true;
                                        }
                                     }
-                                 } else if (this.ei[var3]) {
-                                    if (var95 != 16 && var95 != 15 && var17 > 0 && var17 < 32 && var18 < 16) {
+                                 } else if (this.em[var3]) {
+                                    if (var95 != 16 && var95 != 15 && var17 > 0 && var17 < 44 && var18 < 22) {
                                        this.i(16, var3);
-                                    } else if (var95 != 15 && var95 != 16 && var17 < 0 && var17 > -64 && var18 < 16) {
+                                    } else if (var95 != 15 && var95 != 16 && var17 < 0 && var17 > -88 && var18 < 22) {
                                        this.i(15, var3);
                                     } else if (var17 < 0 && var95 != 12 && var95 != 15 && var95 != 16 && var95 != 21) {
                                        this.i(12, var3);
@@ -6130,23 +6247,23 @@ public final class e extends a {
                                     } else if (var95 != 21) {
                                        this.i(23, var3);
                                     }
-                                 } else if (this.eh[var3] && (var95 == 20 || var95 == 19)) {
+                                 } else if (this.el[var3] && (var95 == 20 || var95 == 19)) {
                                     this.i(26, var3);
                                  }
                               } else {
-                                 if (this.dH < 25) {
+                                 if (this.dL < 25) {
                                     this.j(var3, 0);
                                  }
 
                                  this.w(var3);
-                                 this.a(dT[var3], this.dU[var3], 26, 0, false);
-                                 dT[var3] = -1000;
-                                 this.dU[var3] = -1000;
+                                 this.a(dX[var3], this.dY[var3], 26, 0, false);
+                                 dX[var3] = -1000;
+                                 this.dY[var3] = -1000;
                                  var85 = -1000;
                                  var78 = -1000;
-                                 this.dI++;
-                                 if (iN) {
-                                    this.iB = true;
+                                 this.dM++;
+                                 if (iS) {
+                                    this.iF = true;
                                  }
 
                                  this.i(0, var3);
@@ -6156,110 +6273,110 @@ public final class e extends a {
                               if (var95 != 7 && var95 != 12 && var95 != 13) {
                                  if (var95 != 12) {
                                     byte var100 = 0;
-                                    if (this.dB) {
+                                    if (this.dF) {
                                        var100 = 1;
                                     }
 
-                                    if (this.dR[var3] == 10) {
+                                    if (this.dV[var3] == 10) {
                                        this.i(12, var3);
-                                    } else if (var18 < 16 * (3 + var100) && var19 < 16) {
-                                       if (Math.abs(this.N & 3) == 3) {
+                                    } else if (var18 < 22 * (3 + var100) && var19 < 22) {
+                                       if (Math.abs(this.M & 3) == 3) {
                                           this.i(6, var3);
                                        } else {
                                           this.i(5, var3);
                                        }
 
-                                       this.ej[var3] = var16 >= 0;
+                                       this.en[var3] = var16 >= 0;
                                     } else {
-                                       if (this.dR[var3] == 27) {
-                                          eA = true;
+                                       if (this.dV[var3] == 27) {
+                                          eE = true;
                                        }
 
                                        this.i(0, var3);
                                     }
                                  }
                               } else {
-                                 if (this.dH < 25) {
+                                 if (this.dL < 25) {
                                     this.j(var3, 0);
                                  }
 
                                  this.w(var3);
-                                 this.a(dT[var3], this.dU[var3], 26, 0, false);
-                                 dT[var3] = -1000;
-                                 this.dU[var3] = -1000;
+                                 this.a(dX[var3], this.dY[var3], 26, 0, false);
+                                 dX[var3] = -1000;
+                                 this.dY[var3] = -1000;
                                  var85 = -1000;
                                  var78 = -1000;
                                  this.i(0, var3);
-                                 this.dI++;
-                                 if (iN) {
-                                    this.iB = true;
+                                 this.dM++;
+                                 if (iS) {
+                                    this.iF = true;
                                  }
                               }
 
-                              if (ev[var3] && this.dR[var3] == 1) {
+                              if (ez[var3] && this.dV[var3] == 1) {
                                  int var101;
-                                 if ((var101 = dT[var3] - dV[var3]) > 64) {
-                                    this.ej[var3] = false;
-                                 } else if (var101 < 64) {
-                                    this.ej[var3] = true;
+                                 if ((var101 = dX[var3] - dZ[var3]) > 88) {
+                                    this.en[var3] = false;
+                                 } else if (var101 < 88) {
+                                    this.en[var3] = true;
                                  }
                               }
                               break;
                            case 3:
-                              if ((var95 == 7 || var95 == 13 || var95 == 17) && dM != var3 && this.dN != var3
-                                 || dM == var3 && (var95 == 7 || var95 == 16)
-                                 || this.dN == var3 && var95 == 16) {
-                                 if (dM == var3 && var95 == 7 || this.dN == var3) {
-                                    if (this.dN != var3) {
-                                       this.cs = 266;
-                                       this.ct = 266;
-                                       this.cu = 274;
+                              if ((var95 == 7 || var95 == 13 || var95 == 17) && dQ != var3 && this.dR != var3
+                                 || dQ == var3 && (var95 == 7 || var95 == 16)
+                                 || this.dR == var3 && var95 == 16) {
+                                 if (dQ == var3 && var95 == 7 || this.dR == var3) {
+                                    if (this.dR != var3) {
+                                       this.cw = 266;
+                                       this.cx = 266;
+                                       this.cy = 274;
                                     } else {
-                                       this.cs = 243;
-                                       this.ct = 243;
-                                       this.cu = 245;
+                                       this.cw = 243;
+                                       this.cx = 243;
+                                       this.cy = 245;
                                     }
 
-                                    this.a(79, 25, 35, 35);
-                                    I = 101;
+                                    this.a(95, 35, 35, 35);
+                                    H = 101;
                                     this.p();
                                  }
 
-                                 if (this.dH < 25) {
+                                 if (this.dL < 25) {
                                     this.j(var3, 0);
                                  }
 
                                  this.w(var3);
-                                 if (dM != var3) {
-                                    this.a(dT[var3], this.dU[var3], 26, 0, false);
+                                 if (dQ != var3) {
+                                    this.a(dX[var3], this.dY[var3], 26, 0, false);
                                  }
 
-                                 dT[var3] = -1000;
-                                 this.dU[var3] = -1000;
+                                 dX[var3] = -1000;
+                                 this.dY[var3] = -1000;
                                  var85 = -1000;
                                  var78 = -1000;
                                  this.i(0, var3);
-                                 this.dI++;
-                                 if (iN) {
-                                    this.iB = true;
+                                 this.dM++;
+                                 if (iS) {
+                                    this.iF = true;
                                  }
-                              } else if (dM == var3 && this.dN != var3 && this.dR[var3] == 15) {
+                              } else if (dQ == var3 && this.dR != var3 && this.dV[var3] == 15) {
                                  this.i(16, var3);
                               }
 
-                              if (dM != var3 || this.dN == var3 || this.dR[var3] != 16) {
-                                 if (var95 == 11 && dM != var3) {
+                              if (dQ != var3 || this.dR == var3 || this.dV[var3] != 16) {
+                                 if (var95 == 11 && dQ != var3) {
                                     this.i(12, var3);
-                                 } else if (var95 == 16 && dM != var3 && this.dN != var3) {
+                                 } else if (var95 == 16 && dQ != var3 && this.dR != var3) {
                                     this.i(17, var3);
-                                    ek[var3] = -1;
-                                 } else if (var95 == 12 && dM != var3) {
-                                    this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 1, this.em[var3]);
+                                    eo[var3] = -1;
+                                 } else if (var95 == 12 && dQ != var3) {
+                                    this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 1, this.eq[var3]);
                                     this.i(13, var3);
-                                    ek[var3] = -1;
-                                 } else if (var18 < 16 * (3 + (dM == var3 ? 1 : 0)) && var19 < 16 && this.ge < 0) {
-                                    if (Math.abs(this.N & 3) == 3) {
-                                       if (dM == var3 && (this.N & 1) != 0) {
+                                    eo[var3] = -1;
+                                 } else if (var18 < 22 * (3 + (dQ == var3 ? 1 : 0)) && var19 < 22 && this.gi < 0) {
+                                    if (Math.abs(this.M & 3) == 3) {
+                                       if (dQ == var3 && (this.M & 1) != 0) {
                                           this.i(12, var3);
                                        } else {
                                           this.i(6, var3);
@@ -6268,206 +6385,206 @@ public final class e extends a {
                                        this.i(3, var3);
                                     }
 
-                                    if (!fR) {
-                                       this.ej[var3] = var16 >= 8;
+                                    if (!fV) {
+                                       this.en[var3] = var16 >= 11;
                                     }
-                                 } else if (var95 != 0 && this.ge != var3) {
+                                 } else if (var95 != 0 && this.gi != var3) {
                                     super.a = 0;
                                     super.b = 0;
                                     this.i(0, var3);
                                  }
 
-                                 if (ev[var3] && this.dR[var3] == 1) {
+                                 if (ez[var3] && this.dV[var3] == 1) {
                                     int var99;
-                                    if ((var99 = dT[var3] - dV[var3]) > 64) {
-                                       this.ej[var3] = false;
-                                    } else if (var99 < 64) {
-                                       this.ej[var3] = true;
+                                    if ((var99 = dX[var3] - dZ[var3]) > 88) {
+                                       this.en[var3] = false;
+                                    } else if (var99 < 88) {
+                                       this.en[var3] = true;
                                     }
                                  }
 
-                                 if (this.dN == var3 && var95 == 14 && this.dO >= 3) {
+                                 if (this.dR == var3 && var95 == 14 && this.dS >= 3) {
                                     this.i(16, var3);
-                                 } else if (this.dN == var3 && var95 == 14 && this.dO < 3) {
+                                 } else if (this.dR == var3 && var95 == 14 && this.dS < 3) {
                                     this.i(17, var3);
-                                    this.ej[var3] = !this.ej[var3];
+                                    this.en[var3] = !this.en[var3];
                                  }
                               }
                         }
                      }
-                  } else if (I != 105) {
+                  } else if (H != 105) {
                      switch (var90) {
                         case 1:
                            if (var95 == 1) {
-                              if (var16 > 16 && !this.ej[var3]) {
-                                 this.ej[var3] = true;
-                              } else if (var16 < -16 && this.ej[var3]) {
-                                 this.ej[var3] = false;
+                              if (var16 > 22 && !this.en[var3]) {
+                                 this.en[var3] = true;
+                              } else if (var16 < -22 && this.en[var3]) {
+                                 this.en[var3] = false;
                               }
 
-                              if (var18 < 48 && var19 < 16) {
+                              if (var18 < 66 && var19 < 22) {
                                  this.i(6, var3);
-                                 this.ej[var3] = var16 >= 0;
-                              } else if (var18 < 32 && var19 > 16 && var19 < 128 && this.gn && !this.dA
-                                 || var18 < 64 && var19 > 16 && var19 < 32 && gq && !this.dA
-                                 || var17 > 0 && var19 < 32 && var18 < 48 && this.hA != 37 && this.hA != 38 && !gq && !gr && this.hA != 38) {
+                                 this.en[var3] = var16 >= 0;
+                              } else if (var18 < 44 && var19 > 22 && var19 < 176 && this.gr && !this.dE
+                                 || var18 < 88 && var19 > 22 && var19 < 44 && gu && !this.dE
+                                 || var17 > 0 && var19 < 44 && var18 < 66 && this.hE != 37 && this.hE != 38 && !gu && !gv && this.hE != 38) {
                                  this.i(3, var3);
                               }
-                           } else if (this.ei[var3]) {
-                              if (var95 != 16 && var95 != 21 && var17 > 0 && var17 < 32 && var18 < 16) {
+                           } else if (this.em[var3]) {
+                              if (var95 != 16 && var95 != 21 && var17 > 0 && var17 < 44 && var18 < 22) {
                                  this.i(16, var3);
-                              } else if (var95 != 15 && var95 != 21 && var17 < 0 && var17 > -64 && var18 < 16) {
+                              } else if (var95 != 15 && var95 != 21 && var17 < 0 && var17 > -88 && var18 < 22) {
                                  this.i(15, var3);
                               } else if (var17 < 0 && var95 != 12 && var95 != 15 && var95 != 16 && var95 != 21) {
                                  this.i(12, var3);
                               } else if (var95 != 13 && var95 != 15 && var95 != 21 && var95 != 16 && var17 > 0) {
                                  this.i(13, var3);
-                              } else if (var95 == 21 && eA) {
+                              } else if (var95 == 21 && eE) {
                                  this.i(0, var3);
                               }
-                           } else if (!this.eh[var3]) {
-                              if ((this.h(this.dZ[var3], this.ea[var3] - 1) & 512) != 0 && this.dR[var3] != 8) {
-                                 this.ej[var3] = !hu;
-                                 ek[var3] = -1;
+                           } else if (!this.el[var3]) {
+                              if ((this.h(this.ed[var3], this.ee[var3] - 1) & 512) != 0 && this.dV[var3] != 8) {
+                                 this.en[var3] = !hy;
+                                 eo[var3] = -1;
                                  this.i(8, var3);
-                                 this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 0, this.em[var3]);
+                                 this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 0, this.eq[var3]);
                               } else if (var95 == 0
-                                 && var19 < 32
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] : -eb[var3]), this.ea[var3] - 1) & 3) == 0
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] + 1 : -(eb[var3] + 1)), this.ea[var3] - 1) & 3) == 0
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] : -eb[var3]), this.ea[var3]) & 3) != 0
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] + 1 : -(eb[var3] + 1)), this.ea[var3]) & 3) != 0
-                                 && var18 < 144) {
-                                 if (eu[var3] < 0) {
+                                 && var19 < 44
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] : -ef[var3]), this.ee[var3] - 1) & 3) == 0
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] + 1 : -(ef[var3] + 1)), this.ee[var3] - 1) & 3) == 0
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] : -ef[var3]), this.ee[var3]) & 3) != 0
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] + 1 : -(ef[var3] + 1)), this.ee[var3]) & 3) != 0
+                                 && var18 < 198) {
+                                 if (ey[var3] < 0) {
                                     this.i(1, var3);
                                  } else {
-                                    eu[var3] = eu[var3] - this.L;
+                                    ey[var3] = ey[var3] - this.K;
                                  }
-                              } else if (var95 == 0 && var17 <= 32 && var17 > 0 && this.gy && var18 < 48) {
+                              } else if (var95 == 0 && var17 <= 44 && var17 > 0 && this.gC && var18 < 66) {
                                  this.i(3, var3);
                               } else if (var95 == 21) {
                                  this.i(0, var3);
-                              } else if (this.dR[var3] == 0 && var18 < 48 && var19 < 16) {
-                                 if (Math.abs(this.N & 3) == 3) {
+                              } else if (this.dV[var3] == 0 && var18 < 66 && var19 < 22) {
+                                 if (Math.abs(this.M & 3) == 3) {
                                     this.i(6, var3);
                                  } else {
                                     this.i(5, var3);
                                  }
 
-                                 this.ej[var3] = var16 >= 0;
+                                 this.en[var3] = var16 >= 0;
                               }
                            } else {
-                              if (var16 > 16
-                                 && var18 < 72
-                                 && this.dR[var3] != 19
-                                 && this.dR[var3] != 18
-                                 && (this.h(this.dZ[var3] + 1, this.ea[var3] - this.eg[var3] - 1) & 16) != 0) {
+                              if (var16 > 22
+                                 && var18 < 99
+                                 && this.dV[var3] != 19
+                                 && this.dV[var3] != 18
+                                 && (this.h(this.ed[var3] + 1, this.ee[var3] - this.ek[var3] - 1) & 16) != 0) {
                                  this.i(18, var3);
-                                 this.ej[var3] = true;
-                              } else if (var16 < -16
-                                 && var18 < 72
-                                 && this.dR[var3] != 19
-                                 && this.dR[var3] != 18
-                                 && (this.h(this.dZ[var3] - 1, this.ea[var3] - this.eg[var3] - 1) & 16) != 0) {
+                                 this.en[var3] = true;
+                              } else if (var16 < -22
+                                 && var18 < 99
+                                 && this.dV[var3] != 19
+                                 && this.dV[var3] != 18
+                                 && (this.h(this.ed[var3] - 1, this.ee[var3] - this.ek[var3] - 1) & 16) != 0) {
                                  this.i(18, var3);
-                                 this.ej[var3] = false;
+                                 this.en[var3] = false;
                               }
 
-                              if (this.dR[var3] != 19 && var18 < 48 && var19 < 16) {
+                              if (this.dV[var3] != 19 && var18 < 66 && var19 < 22) {
                                  this.i(19, var3);
-                                 this.ej[var3] = var16 >= 0;
+                                 this.en[var3] = var16 >= 0;
                               }
                            }
                            break;
                         case 2:
                            byte var21 = 0;
-                           if (this.dB) {
+                           if (this.dF) {
                               var21 = 1;
                            }
 
                            if (var95 != 1) {
-                              if ((this.h(this.dZ[var3], this.ea[var3] - 1) & 512) != 0 && this.dR[var3] != 7) {
-                                 this.ej[var3] = !hu;
-                                 ek[var3] = -1;
+                              if ((this.h(this.ed[var3], this.ee[var3] - 1) & 512) != 0 && this.dV[var3] != 7) {
+                                 this.en[var3] = !hy;
+                                 eo[var3] = -1;
                                  this.i(7, var3);
-                                 this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 2, this.em[var3]);
+                                 this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 2, this.eq[var3]);
                               } else if (var95 == 0
-                                 && var19 < 32
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] : -eb[var3]), this.ea[var3] - 1) & 3) == 0
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] + 1 : -(eb[var3] + 1)), this.ea[var3] - 1) & 3) == 0
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] : -eb[var3]), this.ea[var3]) & 3) != 0
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] + 1 : -(eb[var3] + 1)), this.ea[var3]) & 3) != 0
-                                 && var18 < 144) {
-                                 if (eu[var3] < 0) {
+                                 && var19 < 44
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] : -ef[var3]), this.ee[var3] - 1) & 3) == 0
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] + 1 : -(ef[var3] + 1)), this.ee[var3] - 1) & 3) == 0
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] : -ef[var3]), this.ee[var3]) & 3) != 0
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] + 1 : -(ef[var3] + 1)), this.ee[var3]) & 3) != 0
+                                 && var18 < 198) {
+                                 if (ey[var3] < 0) {
                                     this.i(1, var3);
                                  } else {
-                                    eu[var3] = eu[var3] - this.L;
+                                    ey[var3] = ey[var3] - this.K;
                                  }
-                              } else if (this.dR[var3] == 0) {
+                              } else if (this.dV[var3] == 0) {
                                  byte var22 = 0;
-                                 if (this.dB) {
+                                 if (this.dF) {
                                     var22 = 1;
                                  }
 
-                                 if (var18 < 16 * (3 + var22) && var19 < 16) {
-                                    if (Math.abs(this.N & 3) == 3) {
+                                 if (var18 < 22 * (3 + var22) && var19 < 22) {
+                                    if (Math.abs(this.M & 3) == 3) {
                                        this.i(6, var3);
                                     } else {
                                        this.i(5, var3);
                                     }
 
-                                    this.ej[var3] = var16 >= 0;
+                                    this.en[var3] = var16 >= 0;
                                  }
                               }
                            } else {
-                              if (var16 > 16 && !this.ej[var3]) {
-                                 this.ej[var3] = true;
-                              } else if (var16 < -16 && this.ej[var3]) {
-                                 this.ej[var3] = false;
+                              if (var16 > 22 && !this.en[var3]) {
+                                 this.en[var3] = true;
+                              } else if (var16 < -22 && this.en[var3]) {
+                                 this.en[var3] = false;
                               }
 
-                              if (var18 < 16 * (3 + var21) && var19 < 16) {
+                              if (var18 < 22 * (3 + var21) && var19 < 22) {
                                  this.i(6, var3);
-                                 this.ej[var3] = var16 >= 0;
+                                 this.en[var3] = var16 >= 0;
                               }
                            }
                            break;
                         case 3:
                            if (var95 != 12) {
                               if (var95 == 1) {
-                                 if (var16 > 16 && !this.ej[var3]) {
-                                    this.ej[var3] = true;
-                                 } else if (var16 < -16 && this.ej[var3]) {
-                                    this.ej[var3] = false;
+                                 if (var16 > 22 && !this.en[var3]) {
+                                    this.en[var3] = true;
+                                 } else if (var16 < -22 && this.en[var3]) {
+                                    this.en[var3] = false;
                                  }
 
-                                 if (var18 < 16 * (3 + (dM == var3 ? 1 : 0)) && var19 < 16) {
+                                 if (var18 < 22 * (3 + (dQ == var3 ? 1 : 0)) && var19 < 22) {
                                     this.i(6, var3);
-                                    this.ej[var3] = var16 >= 0;
+                                    this.en[var3] = var16 >= 0;
                                  }
-                              } else if ((this.h(this.dZ[var3], this.ea[var3] - 1) & 512) != 0 && this.dR[var3] != 7) {
-                                 ek[var3] = -1;
-                                 this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 0, this.em[var3]);
+                              } else if ((this.h(this.ed[var3], this.ee[var3] - 1) & 512) != 0 && this.dV[var3] != 7) {
+                                 eo[var3] = -1;
+                                 this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 0, this.eq[var3]);
                                  this.i(7, var3);
-                                 this.ej[var3] = !hu;
+                                 this.en[var3] = !hy;
                               } else if (var95 == 0
-                                 && var19 < 32
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] + 1 : -(eb[var3] + 1)), this.ea[var3] - 1) & 3) == 0
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] + 1 : -(eb[var3] + 1)), this.ea[var3] - 1) & 3) == 0
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] + 1 : -(eb[var3] + 1)), this.ea[var3]) & 3) != 0
-                                 && (this.h(this.dZ[var3] + (var16 > 0 ? eb[var3] + 1 : -(eb[var3] + 1)), this.ea[var3]) & 3) != 0
-                                 && var18 < 144) {
-                                 if (eu[var3] < 0) {
+                                 && var19 < 44
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] + 1 : -(ef[var3] + 1)), this.ee[var3] - 1) & 3) == 0
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] + 1 : -(ef[var3] + 1)), this.ee[var3] - 1) & 3) == 0
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] + 1 : -(ef[var3] + 1)), this.ee[var3]) & 3) != 0
+                                 && (this.h(this.ed[var3] + (var16 > 0 ? ef[var3] + 1 : -(ef[var3] + 1)), this.ee[var3]) & 3) != 0
+                                 && var18 < 198) {
+                                 if (ey[var3] < 0) {
                                     this.i(1, var3);
                                  } else {
-                                    eu[var3] = eu[var3] - this.L;
+                                    ey[var3] = ey[var3] - this.K;
                                  }
                               }
                            }
 
-                           if (var95 == 0 && var18 < 16 * (3 + (dM == var3 ? 1 : 0)) && var19 < 16 && this.ge < 0) {
-                              if (Math.abs(this.N & 3) == 3) {
-                                 if (dM == var3 && (this.N & 1) != 0) {
+                           if (var95 == 0 && var18 < 22 * (3 + (dQ == var3 ? 1 : 0)) && var19 < 22 && this.gi < 0) {
+                              if (Math.abs(this.M & 3) == 3) {
+                                 if (dQ == var3 && (this.M & 1) != 0) {
                                     this.i(12, var3);
                                  } else {
                                     this.i(6, var3);
@@ -6476,38 +6593,38 @@ public final class e extends a {
                                  this.i(3, var3);
                               }
 
-                              if (!fR) {
-                                 this.ej[var3] = var16 >= 8;
+                              if (!fV) {
+                                 this.en[var3] = var16 >= 11;
                               }
                            }
                      }
                   }
-               } else if ((var3 == this.dL || this.dX[var3] > 0) && this.dX[var3] <= 0 && var20) {
-                  if (this.aY[this.ba + 1] == 0 && this.aZ[this.bb] == 0) {
-                     this.C();
-                  } else if (this.aZ[this.bb + 1] == 0) {
-                     this.i(this.aZ[this.bb], var3);
+               } else if ((var3 == this.dP || this.eb[var3] > 0) && this.eb[var3] <= 0 && var20) {
+                  if (this.aX[this.aZ + 1] == 0 && this.aY[this.ba] == 0) {
+                     this.B();
+                  } else if (this.aY[this.ba + 1] == 0) {
+                     this.i(this.aY[this.ba], var3);
                   } else {
-                     this.bb++;
-                     this.i(this.aZ[this.bb], var3);
+                     this.ba++;
+                     this.i(this.aY[this.ba], var3);
                   }
                }
 
-               if (this.dX[var3] <= 500) {
-                  this.d(this.dZ[var3], this.ea[var3], var3);
+               if (this.eb[var3] <= 500) {
+                  this.d(this.ed[var3], this.ee[var3], var3);
                }
 
-               if (!eA
-                  && !this.ei[var3]
-                  && !this.eh[var3]
-                  && this.dS[var3] != 1
+               if (!eE
+                  && !this.em[var3]
+                  && !this.el[var3]
+                  && this.dW[var3] != 1
                   && (
-                     this.dQ[var3] == 1 && this.dR[var3] != 11 && this.dR[var3] != 27 && this.dR[var3] != 3 && this.dR[var3] != 11 && this.dR[var3] != 24
-                        || this.dQ[var3] == 2 && this.dR[var3] != 8 && this.dR[var3] != 14
-                        || this.dQ[var3] == 3 && this.dR[var3] != 10 && this.dR[var3] != 18
+                     this.dU[var3] == 1 && this.dV[var3] != 11 && this.dV[var3] != 27 && this.dV[var3] != 3 && this.dV[var3] != 11 && this.dV[var3] != 24
+                        || this.dU[var3] == 2 && this.dV[var3] != 8 && this.dV[var3] != 14
+                        || this.dU[var3] == 3 && this.dV[var3] != 10 && this.dV[var3] != 18
                   )
-                  && this.dN != var3) {
-                  switch (this.dQ[var3]) {
+                  && this.dR != var3) {
+                  switch (this.dU[var3]) {
                      case 1:
                         this.i(11, var3);
                         break;
@@ -6519,8 +6636,8 @@ public final class e extends a {
                   }
                }
 
-               if (!ex && (this.dR[var3] == 1 || this.dR[var3] == 18 || this.dR[var3] == 1 || this.dR[var3] == 1)) {
-                  switch (this.dQ[var3]) {
+               if (!eB && (this.dV[var3] == 1 || this.dV[var3] == 18 || this.dV[var3] == 1 || this.dV[var3] == 1)) {
+                  switch (this.dU[var3]) {
                      case 1:
                         this.i(0, var3);
                         break;
@@ -6533,23 +6650,23 @@ public final class e extends a {
                }
             }
 
-            if (I != 105 && dT[var3] < 0 && (ec[var3] > 0 || iN)) {
-               er[var3] = er[var3] - this.L;
-               if (er[var3] <= 0 && this.bM < 9 && (Math.abs(dV[var3] - this.ga) > 32 || Math.abs(dW[var3] - this.gb) > 32)) {
-                  if ((this.h(dV[var3] / 16, dW[var3] / 16 - 1) & 1) == 0 && (this.h(dV[var3] / 16, dW[var3] / 16 - 1) & 2) == 0) {
-                     ec[var3]--;
-                     er[var3] = this.et[var3];
-                     this.eh[var3] = false;
-                     dT[var3] = dV[var3];
-                     this.dU[var3] = dW[var3];
-                     ek[var3] = en[var3];
-                     this.dZ[var3] = dT[var3] / 16;
-                     this.ea[var3] = this.dU[var3] / 16;
-                     this.b(this.dZ[var3], this.ea[var3] - 1, 2);
-                     this.a(dT[var3], this.dU[var3], 25, 0, false);
-                     switch (this.dQ[var3]) {
+            if (H != 105 && dX[var3] < 0 && (eg[var3] > 0 || iS)) {
+               ev[var3] = ev[var3] - this.K;
+               if (ev[var3] <= 0 && this.bQ < 9 && (Math.abs(dZ[var3] - this.ge) > 44 || Math.abs(ea[var3] - this.gf) > 44)) {
+                  if ((this.h(dZ[var3] / 22, ea[var3] / 22 - 1) & 1) == 0 && (this.h(dZ[var3] / 22, ea[var3] / 22 - 1) & 2) == 0) {
+                     eg[var3]--;
+                     ev[var3] = this.ex[var3];
+                     this.el[var3] = false;
+                     dX[var3] = dZ[var3];
+                     this.dY[var3] = ea[var3];
+                     eo[var3] = er[var3];
+                     this.ed[var3] = dX[var3] / 22;
+                     this.ee[var3] = this.dY[var3] / 22;
+                     this.b(this.ed[var3], this.ee[var3] - 1, 2);
+                     this.a(dX[var3], this.dY[var3], 25, 0, false);
+                     switch (this.dU[var3]) {
                         case 1:
-                           if (this.eh[var3]) {
+                           if (this.el[var3]) {
                               this.i(26, var3);
                            } else {
                               this.i(27, var3);
@@ -6562,83 +6679,83 @@ public final class e extends a {
                            this.i(18, var3);
                      }
                   } else {
-                     er[var3] = 1500;
+                     ev[var3] = 1500;
                   }
                }
             }
 
-            this.a(var85, var78, var3 + 85, ew, this.ej[var3]);
+            this.a(var85, var78, var3 + 85, eA, this.en[var3]);
 
-            for (byte var103 = 0; var103 < this.ht.length; var103 += 5) {
-               if (this.ht[var103 + 2] != 0) {
+            for (byte var103 = 0; var103 < this.hx.length; var103 += 5) {
+               if (this.hx[var103 + 2] != 0) {
                   int var97;
-                  if (hb || hc) {
+                  if (hf || hg) {
                      var97 = 0;
                   } else if (var103 == 0) {
-                     var97 = this.fO;
+                     var97 = this.fS;
                   } else {
-                     var97 = this.fP;
+                     var97 = this.fT;
                   }
 
-                  if (var97 < 2 && a(this.ht[var103], this.ht[var103 + 1], this.ht[var103 + 2], this.ht[var103 + 3], ew[0], ew[1], ew[2], ew[3])) {
-                     int var105 = ew[0] + (this.ej[var3] ? ew[7] : 0);
-                     int var23 = ew[1] + (ew[3] >> 1);
-                     if (ew[1] < ew[3]) {
-                        var23 = ew[3];
-                     } else if (var23 > this.dU[var3]) {
-                        var23 = this.dU[var3];
+                  if (var97 < 2 && a(this.hx[var103], this.hx[var103 + 1], this.hx[var103 + 2], this.hx[var103 + 3], eA[0], eA[1], eA[2], eA[3])) {
+                     int var105 = eA[0] + (this.en[var3] ? eA[7] : 0);
+                     int var23 = eA[1] + (eA[3] >> 1);
+                     if (eA[1] < eA[3]) {
+                        var23 = eA[3];
+                     } else if (var23 > this.dY[var3]) {
+                        var23 = this.dY[var3];
                      }
 
                      var97++;
-                     int var24 = hb ? fJ[this.gG] << gQ : fI[this.gG] << gP;
-                     if (this.D) {
+                     int var24 = hf ? fN[this.gK] << gU : fM[this.gK] << gT;
+                     if (this.C) {
                         var24 = 10000;
                      }
 
-                     if (hb) {
-                        hl = hl - ((fJ[this.gG] << 1) + fJ[this.gG]);
+                     if (hf) {
+                        hp = hp - ((fN[this.gK] << 1) + fN[this.gK]);
                      }
 
-                     if (hb && !this.gp && hf < 3 || !hb && !hc) {
-                        ek[var3] = ek[var3] - var24;
-                        if (!hb) {
+                     if (hf && !this.gt && hj < 3 || !hf && !hg) {
+                        eo[var3] = eo[var3] - var24;
+                        if (!hf) {
                            if (!var66) {
-                              this.y(3 + (this.N & 1));
+                              this.y(2 + (this.M & 1));
                            }
 
                            if (var97 == 1) {
-                              gH++;
+                              gL++;
                            }
                         } else if (!var66) {
-                           this.y(3 + (this.N & 1));
+                           this.y(0 + (this.M & 1));
                         }
 
                         var66 = true;
-                        this.iB = true;
-                        this.gI = 2000;
-                     } else if (hc) {
-                        this.dX[var3] = this.dX[var3] + (fK[gV] << 5) + this.L;
+                        this.iF = true;
+                        this.gM = 2000;
+                     } else if (hg) {
+                        this.eb[var3] = this.eb[var3] + (fO[gZ] << 5) + this.K;
                      }
 
-                     if (ek[var3] <= 0 && this.dS[var3] != 1) {
-                        ek[var3] = -1;
-                        if (!this.ei[var3] && !this.eh[var3]) {
-                           if (eA) {
+                     if (eo[var3] <= 0 && this.dW[var3] != 1) {
+                        eo[var3] = -1;
+                        if (!this.em[var3] && !this.el[var3]) {
+                           if (eE) {
                               if (var90 == 1) {
-                                 this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 0, this.em[var3]);
+                                 this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 0, this.eq[var3]);
                                  this.i(9, var3);
                               } else if (var90 == 2) {
                                  this.i(7, var3);
-                                 this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 2, this.em[var3]);
+                                 this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 2, this.eq[var3]);
                               } else if (var90 == 3) {
-                                 if (var95 == 12 && dM != var3) {
+                                 if (var95 == 12 && dQ != var3) {
                                     this.i(13, var3);
-                                    this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 1, this.em[var3]);
-                                 } else if (dM != var3 && this.dN != var3) {
+                                    this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 1, this.eq[var3]);
+                                 } else if (dQ != var3 && this.dR != var3) {
                                     this.i(7, var3);
-                                    this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 0, this.em[var3]);
+                                    this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 0, this.eq[var3]);
                                  } else {
-                                    ek[var3] = (en[var3] >> 1) - 1;
+                                    eo[var3] = (er[var3] >> 1) - 1;
                                  }
                               }
                            }
@@ -6646,145 +6763,145 @@ public final class e extends a {
                            this.i(11, var3);
                         }
 
-                        this.a(var105, var23, 0, !hu ? 2 : 0, true);
-                     } else if (this.dS[var3] != 1 && this.dS[var3] != 3) {
-                        if (this.dX[var3] <= 0) {
-                           if (this.ei[var3]) {
+                        this.a(var105, var23, 0, !hy ? 2 : 0, true);
+                     } else if (this.dW[var3] != 1 && this.dW[var3] != 3) {
+                        if (this.eb[var3] <= 0) {
+                           if (this.em[var3]) {
                               this.i(17, var3);
-                           } else if (this.eh[var3]) {
+                           } else if (this.el[var3]) {
                               this.i(20, var3);
                            } else {
-                              this.ej[var3] = var16 > 0;
+                              this.en[var3] = var16 > 0;
                               if (var90 == 1) {
-                                 if (this.ge == -1 && hB != 60 && hB != 77) {
+                                 if (this.gi == -1 && hF != 60 && hF != 77) {
                                     this.i(2, var3);
                                  } else {
                                     this.i(7, var3);
                                  }
                               } else if (var90 == 2) {
-                                 if (this.ge == -1 && hB != 60 && hB != 77) {
+                                 if (this.gi == -1 && hF != 60 && hF != 77) {
                                     this.i(2, var3);
                                  } else {
                                     this.i(9, var3);
                                  }
                               } else if (var90 == 3) {
-                                 if (var95 == 12 && dM != var3) {
-                                    this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 1, this.em[var3]);
+                                 if (var95 == 12 && dQ != var3) {
+                                    this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 1, this.eq[var3]);
                                     this.i(13, var3);
-                                 } else if ((dM == var3 || this.ge == -1) && hB != 60 && hB != 77) {
+                                 } else if ((dQ == var3 || this.gi == -1) && hF != 60 && hF != 77) {
                                     this.i(4, var3);
                                  } else {
                                     this.i(8, var3);
                                  }
                               }
 
-                              if (!fR) {
-                                 this.ej[var3] = dT[var3] - this.ga <= 0;
+                              if (!fV) {
+                                 this.en[var3] = dX[var3] - this.ge <= 0;
                               }
                            }
                         }
 
-                        if ((!hb || hb && hf < 3) && !hc) {
-                           hf++;
-                           this.a(var105, var23, 0, !hu ? 2 : 0, true);
+                        if ((!hf || hf && hj < 3) && !hg) {
+                           hj++;
+                           this.a(var105, var23, 0, !hy ? 2 : 0, true);
                         }
                      }
 
-                     if (!hb && !hc && this.ge != -1) {
-                        this.ht[var103] = 0;
-                        this.ht[var103 + 1] = 0;
-                        this.ht[var103 + 2] = 0;
-                        this.ht[var103 + 3] = 0;
+                     if (!hf && !hg && this.gi != -1) {
+                        this.hx[var103] = 0;
+                        this.hx[var103 + 1] = 0;
+                        this.hx[var103 + 2] = 0;
+                        this.hx[var103 + 3] = 0;
                      }
 
                      if (var103 == 0) {
-                        this.fO = var97;
+                        this.fS = var97;
                      } else {
-                        this.fP = var97;
+                        this.fT = var97;
                      }
                   }
 
-                  if (var97 < 2 && a(this.ht[var103], this.ht[var103 + 1], this.ht[var103 + 2], this.ht[var103 + 3], ew[5], ew[6], ew[7], ew[8])) {
-                     int var106 = ew[5] + (this.ej[var3] ? ew[7] : 0);
-                     int var107 = this.ht[var103 + 1] + (this.ht[var103 + 3] >> 1);
+                  if (var97 < 2 && a(this.hx[var103], this.hx[var103 + 1], this.hx[var103 + 2], this.hx[var103 + 3], eA[5], eA[6], eA[7], eA[8])) {
+                     int var106 = eA[5] + (this.en[var3] ? eA[7] : 0);
+                     int var107 = this.hx[var103 + 1] + (this.hx[var103 + 3] >> 1);
                      var97++;
-                     int var108 = hb ? fJ[this.gG] << gQ : fI[this.gG] << gP;
-                     if (this.D) {
+                     int var108 = hf ? fN[this.gK] << gU : fM[this.gK] << gT;
+                     if (this.C) {
                         var108 = 10000;
                      }
 
-                     if (hb && hf < 3 || !hb && !hc) {
+                     if (hf && hj < 3 || !hf && !hg) {
                         label2440: {
-                           ek[var3] = ek[var3] - var108;
-                           if (!hb) {
+                           eo[var3] = eo[var3] - var108;
+                           if (!hf) {
                               if (!var66) {
-                                 this.y(3 + (this.N & 1));
+                                 this.y(2 + (this.M & 1));
                               }
 
                               if (var97 != 1) {
                                  break label2440;
                               }
                            } else if (!var66) {
-                              this.y(3 + (this.N & 1));
+                              this.y(0 + (this.M & 1));
                            }
 
-                           gH++;
+                           gL++;
                         }
 
-                        this.iB = true;
+                        this.iF = true;
                         var66 = true;
-                        this.gI = 2000;
-                     } else if (hc) {
-                        this.dX[var3] = this.dX[var3] + (fK[gV] << 5) + this.L;
+                        this.gM = 2000;
+                     } else if (hg) {
+                        this.eb[var3] = this.eb[var3] + (fO[gZ] << 5) + this.K;
                      }
 
-                     if (ek[var3] <= 0 && this.dS[var3] != 1) {
-                        ek[var3] = -1;
-                        if (this.ei[var3] || this.eh[var3]) {
+                     if (eo[var3] <= 0 && this.dW[var3] != 1) {
+                        eo[var3] = -1;
+                        if (this.em[var3] || this.el[var3]) {
                            this.i(11, var3);
-                        } else if (eA) {
+                        } else if (eE) {
                            if (var90 == 1) {
                               this.i(8, var3);
-                              this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 0, this.em[var3]);
+                              this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 0, this.eq[var3]);
                            } else if (var90 == 2) {
                               this.i(7, var3);
-                              this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 2, this.em[var3]);
+                              this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 2, this.eq[var3]);
                            } else if (var90 == 3) {
-                              if (var95 == 12 && dM != var3 && this.dN != var3) {
-                                 this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 1, this.em[var3]);
+                              if (var95 == 12 && dQ != var3 && this.dR != var3) {
+                                 this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 1, this.eq[var3]);
                                  this.i(13, var3);
-                              } else if (dM != var3 && this.dN != var3) {
-                                 this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 0, this.em[var3]);
+                              } else if (dQ != var3 && this.dR != var3) {
+                                 this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 0, this.eq[var3]);
                                  this.i(7, var3);
                               } else {
-                                 ek[var3] = (en[var3] >> 1) - 1;
+                                 eo[var3] = (er[var3] >> 1) - 1;
                               }
                            }
                         }
 
-                        this.a(var106, var107, 0, !hu ? 2 : 0, true);
-                     } else if (this.dS[var3] != 1 && this.dS[var3] != 3) {
-                        if (this.dX[var3] <= 0) {
-                           if (this.ei[var3]) {
+                        this.a(var106, var107, 0, !hy ? 2 : 0, true);
+                     } else if (this.dW[var3] != 1 && this.dW[var3] != 3) {
+                        if (this.eb[var3] <= 0) {
+                           if (this.em[var3]) {
                               this.i(17, var3);
-                           } else if (this.eh[var3]) {
+                           } else if (this.el[var3]) {
                               this.i(20, var3);
                            } else {
-                              this.ej[var3] = var16 > 0;
+                              this.en[var3] = var16 > 0;
                               if (var90 == 1) {
-                                 if (this.ge == -1 && hB != 60 && hB != 77) {
+                                 if (this.gi == -1 && hF != 60 && hF != 77) {
                                     this.i(2, var3);
                                  } else {
                                     this.i(7, var3);
                                  }
                               } else if (var90 == 2) {
-                                 if (this.ge == -1 && hB != 60 && hB != 77) {
+                                 if (this.gi == -1 && hF != 60 && hF != 77) {
                                     this.i(2, var3);
                                  } else {
                                     this.i(9, var3);
                                  }
                               } else if (var90 == 3) {
-                                 if (this.ge == -1 && hB != 60 && hB != 77) {
+                                 if (this.gi == -1 && hF != 60 && hF != 77) {
                                     this.i(4, var3);
                                  } else {
                                     this.i(8, var3);
@@ -6793,112 +6910,113 @@ public final class e extends a {
                            }
                         }
 
-                        if ((!hb || hb && hf < 3) && !hc) {
-                           hf++;
-                           this.a(var106, var107, 0, !hu ? 2 : 0, true);
+                        if ((!hf || hf && hj < 3) && !hg) {
+                           hj++;
+                           this.a(var106, var107, 0, !hy ? 2 : 0, true);
                         }
                      }
 
-                     if (!hb && this.ge != -1) {
-                        this.ht[var103] = 0;
-                        this.ht[var103 + 1] = 0;
-                        this.ht[var103 + 2] = 0;
-                        this.ht[var103 + 3] = 0;
+                     if (!hf && this.gi != -1) {
+                        this.hx[var103] = 0;
+                        this.hx[var103 + 1] = 0;
+                        this.hx[var103 + 2] = 0;
+                        this.hx[var103 + 3] = 0;
                      }
 
                      if (var103 == 0) {
-                        this.fO = var97;
+                        this.fS = var97;
                      } else {
-                        this.fP = var97;
+                        this.fT = var97;
                      }
                   }
                }
             }
 
-            if (ew[12] > 0 && a(this.ga - this.hx, this.gb - this.gD, gC, this.gD, ew[10], ew[11], ew[12], ew[13])) {
-               byte var104 = this.el[var3];
-               if (this.dR[var3] == 6) {
+            if (eA[12] > 0 && a(this.ge - this.hB, this.gf - this.gH, gG, this.gH, eA[10], eA[11], eA[12], eA[13])) {
+               byte var104 = this.ep[var3];
+               if (this.dV[var3] == 6) {
                   var104 <<= 1;
                }
 
-               if (dM != var3) {
+               if (dQ != var3) {
                   var104 <<= 1;
                }
 
-               if (dM != var3 && this.dR[var3] == 12) {
+               if (dQ != var3 && this.dV[var3] == 12) {
                   var104 <<= 2;
                }
 
-               if (!this.hw) {
-                  if (!this.ey) {
-                     this.hj -= var104;
-                     if (this.hj < 0) {
-                        this.hj = 0;
+               if (!this.hA) {
+                  if (!this.eC) {
+                     this.hn -= var104;
+                     if (this.hn < 0) {
+                        this.hn = 0;
                      }
                   }
                } else {
-                  this.gi = true;
+                  this.gm = true;
                }
 
-               this.gf = !this.ej[var3];
+               this.gj = !this.en[var3];
             }
          }
 
-         if (this.dX[var3] > 0) {
-            this.dX[var3] = this.dX[var3] - (this.L + (en[var3] >> 6));
+         if (this.eb[var3] > 0) {
+            this.eb[var3] = this.eb[var3] - (this.K + (er[var3] >> 6));
          }
       }
    }
 
-   private void A() {
-      hc = false;
-      this.hd = false;
-      hb = false;
-      this.fM = 0;
+   private void z() {
+      hg = false;
+      this.hh = false;
+      hf = false;
+      this.fQ = 0;
    }
 
-   private int B() {
+   private int A() {
       int var1;
       do {
-         var1 = Math.abs(this.N % 5);
-         this.N = O.nextInt();
-      } while (this.fT == var1);
+         var1 = Math.abs(this.M % 5);
+         this.M = N.nextInt();
+      } while (this.fX == var1);
 
       return var1;
    }
 
-   private void C() {
+   private void B() {
+      this.aZ += 2;
       this.ba += 2;
-      this.bb += 2;
-      this.cs++;
-      if (this.cs >= this.cu) {
+      this.cw++;
+      if (this.cw >= this.cy) {
          this.a(0, 0, 35, 35);
-         I = 100;
-         this.iB = true;
-         this.aW = false;
-         this.cu = -1;
-         this.cs = -1;
-         this.ct = -1;
+         H = 100;
+         this.iF = true;
+         this.aV = false;
+         this.cy = -1;
+         this.cw = -1;
+         this.cx = -1;
       } else {
-         this.ct = this.cs;
+         this.cx = this.cw;
          this.p();
-         if (!this.be) {
-            I = 101;
+         if (!this.bd) {
+            H = 101;
          } else {
-            this.iI = false;
-            this.bC++;
-            if (this.bC > this.bD && (this.bE <= 0 || this.bC < this.bE)) {
-               this.bD = this.bC;
+            this.iN = false;
+            this.bF++;
+            if (this.bF > this.bG && (this.bH <= 0 || this.bF < this.bH)) {
+               this.bG = this.bF;
             }
 
-            this.bA++;
-            this.bA = bB[this.bC];
-            this.bf = true;
-            this.v = false;
-            this.ae = true;
-            this.a(H, H, 35, 35);
-            I = 109;
-            this.ae = true;
+            this.bC++;
+            this.bC = bD[this.bF];
+            this.bJ = bE[this.bF];
+            this.be = true;
+            this.u = false;
+            this.ad = true;
+            this.a(G, G, 35, 35);
+            H = 109;
+            this.ad = true;
          }
       }
    }
@@ -6910,109 +7028,109 @@ public final class e extends a {
       int var6;
       int var7;
       if (var2 == 0) {
-         if (this.dQ[var1] == 1) {
-            var3 = this.dC;
-         } else if (this.dQ[var1] == 2) {
-            var3 = dD;
-         } else if (this.dQ[var1] == 3) {
-            if (dM != var1) {
-               var3 = this.dE;
+         if (this.dU[var1] == 1) {
+            var3 = this.dG;
+         } else if (this.dU[var1] == 2) {
+            var3 = dH;
+         } else if (this.dU[var1] == 3) {
+            if (dQ != var1) {
+               var3 = this.dI;
             } else {
-               var3 = this.dF;
+               var3 = this.dJ;
             }
          }
 
-         var5 = this.ej[var1];
-         var6 = dT[var1];
-         var7 = this.dU[var1];
+         var5 = this.en[var1];
+         var6 = dX[var1];
+         var7 = this.dY[var1];
       } else if (var2 == 1) {
-         var3 = this.dh;
+         var3 = this.dl;
          var4 = 60 + var1;
-         var5 = this.dk[var1] != 2;
-         var6 = dl[var1];
-         var7 = dm[var1];
+         var5 = this.do[var1] != 2;
+         var6 = dp[var1];
+         var7 = dq[var1];
       } else {
-         var3 = this.eY;
+         var3 = this.fc;
          var4 = 116 + var1;
          var5 = true;
-         var6 = fd[var1];
-         var7 = this.fe[var1];
+         var6 = fh[var1];
+         var7 = this.fi[var1];
       }
 
-      int var8 = this.a(this.hM, var4, var5 ? 0 : 2);
-      if (this.hN + var8 < 1000) {
-         this.hN += var8;
+      int var8 = this.a(this.hQ, var4, var5 ? 0 : 2);
+      if (this.hR + var8 < 1000) {
+         this.hR += var8;
 
          for (int var9 = 0; var9 < var8; var9++) {
             int var10 = var9 << 2;
-            this.iO.b(var3[this.hM[var10]], var6 + this.hM[var10 + 1], var7 + this.hM[var10 + 2], this.hM[var10 + 3]);
+            this.iT.b(var3[this.hQ[var10]], var6 + this.hQ[var10 + 1], var7 + this.hQ[var10 + 2], this.hQ[var10 + 3]);
          }
       }
    }
 
    private static int u(int var0) {
-      return dT[var0] / 16;
+      return dX[var0] / 22;
    }
 
    private int v(int var1) {
       int var2;
-      return (var2 = this.dU[var1] / 16) > iY ? iY : var2;
+      return (var2 = this.dY[var1] / 22) > je ? je : var2;
    }
 
    private void d(int var1, int var2, int var3) {
-      int var6 = dT[var3];
-      int var7 = this.dU[var3];
-      boolean var8 = this.ej[var3];
-      short var9 = this.ef[var3];
-      int var10 = this.ee[var3] >> 1;
+      int var6 = dX[var3];
+      int var7 = this.dY[var3];
+      boolean var8 = this.en[var3];
+      short var9 = this.ej[var3];
+      int var10 = this.ei[var3] >> 1;
       int var11 = (super.a > 0 ? super.a : -super.a) << 8;
       int var12 = (super.b > 0 ? super.b : -super.b) << 8;
       int var13 = var11;
       int var14 = var12;
       if (super.a != 0) {
-         var6 += (!this.ej[var3] || super.a <= 0) && (this.ej[var3] || super.a >= 0) ? -var10 : var10 - 1;
+         var6 += (!this.en[var3] || super.a <= 0) && (this.en[var3] || super.a >= 0) ? -var10 : var10 - 1;
       }
 
       if (super.b < 0) {
          var7 -= var9;
-         this.dU[var3] = this.dU[var3] - var9;
+         this.dY[var3] = this.dY[var3] - var9;
       } else {
          var7--;
       }
 
       int var15 = var1;
       int var16 = this.v(var3);
-      this.eo[var3] = var6 - var1 * 16 << 8;
-      if (this.eo[var3] < 0) {
+      this.es[var3] = var6 - var1 * 22 << 8;
+      if (this.es[var3] < 0) {
          var15--;
-         this.eo[var3] = this.eo[var3] + 4096;
-      } else if (this.eo[var3] > 4096) {
+         this.es[var3] = this.es[var3] + 5632;
+      } else if (this.es[var3] > 5632) {
          var15++;
-         this.eo[var3] = this.eo[var3] - 4096;
+         this.es[var3] = this.es[var3] - 5632;
       }
 
-      this.ep[var3] = var7 - var16 * 16 << 8;
+      this.et[var3] = var7 - var16 * 22 << 8;
       if (super.a != 0) {
          var6 -= (!var8 || super.a <= 0) && (var8 || super.a >= 0) ? -var10 : var10 - 1;
       }
 
       if (super.b < 0) {
          var7 += var9;
-         this.dU[var3] = this.dU[var3] + var9;
+         this.dY[var3] = this.dY[var3] + var9;
       } else {
          var7++;
       }
 
-      ex = true;
-      this.ez = true;
+      eB = true;
+      this.eD = true;
       if (var11 > var12) {
-         if (var11 > 4096) {
-            var12 = (var12 * 16 << 8) / var11;
-            var11 = 4096;
+         if (var11 > 5632) {
+            var12 = (var12 * 22 << 8) / var11;
+            var11 = 5632;
          }
-      } else if (var12 > 4096) {
-         var11 = (var11 * 16 << 8) / var12;
-         var12 = 4096;
+      } else if (var12 > 5632) {
+         var11 = (var11 * 22 << 8) / var12;
+         var12 = 5632;
       }
 
       int var4;
@@ -7025,61 +7143,61 @@ public final class e extends a {
       int var5 = super.b > 0 ? var12 : -var12;
       int var17 = 0;
       int var18 = 0;
-      this.hI = 0;
-      this.hJ = 0;
-      if (super.a != 0 && !this.eh[var3] && this.dS[var3] != 1) {
-         this.e(this.dZ[var3], this.ea[var3] - 1 - (super.b < 0 ? this.eg[var3] : 0), var3);
+      this.hM = 0;
+      this.hN = 0;
+      if (super.a != 0 && !this.el[var3] && this.dW[var3] != 1) {
+         this.e(this.ed[var3], this.ee[var3] - 1 - (super.b < 0 ? this.ek[var3] : 0), var3);
       }
 
       while (var17 < var13 || var18 < var14) {
-         this.eo[var3] = this.eo[var3] + var4;
-         this.ep[var3] = this.ep[var3] + var5;
-         if (this.eo[var3] >= 4096) {
-            this.eo[var3] = this.eo[var3] - 4096;
+         this.es[var3] = this.es[var3] + var4;
+         this.et[var3] = this.et[var3] + var5;
+         if (this.es[var3] >= 5632) {
+            this.es[var3] = this.es[var3] - 5632;
             var15++;
-         } else if (this.eo[var3] < 0) {
-            this.eo[var3] = this.eo[var3] + 4096;
+         } else if (this.es[var3] < 0) {
+            this.es[var3] = this.es[var3] + 5632;
             var15--;
          }
 
-         if (this.ep[var3] >= 4096) {
-            this.ep[var3] = this.ep[var3] - 4096;
+         if (this.et[var3] >= 5632) {
+            this.et[var3] = this.et[var3] - 5632;
             var16++;
-         } else if (this.ep[var3] < 0) {
-            this.ep[var3] = this.ep[var3] + 4096;
+         } else if (this.et[var3] < 0) {
+            this.et[var3] = this.et[var3] + 5632;
             var16--;
          }
 
-         this.hF = false;
+         this.hJ = false;
          this.e(var15, var16, var3);
-         if (ex) {
-            this.hI += var4;
+         if (eB) {
+            this.hM += var4;
             var17 += var11;
          } else {
-            this.eo[var3] = this.eo[var3] - var4;
+            this.es[var3] = this.es[var3] - var4;
             var13 = var17;
-            if ((this.h(var1, var2) & 1) != 0 && !this.hF) {
-               this.hI = 0;
-               this.hF = true;
-               if ((!this.ej[var3] || super.a <= 0) && (this.ej[var3] || super.a >= 0)) {
-                  dT[var3] = var1 * 16 + (this.ee[var3] >> 1);
+            if ((this.h(var1, var2) & 1) != 0 && !this.hJ) {
+               this.hM = 0;
+               this.hJ = true;
+               if ((!this.en[var3] || super.a <= 0) && (this.en[var3] || super.a >= 0)) {
+                  dX[var3] = var1 * 22 + (this.ei[var3] >> 1);
                } else {
-                  dT[var3] = (var1 + 1) * 16 - (this.ee[var3] >> 1);
+                  dX[var3] = (var1 + 1) * 22 - (this.ei[var3] >> 1);
                }
             }
          }
 
-         if (this.ez) {
-            this.hJ += var5;
+         if (this.eD) {
+            this.hN += var5;
             var18 += var12;
          } else {
-            this.ep[var3] = this.ep[var3] - var5;
+            this.et[var3] = this.et[var3] - var5;
             var14 = var18;
          }
       }
 
-      var6 += this.hI >> 8;
-      var7 += this.hJ >> 8;
+      var6 += this.hM >> 8;
+      var7 += this.hN >> 8;
       if (var17 > var13) {
          int var19 = var17 - var13 >> 8;
          var6 -= var4 > 0 ? var19 : -var19;
@@ -7090,108 +7208,108 @@ public final class e extends a {
          var7 -= var5 > 0 ? var24 : -var24;
       }
 
-      if (ex && !this.hF) {
-         dT[var3] = var6;
+      if (eB && !this.hJ) {
+         dX[var3] = var6;
       }
 
-      if (this.ez) {
-         this.ea[var3] = var7 / 16;
-         this.dU[var3] = var7;
+      if (this.eD) {
+         this.ee[var3] = var7 / 22;
+         this.dY[var3] = var7;
       }
 
-      this.b(this.dZ[var3], this.ea[var3] - 1, 2);
+      this.b(this.ed[var3], this.ee[var3] - 1, 2);
    }
 
-   private void D() {
-      this.ey = false;
-      this.im = 0;
-      this.il = 0;
-      this.be = false;
+   private void C() {
+      this.eC = false;
+      this.iq = 0;
+      this.ip = 0;
+      this.bd = false;
+      this.aZ = 0;
+      this.dS = 0;
       this.ba = 0;
-      this.dO = 0;
-      this.bb = 0;
+      this.aX = new int[40];
       this.aY = new int[40];
-      this.aZ = new int[40];
-      this.as = false;
-      this.hO = -1;
+      this.ar = false;
+      this.hS = -1;
+      this.ax = -1;
+      this.az = 0;
       this.ay = -1;
-      this.aA = 0;
-      this.az = -1;
-      this.eB = 0;
-      eX = -1;
-      this.dz = -1;
-      dM = -1;
-      this.dN = -1;
-      eX = -1;
-      this.dp = -1;
-      this.bM = -1;
-      bW = -1;
-      ck = -1;
-      this.cx = -1;
-      cI = -1;
-      this.eZ = -1;
-      this.fm = -1;
-      this.fG = -1;
-      cd = -1;
-      this.eY = null;
-      cw = null;
-      this.cJ = null;
-      this.eH = null;
-      this.bX = null;
-      this.ce = null;
-      this.dC = null;
-      dD = null;
-      this.dE = null;
-      this.dF = null;
-      this.bN = null;
-      this.dh = null;
-      this.fl = null;
-      this.dq = null;
-      this.eM = null;
-      this.fH = null;
-      this.aW = false;
-      this.aD = -1;
+      this.eF = 0;
+      fb = -1;
+      this.dD = -1;
+      dQ = -1;
+      this.dR = -1;
+      fb = -1;
+      this.dt = -1;
+      this.bQ = -1;
+      ca = -1;
+      co = -1;
+      this.cB = -1;
+      cM = -1;
+      this.fd = -1;
+      this.fq = -1;
+      this.fK = -1;
+      ch = -1;
+      this.fc = null;
+      cA = null;
+      this.cN = null;
+      this.eL = null;
+      this.cb = null;
+      this.ci = null;
+      this.dG = null;
+      dH = null;
+      this.dI = null;
+      this.dJ = null;
+      this.bR = null;
+      this.dl = null;
+      this.fp = null;
+      this.du = null;
+      this.eQ = null;
+      this.fL = null;
+      this.aV = false;
+      this.aC = -1;
       this.i();
-      this.iO = null;
-      this.iP = null;
+      this.iT = null;
+      this.iU = null;
    }
 
    private void e(int var1, int var2, int var3) {
-      short var4 = this.ef[var3];
+      short var4 = this.ej[var3];
       boolean var5;
-      boolean var6 = (var5 = this.ej[var3]) && super.a > 0 || !var5 && super.a < 0;
+      boolean var6 = (var5 = this.en[var3]) && super.a > 0 || !var5 && super.a < 0;
       int var7 = 0;
       boolean var8 = false;
-      this.hE = false;
-      this.hF = false;
+      this.hI = false;
+      this.hJ = false;
 
-      for (short var9 = var4; var9 > 0 && ex; var9 -= 16) {
-         if (var2 < iY) {
-            if (var2 - var7 < 0 || var2 - var7 >= iY) {
+      for (short var9 = var4; var9 > 0 && eB; var9 -= 22) {
+         if (var2 < je) {
+            if (var2 - var7 < 0 || var2 - var7 >= je) {
                break;
             }
 
             if (var9 > 0) {
-               if (ex && var1 >= 0) {
-                  ex = (this.h(var1, var2 - var7) & 1) == 0;
+               if (eB && var1 >= 0) {
+                  eB = (this.h(var1, var2 - var7) & 1) == 0;
                   if (var7 == 0) {
-                     var8 = !ex && (this.h(var1, var2 - var7 - 1) & 1) == 0;
+                     var8 = !eB && (this.h(var1, var2 - var7 - 1) & 1) == 0;
                   }
 
-                  boolean var10 = ex;
-                  if (this.dQ[var3] == 1 && this.dR[var3] == 1 || this.dQ[var3] == 2 && this.dR[var3] == 1 || this.dQ[var3] == 3 && this.dR[var3] == 1) {
-                     ex = ex & ((this.h(var1, var2 - var7) & 2) == 0 || !eA || this.eh[var3] || var1 == this.dZ[var3]);
+                  boolean var10 = eB;
+                  if (this.dU[var3] == 1 && this.dV[var3] == 1 || this.dU[var3] == 2 && this.dV[var3] == 1 || this.dU[var3] == 3 && this.dV[var3] == 1) {
+                     eB = eB & ((this.h(var1, var2 - var7) & 2) == 0 || !eE || this.el[var3] || var1 == this.ed[var3]);
                   }
 
-                  if (var10 != ex) {
-                     eu[var3] = 1500;
+                  if (var10 != eB) {
+                     ey[var3] = 1500;
                   }
                }
 
-               if (!ex) {
-                  this.hF = true;
-                  if (var8 && super.a > 0 && (this.ej[var3] || super.a < 0 && !this.ej[var3]) && super.b == 0 && (this.h(var1, var2 - var7 - 1) & 1) == 0) {
-                     switch (this.dQ[var3]) {
+               if (!eB) {
+                  this.hJ = true;
+                  if (var8 && super.a > 0 && (this.en[var3] || super.a < 0 && !this.en[var3]) && super.b == 0 && (this.h(var1, var2 - var7 - 1) & 1) == 0) {
+                     switch (this.dU[var3]) {
                         case 1:
                            this.i(3, var3);
                         case 2:
@@ -7202,8 +7320,8 @@ public final class e extends a {
                }
             }
 
-            if (var1 < 0 || var1 >= iX) {
-               ex = false;
+            if (var1 < 0 || var1 >= jd) {
+               eB = false;
                var5 = !var5;
             }
 
@@ -7213,17 +7331,17 @@ public final class e extends a {
                var7--;
             }
 
-            if (this.dQ[var3] == 1 && this.eh[var3] && this.dR[var3] != 26 && var9 - 16 < 0 && (this.h(var1, var2 - var7) & 16) == 0) {
-               ex = false;
+            if (this.dU[var3] == 1 && this.el[var3] && this.dV[var3] != 26 && var9 - 22 < 0 && (this.h(var1, var2 - var7) & 16) == 0) {
+               eB = false;
                this.i(26, var3);
-               this.dU[var3]++;
+               this.dY[var3]++;
                break;
             }
          }
       }
 
-      if (ex && this.dR[var3] == 1 || this.dR[var3] == 0) {
-         ex = (this.h(var1, var2 + 1) & 1) == 1;
+      if (eB && this.dV[var3] == 1 || this.dV[var3] == 0) {
+         eB = (this.h(var1, var2 + 1) & 1) == 1;
       }
 
       int var27 = var1;
@@ -7232,8 +7350,8 @@ public final class e extends a {
       }
 
       if (super.b >= 0) {
-         var7 = this.eg[var3];
-         if (this.ep[var3] < 2048) {
+         var7 = this.ek[var3];
+         if (this.et[var3] < 2816) {
             var7++;
          }
       } else {
@@ -7242,39 +7360,39 @@ public final class e extends a {
 
       int var28 = var2 - var7;
       int var11 = var5 ? -1 : 1;
-      if (this.dQ[var3] == 1
+      if (this.dU[var3] == 1
          && (this.h(var27, var28 - 1) & 1) == 0
-         && ((this.h(var27, var28) & 1) != 0 || this.eq[var3])
+         && ((this.h(var27, var28) & 1) != 0 || this.eu[var3])
          && (this.h(var27 + var11, var28) & 1) == 0
          && (this.h(var27 + var11, var28 - 1) & 1) == 0
-         && (this.h(var27 + var11, var28 + this.eg[var3]) & 1) == 0
+         && (this.h(var27 + var11, var28 + this.ek[var3]) & 1) == 0
          && super.b != 0
-         && (!this.ei[var3] || this.eq[var3])
-         && !eA
-         && this.dR[var3] != 21
-         && this.dR[var3] != 11) {
-         if (this.eq[var3] && super.b < 0) {
+         && (!this.em[var3] || this.eu[var3])
+         && !eE
+         && this.dV[var3] != 21
+         && this.dV[var3] != 11) {
+         if (this.eu[var3] && super.b < 0) {
             this.i(21, var3);
             int var29 = 0;
             if ((this.h(var27, var2) & 1) == 0) {
                var29++;
             }
 
-            this.dU[var3] = (var2 + var29) * 16 + var4;
+            this.dY[var3] = (var2 + var29) * 22 + var4;
          }
 
-         this.hJ = 0;
+         this.hN = 0;
          if (!var5) {
             var27++;
          }
 
-         this.hF = true;
-         dT[var3] = var27 * 16 + (var5 ? -(this.ee[var3] >> 1) : this.ee[var3] >> 1);
-         this.hI = 0;
-         this.ez = false;
-         ex = false;
+         this.hJ = true;
+         dX[var3] = var27 * 22 + (var5 ? -(this.ei[var3] >> 1) : this.ei[var3] >> 1);
+         this.hM = 0;
+         this.eD = false;
+         eB = false;
       } else {
-         if (!ex && super.a != 0) {
+         if (!eB && super.a != 0) {
             var7 = var6 ? -1 : 1;
          } else {
             var7 = 0;
@@ -7282,39 +7400,39 @@ public final class e extends a {
 
          int var12 = var2;
          int var13;
-         if ((var13 = super.b > 0 ? var12 - this.eg[var3] : var12 + this.eg[var3]) < 0) {
+         if ((var13 = super.b > 0 ? var12 - this.ek[var3] : var12 + this.ek[var3]) < 0) {
             var13 = 0;
          }
 
          if (super.b != 0) {
-            for (short var14 = this.ee[var3]; var14 > 0; var14 -= 16) {
-               if (var1 + var7 >= 0 && var1 + var7 < iX) {
-                  if (this.ez) {
-                     this.ez = (this.h(var1 + var7, var12) & 1) == 0;
-                     if (this.dQ[var3] == 1 && !this.dA && ek[var3] > 0 && (this.h(var1 + var7, var13) & 16) != 0) {
-                        this.dU[var3] = (var13 + 1) * 16 + var4;
-                        this.ez = false;
-                        this.hJ = 0;
+            for (short var14 = this.ei[var3]; var14 > 0; var14 -= 22) {
+               if (var1 + var7 >= 0 && var1 + var7 < jd) {
+                  if (this.eD) {
+                     this.eD = (this.h(var1 + var7, var12) & 1) == 0;
+                     if (this.dU[var3] == 1 && !this.dE && eo[var3] > 0 && (this.h(var1 + var7, var13) & 16) != 0) {
+                        this.dY[var3] = (var13 + 1) * 22 + var4;
+                        this.eD = false;
+                        this.hN = 0;
                         this.i(26, var3);
                      }
                   }
 
-                  if (!this.ez && super.b > 0 && !this.eh[var3] && this.dR[var3] != 21) {
-                     this.dU[var3] = var2 * 16;
-                     this.hJ = 0;
-                     this.hE = true;
-                     eA = true;
-                     switch (this.dQ[var3]) {
+                  if (!this.eD && super.b > 0 && !this.el[var3] && this.dV[var3] != 21) {
+                     this.dY[var3] = var2 * 22;
+                     this.hN = 0;
+                     this.hI = true;
+                     eE = true;
+                     switch (this.dU[var3]) {
                         case 1:
-                           if (ek[var3] < 0) {
-                              this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 0, this.em[var3]);
+                           if (eo[var3] < 0) {
+                              this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 0, this.eq[var3]);
                               this.i(8, var3);
                            } else {
-                              if (this.dR[var3] == 25) {
+                              if (this.dV[var3] == 25) {
                                  break;
                               }
 
-                              if (this.dR[var3] != 3 && this.dR[var3] != 27) {
+                              if (this.dV[var3] != 3 && this.dV[var3] != 27) {
                                  this.i(7, var3);
                                  break;
                               }
@@ -7323,45 +7441,45 @@ public final class e extends a {
                            }
                            break;
                         case 2:
-                           if (ek[var3] < 0) {
-                              this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 2, this.em[var3]);
+                           if (eo[var3] < 0) {
+                              this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 2, this.eq[var3]);
                               this.i(7, var3);
-                           } else if (this.dR[var3] != 14) {
+                           } else if (this.dV[var3] != 14) {
                               this.i(9, var3);
                            }
                            break;
                         case 3:
-                           this.av += 6;
-                           if (eA) {
-                              ex = true;
+                           this.au += 6;
+                           if (eE) {
+                              eB = true;
                            }
 
-                           if (this.dR[var3] != 6 && dM != var3) {
-                              if (ek[var3] < 0) {
-                                 this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 0, this.em[var3]);
+                           if (this.dV[var3] != 6 && dQ != var3) {
+                              if (eo[var3] < 0) {
+                                 this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 0, this.eq[var3]);
                                  this.i(7, var3);
-                              } else if (this.dR[var3] != 18) {
+                              } else if (this.dV[var3] != 18) {
                                  this.i(8, var3);
                               }
-                           } else if (dM != var3) {
-                              if (this.gy && this.ge < 0 && this.dG < 64 && hB != 52 && hB != 53 && hB != 48) {
+                           } else if (dQ != var3) {
+                              if (this.gC && this.gi < 0 && this.dK < 88 && hF != 52 && hF != 53 && hF != 48) {
                                  this.s(27);
                               }
-                           } else if (ek[var3] < 0) {
+                           } else if (eo[var3] < 0) {
                               this.i(7, var3);
-                              this.b(dT[var3], this.dU[var3] - (this.ef[var3] >> 1), 0, this.em[var3]);
+                              this.b(dX[var3], this.dY[var3] - (this.ej[var3] >> 1), 0, this.eq[var3]);
                            } else {
-                              dT[var3]++;
+                              dX[var3]++;
                            }
                      }
                   }
 
-                  if (!this.ez) {
+                  if (!this.eD) {
                      break;
                   }
 
-                  if (var12 < 0 || var12 >= iY) {
-                     this.ez = false;
+                  if (var12 < 0 || var12 >= je) {
+                     this.eD = false;
                   }
 
                   if (super.a == 0) {
@@ -7373,27 +7491,27 @@ public final class e extends a {
             }
          }
 
-         if (this.ei[var3] && this.dR[var3] != 21) {
+         if (this.em[var3] && this.dV[var3] != 21) {
             int var30 = var1;
             var1 += var5 ? 1 : -1;
             if ((this.h(var1, var12) & 8) == 0) {
-               this.ez = false;
-               this.dU[var3] = (var12 + (super.b < 0 ? 1 : -this.eg[var3] - 1)) * 16 + var4;
-               this.eq[var3] = true;
+               this.eD = false;
+               this.dY[var3] = (var12 + (super.b < 0 ? 1 : -this.ek[var3] - 1)) * 22 + var4;
+               this.eu[var3] = true;
             }
 
             var1 = var30;
          } else {
-            this.eq[var3] = false;
+            this.eu[var3] = false;
          }
 
-         if (!ex && super.a != 0 && !this.hE && !this.ei[var3]) {
+         if (!eB && super.a != 0 && !this.hI && !this.em[var3]) {
             if ((!var5 || super.a <= 0) && (var5 || super.a >= 0)) {
-               this.hF = true;
+               this.hJ = true;
                int var32;
-               int var33 = (var32 = (var1 + 1) * 16 + (this.ee[var3] >> 1) + 1) + (this.ee[var3] >> 1);
-               int var34 = var32 / 16;
-               int var35 = var33 / 16;
+               int var33 = (var32 = (var1 + 1) * 22 + (this.ei[var3] >> 1) + 1) + (this.ei[var3] >> 1);
+               int var34 = var32 / 22;
+               int var35 = var33 / 22;
                int var36 = var34 < var35 ? 1 : -1;
                boolean var37 = true;
                int var38 = Math.abs(var35 - var34);
@@ -7403,23 +7521,23 @@ public final class e extends a {
                }
 
                if (var37) {
-                  dT[var3] = var32;
+                  dX[var3] = var32;
                }
 
-               if (this.dQ[var3] == 1
-                  && ek[var3] > 0
-                  && !this.dA
+               if (this.dU[var3] == 1
+                  && eo[var3] > 0
+                  && !this.dE
                   && (this.h(var1, var12 + (super.b > 0 ? -1 : 1)) & 8) != 0
-                  && (this.h(var1, var12 + (super.b > 0 ? -this.eg[var3] : this.eg[var3])) & 8) != 0
+                  && (this.h(var1, var12 + (super.b > 0 ? -this.ek[var3] : this.ek[var3])) & 8) != 0
                   && super.b != 0) {
                   this.i(23, var3);
                }
             } else {
-               this.hF = true;
+               this.hJ = true;
                int var31;
-               int var15 = (var31 = var1 * 16 - (this.ee[var3] >> 1) - 1) - (this.ee[var3] >> 1);
-               int var16 = var31 / 16;
-               int var17 = var15 / 16;
+               int var15 = (var31 = var1 * 22 - (this.ei[var3] >> 1) - 1) - (this.ei[var3] >> 1);
+               int var16 = var31 / 22;
+               int var17 = var15 / 22;
                int var18 = var16 < var17 ? 1 : -1;
                boolean var19 = true;
                int var20 = Math.abs(var17 - var16);
@@ -7429,49 +7547,49 @@ public final class e extends a {
                }
 
                if (var19) {
-                  dT[var3] = var31;
+                  dX[var3] = var31;
                }
 
-               if (this.dQ[var3] == 1
-                  && ek[var3] > 0
-                  && !this.dA
+               if (this.dU[var3] == 1
+                  && eo[var3] > 0
+                  && !this.dE
                   && (this.h(var1, var12 + (super.b > 0 ? -1 : 1)) & 8) != 0
-                  && (this.h(var1, var12 + (super.b > 0 ? -this.eg[var3] : this.eg[var3])) & 8) != 0
+                  && (this.h(var1, var12 + (super.b > 0 ? -this.ek[var3] : this.ek[var3])) & 8) != 0
                   && super.b != 0) {
                   this.i(23, var3);
                }
             }
 
-            this.hI = 0;
+            this.hM = 0;
          }
       }
    }
 
    private void w(int var1) {
-      int var2 = dV[var1] / 16;
-      int var3 = dW[var1] / 16;
+      int var2 = dZ[var1] / 22;
+      int var3 = ea[var1] / 22;
       if ((this.h(var2, var3) & 32) > 0) {
          int var4 = -1;
 
-         for (int var5 = 0; var5 < this.da.length; var5++) {
-            if (a(var2, var3, this.da[var5], this.db[var5], this.dc[var5], dd[var5])) {
+         for (int var5 = 0; var5 < this.de.length; var5++) {
+            if (a(var2, var3, this.de[var5], this.df[var5], this.dg[var5], dh[var5])) {
                var4 = var5;
             }
          }
 
          if (var4 != -1) {
-            df[var4]++;
-            if (df[var4] >= this.dg[var4]) {
-               this.dg[var4] = -1;
-               df[var4] = -1000000;
+            dj[var4]++;
+            if (dj[var4] >= this.dk[var4]) {
+               this.dk[var4] = -1;
+               dj[var4] = -1000000;
 
-               for (int var6 = cI; var6 >= 0; var6--) {
-                  if (this.cS[var6] == this.de[var4]) {
-                     cV[var6] = !cV[var6];
-                     if (this.cW[var6]) {
-                        this.iB = true;
-                        this.ay = cM[var6];
-                        this.az = this.cN[var6];
+               for (int var6 = cM; var6 >= 0; var6--) {
+                  if (this.cW[var6] == this.di[var4]) {
+                     cZ[var6] = !cZ[var6];
+                     if (this.da[var6]) {
+                        this.iF = true;
+                        this.ax = cQ[var6];
+                        this.ay = this.cR[var6];
                      }
                   }
                }
@@ -7482,14 +7600,14 @@ public final class e extends a {
 
    private void x(int var1) {
       for (int var2 = var1 << 2; var2 < (var1 << 2) + 4; var2++) {
-         if (this.cH[var2] != 0) {
-            for (int var3 = cI; var3 >= 0; var3--) {
-               if (this.cS[var3] == this.cH[var2]) {
-                  cV[var3] = !cV[var3];
-                  if (this.cW[var3]) {
-                     this.ay = cM[var3];
-                     this.az = this.cN[var3];
-                     this.iB = true;
+         if (this.cL[var2] != 0) {
+            for (int var3 = cM; var3 >= 0; var3--) {
+               if (this.cW[var3] == this.cL[var2]) {
+                  cZ[var3] = !cZ[var3];
+                  if (this.da[var3]) {
+                     this.ax = cQ[var3];
+                     this.ay = this.cR[var3];
+                     this.iF = true;
                   }
                }
             }
@@ -7500,19 +7618,19 @@ public final class e extends a {
    private void a(int var1, int var2, int var3, int var4, boolean var5) {
       int var6 = var3;
       if (var5) {
-         int var7 = this.gG - 1;
-         if (!hb && hB == 60) {
+         int var7 = this.gK - 1;
+         if (!hf && hF == 60) {
             var7 = 6;
          }
 
          byte var8;
-         if (this.gp) {
-            if (hb) {
+         if (this.gt) {
+            if (hf) {
                var8 = 17;
             } else {
                var8 = 8;
             }
-         } else if (hb) {
+         } else if (hf) {
             var8 = 11;
          } else {
             var8 = 1;
@@ -7521,35 +7639,35 @@ public final class e extends a {
          var6 = var8 + var7;
       }
 
-      if (this.bM < 9 && (var3 != 0 || this.bM < 9)) {
-         this.bM++;
-         if (bI[this.bM] < 0) {
-            this.bL[this.bM] = var4;
-            this.bJ[this.bM] = var1;
-            this.bK[this.bM] = var2;
-            bI[this.bM] = this.bM;
-            this.a(this.bM, 7168, var6);
+      if (this.bQ < 9 && (var3 != 0 || this.bQ < 9)) {
+         this.bQ++;
+         if (bM[this.bQ] < 0) {
+            this.bP[this.bQ] = var4;
+            this.bN[this.bQ] = var1;
+            this.bO[this.bQ] = var2;
+            bM[this.bQ] = this.bQ;
+            this.a(this.bQ, 7168, var6);
          }
       }
    }
 
    private void a(int[] var1, byte[] var2) {
-      this.hQ = 220;
-      this.a(this.q);
-      this.a(var1, var2, 12, 30, 211, 270, this.hQ);
+      this.hU = 220;
+      this.a(this.o);
+      this.a(var1, var2, 17, 42, 200, 250, this.hU);
    }
 
-   private void E() {
-      this.M = this.M + this.L;
-      if (this.M >= 50) {
-         this.M = 0;
-         if (this.t == 1) {
-            this.d(true);
+   private void D() {
+      this.L = this.L + this.K;
+      if (this.L >= 50) {
+         this.L = 0;
+         if (this.r == 1) {
+            this.e(true);
             this.h();
          }
 
-         if (this.t == 6) {
-            this.d(false);
+         if (this.r == 6) {
+            this.e(false);
             this.h();
          }
       }
@@ -7564,54 +7682,50 @@ public final class e extends a {
    }
 
    private void y(int var1) {
-      if (var1 != 3 && var1 != 3 && var1 != 3 && var1 != 3) {
-         if (var1 == 0 || var1 == 2 || var1 == 1) {
-            if (!this.hR) {
-               this.iM.a(var1);
-               if (var1 == 0 && iL) {
-                  this.hR = true;
-               }
-            }
+      if (!this.hV) {
+         this.iR.a(var1);
+         if (var1 == 9 && iQ) {
+            this.hV = true;
          }
       }
    }
 
-   private void F() {
-      this.hR = false;
-      this.iM.c();
+   private void E() {
+      this.hV = false;
+      this.iR.c();
    }
 
    private void u(Graphics var1) {
       this.v(var1);
-      if (!iT) {
-         this.iS[1].a(var1, 120, H, 0);
-         this.iS[0].a(var1, 120, H, 0);
+      if (!iZ) {
+         this.iY[1].a(var1, 120, G, 0);
+         this.iY[0].a(var1, 120, G, 0);
       } else {
-         this.a(var1, this.iS, 0, 120, H, 0);
+         this.a(var1, this.iY, 0, 120, G, 0);
       }
    }
 
    private void v(Graphics var1) {
       this.b(var1);
-      this.iB = true;
+      this.iF = true;
       var1.setColor(0);
-      this.iC = false;
+      this.iG = false;
       var1.fillRect(0, 0, 240, 320);
    }
 
    private void a(int[] var1, byte[] var2, int var3, int var4, int var5, int var6, int var7) {
-      hW = new String[var7];
-      hY = new byte[var7];
-      hS = var3;
-      hT = var4;
-      hU = var5;
-      hV = var6;
-      ib = var1[0];
+      ia = new String[var7];
+      ic = new byte[var7];
+      hW = var3;
+      hX = var4;
+      hY = var5;
+      hZ = var6;
+      if = var1[0];
       int var9 = 0;
       this.h();
       int var10 = 0;
       String var11 = "";
-      this.ii = 0;
+      this.im = 0;
 
       for (int var8 = 0; var8 < var1.length; var8++) {
          byte var12 = var2[var8];
@@ -7619,11 +7733,11 @@ public final class e extends a {
          if ((var14 = var1[var8]) >= 0) {
             var11 = this.e(var1[var8]);
          } else if (var14 == -1) {
-            hW[var10] = "";
-            hY[var10++] = var12;
+            ia[var10] = "";
+            ic[var10++] = var12;
             var11 = "";
          } else if (var14 == -3) {
-            var11 = hX[var9++];
+            var11 = ib[var9++];
          }
 
          if (!var11.equals("")) {
@@ -7644,10 +7758,10 @@ public final class e extends a {
             int var18 = 0;
             boolean var19 = false;
             int var17;
-            if (this.cr >= 0 && var10 % 5 * z < this.cp[0].d << 1) {
-               var17 = var5 - (this.cp[0].c + 8);
+            if (this.cv >= 0 && var10 % 5 * y < this.ct[0].d << 1) {
+               var17 = var5 - (this.ct[0].c + 8);
             } else {
-               var17 = var5 - 1 - 4;
+               var17 = var5 - 1 - 5;
             }
 
             while (var18 <= var17 && var16 < var13) {
@@ -7661,9 +7775,9 @@ public final class e extends a {
                var16++;
             }
 
-            if (var8 == 0 && ib != -1) {
-               this.ij = 0;
-               this.ik = var16;
+            if (var8 == 0 && if != -1) {
+               this.in = 0;
+               this.io = var16;
                var16 = var13;
             }
 
@@ -7682,254 +7796,254 @@ public final class e extends a {
                var21--;
             }
 
-            hW[var10] = var11.substring(var15, var21 + 1).trim();
-            hY[var10++] = var12;
-            this.ii = this.ii + z;
+            ia[var10] = var11.substring(var15, var21 + 1).trim();
+            ic[var10++] = var12;
+            this.im = this.im + y;
             var16 = var15 = var21 + 1;
          }
       }
 
-      hZ = var10;
-      ia = 0;
-      this.il = 0;
-      ic = false;
+      id = var10;
+      ie = 0;
+      this.ip = 0;
+      ig = false;
       this.j();
    }
 
-   private static void G() {
-      hW = null;
-      hY = null;
-      hX = null;
+   private static void F() {
+      ia = null;
+      ic = null;
+      ib = null;
    }
 
-   private void d(boolean var1) {
+   private void e(boolean var1) {
       if (var1) {
-         if (ia > 0) {
-            ia--;
+         if (ie > 0) {
+            ie--;
             this.h();
             return;
          }
-      } else if (ia < hZ && !ic) {
-         ia++;
+      } else if (ie < id && !ig) {
+         ie++;
          this.h();
       }
    }
 
    private void a(Graphics var1, boolean var2) {
-      this.a(var1, 0, hT, 240, hV);
+      this.a(var1, 0, hX, 240, hZ);
       byte var4 = 0;
-      this.ip = true;
-      if (hV / z >= hZ) {
-         var4 = 2;
+      this.it = true;
+      if (hZ / y >= id) {
+         var4 = 3;
       }
 
-      int var6 = hT;
-      if (this.aW) {
-         var6 = 295 - (this.in >> 8);
-      } else if (I == 79) {
-         var6 += 25;
+      int var6 = hX;
+      if (this.aV) {
+         var6 = 285 - (this.ir >> 8);
+      } else if (H == 79) {
+         var6 += 35;
       }
 
       int var9 = 0;
       int var10 = 0;
       int var11 = 0;
-      if (I == 101) {
+      if (H == 101) {
          var6 -= this.c() >> 1;
       }
 
-      this.io = 0;
+      this.is = 0;
 
       int var3;
-      for (var3 = this.il > 0 ? this.il : ia; var3 < hZ && var6 < hT + hV; var3++) {
+      for (var3 = this.ip > 0 ? this.ip : ie; var3 < id && var6 < hX + hZ; var3++) {
          var11 = var3;
          if (var9 < 1) {
             var11 = var9;
          }
 
          byte var8;
-         int var12 = ((var8 = hY[var11]) & 2) != 0 ? 4 : 1;
-         int var7 = hS + var4 + ((var8 & 2) != 0 ? 0 : hU - 4 >> 1) + 1;
-         if (this.cr >= 0 && var6 - z - hT < this.cp[0].d) {
-            var7 += this.cp[0].c + 8;
+         int var12 = ((var8 = ic[var11]) & 2) != 0 ? 4 : 1;
+         int var7 = hW + var4 + ((var8 & 2) != 0 ? 0 : hY - 5 >> 1) + 1;
+         if (this.cv >= 0 && var6 - y - hX < this.ct[0].d) {
+            var7 += this.ct[0].c + 8;
          }
 
-         String var13 = hW[var11];
-         if (I == 101 && !var13.equals("")) {
-            if (var13.length() > this.bd - this.io) {
-               var13 = var13.substring(0, this.bd - this.io);
-               this.io = this.io + var13.length();
-               this.ip = false;
+         String var13 = ia[var11];
+         if (H == 101 && !var13.equals("")) {
+            if (var13.length() > this.bc - this.is) {
+               var13 = var13.substring(0, this.bc - this.is);
+               this.is = this.is + var13.length();
+               this.it = false;
             } else {
-               this.io = this.io + var13.length();
+               this.is = this.is + var13.length();
             }
          }
 
-         if (var3 != ia || ib == -1) {
-            this.a(this.q);
-         } else if (this.o != null) {
-            this.a(this.p);
+         if (var3 != ie || if == -1) {
+            this.a(this.o);
+         } else if (this.m != null) {
+            this.a(this.n);
          } else {
-            this.a(this.q);
+            this.a(this.o);
          }
 
          this.h();
-         this.a(var1, var3 == ia && ib != -1 ? var13.substring(this.ij, this.ik) : var13, var7, var6, var12);
-         var6 += z;
-         if (I == 101 && var6 >= hV && var11 < hZ) {
-            this.im = var11;
-            if (hW[var11].equals("") || this.im + 1 == hZ) {
-               this.im = -1;
+         this.a(var1, var3 == ie && if != -1 ? var13.substring(this.in, this.io) : var13, var7, var6, var12);
+         var6 += y;
+         if (H == 101 && var6 >= hZ && var11 < id) {
+            this.iq = var11;
+            if (ia[var11].equals("") || this.iq + 1 == id) {
+               this.iq = -1;
             }
             break;
          }
 
-         this.im = -1;
+         this.iq = -1;
          if (var9++ < 2) {
             var10 = var6;
          }
       }
 
-      ic = var3 == hZ;
+      ig = var3 == id;
       this.b(var1);
-      this.iB = true;
-      if (var4 == 0 && var2 && !this.aW) {
+      this.iF = true;
+      if (var4 == 0 && var2 && !this.aV) {
          var1.setColor(10377532);
-         int var16 = hV - (var10 - 25) - 4;
-         var1.drawRect(hS + hU + 7 - 1, var10 - 4, 4, var16);
-         int var18 = var10 + ia * var16 / hZ - 3;
-         int var14 = var10 + var3 * var16 / hZ - 3;
+         int var16 = hZ - (var10 - 35) - 4;
+         var1.drawRect(hW + hY + 10 - 1, var10 - 4, 5, var16);
+         int var18 = var10 + ie * var16 / id - 3;
+         int var14 = var10 + var3 * var16 / id - 3;
          var1.setColor(15425792);
-         var1.fillRect(hS + hU + 7, var18, 3, var14 - var18 - 1);
+         var1.fillRect(hW + hY + 10, var18, 4, var14 - var18 - 1);
       }
 
-      if (this.cr >= 0) {
-         if (this.cr > 3) {
-            int var17 = this.cr - 3 - 1 + 5;
+      if (this.cv >= 0) {
+         if (this.cv > 3) {
+            int var17 = this.cv - 3 - 1 + 38;
             byte var19 = 0;
             byte var20 = 0;
-            if (var17 == 8) {
+            if (var17 == 41) {
                var19 = -3;
             }
 
-            if (var17 == 6) {
+            if (var17 == 39) {
                var20 = -3;
             }
 
             int var15;
-            if ((var15 = var17 + (bj > 0 ? 4 - bj : 0)) > 8) {
-               var15 = 5 + (var15 - 8) - 1;
+            if ((var15 = var17 + (bi > 0 ? 4 - bi : 0)) > 41) {
+               var15 = 38 + (var15 - 41) - 1;
             }
 
-            aL[40].a(var1, hS + (this.cp[this.cr].c >> 3) - aL[40].a, hT + z - aL[40].b, 0);
-            aL[var15].a(var1, 13 - aL[var15].a + var19, 15 - aL[var15].b + var20, 0);
+            aK[89].a(var1, hW + (this.ct[this.cv].c >> 3) - aK[89].a, hX + y - aK[89].b, 0);
+            aK[var15].a(var1, 19 - aK[var15].a + var19, 19 - aK[var15].b + var20, 0);
          } else {
-            this.cp[this.cr].a(var1, hS + (this.cp[this.cr].c >> 3), hT + z, 0);
+            this.ct[this.cv].a(var1, hW + (this.ct[this.cv].c >> 3), hX + y, 0);
          }
 
          this.a(136, 1024, 0);
-         this.a(var1, this.cp, 136, hS + (this.cp[this.cr].c >> 3), hT + z, 0);
+         this.a(var1, this.ct, 136, hW + (this.ct[this.cv].c >> 3), hX + y, 0);
       }
 
-      if ((var11 < hZ - 1 || this.cs < this.cu - 1) && I == 101) {
-         bo[1].a(var1, G, 79 - bo[1].d - 2, 0);
+      if ((var11 < id - 1 || this.cw < this.cy - 1) && H == 101) {
+         bq[1].a(var1, F, 95 - bq[1].d - 2, 0);
       }
    }
 
    private void z(int var1) {
-      iq = new byte[76];
+      iu = new byte[76];
       int var2 = 0;
-      var2 = a(gP, iq, 0);
-      var2 = a(gQ, iq, var2);
-      var2 = a(gN, iq, var2);
-      var2 = a(this.gO, iq, var2);
-      var2 = a(gV, iq, var2);
-      var2 = a(gW, iq, var2);
-      var2 = a(this.ho, iq, var2);
-      var2 = a(this.hp, iq, var2);
-      var2 = a(this.hq, iq, var2);
-      var2 = a(this.gZ, iq, var2);
-      var2 = a(this.ha, iq, var2);
-      var2 = a(this.gX, iq, var2);
-      var2 = a(this.gY, iq, var2);
-      var2 = a(this.bD, iq, var2);
-      var2 = a(hr, iq, var2);
-      var2 = a(this.hs, iq, var2);
-      var2 = a(he, iq, var2);
-      if (this.dI > this.hz && iN) {
-         this.hz = this.dI;
+      var2 = a(gT, iu, 0);
+      var2 = a(gU, iu, var2);
+      var2 = a(gR, iu, var2);
+      var2 = a(this.gS, iu, var2);
+      var2 = a(gZ, iu, var2);
+      var2 = a(ha, iu, var2);
+      var2 = a(this.hs, iu, var2);
+      var2 = a(this.ht, iu, var2);
+      var2 = a(this.hu, iu, var2);
+      var2 = a(this.hd, iu, var2);
+      var2 = a(this.he, iu, var2);
+      var2 = a(this.hb, iu, var2);
+      var2 = a(this.hc, iu, var2);
+      var2 = a(this.bG, iu, var2);
+      var2 = a(hv, iu, var2);
+      var2 = a(this.hw, iu, var2);
+      var2 = a(hi, iu, var2);
+      if (this.dM > this.hD && iS) {
+         this.hD = this.dM;
       }
 
-      a(this.hz, iq, var2);
-      this.H();
-      a.a(var1 + 1, iq);
-      this.H();
+      a(this.hD, iu, var2);
+      this.G();
+      a.a(var1 + 1, iu);
+      this.G();
    }
 
    private void A(int var1) {
-      iq = a.a(var1 + 1);
-      if (iq == null) {
-         gN = 3;
-         this.gO = 2;
-         gV = 0;
-         gW = 0;
-         this.ho = 0;
-         this.hp = 0;
-         this.hm = 1024;
-         this.hn = 1024;
-         this.hq = 0;
-         this.gZ = 0;
-         this.ha = 0;
-         this.gX = 0;
-         this.gY = 0;
-         gP = 0;
-         gQ = 0;
-         this.bC = 0;
-         this.bD = 0;
-         hr = 0;
+      iu = a.a(var1 + 1);
+      if (iu == null) {
+         gR = 3;
+         this.gS = 2;
+         gZ = 0;
+         ha = 0;
          this.hs = 0;
-         he = 0;
-         this.hz = 0;
+         this.ht = 0;
+         this.hq = 1024;
+         this.hr = 1024;
+         this.hu = 0;
+         this.hd = 0;
+         this.he = 0;
+         this.hb = 0;
+         this.hc = 0;
+         gT = 0;
+         gU = 0;
+         this.bF = 0;
+         this.bG = 0;
+         hv = 0;
+         this.hw = 0;
+         hi = 0;
+         this.hD = 0;
       } else {
-         gP = (byte)a(iq, 0);
-         gQ = (byte)a(iq, 4);
-         gN = (byte)a(iq, 8);
-         this.gO = (byte)a(iq, 12);
-         if (gN < 3) {
-            gN = 3;
+         gT = (byte)a(iu, 0);
+         gU = (byte)a(iu, 4);
+         gR = (byte)a(iu, 8);
+         this.gS = (byte)a(iu, 12);
+         if (gR < 3) {
+            gR = 3;
          }
 
-         if (this.gO < 2) {
-            this.gO = 2;
+         if (this.gS < 2) {
+            this.gS = 2;
          }
 
-         gV = (byte)a(iq, 16);
-         gW = (byte)a(iq, 20);
-         this.ho = a(iq, 24);
-         this.hp = a(iq, 28);
-         this.hm = this.ho * 192 + 1024;
-         this.hn = this.hp * 192 + 1024;
-         this.hq = a(iq, 32);
-         this.gZ = a(iq, 36);
-         this.ha = a(iq, 40);
-         this.gX = a(iq, 44);
-         this.gY = a(iq, 48);
-         this.bD = a(iq, 52);
-         this.bC = this.bD;
-         hr = a(iq, 56);
-         this.hs = a(iq, 60);
-         he = a(iq, 64);
-         this.hz = a(iq, 68);
+         gZ = (byte)a(iu, 16);
+         ha = (byte)a(iu, 20);
+         this.hs = a(iu, 24);
+         this.ht = a(iu, 28);
+         this.hq = this.hs * 192 + 1024;
+         this.hr = this.ht * 192 + 1024;
+         this.hu = a(iu, 32);
+         this.hd = a(iu, 36);
+         this.he = a(iu, 40);
+         this.hb = a(iu, 44);
+         this.hc = a(iu, 48);
+         this.bG = a(iu, 52);
+         this.bF = this.bG;
+         hv = a(iu, 56);
+         this.hw = a(iu, 60);
+         hi = a(iu, 64);
+         this.hD = a(iu, 68);
       }
 
-      this.H();
+      this.G();
    }
 
-   private void H() {
+   private void G() {
       for (int var1 = 0; var1 < 10; var1++) {
-         if (var1 <= this.bD) {
-            iw[9 + var1] = iw[9 + var1] = iw[9 + var1] | 50331648;
+         if (var1 <= this.bG) {
+            iA[9 + var1] = iA[9 + var1] = iA[9 + var1] | 50331648;
          } else {
-            iw[9 + var1] = iw[9 + var1] & -50331649;
+            iA[9 + var1] = iA[9 + var1] & -50331649;
          }
       }
    }
@@ -7946,28 +8060,28 @@ public final class e extends a {
       return ((var0[0 + var1] & 0xFF) << 24) + ((var0[1 + var1] & 0xFF) << 16) + ((var0[2 + var1] & 0xFF) << 8) + (var0[3 + var1] & 0xFF);
    }
 
-   private void I() {
-      int var2 = 240 - (this.iu - (this.iu >> 2));
-      if (ir == null) {
-         ir = new byte[var2 * 140];
-         is = new int[var2 * 140];
+   private void H() {
+      int var2 = 240 - (this.iy - (this.iy >> 2));
+      if (iv == null) {
+         iv = new byte[var2 * 140];
+         iw = new int[var2 * 140];
       }
 
       int var3 = 0;
-      if (it) {
+      if (ix) {
          for (int var4 = 0; var4 < var2; var4++) {
             if ((var4 & 3) == 0) {
-               var3 = O.nextInt();
+               var3 = N.nextInt();
             } else {
                var3 >>= 8;
             }
 
-            ir[var4 + 139 * var2] = (byte)(var3 & 0xFF);
-            ir[var4 + 138 * var2] = (byte)Math.max(0, (ir[var4 + 139 * var2] & 255) - 4);
-            it = false;
+            iv[var4 + 139 * var2] = (byte)(var3 & 0xFF);
+            iv[var4 + 138 * var2] = (byte)Math.max(0, (iv[var4 + 139 * var2] & 255) - 4);
+            ix = false;
          }
       } else {
-         it = true;
+         ix = true;
       }
 
       for (int var5 = 1; var5 < 139; var5++) {
@@ -7975,19 +8089,18 @@ public final class e extends a {
 
          for (int var6 = 0; var6 < var2; var6++) {
             int var9 = var6 + var1;
-            int var7 = (ir[var9] & 255) + (ir[var9 + var2] & 255);
+            int var7 = (iv[var9] & 255) + (iv[var9 + var2] & 255);
             if (var5 > 35) {
-               var7 = var7 + (ir[var9 + 1] & 255) + (ir[var9 - 1] & 255) >> 2;
+               var7 = var7 + (iv[var9 + 1] & 255) + (iv[var9 - 1] & 255) >> 2;
             } else {
                var7 >>= 1;
             }
 
-            var7 -= 2;
-            if (var7 < 0) {
+            if (--var7 < 0) {
                var7 = 0;
             }
 
-            ir[var9 - var2] = (byte)var7;
+            iv[var9 - var2] = (byte)var7;
          }
       }
 
@@ -7995,31 +8108,31 @@ public final class e extends a {
 
       for (int var14 = 0; var14 < 140; var14++) {
          for (int var8 = 0; var8 < var2; var8++) {
-            int var11 = Math.max(ir[var10] & 255, 0);
-            is[var10] = R[var11];
+            int var11 = Math.max(iv[var10] & 255, 0);
+            iw[var10] = Q[var11];
             var10++;
          }
       }
    }
 
    private void b(Graphics var1, boolean var2) {
-      this.I();
+      this.H();
       int var3 = var2 ? 0 : 95;
-      int var4 = var2 ? 172 : 173;
-      a.a(var1, is, 0, 240 - (this.iu - (this.iu >> 2)), var3, var4, 240 - (this.iu - (this.iu >> 2) + 1), 140, false);
+      int var4 = var2 ? 168 : 173;
+      a.a(var1, iw, 0, 240 - (this.iy - (this.iy >> 2)), var3, var4, 240 - (this.iy - (this.iy >> 2) + 1), 140, false);
    }
 
    private void a(Graphics var1, int var2, int var3) {
-      this.iA = var3;
-      this.iz = var2;
-      this.a(this.q);
+      this.iE = var3;
+      this.iD = var2;
+      this.a(this.o);
       var1.setColor(0);
       var1.fillRect(0, 306, 240, 14);
       var1.setColor(9787452);
       var1.drawLine(0, 306, 240, 306);
       var1.setColor(4269078);
       var1.drawLine(0, 307, 240, 307);
-      if ((this.T == this.aa && this.U == this.ab || I == 106) && this.ay < 0 && (!fR || I == 102)) {
+      if ((this.S == this.Z && this.T == this.aa || H == 106) && this.ax < 0 && (!fV || H == 102)) {
          if (var2 != -1) {
             this.a(var1, 0, var2, 2);
          }
@@ -8028,22 +8141,34 @@ public final class e extends a {
             this.a(var1, 240, var3, 0);
          }
 
-         if (I == 100) {
-            if (!iN) {
-               if (this.gJ == -1 || this.dg[this.gJ] <= 0 && this.gK <= 0) {
-                  if (gH > 1 && this.gI > 0 && I == 100 && this.U <= 0 && this.iv < gH) {
-                     this.a(var1, gH + " " + this.e(171), 120, 306 + A - 3, 1);
+         if (H == 100) {
+            if (!iS) {
+               if (this.gN == -1 || this.dk[this.gN] <= 0 && this.gO <= 0) {
+                  if (gL > 1 && this.gM > 0 && H == 100 && this.T <= 0 && this.iz < gL) {
+                     this.a(var1, gL + " " + this.e(171), 120, 306 + z - 6, 1);
                   }
                } else {
-                  String var4 = this.dg[this.gJ] - df[this.gJ] + " " + this.e(195);
+                  String var4 = this.dk[this.gN] - dj[this.gN] + " " + this.e(195);
                   int var5 = this.a(var4);
-                  if (gM && this.dg[this.gJ] > 0) {
-                     this.a(var1, var4, G, 306 + A - 3, 1);
+                  if (gQ && this.dk[this.gN] > 0) {
+                     this.a(var1, var4, F, 306 + z - 6, 1);
                   }
 
-                  if (this.gJ >= 0 && this.dg[this.gJ] > 0) {
-                     int var6 = G - (var5 >> 1) - 5;
-                     int var7 = G + (var5 >> 1) + 5;
+                  if (this.gN >= 0 && this.dk[this.gN] > 0) {
+                     int var6 = F - (var5 >> 1) - 7;
+                     int var7 = F + (var5 >> 1) + 7;
+                     var1.setColor(13868629);
+                     var1.drawLine(var6 - 8, 307, var6 - 8, 320);
+                     var1.drawLine(var7 + 8, 307, var7 + 8, 320);
+                     var1.setColor(14116120);
+                     var1.drawLine(var6 - 7, 307, var6 - 7, 320);
+                     var1.drawLine(var7 + 7, 307, var7 + 7, 320);
+                     var1.setColor(14114838);
+                     var1.drawLine(var6 - 6, 307, var6 - 6, 320);
+                     var1.drawLine(var7 + 6, 307, var7 + 6, 320);
+                     var1.setColor(14111501);
+                     var1.drawLine(var6 - 5, 307, var6 - 5, 320);
+                     var1.drawLine(var7 + 5, 307, var7 + 5, 320);
                      var1.setColor(14172934);
                      var1.drawLine(var6 - 4, 307, var6 - 4, 320);
                      var1.drawLine(var7 + 4, 307, var7 + 4, 320);
@@ -8061,35 +8186,35 @@ public final class e extends a {
                      var1.drawLine(var7, 307, var7, 320);
                   }
                }
-            } else if (this.dI >= 1000) {
-               this.a(var1, this.e(275), 120, 306 + A - 3, 1);
+            } else if (this.dM >= 1000) {
+               this.a(var1, this.e(275), 120, 306 + z - 6, 1);
             } else {
-               this.a(var1, this.e(246) + this.dI, 120, 306 + A - 3, 1);
+               this.a(var1, this.e(246) + this.dM, 120, 306 + z - 6, 1);
             }
          } else {
-            this.iB = true;
+            this.iF = true;
          }
       }
 
-      this.iB = false;
+      this.iF = false;
    }
 
    private void a(Graphics var1, int var2, int var3, int var4) {
       String var5 = this.e(var3);
-      this.a(var1, var5, var2 - (var4 == 0 ? this.a(var5) + 2 : -2), 306 + A - 3, 20);
+      this.a(var1, var5, var2 - (var4 == 0 ? this.a(var5) + 3 : -3), 306 + z - 6, 20);
    }
 
    private static void a(Graphics var0, int var1, int var2, boolean var3) {
-      if (I != 1) {
+      if (H != 1) {
          var2 -= 2;
          var1 -= 2;
       }
 
-      int var4 = 307;
-      if (I == 1) {
-         var4 = H + 5 + (z >> 2);
-         if (iN) {
-            var4 += z + (z >> 2);
+      int var4 = 302;
+      if (H == 1) {
+         var4 = G + 5 + (y >> 2);
+         if (iS) {
+            var4 += y + (y >> 2);
          }
       }
 
@@ -8126,26 +8251,26 @@ public final class e extends a {
       }
    }
 
-   private void J() {
+   private void I() {
       byte[] var1;
       int var2;
-      iw = new int[var2 = (var1 = this.c(1028)).length >> 2];
+      iA = new int[var2 = (var1 = this.c(1028)).length >> 2];
 
       for (int var3 = var2 - 1; var3 >= 0; var3--) {
          int var4 = var3 << 2;
-         iw[var3] = ((var1[var4] & 255) << 24) + ((var1[var4 + 1] & 255) << 16) + ((var1[var4 + 2] & 255) << 8) + (var1[var4 + 3] & 255);
+         iA[var3] = ((var1[var4] & 255) << 24) + ((var1[var4 + 1] & 255) << 16) + ((var1[var4 + 2] & 255) << 8) + (var1[var4 + 3] & 255);
       }
    }
 
    private static int k(int var0, int var1) {
       int var2 = var0;
 
-      while (var0 < iw.length && (iw[var0] & 4194304) == 0) {
-         if ((iw[++var0] & var1) != 0) {
+      while (var0 < iA.length && (iA[var0] & 4194304) == 0) {
+         if ((iA[++var0] & var1) != 0) {
             return var0;
          }
 
-         if ((iw[var0] & 4194304) != 0) {
+         if ((iA[var0] & 4194304) != 0) {
             return var2;
          }
       }
@@ -8157,199 +8282,218 @@ public final class e extends a {
       int var2 = var0;
 
       do {
-         if ((iw[var0] & 8388608) == 0) {
-            if ((iw[--var0] & var1) != 0) {
+         if ((iA[var0] & 8388608) == 0) {
+            if ((iA[--var0] & var1) != 0) {
                var2 = var0;
             }
          }
 
-         if ((iw[var0] & 8388608) != 0 && (iw[var0] & var1) == 0) {
+         if ((iA[var0] & 8388608) != 0 && (iA[var0] & var1) == 0) {
             return var2;
          }
-      } while ((iw[var0] & var1) == 0);
+      } while ((iA[var0] & var1) == 0);
 
       return var2;
    }
 
-   private void K() {
-      int var1 = ix;
+   private void J() {
+      int var1 = iB;
       int var2;
-      int var3 = (var2 = iw[ix]) >> 26;
+      int var3 = (var2 = iA[iB]) >> 26;
       int var4 = var2 >> 8 & 0xFF;
       switch (var3) {
          case 0:
-            if (this.s == 8 || this.s == 27) {
-               if (var4 == 9 && this.bC == 0) {
-                  iN = false;
-                  this.bC = 0;
-                  this.bA = 9217;
-                  this.a(H, H, 35, 35);
-                  I = 1;
-                  this.D();
-                  this.iM.c();
-                  this.v = false;
-                  this.W = true;
+            if (this.q == 8 || this.q == 27) {
+               if (var4 == 9 && this.bF == 0) {
+                  iS = false;
+                  this.bF = 0;
+                  this.bC = 9217;
+                  this.bJ = 9219;
+                  this.a(G, G, 35, 35);
+                  H = 1;
+                  this.C();
+                  this.iR.c();
+                  this.u = false;
+                  this.V = true;
                } else {
                   var1 = var4;
                }
             }
             break;
          case 1:
-            if (this.s == 8 || this.s == 27) {
-               this.iM.a(!this.iM.b());
-               iL = this.iM.b();
-               if (!this.iM.b()) {
-                  this.hR = false;
+            if (this.q == 8 || this.q == 27) {
+               this.iR.a(!this.iR.b());
+               iQ = this.iR.b();
+               if (!this.iR.b()) {
+                  this.hV = false;
                }
 
-               this.y(0);
+               this.y(9);
             }
          case 2:
          case 7:
          default:
             break;
          case 3:
-            if (this.s == 8 || this.s == 27) {
-               this.ai = false;
-               this.aj = true;
-               this.a(H, H, 35, 35);
+            if (this.q == 8 || this.q == 27) {
+               this.ah = false;
+               this.ai = true;
+               this.a(G, G, 35, 35);
             }
             break;
          case 4:
-            if (this.s == 8 || this.s == 27) {
+            if (this.q == 8 || this.q == 27) {
+               this.ah = true;
                this.ai = true;
-               this.aj = true;
-               this.a(H, H, 35, 35);
+               this.a(G, G, 35, 35);
             }
             break;
          case 5:
-            if (this.s == 8 || this.s == 27) {
-               this.bC = ix - this.iG;
-               this.bf = false;
-               this.bA = bB[this.bC];
-               iN = false;
-               this.a(H, H, 35, 35);
-               I = 1;
-               this.v = false;
-               this.D();
-               this.F();
+            if (this.q == 8 || this.q == 27) {
+               this.bF = iB - this.iL;
+               this.be = false;
+               this.bC = bD[this.bF];
+               iS = false;
+               this.bJ = bE[this.bF];
+               this.a(G, G, 35, 35);
+               H = 1;
+               this.u = false;
+               this.C();
+               this.E();
             }
             break;
          case 6:
-            if (this.s == 8 || this.s == 27) {
-               this.bA = 9216;
-               this.bC = 0;
-               this.dI = 0;
-               iN = true;
-               this.a(H, H, 35, 35);
-               I = 1;
-               this.v = false;
-               this.D();
-               this.F();
+            if (this.q == 8 || this.q == 27) {
+               this.bC = 9216;
+               this.bF = 0;
+               this.dM = 0;
+               iS = true;
+               this.bJ = 9218;
+               this.a(G, G, 35, 35);
+               H = 1;
+               this.u = false;
+               this.C();
+               this.E();
             }
             break;
          case 8:
-            if (this.s == 8 || this.s == 27) {
-               this.M();
+            if (this.q == 8 || this.q == 27) {
+               this.L();
             }
             break;
          case 9:
-            if (this.s == 8 || this.s == 27) {
+            if (this.q == 8 || this.q == 27) {
                this.b(false);
-               I = this.J;
+               H = this.I;
             }
             break;
          case 10:
-            if (this.s == 8 || this.s == 27) {
-               this.D();
-               this.y(0);
+            if (this.q == 8 || this.q == 27) {
+               this.C();
+               this.y(9);
                this.a((DataInputStream)null);
                this.z(1);
-               this.iy = ix;
+               this.iC = iB;
                var1 = var4;
             }
             break;
          case 11:
-            if (this.s == 8 || this.s == 27 || this.s == 29) {
-               if (this.s != 29) {
-                  byte[] var5 = new byte[76];
-                  a.a(2, var5);
-                  this.A(1);
+            if (this.q == 8 || this.q == 27 || this.q == 29) {
+               if (this.q != 29) {
+                  if (this.iH) {
+                     iP = true;
+                     this.b(this.s);
+                     this.L();
+                  } else {
+                     byte[] var5 = new byte[76];
+                     a.a(2, var5);
+                     this.A(1);
+                  }
                }
 
                var1 = var4;
+               if (this.iH) {
+                  var1 = 0;
+                  this.iH = false;
+               }
             }
             break;
          case 12:
-            if (this.s == 8 || this.s == 27) {
-               w++;
-               if (w > 5) {
-                  w = 0;
+            if (this.q == 8 || this.q == 27) {
+               v++;
+               if (v > 5) {
+                  v = 0;
                }
 
-               this.f(x[w]);
-               this.iB = true;
+               this.f(w[v]);
+               this.iF = true;
             }
       }
 
-      if (this.s != 0) {
-         this.iI = false;
-         this.iC = true;
+      if (this.q != 0) {
+         this.iN = false;
+         this.iG = true;
       }
 
-      if (this.s == 2) {
+      if (this.q == 2) {
          var1 = l(var1, 33554432);
       }
 
-      if (this.s == 5) {
+      if (this.q == 5) {
          var1 = k(var1, 33554432);
       }
 
-      if (this.be) {
-         this.iI = false;
-         ix++;
-         this.bC++;
-         if (this.bC > this.bD) {
-            this.bD = this.bC;
+      if (this.bd) {
+         this.iN = false;
+         iB++;
+         this.bF++;
+         if (this.bF > this.bG) {
+            this.bG = this.bF;
          }
 
-         this.bA++;
-         I = 1;
-         this.ae = true;
-         this.v = false;
-         this.F();
+         this.bC++;
+         this.bJ = bE[this.bF];
+         H = 1;
+         this.ad = true;
+         this.u = false;
+         this.E();
       }
 
-      if (this.s == 29 && var3 != 11) {
-         if (this.iA == 2 || this.iA == 29) {
-            var1 = this.iy;
-            this.iI = false;
-         } else if (this.iA == 1) {
+      if (this.q == 29 && var3 != 11) {
+         if (this.iE == 2 || this.iE == 29) {
+            var1 = this.iC;
+            this.iN = false;
+         } else if (this.iE == 1) {
             var1 = 23;
          }
-      } else if (this.s == 27 && var3 == 0 && this.iz == 0 && (var4 != 9 || this.bC != 0)) {
+      } else if (this.q == 27 && var3 == 0 && this.iD == 0 && (var4 != 9 || this.bF != 0)) {
          var1 = var4;
-         this.iI = false;
+         this.iN = false;
       }
 
-      if (ix != var1) {
-         ix = var1;
-         if ((iw[ix] & 33554432) == 0) {
-            ix = k(var1, 33554432);
+      if (iB != var1) {
+         iB = var1;
+         if ((iA[iB] & 33554432) == 0) {
+            iB = k(var1, 33554432);
          }
 
          this.h();
       }
    }
 
-   private void L() {
-      if (this.s == 8 || this.s == 27) {
-         this.iC = true;
+   private void K() {
+      if (this.q == 8 || this.q == 27) {
+         int var1 = iA[iB];
+         this.iG = true;
+         switch (var1 & 0xFF) {
+            case 5:
+               this.iH = true;
+         }
       }
    }
 
-   private void M() {
-      if (I != 0 && I != 79 && !iK) {
+   private void L() {
+      if (H != 0 && H != 79 && !iP) {
          this.z(1);
       }
 
@@ -8359,44 +8503,44 @@ public final class e extends a {
    private void w(Graphics var1) {
       int var2 = 0;
       int var3 = 0;
-      if (this.E > this.F) {
-         var2 = -(this.E >> 3);
+      if (this.D > this.E) {
+         var2 = -(this.D >> 3);
       }
 
-      if (this.iC || (this.T > 0 || this.ak) && this.iI && I != 1) {
+      if (this.iG || (this.S > 0 || this.aj) && this.iN && H != 1) {
          this.v(var1);
       }
 
-      this.a(this.p);
-      this.a(var1, this.e(274), G + var2, this.r[0].d + this.r[1].d, 1);
-      this.a(this.o);
-      int var4 = ix;
+      this.a(this.n);
+      this.a(var1, this.e(274), F + var2, this.p[0].d + this.p[1].d, 1);
+      this.a(this.m);
+      int var4 = iB;
       int var6 = 0;
 
-      while (var4 == 1 || var4 > 1 && (iw[var4] & 8388608) == 0) {
-         if ((iw[--var4] & 16777216) != 0) {
+      while (var4 == 1 || var4 > 1 && (iA[var4] & 8388608) == 0) {
+         if ((iA[--var4] & 16777216) != 0) {
             var6++;
          }
       }
 
       int var7 = var4;
-      var4 = ix;
+      var4 = iB;
 
       for (int var8 = 0; var8 < var6; var8++) {
          var4 = l(var4, 16777216);
       }
 
-      this.iG = var4;
+      this.iL = var4;
 
       for (int var18 = 0; var18 < var6; var18++) {
          var4 = l(var4, 33554432);
       }
 
-      this.iH = var4;
-      this.iD = 0;
+      this.iM = var4;
+      this.iI = 0;
       int var10 = var4;
       int var11 = var4;
-      if (this.iI && this.T <= 0 && !this.ak) {
+      if (this.iN && this.S <= 0 && !this.aj) {
          this.a(var1, 0, 166, 240, 140);
       } else {
          this.b(var1);
@@ -8404,51 +8548,51 @@ public final class e extends a {
 
       this.b(var1, true);
 
-      for (int var13 = this.iI && this.T <= 0 && !this.ak ? 2 : 0; var13 <= 4; var13++) {
-         this.r[var13].a(var1, var13 < 2 ? G + var2 : this.E + 0, var13 < 2 ? 0 : this.F, 0);
+      for (int var13 = this.iN && this.S <= 0 && !this.aj ? 2 : 0; var13 <= 4; var13++) {
+         this.p[var13].a(var1, var13 < 2 ? F + var2 : this.D + 0, var13 < 2 ? 0 : this.E, 0);
       }
 
-      if (this.ak) {
-         this.ak = false;
+      if (this.aj) {
+         this.aj = false;
       }
 
-      this.iI = true;
-      this.iF = this.r[0].d + this.r[1].d + (z << 1);
-      if (-this.r[2].b + this.iF >= this.F && var2 == 0) {
-         var3 = -(this.E >> 3);
+      this.iN = true;
+      this.iK = this.p[0].d + this.p[1].d + (y << 1);
+      if (-this.p[2].b + this.iK >= this.E && var2 == 0) {
+         var3 = -(this.D >> 3);
       }
 
       while (true) {
-         if ((iw[var11] & 16777216) != 0) {
+         if ((iA[var11] & 16777216) != 0) {
             var10 = var11;
          }
 
-         if ((iw[var11] & 33554432) != 0) {
+         if ((iA[var11] & 33554432) != 0) {
             var7 = var11;
          }
 
-         if ((iw[var11] & 4194304) != 0) {
-            this.iD = this.E < this.iD ? this.E : this.iD;
-            this.iE = 120;
+         if ((iA[var11] & 4194304) != 0) {
+            this.iI = this.D < this.iI ? this.D : this.iI;
+            this.iJ = 120;
             var1.setColor(0, 0, 255);
-            var4 = this.iG;
-            this.a(this.o);
+            var4 = this.iL;
+            this.a(this.m);
 
             boolean var19;
             do {
                int var9;
-               int var5 = (var9 = iw[var4]) >> 26;
+               int var5 = (var9 = iA[var4]) >> 26;
                if ((var9 & 16777216) != 0) {
                   int var14;
                   if ((var14 = var9 & 0xFF) == 23) {
-                     int var15 = w + 1 > 5 ? 0 : w + 1;
-                     var14 = y[var15];
+                     int var15 = v + 1 > 5 ? 0 : v + 1;
+                     var14 = x[var15];
                   }
 
                   String var20 = this.e(var14);
                   switch (var5) {
                      case 1:
-                        var20 = var20 + " " + (iL ? this.e(234) : this.e(235));
+                        var20 = var20 + " " + (iQ ? this.e(234) : this.e(235));
                      case 0:
                      case 3:
                      case 4:
@@ -8459,19 +8603,19 @@ public final class e extends a {
                      case 10:
                      case 11:
                      case 12:
-                        if (var4 == ix) {
+                        if (var4 == iB) {
                            if (var14 != 28 && var14 != 29) {
-                              if (var4 > this.iH) {
-                                 bo[2].a(var1, G - this.iJ - (bo[2].c << 1) + var2 + var3, this.iF + (z >> 3) + 4, 0);
+                              if (var4 > this.iM) {
+                                 bq[2].a(var1, F - this.iO - (bq[2].c << 1) + var2 + var3, this.iK + (y >> 3) + 1, 0);
                               }
 
-                              this.a(var1, var20, this.iE + var2 + var3, this.iF, 1);
+                              this.a(var1, var20, this.iJ + var2 + var3, this.iK, 1);
                               if (var4 < var7) {
-                                 bo[3].a(var1, G + this.iJ + bo[3].c + var2 + var3, this.iF + (z >> 3) + 4, 0);
+                                 bq[3].a(var1, F + this.iO + bq[3].c + var2 + var3, this.iK + (y >> 3) + 1, 0);
                               }
                            }
 
-                           this.iF = this.iF + z + (z >> 2);
+                           this.iK = this.iK + y + (y >> 2);
                         }
                      case 2:
                      case 7:

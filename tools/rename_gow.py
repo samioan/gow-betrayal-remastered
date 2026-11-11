@@ -52,28 +52,22 @@ PATCHES: list[tuple[str, str, str]] = [
      "      int[] var1 = new byte[]{13, 4, 4};\n"
      "      var1 = new int[]{-1, 64};\n",
      "      // (obfuscator dead code removed: arrays built and discarded, see rename_gow.py)\n"),
-    # SoundPlayer's MIDI tempo maths: the local is an int in the bytecode; Vineflower types it short.
-    ("SoundPlayer.java", "         short var5;\n         boolean var6;", "         int var5;\n         boolean var6;"),
     # Vineflower types loop counters that start at a small constant and step by 3 or 5 as `byte`.
     # They are ints in the bytecode: the boot loader's palette table loop runs to 768 and would wrap at
     # 127 (an ArrayIndexOutOfBounds in the port, as in Java), the other three merely need the same care.
     ("Game.java", "for (byte var7 = 0; var7 < var4.length; var7 += 5) {", "for (int var7 = 0; var7 < var4.length; var7 += 5) {"),
-    ("Game.java", "for (byte var5 = 0; var5 < var1.length; var5 += 3) {", "for (int var5 = 0; var5 < var1.length; var5 += 3) {"),
+    ("Game.java", "for (byte var7 = 0; var7 < var1.length; var7 += 3) {", "for (int var7 = 0; var7 < var1.length; var7 += 3) {"),
     ("Game.java", "for (byte var84 = 0; var84 < this.playerBoxes.length; var84 += 5) {", "for (int var84 = 0; var84 < this.playerBoxes.length; var84 += 5) {"),
     ("Game.java", "for (byte var103 = 0; var103 < this.playerBoxes.length; var103 += 5) {", "for (int var103 = 0; var103 < this.playerBoxes.length; var103 += 5) {"),
     # Port addition (widescreen): the visible width of the scene follows the logical canvas width.
     # The C++ Scene (betrayal/port/src/scene.cpp) implements the same method; this Java version exists so the
-    # renamed tree still compiles and java2cpp knows the signature.
-    ("Scene.java", "   private final int bufferWidth;", "   private int bufferWidth;"),
+    # renamed tree still compiles and java2cpp knows the signature. The K800i Scene draws straight to the
+    # screen, so there is no offscreen buffer to reallocate.
+    ("Scene.java", "   private final int viewWidth;", "   private int viewWidth;"),
     ("Scene.java", "      this.scrollX = var1;\n      this.scrollY = var2;\n   }\n",
      "      this.scrollX = var1;\n      this.scrollY = var2;\n   }\n\n"
-     "   public final void setBufferWidth(int var1) {\n"
-     "      if (var1 != this.bufferWidth) {\n"
-     "         this.bufferWidth = var1;\n"
-     "         this.buffer = Image.createImage(var1, this.bufferHeight);\n"
-     "         this.bufferGraphics = this.buffer.getGraphics();\n"
-     "         this.fullRedraw = true;\n"
-     "      }\n"
+     "   public final void setViewWidth(int var1) {\n"
+     "      this.viewWidth = var1;\n"
      "   }\n"),
     # Same family as Clone Home: Vineflower can also type iinc'd int locals as byte, or a byte[]
     # local as an unknown class `B`. Add entries here as compile errors show them.

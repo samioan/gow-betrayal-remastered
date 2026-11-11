@@ -1,8 +1,9 @@
 # God of War: Betrayal -- decompilation roadmap
 
-Target: `roms/God-of-War-Betrayal_J2ME_EN_v148.jar` (MIDlet-Version 1.4.8,
-vendor Glu Mobile LTD, `Created-By: Metaflow`, MIDP-2.0 / CLDC-1.0, entry
-point `GOWMIDlet`). Plain JVM bytecode -- no native step, so a Java
+Target: `roms/God-of-War-Betrayal_K800i_v1420.jar`, the Sony Ericsson K800i build
+(MIDlet-Version 1.4.20, Glu Mobile LTD, `Created-By: Metaflow`, MIDP-2.0 / CLDC-1.1, entry
+point `GOWMIDlet`). The project began on the generic v1.4.8 jar and moved to this build
+(22 px tiles, parallax backgrounds, better art and sound); v1.4.8 is no longer supported. Plain JVM bytecode -- no native step, so a Java
 decompiler (Vineflower) recovers close-to-original source directly.
 
 ## What the jar is
@@ -28,7 +29,7 @@ decompiler (Vineflower) recovers close-to-original source directly.
 - `python tools/extract_jar.py && python tools/decompile.py` reproduce
   `betrayal/extracted/` (gitignored) and `betrayal/decompiled/` (tracked).
 - All 31 RP banks validated by `tools/parse_banks.py` (exact container
-  consumption, 197 resources) -- see `ASSET_FORMATS.md`.
+  consumption, 208 resources) -- see `ASSET_FORMATS.md`.
 - Port toolchain proven: `betrayal/port/build.bat` (Debug) and
   `build_dist.bat` + `check_dist.ps1` (shipping package) both pass; the
   launcher is functional, the game is a placeholder window.
@@ -43,7 +44,7 @@ decompiler (Vineflower) recovers close-to-original source directly.
   member renamed (see `CLASS_MAP.md`).
 - **`Game` (8.5k lines) is about 90% read.** Done: input decoding, screen/timing, language
   select + menus + panel slides, the camera, the upgrade screen, the whole level loader, and
-  **the entire gameplay update `updateGameplay` (old `z()`, 2,170 lines)**: the player action state
+  **the entire gameplay update `updateGameplay` (obf. `y()`, 2,170 lines)**: the player action state
   machine, weapon modes, quick-time-event finishers, chests, switches/gates/arenas, breakable
   walls, hazards, pickups, effects and the enemy AI loop. ~250 fields and the key methods are
   renamed (`names.map`), and **movement/collision** (player and enemy) is now documented
@@ -59,7 +60,7 @@ decompiler (Vineflower) recovers close-to-original source directly.
 
 **Phase 2 -- asset formats: STARTED.** Done: container, type bytes, all 34
 sprite atlases and all 25 animation sets (`tools/parse_atlases.py`, exact
-consumption) and all 11 level files (`tools/parse_levels.py`: bit-packed, exact
+consumption) and all 22 level files -- 11 levels plus their parallax backgrounds (`tools/parse_levels.py`: bit-packed, exact
 consumption, every object-type field width verified). To do: a string-table
 parser, the 256x3 table at 1053 (the save layout is done). (Object types and cell flags are now
 mostly understood; see `ASSET_FORMATS.md`.)
@@ -68,7 +69,5 @@ mostly understood; see `ASSET_FORMATS.md`.)
 
 ## Open questions
 
-- What does RP9[0] (level id 9216) do? It parses like the ten story levels; the
-  main menu starts it directly with `iN = true`. Tutorial/bonus stage?
 - What do the remaining unnamed level object types (6/14 scripts, 22, 9, 32) do in play, and
   what are the movement/collision rules (`f`, `g`)? Read those methods next.

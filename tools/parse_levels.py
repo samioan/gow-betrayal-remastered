@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
-"""Phase 2: parse the type-245 level blobs (RP9[1], RP19..RP27[0]) and RP9[0].
+"""Phase 2: parse the type-245 level blobs: the levels (RP9[1], RP19..RP27[0], challenge RP9[0])
+and their parallax backgrounds (RP9[3], RP19..RP27[1], challenge RP9[2]).
 
 Replicates, bit for bit, the level loader in betrayal/src/Game.java: the step-0 header
 parse in `a(byte[], boolean)` (old e.a(byte[],boolean)), the object-group loop in the same
 method (steps 10) and the per-object-type extra fields read by `d(int type, int count)`.
 Asserts every blob is consumed exactly (up to the final byte's padding bits).
+
+K800i build: tiles are 22x22 px (TILE), which sets the object-position stream's bit width. Each level
+has a second blob loaded with loadLevelStep(data, true) -- a background drawn by Game.bgScene at half
+the camera scroll: the header fields (Game.readLevelHeaderFlags) are skipped and it has no objects
+(one exception: RP22[1] has a single object group).
 
 Bit order (Game.m(n)): LSB-first -- bits are taken from the low end of each byte and the
 value is assembled little-endian. l(n) = ceil(log2(n)) = (n - 1).bit_length().
@@ -23,8 +29,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import parse_banks  # noqa: E402
 import parse_atlases  # noqa: E402
 
-# Level resource ids (Game.levelIds, old e.bB), and the one extra type-245 blob in RP9.
-LEVELS = [9217, 19456, 20480, 21504, 22528, 23552, 24576, 25600, 26624, 27648]
+# Level resource ids (Game.levelIds) and their parallax backgrounds (Game.bgLevelIds), each list
+# followed by the challenge level the main menu starts directly (RP9[0]) and its background (RP9[2]).
+LEVELS = [9217, 19456, 20480, 21504, 22528, 23552, 24576, 25600, 26624, 27648, 9216]
+BACKGROUNDS = [9219, 19457, 20481, 21505, 22529, 23553, 24577, 25601, 26625, 27649, 9218]
+TILE = 22  # px per tile side (Game.loadLevelStep: 22 * mapWidth)
 
 # Extra bits read per object by Game.d(type, count), as [(bits, name), ...]. Types absent from
 # this table read nothing beyond the position stream. `once` entries are read once per group.
@@ -86,19 +95,22 @@ def l(n):
     return (n - 1).bit_length()
 
 
-def parse_level(rid):
+def parse_level(rid, background=None):
     blob, t = parse_atlases.resource(rid)
     assert t == 245, f"{rid}: type {t}, not a level"
     b = Bits(blob)
     b.m(1)
     b.m(10)
-    lv = {"id": rid, "size": len(blob)}
-    lv["hdr_q"] = b.m(10)
-    lv["flip"] = b.m(1) != 1
-    lv["dA"] = b.m(1)
-    lv["dB"] = b.m(1)
-    b.m(1)
-    lv["hs"] = b.m(16)
+    if background is None:
+        background = rid in BACKGROUNDS
+    lv = {"id": rid, "size": len(blob), "background": background}
+    if not background:  # Game.readLevelHeaderFlags reads nothing for a background
+        lv["hdr_q"] = b.m(10)
+        lv["flip"] = b.m(1) != 1
+        lv["dA"] = b.m(1)
+        lv["dB"] = b.m(1)
+        b.m(1)
+        lv["hs"] = b.m(16)
     b.m(1)
     n_types = b.m(16)
     bx = b.m(4)
@@ -109,10 +121,10 @@ def parse_level(rid):
     b.m(8)
     solid = [b.m(1) for _ in range(n_types)]
     n_groups = b.m(10)
-    bz = l(w * 16 * h * 16 + 1)
+    bz = l(w * TILE * h * TILE + 1)
     lv.update(types=n_types, tile_bits=bx, w=w, h=h, tile_of_type=tile_of_type, cells=cells, solid=solid,
               groups=[], pos_bits=bz)
-    ja = w * 16
+    ja = w * TILE
     for _ in range(n_groups):
         gtype = b.m(10)
         count = b.m(16)
@@ -136,7 +148,7 @@ def parse_level(rid):
 
 
 def main():
-    ids = LEVELS
+    ids = LEVELS + BACKGROUNDS
     if len(sys.argv) >= 2 and sys.argv[1].isdigit():
         ids = [int(sys.argv[1])]
     rows = []
@@ -146,12 +158,14 @@ def main():
         c = Counter()
         for gtype, pos, _ in lv["groups"]:
             c[gtype] += len(pos)
-        print(f"level {rid:5d} RP{rid >> 10}[{rid & 1023}]: {lv['w']:3d}x{lv['h']:<3d} tiles, {lv['types']:3d} tile types "
+        kind = "bg   " if lv["background"] else "level"
+        print(f"{kind} {rid:5d} RP{rid >> 10}[{rid & 1023}]: {lv['w']:3d}x{lv['h']:<3d} tiles, {lv['types']:3d} tile types "
               f"({lv['tile_bits']} bits), {len(lv['groups']):2d} groups, {sum(c.values()):4d} objects, "
               f"{lv['size']:5d} bytes, {lv['spare_bits']} spare bits -- exact")
         if len(ids) == 1:
             print("  object counts by type:", dict(sorted(c.items())))
-            print("  header: q=%d flip=%s dA=%d dB=%d hs=%d" % (lv["hdr_q"], lv["flip"], lv["dA"], lv["dB"], lv["hs"]))
+            if not lv["background"]:
+                print("  header: q=%d flip=%s dA=%d dB=%d hs=%d" % (lv["hdr_q"], lv["flip"], lv["dA"], lv["dB"], lv["hs"]))
             if len(sys.argv) >= 3 and sys.argv[2] == "map":
                 sym = ".#+*=%@&$!?ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 for y in range(lv["h"]):
