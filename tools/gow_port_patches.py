@@ -364,7 +364,16 @@ PATCHES = [
      "      if (phoneX < 0) {\n         phoneX = 0;\n         this.phoneN = 0;\n      }\n\n"
      "      if (phoneX >= this.bw - 240) {\n         phoneX = this.bw - 240;\n         this.phoneN = this.bw - 240 << 8;\n      }\n\n"
      "      this.phoneCamX = phoneX;\n"
-     "      if (cameraX < 0) {\n         cameraX = 0;\n         this.aN = 0;\n", 1),
+     "      int wideOff = viewW > 240 ? cameraX - (this.aN >> 8) : 0;\n"
+     "      if (cameraX < 0) {\n         cameraX = 0;\n         this.aN = -wideOff << 8;\n", 1),
+    # Edge clamp of the wide camera. The original resets the accumulator to the edge (aN = 0 / max << 8) although
+    # cameraX = (aN >> 8) + aH: with a lock offset aH pointing away from the edge, the next step shows edge + aH,
+    # eases back, clamps again -- a ~40 px left-right jolt every 4 steps. The phone never shows it (where the
+    # locks hold aH the phone camera is not at the level edge), but the wider camera reaches the edge sooner
+    # (Dead Rider's ending, Kratos standing near the end of any level with a lock there). So the reset keeps the
+    # offset (wideOff: aH, plus any shake). At --width 240 wideOff is 0: the original code.
+    ("s", "         cameraX = this.maxCameraX;\n         this.aN = this.maxCameraX << 8;\n",
+     "         cameraX = this.maxCameraX;\n         this.aN = this.maxCameraX - wideOff << 8;\n", 1),
     ("s", "this.aN = cameraX << 8;", "this.aN = cameraX << 8;\n      this.phoneN = cameraX + uiX() << 8;\n      this.phoneCamX = cameraX + uiX();", 2),
     ("s", "this.maxCameraX = this.bw - 240;", "this.maxCameraX = this.bw - viewW;", 1),
     # camera lock / scroll-stop rectangles (both orientations) and the break-crate camera stop: all three

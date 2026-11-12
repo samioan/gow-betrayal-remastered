@@ -1331,14 +1331,15 @@ void Game::updateCamera() {
     this->phoneN = ((this->bw - 240) << 8);
   }
   this->phoneCamX = phoneX;
+  int wideOff = ((viewW > 240) ? (cameraX - (this->aN >> 8)) : 0);
   if ((cameraX < 0)) {
     cameraX = 0;
-    this->aN = 0;
+    this->aN = ((-wideOff) << 8);
     this->aL = 0;
   }
   if ((cameraX >= this->maxCameraX)) {
     cameraX = this->maxCameraX;
-    this->aN = (this->maxCameraX << 8);
+    this->aN = ((this->maxCameraX - wideOff) << 8);
     this->aL = 0;
   }
   if ((cameraY < 0)) {
