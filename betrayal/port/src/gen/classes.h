@@ -541,6 +541,8 @@ class Game : public Engine {
   inline static bool redrawAll = true;
   int arrowBase = (-1);
   inline static bool lastWorld = false;
+  int phoneN = 0;
+  int phoneCamX = 0;
   Game(GOWMIDlet* var1);
   bool interpCollect(Arr<int> var1);
   void interpPut(Arr<int> var1);
@@ -549,6 +551,7 @@ class Game : public Engine {
   bool interpApply(int var1) override;
   void interpRestore() override;
   static int uiX();
+  int fireWidth();
   void updateViewWidth();
   void readPressedKey();
   void readHeldKey();

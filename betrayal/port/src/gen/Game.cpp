@@ -190,6 +190,10 @@ int Game::uiX() {
   return ((viewW - 240) >> 1);
 }
 
+int Game::fireWidth() {
+  return (viewW - (this->iy - (this->iy >> 2)));
+}
+
 void Game::updateViewWidth() {
   int var1 = Port::viewWidth();
   if ((((this->scene != nullptr) && (var1 > 240)) && (this->bw < var1))) {
@@ -892,6 +896,8 @@ void Game::updateBars() {
           cameraX = ((this->playerX - (viewW >> 1)) - (((facingRight ? 1 : (-1)) * 240) >> 2));
           cameraY = (this->playerY - 266);
           this->aN = (cameraX << 8);
+          this->phoneN = ((cameraX + uiX()) << 8);
+          this->phoneCamX = (cameraX + uiX());
           this->aO = (cameraY << 8);
           this->blocking = false;
           this->setPlayerAction(0);
@@ -1186,7 +1192,7 @@ void Game::updateCamera() {
   }
   int var5 = (this->climbing ? 80 : 0);
   int var6 = ((var2 - 120) + var4);
-  int lockTestX = ((var6 < 0) ? 0 : ((var6 > (this->bw - 240)) ? (this->bw - 240) : var6));
+  int phoneTarget = var6;
   var6 = ((var2 - (viewW >> 1)) + var4);
   int var7 = ((var3 - 266) + var5);
   int var8 = (((var6 - cameraX) + this->aH) * this->frameDelta);
@@ -1213,11 +1219,17 @@ void Game::updateCamera() {
   this->aM = (cameraY - var7);
   cameraX = var6;
   cameraY = var7;
+  int phoneDX = (((phoneTarget - this->phoneCamX) + this->aH) * this->frameDelta);
+  if ((jlang::abs<int>((int)(phoneDX)) > var1)) {
+    phoneDX = ((phoneDX > 0) ? var1 : (-var1));
+  }
+  this->phoneN += phoneDX;
+  int phoneX = (this->phoneN >> 8);
   bool var10 = false;
   bool var11 = false;
   if ((this->cameraPanX < 0)) {
     for (int var12 = (this->lockRectCount - 1); (var12 >= 0); (var12--)) {
-      if (pointInRect(this->lockX[var12], this->lockY[var12], lockTestX, cameraY, 240, 320)) {
+      if (pointInRect(this->lockX[var12], this->lockY[var12], phoneX, cameraY, 240, 320)) {
         if ((!this->lockVertical[var12])) {
           var10 = true;
           int var13 = ((this->aJ * this->frameDelta) >> 8);
@@ -1226,8 +1238,8 @@ void Game::updateCamera() {
           } else {
             this->aH += var13;
           }
-          if ((!pointInRect(this->lockX[var12], this->lockY[var12], ((cameraX + this->aH) + uiX()), (cameraY + this->aI), 240, 320))) {
-            this->aH = (((this->lockX[var12] - cameraX) - uiX()) - (this->lockReverse[var12] ? 240 : 0));
+          if ((!pointInRect(this->lockX[var12], this->lockY[var12], (phoneX + this->aH), (cameraY + this->aI), 240, 320))) {
+            this->aH = ((this->lockX[var12] - phoneX) - (this->lockReverse[var12] ? 240 : 0));
           }
         } else {
           var11 = true;
@@ -1237,14 +1249,14 @@ void Game::updateCamera() {
           } else {
             this->aI += var18;
           }
-          if ((!pointInRect(this->lockX[var12], this->lockY[var12], ((cameraX + this->aH) + uiX()), (cameraY + this->aI), 240, 320))) {
+          if ((!pointInRect(this->lockX[var12], this->lockY[var12], (phoneX + this->aH), (cameraY + this->aI), 240, 320))) {
             this->aI = ((this->lockY[var12] - cameraY) - (this->lockReverse[var12] ? 320 : 0));
           }
         }
       }
     }
     for (int var17 = this->breakLast; (var17 >= 0); (var17--)) {
-      if ((breakStopsCamera[var17] && pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], lockTestX, cameraY, 240, 320))) {
+      if ((breakStopsCamera[var17] && pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], phoneX, cameraY, 240, 320))) {
         var10 = true;
         int var19 = ((this->aJ * this->frameDelta) >> 8);
         if (breakCameraRight[var17]) {
@@ -1252,12 +1264,13 @@ void Game::updateCamera() {
         } else {
           this->aH += var19;
         }
-        if ((!pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], ((cameraX + this->aH) + uiX()), (cameraY + this->aI), 240, 320))) {
-          this->aH = ((((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)) - cameraX) - uiX()) - (breakCameraRight[var17] ? 240 : 0));
+        if ((!pointInRect((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)), this->breakY[var17], (phoneX + this->aH), (cameraY + this->aI), 240, 320))) {
+          this->aH = (((breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0)) - phoneX) - (breakCameraRight[var17] ? 240 : 0));
         }
       }
     }
     cameraX = (cameraX + this->aH);
+    phoneX = (phoneX + this->aH);
     cameraY = (cameraY + this->aI);
     if (((!var10) && (this->aH != 0))) {
       if ((this->aH > 0)) {
@@ -1291,6 +1304,7 @@ void Game::updateCamera() {
       if (((this->shakeTimer + (this->shakeTimer * this->slowMotionShift)) >= this->shakeDuration)) {
         cameraY = (cameraY + this->cameraShake);
         cameraX = (cameraX + (this->cameraShake * (((this->randomValue & 1) == 1) ? (-1) : 1)));
+        phoneX = (phoneX + (this->cameraShake * (((this->randomValue & 1) == 1) ? (-1) : 1)));
         this->cameraShake = (this->cameraShake + ((this->cameraShake < 0) ? 1 : (-1)));
         this->cameraShake = (-this->cameraShake);
         this->shakeTimer = 0;
@@ -1308,6 +1322,15 @@ void Game::updateCamera() {
     this->iF = true;
     this->cameraPanTimer = 0;
   }
+  if ((phoneX < 0)) {
+    phoneX = 0;
+    this->phoneN = 0;
+  }
+  if ((phoneX >= (this->bw - 240))) {
+    phoneX = (this->bw - 240);
+    this->phoneN = ((this->bw - 240) << 8);
+  }
+  this->phoneCamX = phoneX;
   if ((cameraX < 0)) {
     cameraX = 0;
     this->aN = 0;
@@ -1602,6 +1625,7 @@ void Game::render(Surface* var1) {
     this->requestClear();
     this->iG = true;
     this->iF = true;
+    this->aj = true;
   }
   if ((this->scene != nullptr)) {
     this->scene->setViewWidth(viewW);
@@ -1955,6 +1979,10 @@ void Game::drawWorld(Surface* var1) {
 void Game::drawUpgradeScreen(Surface* var1) {
   this->bp = 0;
   var1->setColor(0);
+  if ((uiX() > 0)) {
+    var1->fillRect((-uiX()), 0, uiX(), 320);
+    var1->fillRect(240, 0, ((viewW - 240) - uiX()), 320);
+  }
   var1->fillRect(((halfWidth - 5) - 25), 0, ((halfWidth + 5) + 25), 320);
   var1->fillRect(5, 0, 70, (this->bm + this->bp));
   this->setFont(this->mainFont);
@@ -3346,6 +3374,8 @@ void Game::s() {
   cameraX = ((this->playerX - (viewW >> 1)) - (((facingRight ? 1 : (-1)) * 240) >> 2));
   cameraY = (this->playerY - 266);
   this->aN = (cameraX << 8);
+  this->phoneN = ((cameraX + uiX()) << 8);
+  this->phoneCamX = (cameraX + uiX());
   this->aO = (cameraY << 8);
   this->activeArena = (-1);
   this->arenaBannerTimer = (-1);
@@ -6008,7 +6038,7 @@ void Game::updateGameplay() {
         }
       }
       if (((enemyBoxes[12] > 0) && rectsOverlap((this->playerX - this->frontExtent), (this->playerY - this->playerHeight), playerWidth, this->playerHeight, enemyBoxes[10], enemyBoxes[11], enemyBoxes[12], enemyBoxes[13]))) {
-        int8_t var104 = this->enemyContactDamage[var3];
+        int var104 = this->enemyContactDamage[var3];
         if ((this->enemyAction[var3] == 6)) {
           var104 <<= 1;
         }
@@ -7024,10 +7054,19 @@ int Game::readIntBE(Arr<int8_t> var0, int var1) {
 }
 
 void Game::updateFireEffect() {
-  int var2 = (viewW - (this->iy - (this->iy >> 2)));
+  int var2 = this->fireWidth();
   if (((fireHeat == nullptr) || (fireHeat.length() != (var2 * 140)))) {
+    Arr<int8_t> var15 = fireHeat;
     fireHeat = newArr<int8_t>((var2 * 140));
     firePixels = newArr<int>((var2 * 140));
+    if (((var15 != nullptr) && (var15.length() >= 140))) {
+      int var16 = (var15.length() / 140);
+      for (int var17 = 0; (var17 < 140); (var17++)) {
+        for (int var18 = 0; (var18 < var2); (var18++)) {
+          fireHeat[((var17 * var2) + var18)] = var15[((var17 * var16) + (var18 % var16))];
+        }
+      }
+    }
   }
   int var3 = 0;
   if (fireReseed) {
@@ -7074,7 +7113,7 @@ void Game::drawFireEffect(Surface* var1, bool var2) {
   this->updateFireEffect();
   int var3 = (var2 ? 0 : 95);
   int var4 = (var2 ? 168 : 173);
-  Engine::drawRgbAlias(var1, firePixels, 0, (viewW - (this->iy - (this->iy >> 2))), (var3 - uiX()), var4, (viewW - ((this->iy - (this->iy >> 2)) + 1)), 140, false);
+  Engine::drawRgbAlias(var1, firePixels, 0, this->fireWidth(), (var2 ? (var3 - uiX()) : var3), var4, (var2 ? (viewW - ((this->iy - (this->iy >> 2)) + 1)) : jlang::min<int>((int)((240 - ((this->iy - (this->iy >> 2)) + 1))), (int)((240 - var3)))), 140, false);
 }
 
 void Game::drawBottomBar(Surface* var1, int var2, int var3) {

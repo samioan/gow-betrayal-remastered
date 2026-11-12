@@ -59,6 +59,11 @@ PATCHES: list[tuple[str, str, str]] = [
     ("Game.java", "for (byte var7 = 0; var7 < var1.length; var7 += 3) {", "for (int var7 = 0; var7 < var1.length; var7 += 3) {"),
     ("Game.java", "for (byte var84 = 0; var84 < this.playerBoxes.length; var84 += 5) {", "for (int var84 = 0; var84 < this.playerBoxes.length; var84 += 5) {"),
     ("Game.java", "for (byte var103 = 0; var103 < this.playerBoxes.length; var103 += 5) {", "for (int var103 = 0; var103 < this.playerBoxes.length; var103 += 5) {"),
+    # Enemy contact damage: read from a byte[] but held in an int local (baload/istore, the shifts have no
+    # i2b). As a `byte`, `<<=` narrows: a non-boss enemy's charge (action 12, x8 in total) wraps past 127 and
+    # goes negative, so `health -= var104` heals Kratos past maxHealth (Tower's minotaurs: the health bar
+    # grows out of the HUD).
+    ("Game.java", "byte var104 = this.enemyContactDamage[var3];", "int var104 = this.enemyContactDamage[var3];"),
     # Port addition (widescreen): the visible width of the scene follows the logical canvas width.
     # The C++ Scene (betrayal/port/src/scene.cpp) implements the same method; this Java version exists so the
     # renamed tree still compiles and java2cpp knows the signature. The K800i Scene draws straight to the

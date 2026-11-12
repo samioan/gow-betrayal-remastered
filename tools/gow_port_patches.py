@@ -223,6 +223,14 @@ FIELDS = """   // ---- PC port (tools/gow_port_patches.py)
       return viewW - 240 >> 1;
    }
 
+   // shadow of the phone's own 240 px camera X (see updateCamera)
+   private int phoneN;
+   private int phoneCamX;
+
+   private int fireWidth() {
+      return viewW - (this.iy - (this.iy >> 2));
+   }
+
    private void updateViewWidth() {
       int var1 = Port.viewWidth();
       if (this.scene != null && var1 > 240 && this.bw < var1) {
@@ -256,6 +264,9 @@ RENDER_WRAPPER = """   public final void render(Graphics var1) {
          this.requestClear();
          this.iG = true;
          this.iF = true;
+         // the main menu paints its logo and rows only on a full repaint, which it takes from aj (set while the
+         // letterbox bars move) -- without this they vanished after a resolution change on the menu
+         this.aj = true;
       }
 
       if (this.scene != null) {
@@ -321,19 +332,40 @@ PATCHES = [
     # ---------------------------------------------------------------- widescreen: camera
     ("s", "cameraX = this.playerX - 120 - ((facingRight ? 1 : -1) * 240 >> 2);",
      "cameraX = this.playerX - (viewW >> 1) - ((facingRight ? 1 : -1) * 240 >> 2);", 2),
-    # lockTestX: where a 240 px phone camera would naturally rest for the current player position,
-    # i.e. var6's own original formula, captured before var6 is repointed at the (viewW-based, and
-    # possibly edge-clamped) real camera value below. Lock/break-stop trigger tests use this instead
-    # of the real camera: near a level's right edge, showing more world in widescreen can force the
-    # real camera to clamp short of where a 240 px camera would sit, which otherwise leaves it parked
-    # inside a lock pair's few-pixel-wide overlap (two stops meant to be crossed in transit, releasing
-    # one another, one for each direction) instead of sweeping through it -- the two fight over the
-    # same aH every frame and the camera bounces between their two targets (seen in Catacombs: a lock
-    # pair around the tall ladder, camera bouncing left/right while climbing at the top).
+    # Shadow phone camera. The camera-lock and break-stop rectangles are tuned for the phone's 240 px
+    # camera, whose X differs from the widescreen camera's by more than a constant: both are clamped to
+    # the level edges (0..bw-240 vs 0..bw-viewW), and both ease towards their target. So the port runs
+    # the phone's camera X alongside, exactly as the original computes it (its own fixed-point
+    # accumulator phoneN, the shared aH offset and shake, its own edge clamp), and every lock test uses
+    # that (phoneX) instead of the real camera. At --width 240 phoneX == cameraX every frame, i.e. the
+    # original code. Earlier versions tested against "cameraX + uiX()" (wrong whenever the wide camera
+    # sits clamped at a level edge) or the camera's unsmoothed target: the two halves of a lock test
+    # then disagreed, re-snapping aI every frame -- the camera jumping up and down between two ladders
+    # (Beast, Catacombs) or staying parked below Kratos (Tower), at 240 too.
     ("s", "int var6 = var2 - 120 + var4;",
      "int var6 = var2 - 120 + var4;\n"
-     "      int lockTestX = var6 < 0 ? 0 : var6 > this.bw - 240 ? this.bw - 240 : var6;\n"
+     "      int phoneTarget = var6;\n"
      "      var6 = var2 - (viewW >> 1) + var4;", 1),
+    ("s", "      cameraX = var6;\n      cameraY = var7;\n",
+     "      cameraX = var6;\n      cameraY = var7;\n"
+     "      int phoneDX = (phoneTarget - this.phoneCamX + this.aH) * this.frameDelta;\n"
+     "      if (Math.abs(phoneDX) > var1) {\n"
+     "         phoneDX = phoneDX > 0 ? var1 : -var1;\n"
+     "      }\n"
+     "\n"
+     "      this.phoneN += phoneDX;\n"
+     "      int phoneX = this.phoneN >> 8;\n", 1),
+    ("s", "         cameraX = cameraX + this.aH;\n",
+     "         cameraX = cameraX + this.aH;\n         phoneX = phoneX + this.aH;\n", 1),
+    ("s", "               cameraX = cameraX + this.cameraShake * ((this.randomValue & 1) == 1 ? -1 : 1);\n",
+     "               cameraX = cameraX + this.cameraShake * ((this.randomValue & 1) == 1 ? -1 : 1);\n"
+     "               phoneX = phoneX + this.cameraShake * ((this.randomValue & 1) == 1 ? -1 : 1);\n", 1),
+    ("s", "      if (cameraX < 0) {\n         cameraX = 0;\n         this.aN = 0;\n",
+     "      if (phoneX < 0) {\n         phoneX = 0;\n         this.phoneN = 0;\n      }\n\n"
+     "      if (phoneX >= this.bw - 240) {\n         phoneX = this.bw - 240;\n         this.phoneN = this.bw - 240 << 8;\n      }\n\n"
+     "      this.phoneCamX = phoneX;\n"
+     "      if (cameraX < 0) {\n         cameraX = 0;\n         this.aN = 0;\n", 1),
+    ("s", "this.aN = cameraX << 8;", "this.aN = cameraX << 8;\n      this.phoneN = cameraX + uiX() << 8;\n      this.phoneCamX = cameraX + uiX();", 2),
     ("s", "this.maxCameraX = this.bw - 240;", "this.maxCameraX = this.bw - viewW;", 1),
     # camera lock / scroll-stop rectangles (both orientations) and the break-crate camera stop: all three
     # engage exactly when they did on the phone, i.e. the trigger point has to be inside the centred 240 px
@@ -371,7 +403,7 @@ PATCHES = [
      "                  }\n"
      "               }\n"
      "            }",
-     "            if (pointInRect(this.lockX[var12], this.lockY[var12], lockTestX, cameraY, 240, 320)) {\n"
+     "            if (pointInRect(this.lockX[var12], this.lockY[var12], phoneX, cameraY, 240, 320)) {\n"
      "               if (!this.lockVertical[var12]) {\n"
      "                  var10 = true;\n"
      "                  int var13 = this.aJ * this.frameDelta >> 8;\n"
@@ -381,8 +413,8 @@ PATCHES = [
      "                     this.aH += var13;\n"
      "                  }\n"
      "\n"
-     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aH + uiX(), cameraY + this.aI, 240, 320)) {\n"
-     "                     this.aH = this.lockX[var12] - cameraX - uiX() - (this.lockReverse[var12] ? 240 : 0);\n"
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], phoneX + this.aH, cameraY + this.aI, 240, 320)) {\n"
+     "                     this.aH = this.lockX[var12] - phoneX - (this.lockReverse[var12] ? 240 : 0);\n"
      "                  }\n"
      "               } else {\n"
      "                  var11 = true;\n"
@@ -393,14 +425,14 @@ PATCHES = [
      "                     this.aI += var18;\n"
      "                  }\n"
      "\n"
-     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], cameraX + this.aH + uiX(), cameraY + this.aI, 240, 320)) {\n"
+     "                  if (!pointInRect(this.lockX[var12], this.lockY[var12], phoneX + this.aH, cameraY + this.aI, 240, 320)) {\n"
      "                     this.aI = this.lockY[var12] - cameraY - (this.lockReverse[var12] ? 320 : 0);\n"
      "                  }\n"
      "               }\n"
      "            }", 1),
     ("s",
      "               && pointInRect(breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX, cameraY, 240, 320)) {",
-     "               && pointInRect(breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], lockTestX, cameraY, 240, 320)) {", 1),
+     "               && pointInRect(breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], phoneX, cameraY, 240, 320)) {", 1),
     ("s",
      "               if (!pointInRect(\n"
      "                  breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + this.aH, cameraY + this.aI, 240, 320\n"
@@ -408,9 +440,9 @@ PATCHES = [
      "                  this.aH = breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0) - cameraX - (breakCameraRight[var17] ? 240 : 0);\n"
      "               }",
      "               if (!pointInRect(\n"
-     "                  breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], cameraX + this.aH + uiX(), cameraY + this.aI, 240, 320\n"
+     "                  breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0), this.breakY[var17], phoneX + this.aH, cameraY + this.aI, 240, 320\n"
      "               )) {\n"
-     "                  this.aH = breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0) - cameraX - uiX() - (breakCameraRight[var17] ? 240 : 0);\n"
+     "                  this.aH = breakX[var17] + (breakCameraRight[var17] ? breakWidth[var17] : 0) - phoneX - (breakCameraRight[var17] ? 240 : 0);\n"
      "               }", 1),
     # ---------------------------------------------------------------- widescreen: visibility and activation
     ("r", r"<= 240\b", "<= viewW", 17),
@@ -451,13 +483,46 @@ PATCHES = [
     ("s", "      ig = var3 == id;\n      this.resetClip(var1);\n", "      ig = var3 == id;\n      this.setClip(var1, -uiX(), 0, viewW, 320);\n", 1),
     ("s", "   private void v(Graphics var1) {\n      this.resetClip(var1);\n", "   private void v(Graphics var1) {\n      this.setClip(var1, -uiX(), 0, viewW, 320);\n", 1),
     ("s", "      this.iG = false;\n      var1.fillRect(0, 0, 240, 320);", "      this.iG = false;\n      var1.fillRect(-uiX(), 0, viewW, 320);", 1),
-    # main menu: the fire spans the whole width and Kratos sits in the bottom-right corner
-    ("s", "      int var2 = 240 - (this.iy - (this.iy >> 2));\n      if (fireHeat == null) {",
-     "      int var2 = viewW - (this.iy - (this.iy >> 2));\n      if (fireHeat == null || fireHeat.length != var2 * 140) {", 1),
+    # The fire (main menu and upgrade screen). Its buffer is 240 - c wide on the phone: c leaves room for Kratos on
+    # the menu (c = Kratos's width - a quarter), and the upgrade screen draws the first 240 - c - 1 columns at x = 95,
+    # the lower right of its column, running past x = 240 where the phone's screen edge cuts it off; the pillar's
+    # hollow to the left stays black. In widescreen the buffer is viewW - c wide (fireWidth) and the menu draws it
+    # from the left edge, Kratos still in the bottom-right corner; the upgrade screen keeps exactly its phone region,
+    # capped at x = 240 since there is no screen edge there any more, and the side strips stay black (see
+    # drawUpgradeScreen below).
+    # The phone allocates the buffer once and keeps the flames between screens. Here the width can change
+    # (resolution setting, Auto following the window), so a resized buffer takes the old flames along instead of
+    # restarting from nothing (which shows no fire for a second while it grows back).
+    ("s", "      int var2 = 240 - (this.iy - (this.iy >> 2));\n"
+          "      if (fireHeat == null) {\n"
+          "         fireHeat = new byte[var2 * 140];\n"
+          "         firePixels = new int[var2 * 140];\n"
+          "      }\n",
+     "      int var2 = this.fireWidth();\n"
+     "      if (fireHeat == null || fireHeat.length != var2 * 140) {\n"
+     "         byte[] var15 = fireHeat;\n"
+     "         fireHeat = new byte[var2 * 140];\n"
+     "         firePixels = new int[var2 * 140];\n"
+     "         if (var15 != null && var15.length >= 140) {\n"
+     "            int var16 = var15.length / 140;\n"
+     "\n"
+     "            for (int var17 = 0; var17 < 140; var17++) {\n"
+     "               for (int var18 = 0; var18 < var2; var18++) {\n"
+     "                  fireHeat[var17 * var2 + var18] = var15[var17 * var16 + var18 % var16];\n"
+     "               }\n"
+     "            }\n"
+     "         }\n"
+     "      }\n", 1),
     ("s", "Engine.drawRgbAlias(var1, firePixels, 0, 240 - (this.iy - (this.iy >> 2)), var3, var4, 240 - (this.iy - (this.iy >> 2) + 1), 140, false);",
-     "Engine.drawRgbAlias(var1, firePixels, 0, viewW - (this.iy - (this.iy >> 2)), var3 - uiX(), var4, viewW - (this.iy - (this.iy >> 2) + 1), 140, false);", 1),
+     "Engine.drawRgbAlias(var1, firePixels, 0, this.fireWidth(), var2 ? var3 - uiX() : var3, var4, "
+     "var2 ? viewW - (this.iy - (this.iy >> 2) + 1) : Math.min(240 - (this.iy - (this.iy >> 2) + 1), 240 - var3), 140, false);", 1),
     ("s", "this.screenWidth + 0, var13 < 2 ? 0 : this.screenHeight, 0);", "this.screenWidth + uiX(), var13 < 2 ? 0 : this.screenHeight, 0);", 1),
     ("s", "this.setClip(var1, 0, 166, 240, 140);", "this.setClip(var1, -uiX(), 166, viewW, 140);", 1),
+    # upgrade screen: it repaints only the phone's 240 px column (black panel, pillar art, fire), so the strips
+    # either side would keep the last level frame (world and HUD); clear them like the menu's backdrop
+    ("s", "   private void drawUpgradeScreen(Graphics var1) {\n      this.bp = 0;\n      var1.setColor(0);\n",
+     "   private void drawUpgradeScreen(Graphics var1) {\n      this.bp = 0;\n      var1.setColor(0);\n"
+     "      if (uiX() > 0) {\n         var1.fillRect(-uiX(), 0, uiX(), 320);\n         var1.fillRect(240, 0, viewW - 240 - uiX(), 320);\n      }\n\n", 1),
     # every remaining "reset the clip" means the whole (widened) canvas
     ("s", "this.resetClip(var1);", "this.setClip(var1, -uiX(), 0, viewW, 320);", 3),
     # ---------------------------------------------------------------- PC settings: the Options menu page

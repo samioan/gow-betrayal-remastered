@@ -7799,7 +7799,7 @@ public final class Game extends Engine {
                   enemyBoxes[12],
                   enemyBoxes[13]
                )) {
-               byte var104 = this.enemyContactDamage[var3];
+               int var104 = this.enemyContactDamage[var3];
                if (this.enemyAction[var3] == 6) {
                   var104 <<= 1;
                }
