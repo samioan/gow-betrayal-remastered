@@ -4,8 +4,8 @@ God of War: Betrayal - Remastered
 A PC port of the 2007 J2ME mobile game "God of War: Betrayal" (Glu Mobile),
 rebuilt from the game's own decompiled code.
 
-STATUS: early build. The game runs from the splash screens through the first level; it has
-not been played all the way through yet, so expect rough edges.
+STATUS: complete. The whole game -- every level, the arena and both bosses -- has been played
+through. Future updates are possible, and the launcher installs them for you.
 
 Controls: arrows/WASD move, Space/J/Z attack, K/X/Q/E cycle weapons (the left soft key),
 Esc/P pause (the right soft key), Tab/U upgrade screen. Gamepad, in a level: d-pad/stick move,

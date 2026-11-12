@@ -18,6 +18,7 @@ Page settings that matter:
   will be played in the browser".
 - **Cover image**: `betrayal/port/src/launcher/assets/banner_source.png`,
   cropped to itch's 630x500 (Kratos and the logo are the parts to keep).
+  `.github/social-preview.jpg` (1280x640) works as a banner.
 - Leave **"Generate itch.io app manifest"** off -- the launcher already
   updates itself from GitHub, and two update mechanisms fighting over the
   same folder is a bug waiting to happen.
@@ -75,12 +76,11 @@ the .jar are not supported.
   is deleting the folder.
 - **It updates itself** from the GitHub releases, and asks first.
 
-### This is an early work in progress
+### Complete
 
-The game runs from the splash screens through the first level; it has
-**not** yet been played all the way through, so expect rough edges further
-in. The port simply carries on from any error the original phone would have
-crashed on, rather than crashing itself.
+Version 1.0.0 is the finished game: every level, the arena and both bosses
+have been played through. The project is no longer in active development,
+but updates may still arrive, and the launcher installs them for you.
 
 Source, the full record of how it was reverse engineered, and the issue
 tracker: <https://github.com/samioan/gow-betrayal-remastered>

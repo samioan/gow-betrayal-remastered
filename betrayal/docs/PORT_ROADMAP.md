@@ -9,13 +9,17 @@ refuse other builds' data (checked by RP19's resource count). It moved from the 
 November 2026: same code base, but 22 px tiles, a parallax background layer, a direct-draw `Scene`, and
 all 11 MIDI files in use as music and effects. See `CLASS_MAP.md`, "Migration from v1.4.8".
 
-## Status: the game runs
+## Status: complete (1.0.0)
 
-Driven headlessly (`tools/port_shots.py`) the port reaches, with no exceptions: the Sony Online
-Entertainment and Javaground splashes with the loading bar, language select (six languages), the
-audio prompt, the main menu with its animated fire effect, the intro story crawl, the first level
-(tile map, scenery, Kratos, Spartan soldiers, red-orb hit effects) and the tutorial dialogue and
-combat. The real window runs and stays responsive; `build_dist.bat` + `check_dist.ps1` pass.
+The port is finished and released as **1.0.0** (`gow-v1.0.0`). Every level, the arena and both bosses
+have been played from start to finish, in widescreen and at the original 240 px width. The last fixes before release came from that play-through: camera locks tested
+against a shadow of the phone's camera (Beast, Catacombs, Tower), enemy contact damage no longer
+wrapping as a `byte` (charging minotaurs healed Kratos), and the upgrade screen's fire and side strips
+in widescreen. Development has stopped for now; the items under "Possible future work" below may still
+arrive as updates, which the launcher picks up by itself.
+
+Headless checks (`tools/port_shots.py`, scripted combat at 240 and 569 px, a mid-run width change) end
+with an empty `exceptions.log`; `build_dist.bat` + `check_dist.ps1` pass.
 
 ### Architecture (`port/src/`)
 
@@ -72,13 +76,27 @@ toggles). Both menus have PC options, styled like the game's own:
 How widescreen works (`tools/gow_port_patches.py`, applied to the renamed Java by `java2cpp.py`; every
 substitution asserts its match count): `Game.viewW` is the logical width and `Engine::runFrame` resizes the
 surface to it. **Only the world uses the extra width**: both `Scene`s' view width (`Scene.setViewWidth`), the
-camera centring and limits, the camera lock rectangles, and all visibility / activation tests (17 culling
-checks and the three 416x496 enemy-activation windows). Everything designed for 240 px (menus, HUD, dialogue
+camera centring and limits, and all visibility / activation tests (17 culling checks and the three 416x496
+enemy-activation windows). The camera lock rectangles (scroll stops) are tested against a **shadow of the
+phone's 240 px camera** (`phoneX`/`phoneN`), computed alongside the real one exactly as the original computes
+it (its own easing and its own `0..bw-240` edge clamp), so they engage and release exactly as on the phone and
+their `aH`/`aI` offsets are then applied to the wide camera. At `--width 240` the shadow equals the real
+camera. Approximations (the wide camera plus `uiX()`, or the unsmoothed camera target) made the two halves of
+a lock test disagree near level edges: the camera jumped up and down between two ladders (Beast, Catacombs) or
+stayed parked below Kratos (Tower), even at 240. Everything designed for 240 px (menus, HUD, dialogue
 text, pop-ups, soft-key labels) is drawn **centred by translating the frame by `(viewW - 240) / 2`, never
 scaled**; the world layer undoes that translation for itself, and the full-width fills (letterbox bars, the
 bottom bar, their corner ornaments) are widened. Things drawn at fixed phone coordinates *inside* a widened
 panel have to move with it: e.g. the weapon icon the weapon/magic tutorials show in the dialogue portrait
-frame (`19 - uiX()`). A level narrower than the requested width (the 656 px
+frame (`19 - uiX()`). Screens that repaint only the 240 px column have to clear the side strips themselves,
+or they keep the last level frame: the upgrade screen does (`drawUpgradeScreen`). Its fire stays exactly
+where the phone draws it (the lower right of the column, capped at x = 240: the phone draws it wider and lets the
+screen edge cut it off; the pillar's hollow and the side strips are black),
+while the main menu's fire spans the width with Kratos in the corner. The fire buffer is `viewW - c` wide
+(`fireWidth()`); when the width changes it is resized *with* its flames, since the phone never restarts the
+fire between screens and a fresh buffer shows no fire for a second. The port's full redraw (`redrawAll`) also
+sets `aj`, the menu's own full-repaint request; without it a resolution change on the main menu left only the
+fire and Kratos (logo and rows are painted only on a full repaint). A level narrower than the requested width (the 656 px
 vertical level) caps `viewW` at the level width (the window then pillarboxes). Changing the resolution mid-level
 redraws everything (tested with `port_shots.py --width-change`).
 
@@ -102,12 +120,10 @@ Not done: the main menu's fire/Kratos backdrop and the HUD stay at 240 px (centr
 not been exercised, and Scaling (fit / integer) is F7 only, not in the menus.
 
 
-## Known gaps / next steps
+## Known gaps / possible future work
 
-1. **Play through and compare with the original.** Only the first minutes have been exercised
-   (headless, scripted). Walk all ten levels and the challenge level, fight every enemy class and
-   both bosses, use all four weapon modes, finishers, chests, switches, gates and hazards, and compare
-   against the jar running in an emulator (FreeJ2ME, KEmulator).
+1. ~~**Play through and compare with the original.**~~ Done for 1.0.0: every level, the arena and both
+   bosses played through on the K800i build.
 2. **Sound.** The K800i build loads all 11 MIDI files: slot 9 is the menu music (looping), the rest are effects
    (magic hits 0/1, blade hits 2/3, air-attack swings 4-7, crate push 6, heavy landing 8, bars settling 10;
    see `CLASS_MAP.md`, "SoundPlayer"). `Player` parses
@@ -122,7 +138,14 @@ not been exercised, and Scaling (fit / integer) is F7 only, not in the menus.
    sounds were late or missing. **Faithful quirks, not bugs:** one sound at a time (a new effect cuts the
    previous one); `Game.playSound` drops every sound while the menu music it started is playing (`hV`), and
    the landing sound (priority 1) cannot be cut by the others.
-   Still to be judged by ear on more machines; failures go to `%LOCALAPPDATA%\gow-betrayal-portudio.log`.
+   **Why effects sound different from an emulator:** all 11 files are plain General MIDI (GM program
+   numbers, no sysex or bank selects, only CC 7/10/91), and the effects are themselves built from GM
+   instruments (taiko, melodic tom, kalimba, timpani, reverse cymbal, pan flute, ocarina, drums). The timbre
+   is entirely the synthesizer's: the port uses the Windows GS Wavetable synth (via the MIDI mapper),
+   KEmulator its Java synthesizer's sound bank, and the K800i its own chip, so no two match and none is
+   "wrong". The port sends every channel event in the files. Matching one target would mean a bundled
+   SoundFont synth (or letting the player pick a MIDI output device).
+   Possible future work: a bundled SoundFont synth or a MIDI output device picker. Problems are logged; failures go to `%LOCALAPPDATA%\gow-betrayal-port\audio.log`.
 3. **Timing (fixed).** The original `Engine.run` paces at 25 steps/s (`minFrameTime` 40 ms, `dt` clamped to
    40..100 ms) but has a quirk: it records "the time of the last step" *before* it sleeps, so on any machine
    fast enough to finish a frame in under 40 ms the loop alternates between "sleep, then step" and "step at
@@ -134,6 +157,7 @@ not been exercised, and Scaling (fit / integer) is F7 only, not in the menus.
    interpolating the remaining small movers (screen-space effects).
 5. ~~Real launcher artwork, `docs/ITCH_PAGE.md`, the first `gow-v0.1.0` release.~~ Done: launcher
    banner/icon are the game's own promo art, `docs/ITCH_PAGE.md` has the store page copy, and
-   `gow-v0.1.0` is published at <https://github.com/samioan/gow-betrayal-remastered/releases>.
+   `gow-v0.1.0` is published at <https://github.com/samioan/gow-betrayal-remastered/releases>; the stable
+   `gow-v1.0.0` followed.
 6. A regression suite: `tools/port_shots.py` plus pinned frame hashes (kept out of git, since they
    derive from game data), run locally before each release.

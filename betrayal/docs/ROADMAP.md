@@ -1,5 +1,8 @@
 # God of War: Betrayal -- decompilation roadmap
 
+**Status: complete.** The port shipped as 1.0.0. Development has stopped for now; further updates are
+possible but not planned. This file is the record of how the game was reverse engineered.
+
 Target: `roms/God-of-War-Betrayal_K800i_v1420.jar`, the Sony Ericsson K800i build
 (MIDlet-Version 1.4.20, Glu Mobile LTD, `Created-By: Metaflow`, MIDP-2.0 / CLDC-1.1, entry
 point `GOWMIDlet`). The project began on the generic v1.4.8 jar and moved to this build
@@ -32,9 +35,9 @@ decompiler (Vineflower) recovers close-to-original source directly.
   consumption, 208 resources) -- see `ASSET_FORMATS.md`.
 - Port toolchain proven: `betrayal/port/build.bat` (Debug) and
   `build_dist.bat` + `check_dist.ps1` (shipping package) both pass; the
-  launcher is functional, the game is a placeholder window.
+  launcher is functional.
 
-**Phase 1 -- read through, rename: STARTED.**
+**Phase 1 -- read through, rename: DONE for the port** (the remaining obfuscated members are listed below).
 - `tools/rename_gow.py` renames at the class-file level (Vineflower
   `--user-renamer-class`) from `docs/names.map` into `betrayal/src/` and
   compile-checks the result against `tools/midp-stubs/`: currently
@@ -58,14 +61,14 @@ decompiler (Vineflower) recovers close-to-original source directly.
   jar's code (do not assume; signatures differ -- e.g. GoW's sprite class
   `c` is Clone Home's `f`).
 
-**Phase 2 -- asset formats: STARTED.** Done: container, type bytes, all 34
+**Phase 2 -- asset formats: DONE for the port** (the port loads everything through the game's own loaders; a string-table parser remains optional). Done: container, type bytes, all 34
 sprite atlases and all 25 animation sets (`tools/parse_atlases.py`, exact
 consumption) and all 22 level files -- 11 levels plus their parallax backgrounds (`tools/parse_levels.py`: bit-packed, exact
 consumption, every object-type field width verified). To do: a string-table
 parser, the 256x3 table at 1053 (the save layout is done). (Object types and cell flags are now
 mostly understood; see `ASSET_FORMATS.md`.)
 
-**Phase 3 -- PC port: SCAFFOLD ONLY.** See `PORT_ROADMAP.md`.
+**Phase 3 -- PC port: COMPLETE.** Released as the stable 1.0.0 (`gow-v1.0.0`) after a full play-through. See `PORT_ROADMAP.md`.
 
 ## Open questions
 

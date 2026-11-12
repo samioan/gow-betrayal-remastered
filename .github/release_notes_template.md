@@ -5,9 +5,9 @@ The body of every God of War: Betrayal GitHub release, with {{TAG}} substituted 
 ## God of War: Betrayal Remastered {{TAG}}
 
 A PC port of *God of War: Betrayal* (the 2007 J2ME mobile game by Glu Mobile),
-rebuilt from the game's own decompiled code. **Early build: the game runs from
-the splash screens through the first level, but has not been played through yet** -- see
-`betrayal/docs/PORT_ROADMAP.md` for what is done and what is next.
+rebuilt from the game's own decompiled code, with widescreen and high frame
+rates. The full game is playable from start to finish: every level, the arena
+and both bosses.
 
 ### Getting it running
 

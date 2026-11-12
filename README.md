@@ -1,98 +1,141 @@
-# gow-betrayal-decomp
+# God of War: Betrayal Remastered
 
-Decompilation and PC port of **God of War: Betrayal**, the 2007 J2ME
-(mobile Java) game published by Glu Mobile and built by Metaflow. Sibling to
-`rac-j2me-decomp`, `tes-travels-decomp` and `shadowkey-decomp`, following the
-same process -- understand the original game, then build a from-scratch PC
-port -- and closest to `rac-j2me-decomp`'s *Clone Home*: same engine family
-(identical `RP*` resource-bank container and type bytes).
+![God of War: Betrayal Remastered](.github/social-preview.jpg)
 
-## The target
+A native Windows port of *God of War: Betrayal*, the 2007 side-scrolling
+*God of War* made for J2ME (mobile Java) phones. It is rebuilt from the
+original game's own decompiled code, not emulated, and adds widescreen, high
+frame rates and modern controls.
 
-`roms/God-of-War-Betrayal_K800i_v1420.jar`, the Sony Ericsson K800i build (kept out of git, see
-`.gitignore`):
+**Status: complete.** The game is finished, released as the stable 1.0.0, and
+has been played from start to finish. The project is no longer in active
+development, though new features may still arrive as occasional updates, and
+the launcher will pick those up automatically.
+
+| Original | Launcher | You supply |
+|---|---|---|
+| Sony Ericsson K800i build, 240x320, MIDlet 1.4.20 | `GodOfWar.exe` | `God-of-War-Betrayal_K800i_v1420.jar` (any copy of that build) |
+
+## Download and play
+
+**The game is not included.** It belongs to its rights holders, so you need
+your own copy of the K800i `.jar`. Other versions of the game are not
+supported, and the launcher tells you if you pick one.
+
+1. Download the zip from the
+   [Releases page](https://github.com/samioan/gow-betrayal-remastered/releases)
+   and unzip it anywhere.
+2. Run **GodOfWar.exe** and click **Choose file...** to pick your `.jar`. The
+   launcher unpacks it for you.
+3. Choose **Fullscreen** or **Windowed** and press **Play**.
+
+There is no installer, and no Visual C++ redistributable is needed. The
+launcher checks GitHub for newer builds on start-up, offers an **Update**
+button when there is one, and keeps your saves.
+
+### What the port adds
 
 | | |
 |---|---|
-| MIDlet | God Of War, v1.4.20, Glu Mobile LTD, `Created-By: Metaflow` (the copy's manifest also names its distributor) |
-| Profile | MIDP-2.0 / CLDC-1.1, entry point `GOWMIDlet` |
-| Code | 6 classes: `a` (engine, extends `GameCanvas`), `b`, `c`, `d`, `e` (the game, ~280 KB decompiled) |
-| Data | 31 `RP<n>` resource banks (208 resources) + `i.png` |
-| Screen | 240x320 |
+| Widescreen | Original, Auto, 4:3, 16:10, 16:9, 21:9 |
+| Frame rate | Original, 60, 90, 120, 144, 165, 240, Unlimited, with interpolated frames |
+| Game speed | Stays at the original 25 logic steps a second |
+| Fullscreen | Borderless by default; F11 or Alt+Enter toggles it |
+| Controls | Keyboard and XInput gamepad |
 
-This is the only supported build. Compared with the generic v1.4.8 jar the project started from it
-has 22x22 px tiles (16x16 before), a parallax background layer in every level, higher-resolution art,
-and all 11 MIDI tracks in use as music and sound effects (v1.4.8 played 3). The decompilation and
-`names.map` were migrated to it; see `betrayal/docs/CLASS_MAP.md`, "Migration from v1.4.8".
+Widescreen shows more of the level and never stretches sprites or the HUD.
+The options are in **Main menu > Options** and in the pause menu. The zip's
+`README.txt` covers the controls.
 
-Plain JVM bytecode, not native code: a Java decompiler (Vineflower)
-reconstructs close-to-original Java directly. Obfuscation is single-letter
-names only.
+### Troubleshooting
 
-## Structure
+The music and sound effects are MIDI, played through the Windows synthesizer,
+so they sound different from an emulator or the phone; that is expected.
+Sound problems are logged to `%LOCALAPPDATA%\gow-betrayal-port\audio.log`.
 
-- `roms/` -- the original `.jar` (gitignored: copyrighted, never commit).
-- `betrayal/extracted/` -- the jar unzipped (gitignored; `tools/extract_jar.py`).
-- `betrayal/decompiled/` -- Vineflower output (tracked; `tools/decompile.py`).
-- `betrayal/src/` -- renamed, compile-checked reference tree
-  (`tools/rename_gow.py` from `betrayal/docs/names.map`; never edit by hand).
-- `betrayal/docs/` -- `ROADMAP.md`, `ASSET_FORMATS.md`, `CLASS_MAP.md`,
-  `PORT_ROADMAP.md`, `names.map`.
-- `betrayal/port/` -- the PC port: CMake + Ninja + MSVC, C++17, with a working
-  launcher (picks your `.jar`, unpacks it, self-updates from GitHub releases).
-  The game itself runs: see Status.
-- `tools/` -- see `tools/README.md`.
-- `.github/` -- CI (`ci.yml`) and tag-driven release (`release.yml`,
-  tags `gow-v*`).
+Game files stay in `data\` next to the launcher. Saves and display settings
+live in `%LOCALAPPDATA%\gow-betrayal-port\`. To uninstall, delete the game's
+folder, and delete that one too if you want to remove your saves.
 
-## Status
+## How it was made
 
-- **Phase 0 (done):** jar unpacked and decompiled; engine family and
-  container format identified; all 31 banks validated byte-exactly; port
-  toolchain proven (Debug build, shipping build and `check_dist.ps1` pass).
-- **Phase 1 (started):** class-level renames done (`Engine`, `Scene`
-  (tentative), `Sprite`, `SoundPlayer`, `Game`); **`Engine` is fully read and
-  every member renamed**, and so are `SoundPlayer` and `Scene`; `Game` is about 90% read
-  (state machine, input, panels, camera, the level loader and the whole gameplay update:
-  player actions, blades + three magic modes, quick-time finishers, enemies, chests,
-  switches/gates, hazards, movement and collision, menus, HUD, saves). The renamed tree
-  compiles with zero errors against the MIDP/CLDC stubs.
-- **Phase 2 (started):** container, resource types, all 34 sprite atlases and
-  all 25 animation sets and all 11 bit-packed level files parse with exact byte
-  consumption; object/cell-flag semantics, strings still to document; the save layout is done.
-- **Phase 3 (the port runs):** the generated `Game` runs on a hand-ported `Engine`/`Scene` and a
-  software renderer. Headless, it reaches the splashes, language select, main menu, intro crawl,
-  the first level and its tutorial combat with no exceptions; the Release build and package check
-  pass. It starts in borderless fullscreen and has PC settings in the main and pause menus
-  (widescreen Resolution, Fullscreen and FPS with interpolated frames). It still needs a full play-through against the original. See
-  `betrayal/docs/PORT_ROADMAP.md`.
+The game is plain JVM bytecode with minifier-style obfuscation, so
+[Vineflower](https://github.com/Vineflower/vineflower) recovers close-to-original
+Java directly. From there the code was read through and renamed, and the
+game's custom binary formats (resource banks, sprite atlases, animation sets,
+bit-packed levels) were parsed and verified byte for byte.
 
-See `betrayal/docs/ROADMAP.md` for the detailed plan and open questions.
+The port is translated mechanically: `tools/java2cpp.py` turns the renamed
+Java into C++, and a hand-written engine and platform layer sit underneath.
+Patches for widescreen, settings and interpolation are applied during
+translation (`tools/gow_port_patches.py`), so the renamed Java stays a plain
+decompile. It is C++17 on raw Win32 and GDI, with no SDL, Direct3D or OpenGL.
 
-## Getting started
+The project started on the generic v1.4.8 jar and moved to the Sony Ericsson
+K800i build, which has larger 22 px tiles, a parallax background in every
+level, better art and all eleven MIDI tracks in use.
 
-Needs Python 3.10+, a JDK 17+ (Vineflower), and for the port CMake plus the
-VS Build Tools (C++ workload; Ninja is found via the VS environment or must be
-on `PATH`).
+## Repository layout
+
+| Path | Contents |
+|---|---|
+| `betrayal/decompiled/` | Raw Vineflower output |
+| `betrayal/src/` | Renamed, compile-checked Java (generated from `names.map`) |
+| `betrayal/docs/` | Roadmaps, class map, asset formats and `names.map` |
+| `betrayal/port/` | The C++ port, launcher and packaging scripts |
+| `tools/` | Extraction, decompilation, renaming, parsing and translation scripts |
+| `roms/`, `betrayal/extracted/` | Your original jar and its contents (gitignored, never commit) |
+
+### Documentation
+
+| Topic | File |
+|---|---|
+| Reverse-engineering record | [ROADMAP](betrayal/docs/ROADMAP.md) |
+| Port development log | [PORT_ROADMAP](betrayal/docs/PORT_ROADMAP.md) |
+| Classes and members | [CLASS_MAP](betrayal/docs/CLASS_MAP.md) |
+| Binary formats | [ASSET_FORMATS](betrayal/docs/ASSET_FORMATS.md) |
+| Store page copy | [ITCH_PAGE](betrayal/docs/ITCH_PAGE.md) |
+
+The scripts are described in [tools/README.md](tools/README.md).
+
+## Building from source
+
+You need Windows, Visual Studio or the VS Build Tools with the C++ workload,
+CMake and Ninja. Regenerating sources also needs Python 3.10+ (`pip install
+javalang`) and a Java 17+ JDK (see [tools/README.md](tools/README.md)).
 
 ```
-# put the jar in roms/, then:
-python tools/extract_jar.py
-python tools/decompile.py
-python tools/parse_banks.py          # validate all resource banks
-python tools/rename_gow.py           # rename -> betrayal/src/ + compile check
-python tools/java2cpp.py             # betrayal/src -> betrayal/port/src/gen (pip install javalang)
-betrayal\port\build.bat              # Debug port
-betrayal\port\build_dist.bat 0.1.0   # shipping package -> betrayal\port\dist\
-python tools/port_shots.py --story --frames 700,1100 -o level.png    # headless screenshots
-betrayal\port\build\gow_port.exe --data betrayal\extracted --windowed   # play it
+python tools\extract_jar.py          & rem unpack your jar from roms\
+python tools\decompile.py
+python tools\rename_gow.py           & rem renamed Java -> betrayal\src + compile check
+python tools\java2cpp.py             & rem -> betrayal\port\src\gen
+betrayal\port\build.bat              & rem builds betrayal\port\build\gow_port.exe
 ```
 
-`tools/vineflower.jar` and `tools/midp-stubs/` are gitignored; see
-`tools/README.md` for how to fetch them.
+To build the same package that gets released, run
+`betrayal\port\build_dist.bat <version>` and then
+`betrayal\port\check_dist.ps1`, which confirms that no game data or VC runtime
+slipped in. The output is in `betrayal\port\dist\`.
 
-## Releases
+## Releases and self-update
 
-`git tag gow-v0.1.0 && git push origin gow-v0.1.0` builds, checks and
-publishes the zip (`.github/workflows/release.yml`). The game is never
-included -- the launcher asks players for their own `.jar`. See `NOTICE.md`.
+Pushing a tag such as `gow-v1.2.3` runs the release workflow
+(`.github/workflows/release.yml`), which builds, checks and publishes the zip.
+The tag sets the version, and any `0.x` or suffixed version is marked as a
+pre-release.
+
+The launcher finds updates by listing this repository's releases and taking
+the newest `gow-v` tag that has a `.zip` attached. Keeping updates working for
+people who already have the game means:
+
+- **Do not rename or move the repository.** The owner and repository name
+  (`samioan/gow-betrayal-remastered`) are compiled into every released launcher.
+- Keep the `gow-v` tag prefix, and keep a `.zip` on each release.
+
+## Legal
+
+This project is not affiliated with, endorsed by, or supported by Sony
+Interactive Entertainment, Santa Monica Studio, Glu Mobile, Metaflow, or the
+game's original developers and publishers. *God of War* is a trademark of Sony
+Interactive Entertainment LLC. See [NOTICE.md](NOTICE.md) for attribution and
+third-party licences.

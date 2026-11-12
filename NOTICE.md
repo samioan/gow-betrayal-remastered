@@ -10,15 +10,21 @@ Mobile, Metaflow, or the game's original developers and publishers.
 ## What this project does not contain, and never will
 
 **The game.** No script, image, sound, string table or byte of the original
-`God-of-War-Betrayal_J2ME_*.jar` release is committed here, and none is
-distributed with any release. See `.gitignore`.
+`God-of-War-Betrayal_*.jar` release is committed here, and none is
+distributed with any release. See `.gitignore`. The Java under
+`betrayal/decompiled/` and `betrayal/src/` is decompiler output kept as the
+record of the reverse engineering, and the released executables contain code
+derived from it. Neither can run without the original game data, which you
+supply yourself.
 
 ## Artwork and third-party code
 
-The launcher's banner and icon (`betrayal/port/src/launcher/assets/`) are
-generated placeholders (`banner_source.png` drawn by a script, `banner.png`
-and `gow.ico` derived from it by `tools/make_banner.py` /
-`tools/make_icon.py`). Replace them with your own artwork the same way.
+The launcher's background and icon are the game's promo art, supplied by the
+project owner (`betrayal/port/src/launcher/assets/banner_source.png`; the
+`banner.png` and `gow.ico` files are generated from it by
+`tools/make_banner.py` / `tools/make_icon.py`). `.github/social-preview.jpg`
+is made from the same image. The "God of War" wordmark and Kratos in it
+belong to their owners.
 
 | Component | Licence | Where |
 |---|---|---|
