@@ -11,6 +11,10 @@ namespace gow {
 struct Platform {
   static inline std::string dataDir = ".";
   static inline std::string saveDir = "saves";
+  static inline std::string fallbackSaveDir = "";
+  static inline std::string logDir = ".";
+  static inline std::string exceptionsLogPath = "exceptions.log";
+  static inline void (*logCallback)(const char* category, const std::string& message) = nullptr;
 };
 
 class Engine;

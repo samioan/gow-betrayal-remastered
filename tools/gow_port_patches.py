@@ -535,6 +535,14 @@ PATCHES = [
     # every remaining "reset the clip" means the whole (widened) canvas
     ("s", "this.resetClip(var1);", "this.setClip(var1, -uiX(), 0, viewW, 320);", 3),
     # ---------------------------------------------------------------- PC settings: the Options menu page
+    ("s",
+     "                  if ((var14 = var9 & 0xFF) == 23) {\n"
+     "                     int var15 = languageIndex + 1 > 5 ? 0 : languageIndex + 1;\n"
+     "                     var14 = languageNameStrings[var15];\n"
+     "                  }\n",
+     "                  if ((var14 = var9 & 0xFF) == 23) {\n"
+     "                     var14 = languageNameStrings[languageIndex];\n"
+     "                  }\n", 1),
     ("s", "   private void loadMenuTable() {\n",
      "   private void loadMenuTable() {\n      this.loadMenuTableRaw();\n      menuTable = Port.extendMenu(menuTable);\n   }\n\n   private void loadMenuTableRaw() {\n", 1),
     ("s", "            var1 = 23;", "            var1 = 26;", 1),

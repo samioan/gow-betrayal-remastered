@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Permissions utilisées par SDL2 (manettes / vibration / audio) -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Permissions de stockage pour le dossier externe /storage/emulated/0/GOW-Betra -->
+    <!-- Android 11+ (API 30+) : Accès à tous les fichiers -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <!-- Android 10 et moins (API 24-29) : Permissions de stockage classiques -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
+
+    <!-- Fonctionne aussi bien avec que sans écran tactile (ex: Android TV / manette) -->
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <uses-feature android:name="android.hardware.gamepad" android:required="false" />
+
+    <application
+        android:label="God of War: Betrayal"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:isGame="true"
+        android:appCategory="game"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+        android:hardwareAccelerated="true">
+
+        <activity
+            android:name="org.libsdl.app.SDLActivity"
+            android:label="God of War: Betrayal"
+            android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

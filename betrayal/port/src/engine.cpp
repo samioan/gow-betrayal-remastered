@@ -1,14 +1,18 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "engine.h"
 
+#ifdef _WIN32
 #include <windows.h>
 #include <shellapi.h>
 #include <dbghelp.h>
+#endif
 
 #include <algorithm>
+#include <chrono>
 #include <climits>
 #include <cstdio>
 #include <cstring>
+#include <filesystem>
 
 #define STBI_NO_STDIO
 #include "stb_image.h"
@@ -17,7 +21,14 @@
 
 namespace gow {
 
+FrameProfile g_frameProfile;
+
 namespace {
+
+inline double clockMs() {
+  using namespace std::chrono;
+  return duration<double, std::milli>(steady_clock::now().time_since_epoch()).count();
+}
 
 // Engine.keyCodeTable: bit index -> MIDP key code.
 int8_t g_keyCodeTable[32];
@@ -41,10 +52,21 @@ struct KeyTableInit {
 bool readFile(const std::string& path, std::vector<uint8_t>& out) {
   FILE* f = std::fopen(path.c_str(), "rb");
   if (!f) return false;
-  std::fseek(f, 0, SEEK_END);
+  if (std::fseek(f, 0, SEEK_END) != 0) {
+    std::fclose(f);
+    return false;
+  }
   long n = std::ftell(f);
-  std::fseek(f, 0, SEEK_SET);
-  out.resize((size_t)n);
+  if (n < 0 || std::fseek(f, 0, SEEK_SET) != 0) {
+    std::fclose(f);
+    return false;
+  }
+  try {
+    out.resize((size_t)n);
+  } catch (...) {
+    std::fclose(f);
+    return false;
+  }
   size_t got = n ? std::fread(out.data(), 1, (size_t)n, f) : 0;
   std::fclose(f);
   return got == (size_t)n;
@@ -54,31 +76,47 @@ bool readFile(const std::string& path, std::vector<uint8_t>& out) {
 // logs each distinct throw site once and carries on with the next frame.
 void logJavaException(const char* where, const JavaException& e) {
   static std::string seen;
-  std::string sig;
-  for (int i = 0; i < e.nframes && i < 4; i++) sig += std::to_string((uintptr_t)e.frames[i]) + ",";
+  std::string sig = std::string(where ? where : "?") + ":" + (e.what ? e.what : "?");
+  for (int i = 0; i < e.nframes && i < 4; i++) sig += ":" + std::to_string((uintptr_t)e.frames[i]);
   if (seen.find(sig) != std::string::npos || seen.size() > 4000) return;
   seen += sig + ";";
-  FILE* f = std::fopen("exceptions.log", "a");
-  if (!f) return;
-  std::fprintf(f, "%s: %s\n", where, e.what);
-  HANDLE proc = GetCurrentProcess();
-  static bool symInit = false;
-  if (!symInit) {
-    SymSetOptions(SYMOPT_LOAD_LINES | SYMOPT_UNDNAME);
-    SymInitialize(proc, nullptr, TRUE);
-    symInit = true;
+
+  std::string msg = std::string(where ? where : "?") + ": " + (e.what ? e.what : "unknown");
+  if (Platform::logCallback) {
+    Platform::logCallback("EXCEPTION", msg);
   }
-  alignas(SYMBOL_INFO) char buf[sizeof(SYMBOL_INFO) + 256];
-  SYMBOL_INFO* sym = (SYMBOL_INFO*)buf;
-  for (int i = 0; i < e.nframes; i++) {
-    sym->SizeOfStruct = sizeof(SYMBOL_INFO);
-    sym->MaxNameLen = 255;
-    DWORD64 disp = 0;
-    DWORD lineDisp = 0;
-    IMAGEHLP_LINE64 line = {sizeof line};
-    if (!SymFromAddr(proc, (DWORD64)e.frames[i], &disp, sym)) continue;
-    bool hasLine = SymGetLineFromAddr64(proc, (DWORD64)e.frames[i], &lineDisp, &line) != 0;
-    std::fprintf(f, "   %s  %s:%lu\n", sym->Name, hasLine ? line.FileName : "?", hasLine ? line.LineNumber : 0);
+
+  const std::string& excPath = Platform::exceptionsLogPath.empty()
+                                   ? std::string("exceptions.log")
+                                   : Platform::exceptionsLogPath;
+  FILE* f = std::fopen(excPath.c_str(), "ab");
+  if (!f) return;
+  std::fseek(f, 0, SEEK_END);
+  long curSize = std::ftell(f);
+  if (curSize >= 0 && curSize < 2 * 1024 * 1024) {
+    std::fprintf(f, "%s: %s\n", where ? where : "?", e.what ? e.what : "unknown");
+#ifdef _WIN32
+    HANDLE proc = GetCurrentProcess();
+    static bool symInit = false;
+    if (!symInit) {
+      SymSetOptions(SYMOPT_LOAD_LINES | SYMOPT_UNDNAME);
+      SymInitialize(proc, nullptr, TRUE);
+      symInit = true;
+    }
+    alignas(SYMBOL_INFO) char buf[sizeof(SYMBOL_INFO) + 256];
+    SYMBOL_INFO* sym = (SYMBOL_INFO*)buf;
+    for (int i = 0; i < e.nframes; i++) {
+      sym->SizeOfStruct = sizeof(SYMBOL_INFO);
+      sym->MaxNameLen = 255;
+      DWORD64 disp = 0;
+      DWORD lineDisp = 0;
+      IMAGEHLP_LINE64 line = {sizeof line};
+      if (!SymFromAddr(proc, (DWORD64)e.frames[i], &disp, sym)) continue;
+      bool hasLine = SymGetLineFromAddr64(proc, (DWORD64)e.frames[i], &lineDisp, &line) != 0;
+      std::fprintf(f, "   %s  %s:%lu\n", sym->Name, hasLine ? line.FileName : "?", hasLine ? line.LineNumber : 0);
+    }
+#endif
+    std::fflush(f);
   }
   std::fclose(f);
 }
@@ -113,7 +151,12 @@ Engine::Engine(MIDlet* m) : midlet(m) {
   // parallax background); the generic v1.4.8 build has one there, 16 px tiles and different code.
   std::vector<uint8_t> rp19;
   supportedBuild_ = readFile(Platform::dataDir + "/RP19", rp19) && rp19.size() >= 3 && (rp19[1] << 8 | rp19[2]) == 2;
+#ifdef _WIN32
   CreateDirectoryA(Platform::saveDir.c_str(), nullptr);
+#else
+  std::error_code ec;
+  std::filesystem::create_directories(Platform::saveDir, ec);
+#endif
   setViewSize(240, 320);
 }
 
@@ -143,7 +186,11 @@ void Engine::postLifecycle(int s) {
   } else if (started_ && (s == 1 || s == 2)) {
     if (soundPlayer) soundPlayer->stop();
     pendingLifecycle_ = s;
+#ifdef _WIN32
     lifecycleTime_ = (double)GetTickCount64();
+#else
+    lifecycleTime_ = std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now().time_since_epoch()).count();
+#endif
   }
 }
 
@@ -156,7 +203,9 @@ bool Engine::openUrl(const String& url) {
   if (url.isNull()) return false;
   std::string u = url.toUtf8();
   if (u.rfind("http://", 0) != 0 && u.rfind("https://", 0) != 0) return false;
+#ifdef _WIN32
   ShellExecuteA(nullptr, "open", u.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+#endif
   return true;
 }
 
@@ -231,17 +280,34 @@ int Engine::runFrame(double nowMs, Surface& screen) {
     }
     lastFrameStart_ = nowMs;
   }
+  int excBefore = g_javaExceptionCount;
+  g_frameProfile.didTick = true;
+  double t0 = clockMs();
+  double audioBeforeUpdate = g_frameProfile.audioMs;
   tickCount++;
   try {
     update();
   } catch (const JavaException& e) {
     logJavaException("update", e);
   }
-  if (soundPlayer) soundPlayer->run();
+  double t1 = clockMs();
+  double audioDuringUpdate = g_frameProfile.audioMs - audioBeforeUpdate;
+  g_frameProfile.tickMs = (t1 - t0) - audioDuringUpdate;
+  if (g_frameProfile.tickMs < 0.0) g_frameProfile.tickMs = 0.0;
+
+  if (soundPlayer) {
+    double a0 = clockMs();
+    double audioBeforeRun = g_frameProfile.audioMs;
+    soundPlayer->run();
+    double a1 = clockMs();
+    // Si Player::* a déjà accumulé son temps dans audioMs, on prend le total de soundPlayer->run()
+    g_frameProfile.audioMs = audioBeforeRun + (a1 - a0);
+  }
   if (quit) return 0;
 
   // The logical canvas width follows the resolution setting (widescreen): the game publishes it in
   // Game::viewW, the surface is resized to match and the game is told to redraw everything.
+  double d0 = clockMs();
   if (screen.w != Game::viewW) {
     screen.resize(Game::viewW, 320);
     Game::redrawAll = true;
@@ -253,9 +319,12 @@ int Engine::runFrame(double nowMs, Surface& screen) {
   try {
     paintFrame(&screen);
     paintCount++;
+    g_frameProfile.didDraw = true;
   } catch (const JavaException& e) {
     logJavaException("render", e);
   }
+  g_frameProfile.drawMs = clockMs() - d0;
+  g_frameProfile.javaExceptions = g_javaExceptionCount - excBefore;
   return 0;
 }
 
@@ -264,6 +333,7 @@ int Engine::runFrame(double nowMs, Surface& screen) {
 // between the previous and the current step (the picture lags the logic by up to one step). Outside the world
 // (menus, boot) nothing moves between steps, so those frames are simply not redrawn.
 int Engine::runInterpolated(double nowMs, Surface& screen, int fps) {
+  int excBefore = g_javaExceptionCount;
   const double period = minFrameTime < 1 ? 40 : minFrameTime;
   if (resetFrameTiming_) {
     resetFrameTiming_ = false;
@@ -276,6 +346,9 @@ int Engine::runInterpolated(double nowMs, Surface& screen, int fps) {
     lastTick_ += period;
     if (nowMs - lastTick_ > period * 3) lastTick_ = nowMs;  // fell far behind: resync instead of catching up
     frameTime = (int)period;
+    g_frameProfile.didTick = true;
+    double t0 = clockMs();
+    double audioBeforeUpdate = g_frameProfile.audioMs;
     interpSnapshot();
     tickCount++;
     try {
@@ -283,12 +356,24 @@ int Engine::runInterpolated(double nowMs, Surface& screen, int fps) {
     } catch (const JavaException& e) {
       logJavaException("update", e);
     }
-    if (soundPlayer) soundPlayer->run();
+    double t1 = clockMs();
+    double audioDuringUpdate = g_frameProfile.audioMs - audioBeforeUpdate;
+    g_frameProfile.tickMs = (t1 - t0) - audioDuringUpdate;
+    if (g_frameProfile.tickMs < 0.0) g_frameProfile.tickMs = 0.0;
+
+    if (soundPlayer) {
+      double a0 = clockMs();
+      double audioBeforeRun = g_frameProfile.audioMs;
+      soundPlayer->run();
+      double a1 = clockMs();
+      g_frameProfile.audioMs = audioBeforeRun + (a1 - a0);
+    }
     if (quit) return 0;
   }
   double a = (nowMs - lastTick_) / period * 256.0;
   interpAlpha = a < 0 ? 0 : a > 255 ? 255 : (int)a;
 
+  double d0 = clockMs();
   bool blended = false;
   try {
     blended = interpApply(interpAlpha);
@@ -307,11 +392,14 @@ int Engine::runInterpolated(double nowMs, Surface& screen, int fps) {
     try {
       paintFrame(&screen);
       paintCount++;
+      g_frameProfile.didDraw = true;
     } catch (const JavaException& e) {
       logJavaException("render", e);
     }
   }
   if (blended) interpRestore();
+  g_frameProfile.drawMs = clockMs() - d0;
+  g_frameProfile.javaExceptions = g_javaExceptionCount - excBefore;
 
   if (fps < 0) return 0;  // unlimited
   double framePeriod = 1000.0 / fps;
@@ -413,26 +501,88 @@ void Engine::pollKeys() {
 static std::string recPath(int id) { return Platform::saveDir + "/rec" + std::to_string(id) + ".bin"; }
 
 Arr<int8_t> Engine::readRecord(int id) {
-  FILE* f = std::fopen(recPath(id).c_str(), "rb");
+  std::string p = recPath(id);
+  FILE* f = std::fopen(p.c_str(), "rb");
   if (!f) return Arr<int8_t>();
-  std::fseek(f, 0, SEEK_END);
+  if (std::fseek(f, 0, SEEK_END) != 0) {
+    std::fclose(f);
+    return Arr<int8_t>();
+  }
   long n = std::ftell(f);
-  std::fseek(f, 0, SEEK_SET);
+  if (n < 0 || n > 16 * 1024 * 1024 || std::fseek(f, 0, SEEK_SET) != 0) {
+    std::fclose(f);
+    return Arr<int8_t>();
+  }
   Arr<int8_t> out((int)n);
   size_t got = n ? std::fread(out.data(), 1, (size_t)n, f) : 0;
   std::fclose(f);
   return got == (size_t)n ? out : Arr<int8_t>();
 }
 
+static bool writeRecordToDir(const std::string& dir, int id, const Arr<int8_t>& data) {
+  std::string p = dir + "/rec" + std::to_string(id) + ".bin";
+  if (data == nullptr) {
+    std::error_code ec;
+    std::filesystem::remove(p, ec);
+    return true;
+  }
+#ifndef _WIN32
+  std::error_code dirEc;
+  std::filesystem::create_directories(dir, dirEc);
+#endif
+  std::string tmpPath = p + ".tmp";
+  FILE* f = std::fopen(tmpPath.c_str(), "wb");
+  if (!f) {
+    f = std::fopen(p.c_str(), "wb");
+    if (!f) return false;
+    bool ok = data.length() == 0 ||
+              std::fwrite(data.data(), 1, (size_t)data.length(), f) == (size_t)data.length();
+    if (std::fflush(f) != 0) ok = false;
+    if (std::fclose(f) != 0) ok = false;
+    return ok;
+  }
+  bool ok = data.length() == 0 ||
+            std::fwrite(data.data(), 1, (size_t)data.length(), f) == (size_t)data.length();
+  if (std::fflush(f) != 0) ok = false;
+  if (std::fclose(f) != 0) ok = false;
+  if (!ok) {
+    std::error_code ec;
+    std::filesystem::remove(tmpPath, ec);
+    return false;
+  }
+  std::error_code renEc;
+  std::filesystem::rename(tmpPath, p, renEc);
+  if (renEc) {
+    std::filesystem::copy_file(tmpPath, p, std::filesystem::copy_options::overwrite_existing, renEc);
+    std::error_code rmEc;
+    std::filesystem::remove(tmpPath, rmEc);
+    if (renEc) return false;
+  }
+  return true;
+}
+
 bool Engine::writeRecord(int id, const Arr<int8_t>& data) {
-  std::string p = recPath(id);
-  std::remove(p.c_str());
-  if (data == nullptr) return true;
-  FILE* f = std::fopen(p.c_str(), "wb");
-  if (!f) return false;
-  bool ok = data.length() == 0 || std::fwrite(data.data(), 1, (size_t)data.length(), f) == (size_t)data.length();
-  std::fclose(f);
-  return ok;
+  if (writeRecordToDir(Platform::saveDir, id, data)) {
+    // Garde aussi une copie de secours dans le stockage privé si saveDir est sur le stockage externe
+    if (!Platform::fallbackSaveDir.empty() && Platform::fallbackSaveDir != Platform::saveDir) {
+      writeRecordToDir(Platform::fallbackSaveDir, id, data);
+    }
+    return true;
+  }
+  if (Platform::logCallback) {
+    Platform::logCallback("SAVE_ERR", "Echec d'ecriture dans " + Platform::saveDir +
+                                      " pour rec" + std::to_string(id) + ".bin");
+  }
+  // Repli automatique vers le stockage privé si l'écriture dans GOW-Betra échoue en cours de partie
+  if (!Platform::fallbackSaveDir.empty() && Platform::fallbackSaveDir != Platform::saveDir) {
+    Platform::saveDir = Platform::fallbackSaveDir;
+    if (Platform::logCallback) {
+      Platform::logCallback("FALLBACK", "Bascule automatique de saveDir vers le stockage prive: " +
+                                        Platform::saveDir);
+    }
+    return writeRecordToDir(Platform::saveDir, id, data);
+  }
+  return false;
 }
 
 // Record -9: 3 bytes = {sound on, unused, unused}; created as FF FF FF when missing.

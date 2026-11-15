@@ -19,6 +19,29 @@
 
 namespace gow {
 
+// Mesure de performance par image (activable facilement, logue uniquement les frames > 12 ms)
+struct FrameProfile {
+  double tickMs = 0.0;     // (a) logique du jeu (update + interpSnapshot, hors audio)
+  double drawMs = 0.0;     // (b) dessin dans gow::Surface (interpApply + paintFrame + interpRestore)
+  double sdlMs = 0.0;      // (c) envoi vers SDL (UpdateTexture + RenderCopy + Present)
+  double audioMs = 0.0;    // (d) audio (SoundPlayer::run + JNI Player::prefetch/start/stop/getState)
+  int audioPlays = 0;      // nombre d'appels Player::start() dans la frame
+  int audioPrefetches = 0; // nombre d'appels Player::prefetch() dans la frame
+  int audioStops = 0;      // nombre d'appels Player::stop() dans la frame
+  int audioQueries = 0;    // nombre d'appels Player::getState() dans la frame
+  int javaExceptions = 0;  // nombre de JavaException levées dans la frame
+  bool didTick = false;
+  bool didDraw = false;
+
+  void reset() {
+    tickMs = drawMs = sdlMs = audioMs = 0.0;
+    audioPlays = audioPrefetches = audioStops = audioQueries = javaExceptions = 0;
+    didTick = didDraw = false;
+  }
+};
+
+extern FrameProfile g_frameProfile;
+
 using Graphics = Surface;
 
 // Sprite.java: one rectangle of an atlas image plus its draw offset.

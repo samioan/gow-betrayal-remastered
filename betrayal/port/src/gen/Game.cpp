@@ -7554,8 +7554,7 @@ void Game::drawMenu(Surface* var1) {
         if (((var9 & 16777216) != 0)) {
           int var14 = 0;
           if (((var14 = (var9 & 0xFF)) == 23)) {
-            int var15 = (((languageIndex + 1) > 5) ? 0 : (languageIndex + 1));
-            var14 = languageNameStrings[var15];
+            var14 = languageNameStrings[languageIndex];
           }
           String var20 = this->getString(var14);
           if ((this->arrowBase < 0)) {

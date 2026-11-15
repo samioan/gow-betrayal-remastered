@@ -13,14 +13,25 @@
 
 namespace gow {
 
+#ifdef _WIN32
 extern "C" unsigned short __stdcall RtlCaptureStackBackTrace(unsigned long, unsigned long, void**, unsigned long*);
+#endif
+
+inline int g_javaExceptionCount = 0;
 
 // Carries the throw-site call stack so the port can log where the game's own exceptions come from.
 struct JavaException {
   const char* what;
   void* frames[10];
   int nframes;
-  JavaException(const char* w) : what(w) { nframes = (int)RtlCaptureStackBackTrace(1, 10, frames, nullptr); }
+  JavaException(const char* w) : what(w) {
+    ++g_javaExceptionCount;
+#ifdef _WIN32
+    nframes = (int)RtlCaptureStackBackTrace(1, 10, frames, nullptr);
+#else
+    nframes = 0;
+#endif
+  }
 };
 
 // ---------------------------------------------------------------- arrays

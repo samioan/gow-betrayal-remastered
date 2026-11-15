@@ -1,0 +1,36 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.gow.betrayal'
+    compileSdk 37
+    buildToolsVersion "36.0.0"
+    ndkVersion "30.0.16248370"
+
+    defaultConfig {
+        applicationId "com.gow.betrayal"
+        minSdk 24
+        targetSdk 35
+        versionCode 2
+        versionName "1.1"
+
+        ndk {
+            abiFilters 'arm64-v8a', 'x86_64'
+        }
+
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_STL=c++_shared",
+                          "-DCMAKE_MAKE_PROGRAM=C:/Program Files (x86)/Microsoft Visual Studio/18/BuildTools/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe"
+                cppFlags "-std=c++17 -O3"
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+        }
+    }
+}

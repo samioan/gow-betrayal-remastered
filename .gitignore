@@ -5,6 +5,14 @@
 /roms/*.jar
 /roms/*.jad
 /betrayal/extracted/
+/android/app/src/main/assets/
+/android/app/src/main/cpp/SDL2/
+.gradle/
+.cxx/
+build/
+local.properties
+*.apk
+.externalNativeBuild/
 
 # --- Third-party tooling ---
 # Not project source; fetched locally, not tracked in git.
